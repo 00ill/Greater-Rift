@@ -24,6 +24,7 @@ public class PlayerControl : MonoBehaviour
         TryGetComponent(out _playerAgent);
         TryGetComponent(out _playerInput);
         TryGetComponent(out _playerStatus);
+        
     }
 
     private void Start()
@@ -59,7 +60,6 @@ public class PlayerControl : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, targetAngle, Time.deltaTime * _extraRotateSpeed);
             _playerAnimator.SetBool("IsRun", true);
         }
-        Debug.Log(_playerAgent.remainingDistance);
     }
 
     private void CheckNormalAttack()
