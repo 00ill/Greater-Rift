@@ -14,10 +14,7 @@ public abstract class BaseScene : MonoBehaviour
         Object obj = GameObject.FindObjectOfType(typeof(EventSystem));
         if (obj == null)
         {
-            Debug.Log("처음에 이벤트 매니저가 없어요");
             Managers.Resource.Instantiate("EventSystem").name = "@EventSystem";
-            Debug.Log("리소스에서 찾았어요");
-
         }
     }
 

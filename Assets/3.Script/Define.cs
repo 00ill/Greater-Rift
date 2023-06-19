@@ -38,27 +38,8 @@ public class Define
     }
     public enum EVENT_TYPE
     {
-        SelectCharacter,
-        LogBookItem,
-        ClickLogBookDetail,
-
-        MousePointerEnter,
-        MousePointerExit,
-        DifficultyChange,
-        AddItem,
-
-        PlayerUseSkill,
         PlayerHpChange,
-        EnemyHpChange,
-        BossHpChange,
-        PlayerExpChange,
-        PlayerInteractionIn,
-        PlayerInteractionOut,
-
-        StartBattle,
-        EndBattle,
-
-        CameraShake
+        PlayerManaChange
 
     }
     public enum WhenItemActivates
