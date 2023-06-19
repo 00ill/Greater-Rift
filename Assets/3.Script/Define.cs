@@ -8,9 +8,9 @@ public class Define
         LoadingScene,
         MainMenu,
         Town,
-
-
     }
+
+
     public enum SortingOrder
     {
         CharacterSelectButton = 15,
