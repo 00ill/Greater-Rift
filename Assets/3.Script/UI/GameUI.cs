@@ -5,10 +5,6 @@ using UnityEngine.UI;
 
 public class GameUI : UI_Game, IListener
 {
-    enum Sliders
-    {
-
-    }
     enum Images
     {
         HpFluid,
@@ -24,7 +20,6 @@ public class GameUI : UI_Game, IListener
     public override void Init()
     {
         base.Init();
-        Bind<Slider>(typeof(Sliders));
         Bind<Image>(typeof(Images));
         Managers.Event.AddListener(Define.EVENT_TYPE.PlayerHpChange, this);
         PlayerHpChangeEvent(FindObjectOfType<PlayerStatus>().Health, FindObjectOfType<PlayerStatus>().MaxHealth);

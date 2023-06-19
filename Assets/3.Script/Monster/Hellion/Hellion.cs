@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Hellion : EnemyBase
 {
-    enum AnimationParameters
+    enum AnimatorParameters
     {
         Locomotion,
         Turning,
@@ -21,10 +21,23 @@ public class Hellion : EnemyBase
         IdleBreak,
         Roar
     }
+    protected override void Awake()
+    {
+        _name = "Hellion";
+        base.Awake();
+        SetEnemyData();
+
+    }
+    protected override void Start()
+    {
+        base.Start();
+        StartCoroutine(FSM());
+        Debug.Log(Enum.GetName(typeof(AnimatorParameters), AnimatorParameters.Locomotion));
+    }
+
     protected virtual IEnumerator FSM()
     {
         yield return null;
-       
         while (true)
         {
             yield return StartCoroutine(_currentState.ToString());
@@ -33,16 +46,24 @@ public class Hellion : EnemyBase
 
     protected IEnumerator Idle()
     {
+        _agent.SetDestination(_player.position);
+        _agent.isStopped = true;
         yield return null;
         if(DetectPlayer())
         {
             _currentState = States.Move;
         }
+        else
+        {
+            Debug.Log("플레이어를 못 찾음");
+        }
     }
     protected IEnumerator Move()
     {
-        yield return null;
+        _animator.SetFloat(Enum.GetName(typeof(AnimatorParameters), AnimatorParameters.Locomotion), 1f);
         _agent.SetDestination(_player.position);
+        _agent.isStopped = false;
+        yield return null;
         if(_agent.remainingDistance <= _attackRange)
         {
             _currentState = States.Attack;
@@ -56,10 +77,10 @@ public class Hellion : EnemyBase
     protected IEnumerator Attack()
     {
         yield return null;
-        PlayAnimation(AnimationParameters.Attack1);
+        PlayAnimation(AnimatorParameters.Attack1);
     }
 
-    private void PlayAnimation(AnimationParameters parameter)
+    private void PlayAnimation(AnimatorParameters parameter)
     {
         for(int i =0; i<_animatorParameterArr.Length; i++) 
         {

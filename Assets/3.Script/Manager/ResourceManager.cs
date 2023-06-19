@@ -7,7 +7,6 @@ public class ResourceManager
 {
     Dictionary<string, UnityEngine.Object> _resources = new Dictionary<string, UnityEngine.Object>();
 
-
     public T Load<T>(string path) where T : Object
     {
         if (typeof(T) == typeof(GameObject))
