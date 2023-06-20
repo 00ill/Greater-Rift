@@ -49,7 +49,7 @@ public class StatsGroup
         StatsList.Add(new StatsValue(Statistic.Damage, 25));
         StatsList.Add(new StatsValue(Statistic.Armor, 5));
         StatsList.Add(new StatsValue(Statistic.AttackSpeed, 1f));
-        StatsList.Add(new StatsValue(Statistic.MoveSpeed, 25f));
+        StatsList.Add(new StatsValue(Statistic.MoveSpeed, 15f));
     }
 
     internal StatsValue Get(Statistic statisticToGet)
@@ -114,7 +114,7 @@ public class PlayerStatus : MonoBehaviour
     public ValuePool LifePool;
     public ValuePool ManaPool;
 
-    private void Start()
+    private void Awake()
     {
         Attributes = new AttributeGroup();
         Attributes.Init();
@@ -124,6 +124,16 @@ public class PlayerStatus : MonoBehaviour
         LifePool = new ValuePool(Stats.Get(Statistic.Life));
         ManaPool = new ValuePool(Stats.Get(Statistic.Mana));
     }
+    //private void Start()
+    //{
+    //    Attributes = new AttributeGroup();
+    //    Attributes.Init();
+    //    Stats = new StatsGroup();
+    //    Stats.Init();
+
+    //    LifePool = new ValuePool(Stats.Get(Statistic.Life));
+    //    ManaPool = new ValuePool(Stats.Get(Statistic.Mana));
+    //}
 
     private void Update()
     {

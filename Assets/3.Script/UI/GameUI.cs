@@ -15,7 +15,8 @@ public class GameUI : UI_Game, IListener
     enum Images
     {
         HpFluid,
-        ManaFluid
+        ManaFluid,
+        Cursor
     }
     enum Sliders
     {
@@ -26,8 +27,13 @@ public class GameUI : UI_Game, IListener
     private void Start()
     {
         Init();
+        Cursor.visible = false;
     }
 
+    private void Update()
+    {
+        GetImage((int)Images.Cursor).transform.position = Input.mousePosition + new Vector3(20.6f,-46.9f,0);
+    }
     public override void Init()
     {
         base.Init();

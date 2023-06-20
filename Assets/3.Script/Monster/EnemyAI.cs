@@ -25,6 +25,10 @@ public class EnemyAI : MonoBehaviour
         TryGetComponent(out _animator);
         Target = FindAnyObjectByType<PlayerControl>();
     }
+    private void Start()
+    {
+        _enemyAgent.speed = _enemyStatus.GetStats(Enemy.Statistic.MoveSpeed).value;
+    }
 
     private void Update()
     {
