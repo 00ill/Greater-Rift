@@ -1,3 +1,4 @@
+using Enemy;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,18 +14,26 @@ public class EnemyAI : MonoBehaviour
     }
     public State _currentState { get; private set; } = State.Idle;
     private NavMeshAgent _enemyAgent;
-    private float _playerDetectionRange;
-    private Transform _target;
+    private EnemyStatus _enemyStatus;
+    private Animator _animator;
+    [HideInInspector]public PlayerControl Target;
 
     private void Awake()
     {
         TryGetComponent(out _enemyAgent);
+        TryGetComponent(out _enemyStatus);
+        TryGetComponent(out _animator);
+        Target = FindAnyObjectByType<PlayerControl>();
     }
 
+    private void Update()
+    {
+        _animator.SetFloat("Locomotion", _enemyAgent.velocity.magnitude);
+    }
     public bool DetectPlayer()
     {
-        float distance = Vector3.Distance(transform.position, _target.position);
-        if(distance < _playerDetectionRange)
+        float distance = Vector3.Distance(transform.position, Target.transform.position);
+        if(distance < _enemyStatus.GetStats(Enemy.Statistic.DetectionRange).value)
         {
             return true;
         }

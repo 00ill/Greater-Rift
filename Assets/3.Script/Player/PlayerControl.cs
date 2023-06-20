@@ -27,7 +27,6 @@ public class PlayerControl : MonoBehaviour
     private void Start()
     {
         _playerAgent.speed = _playerStatus.GetStats(Statistic.MoveSpeed).FloatValue;
-        _playerAgent.speed = 15f;
     }
 
     private void Update()

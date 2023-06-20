@@ -1420,13 +1420,16 @@ GameObject:
   - component: {fileID: 1371802893}
   - component: {fileID: 1371802898}
   - component: {fileID: 1371802897}
+  - component: {fileID: 1371802901}
+  - component: {fileID: 1371802900}
+  - component: {fileID: 1371802899}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!136 &1371802893
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1542,6 +1545,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Attributes:
     AttributesValueList: []
+--- !u!114 &1371802899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1371802892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10190b724dc6baf499a06d1ffd51a493, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NormalAttackRange: 0
+--- !u!114 &1371802900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1371802892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9737d4ae608df84aa06d545ae709bc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Target: {fileID: 0}
+--- !u!195 &1371802901
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1371802892}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &1373117206
 GameObject:
   m_ObjectHideFlags: 0
@@ -12295,6 +12346,10 @@ GameObject:
   - component: {fileID: 3975932350336204123}
   - component: {fileID: 3975932350336204125}
   - component: {fileID: 3975932350336204124}
+  - component: {fileID: 3975932350336204129}
+  - component: {fileID: 3975932350336204128}
+  - component: {fileID: 3975932350336204127}
+  - component: {fileID: 3975932350336204126}
   m_Layer: 0
   m_Name: Hellion
   m_TagString: Untagged
@@ -13652,10 +13707,10 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 12
-  m_Acceleration: 12
+  m_Acceleration: 1000
   avoidancePriority: 50
-  m_AngularSpeed: 240
-  m_StoppingDistance: 5
+  m_AngularSpeed: 1000
+  m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1
@@ -13713,6 +13768,59 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3975932350336204126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3975932350328770250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10190b724dc6baf499a06d1ffd51a493, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NormalAttackRange: 2
+--- !u!114 &3975932350336204127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3975932350328770250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 788144ce86341c746af2dff12ef0d3c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Attributes:
+    AttributesValueList: []
+--- !u!114 &3975932350336204128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3975932350328770250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c279e4438e7582a438695d04d1522c3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectName: 
+--- !u!114 &3975932350336204129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3975932350328770250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9737d4ae608df84aa06d545ae709bc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Target: {fileID: 0}
 --- !u!1 &3979781782425546436
 GameObject:
   m_ObjectHideFlags: 0

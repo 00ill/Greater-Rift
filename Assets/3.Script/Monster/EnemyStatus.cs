@@ -6,12 +6,13 @@ using UnityEngine;
 
 namespace Enemy
 {
-
     public enum Statistic
     {
         Life,
         Damage,
-        Armor
+        Armor,
+        MoveSpeed,
+        DetectionRange
     }
 
     public class StatsValue
@@ -38,6 +39,8 @@ namespace Enemy
             StatsList.Add(new StatsValue(Statistic.Life, 100));
             StatsList.Add(new StatsValue(Statistic.Damage, 25));
             StatsList.Add(new StatsValue(Statistic.Armor, 5));
+            StatsList.Add(new StatsValue(Statistic.MoveSpeed, 10));
+            StatsList.Add(new StatsValue(Statistic.DetectionRange, 30));
         }
 
         internal StatsValue Get(Statistic statisticToGet)

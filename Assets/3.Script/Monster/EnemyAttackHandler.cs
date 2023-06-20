@@ -1,26 +1,27 @@
 using Enemy;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyAttackHandler : MonoBehaviour
 {
     //컴포넌트
     private Animator _enemyAnimator;
-    //private PlayerControl _enemyControl;
     private EnemyStatus _enemyStatus;
+    private EnemyAI _enemyAI;
     //공격관련 변수
     [SerializeField] private float NormalAttackRange;
-    private InteractableObject _target;
+    [HideInInspector] private PlayerControl _target;
     private float _normalAttackCooldown = 1.25f;
     private float _normalAttackCooldownRemain;
 
     private void Awake()
     {
         TryGetComponent(out _enemyAnimator);
-        //TryGetComponent(out _enemyControl);
         TryGetComponent(out _enemyStatus);
-
+        TryGetComponent(out _enemyAI);
     }
 
     private void Update()
@@ -32,6 +33,15 @@ public class EnemyAttackHandler : MonoBehaviour
 
     private void CheckNormalAttack()
     {
+        if(_enemyAI.DetectPlayer() )
+        {
+            NormalAttack(_enemyAI.Target);
+        }
+        
+        if (_target != null)
+        {
+            ProcessNormalAttack();
+        }
         //if (_enemyControl.TargetObject != null)
         //{
         //    NormalAttack(_enemyControl.TargetObject);
@@ -42,7 +52,7 @@ public class EnemyAttackHandler : MonoBehaviour
         //}
     }
 
-    internal void NormalAttack(InteractableObject target)
+    internal void NormalAttack(PlayerControl target)
     {
         _target = target;
         ProcessNormalAttack();
@@ -58,16 +68,22 @@ public class EnemyAttackHandler : MonoBehaviour
                 return;
             }
             _normalAttackCooldownRemain = GetAttackTime(_normalAttackCooldown);
-            _enemyAnimator.SetTrigger("NormalAttack");
+            //_enemyAnimator.SetTrigger("NormalAttack");
+            _enemyAnimator.SetBool("Attack2", true);
 
-            if (_target.TryGetComponent(out EnemyStatus enemyStatus))
+
+            if (_target.TryGetComponent(out PlayerStatus playerStatus))
             {
+                playerStatus.TakeDamage(_enemyStatus.GetStats(Enemy.Statistic.Damage).value);
                 //enemyStatus.TakeDamage(_enemyStatus.GetStats(Statistic.Damage).value);
             }
             _target = null;
         }
         else
         {
+            _enemyAI.SetDestination(_enemyAI.Target.transform.position);
+            //_enemyAnimator.SetFloat("Locomotion", Convert.ToSingle(_enemyAI.DetectPlayer()));
+            _enemyAnimator.SetBool("Attack2", false);
             //_enemyControl.SetDestination(_target.transform.position);
         }
     }

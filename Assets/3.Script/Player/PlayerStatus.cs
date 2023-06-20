@@ -49,7 +49,7 @@ public class StatsGroup
         StatsList.Add(new StatsValue(Statistic.Damage, 25));
         StatsList.Add(new StatsValue(Statistic.Armor, 5));
         StatsList.Add(new StatsValue(Statistic.AttackSpeed, 1f));
-        StatsList.Add(new StatsValue(Statistic.MoveSpeed, 15f));
+        StatsList.Add(new StatsValue(Statistic.MoveSpeed, 25f));
     }
 
     internal StatsValue Get(Statistic statisticToGet)
