@@ -32,7 +32,7 @@ public class GameUI : UI_Game, IListener
 
     private void Update()
     {
-        GetImage((int)Images.Cursor).transform.position = Input.mousePosition + new Vector3(20.6f,-46.9f,0);
+        GetImage((int)Images.Cursor).transform.position = Input.mousePosition + new Vector3(13.3f,-31f,0);
     }
     public override void Init()
     {

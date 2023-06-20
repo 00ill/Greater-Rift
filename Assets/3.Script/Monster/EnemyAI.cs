@@ -33,6 +33,7 @@ public class EnemyAI : MonoBehaviour
     private void Update()
     {
         _animator.SetFloat("Locomotion", _enemyAgent.velocity.magnitude);
+        _animator.SetFloat("Turning", _enemyAgent.desiredVelocity.z);
     }
     public bool DetectPlayer()
     {
