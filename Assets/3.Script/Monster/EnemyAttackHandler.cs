@@ -1,17 +1,14 @@
 using Enemy;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
-public class PlayerAttackHandler : MonoBehaviour
+public class EnemyAttackHandler : MonoBehaviour
 {
     //컴포넌트
-    private Animator _playerAnimator;
-    private PlayerControl _playerControl;
-    private PlayerInput _playerInput;
-    private PlayerStatus _playerStatus;
+    private Animator _enemyAnimator;
+    //private PlayerControl _enemyControl;
+    private EnemyStatus _enemyStatus;
     //공격관련 변수
     [SerializeField] private float NormalAttackRange;
     private InteractableObject _target;
@@ -20,10 +17,9 @@ public class PlayerAttackHandler : MonoBehaviour
 
     private void Awake()
     {
-        TryGetComponent(out _playerAnimator);
-        TryGetComponent(out _playerControl);
-        TryGetComponent(out _playerInput);
-        TryGetComponent(out _playerStatus);
+        TryGetComponent(out _enemyAnimator);
+        //TryGetComponent(out _enemyControl);
+        TryGetComponent(out _enemyStatus);
 
     }
 
@@ -36,14 +32,14 @@ public class PlayerAttackHandler : MonoBehaviour
 
     private void CheckNormalAttack()
     {
-        if (_playerControl.TargetObject != null)
-        {
-            NormalAttack(_playerControl.TargetObject);
-        }
-        if (_target != null)
-        {
-            ProcessNormalAttack();
-        }
+        //if (_enemyControl.TargetObject != null)
+        //{
+        //    NormalAttack(_enemyControl.TargetObject);
+        //}
+        //if (_target != null)
+        //{
+        //    ProcessNormalAttack();
+        //}
     }
 
     internal void NormalAttack(InteractableObject target)
@@ -57,30 +53,29 @@ public class PlayerAttackHandler : MonoBehaviour
         float distance = Vector3.Distance(transform.position, _target.transform.position);
         if (distance < NormalAttackRange)
         {
-            if(_normalAttackCooldownRemain > 0f)
+            if (_normalAttackCooldownRemain > 0f)
             {
                 return;
             }
             _normalAttackCooldownRemain = GetAttackTime(_normalAttackCooldown);
-            _playerControl.Stop();
-            _playerAnimator.SetTrigger("NormalAttack");
+            _enemyAnimator.SetTrigger("NormalAttack");
 
             if (_target.TryGetComponent(out EnemyStatus enemyStatus))
             {
-                enemyStatus.TakeDamage(_playerStatus.GetStats(Statistic.Damage).IntetgerValue);
+                //enemyStatus.TakeDamage(_enemyStatus.GetStats(Statistic.Damage).value);
             }
             _target = null;
         }
         else
         {
-            _playerControl.SetDestination(_target.transform.position);
+            //_enemyControl.SetDestination(_target.transform.position);
         }
     }
 
     private float GetAttackTime(float cooldown)
     {
         float attackTime = _normalAttackCooldown;
-        attackTime *= _playerStatus.GetStats(Statistic.AttackSpeed).FloatValue;
+        //attackTime *= _enemyStatus.GetStats(Statistic.AttackSpeed).FloatValue;
         return attackTime;
     }
     private void CheckCooldown(ref float skillCooldownRemain)
@@ -98,6 +93,6 @@ public class PlayerAttackHandler : MonoBehaviour
     private void CheckAllCooldown()
     {
         CheckCooldown(ref _normalAttackCooldownRemain);
-       
+
     }
 }

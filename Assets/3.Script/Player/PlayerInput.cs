@@ -77,5 +77,5 @@ public class PlayerInput : MonoBehaviour
         Ray = Camera.main.ScreenPointToRay(MousePosition);
         Physics.Raycast(Ray, out Hit);
     }
-    
+
 }

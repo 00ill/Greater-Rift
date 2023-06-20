@@ -26,14 +26,14 @@ public class PlayerControl : MonoBehaviour
 
     private void Start()
     {
-        _playerAgent.speed = _playerStatus.MoveSpeed;
+        _playerAgent.speed = _playerStatus.GetStats(Statistic.MoveSpeed).FloatValue;
+        _playerAgent.speed = 15f;
     }
 
     private void Update()
     {
         Interact();
         Move();
-        CheckNormalAttack();
     }
     private void Move()
     {
@@ -41,37 +41,46 @@ public class PlayerControl : MonoBehaviour
         {
             if (!_playerInput.Hit.Equals(null))
             {
+                _playerAgent.isStopped = false;
                 _playerAgent.SetDestination(_playerInput.Hit.point);
             }
         }
         _playerAnimator.SetFloat("Run", _playerAgent.velocity.magnitude);
     }
 
-    private void CheckNormalAttack()
-    {
-        //원래는 여러가지 정보로 더 판별을 해야겠지만 일단 임시로 시프트만 구현
-        if (_playerInput.Shift && _playerInput.Mouse1 && !_playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("NormalAttack"))
-        {
-            _playerAnimator.SetTrigger("NormalAttack");
-        }
-    }
-
     private void Interact()
     {
-        if(!_playerInput.Hit.Equals(null))
+        if (!_playerInput.Hit.Equals(null))
         {
-            if(_playerInput.Hit.transform.TryGetComponent(out InteractableObject interactableObject))
+            if (_playerInput.Hit.transform.TryGetComponent(out InteractableObject interactableObject))
             {
                 Managers.Event.PostNotification(Define.EVENT_TYPE.CheckInteractableObject, interactableObject);
-                if(_playerInput.Mouse1Down)
+                if (_playerInput.Mouse1Down)
                 {
+                    TargetObject = interactableObject;
                     interactableObject.Interact();
+                }
+                else
+                {
+                    TargetObject = null;
                 }
             }
             else
             {
+                TargetObject = null;
                 Managers.Event.PostNotification(Define.EVENT_TYPE.CheckInteractableObject, this);
             }
         }
+    }
+
+    public void SetDestination(Vector3 destinationPosition)
+    {
+        _playerAgent.isStopped = false;
+        _playerAgent.SetDestination(destinationPosition);
+    }
+
+    internal void Stop()
+    {
+        _playerAgent.isStopped = true;
     }
 }

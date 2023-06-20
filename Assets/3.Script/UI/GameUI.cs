@@ -1,3 +1,4 @@
+using Enemy;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -16,6 +17,10 @@ public class GameUI : UI_Game, IListener
         HpFluid,
         ManaFluid
     }
+    enum Sliders
+    {
+        EnemyHpBar
+    }
 
 
     private void Start()
@@ -28,18 +33,25 @@ public class GameUI : UI_Game, IListener
         base.Init();
         Bind<TextMeshProUGUI>(typeof(Texts));
         Bind<Image>(typeof(Images));
+        Bind<Slider>(typeof(Sliders));
         Managers.Event.AddListener(Define.EVENT_TYPE.PlayerHpChange, this);
         Managers.Event.AddListener(Define.EVENT_TYPE.PlayerManaChange, this);
         Managers.Event.AddListener(Define.EVENT_TYPE.CheckInteractableObject, this);
-        PlayerHpChangeEvent(FindObjectOfType<PlayerStatus>().Health, FindObjectOfType<PlayerStatus>().MaxHealth);
-        PlayerManaChangeEvent(FindObjectOfType<PlayerStatus>().Mana, FindObjectOfType<PlayerStatus>().MaxMana);
+        PlayerHpChangeEvent(FindObjectOfType<PlayerStatus>().LifePool.CurrentValue, FindObjectOfType<PlayerStatus>().LifePool.MaxValue);
+        PlayerManaChangeEvent(FindObjectOfType<PlayerStatus>().ManaPool.CurrentValue, FindObjectOfType<PlayerStatus>().ManaPool.MaxValue);
 
         InitTexts();
+        InitSliders();
     }
 
     private void InitTexts()
     {
         GetText((int)Texts.InteractableObjectName).text = "";
+    }
+
+    private void InitSliders()
+    {
+        Get<Slider>((int)Sliders.EnemyHpBar).gameObject.SetActive(false);
     }
     private void PlayerHpChangeEvent(float curHp, float maxHp)
     {
@@ -59,7 +71,7 @@ public class GameUI : UI_Game, IListener
                 {
                     if (Sender.TryGetComponent(out PlayerStatus playerStatus))
                     {
-                        PlayerHpChangeEvent(playerStatus.Health, playerStatus.MaxHealth);
+                        PlayerHpChangeEvent(playerStatus.LifePool.CurrentValue, playerStatus.LifePool.MaxValue);
                     }
                     break;
                 }
@@ -67,19 +79,26 @@ public class GameUI : UI_Game, IListener
                 {
                     if (Sender.TryGetComponent(out PlayerStatus playerStatus))
                     {
-                        PlayerManaChangeEvent(playerStatus.Mana, playerStatus.MaxMana);
+                        PlayerManaChangeEvent(playerStatus.ManaPool.CurrentValue, playerStatus.ManaPool.MaxValue);
                     }
                     break;
                 }
             case Define.EVENT_TYPE.CheckInteractableObject:
                 {
-                    if(Sender.TryGetComponent(out InteractableObject interactableObject))
+                    //Á×´Â °Å¸¦ interactiveobjectfalse·Î ¹Ú¾Æ³ö¼­ ÀÓ½Ã·Î Á×ÀÓ
+                    if (Sender.TryGetComponent(out InteractableObject interactableObject) && interactableObject.enabled)
                     {
                         GetText((int)Texts.InteractableObjectName).text = interactableObject.ObjectName;
+                        if(Sender.TryGetComponent(out EnemyStatus enemyStatus))
+                        {
+                            Get<Slider>((int)Sliders.EnemyHpBar).gameObject.SetActive(true);
+                            Get<Slider>((int)Sliders.EnemyHpBar).value = enemyStatus.LifePool.CurrentValue / (float)enemyStatus.LifePool.MaxValue;
+                        }
                     }
                     else
                     {
                         GetText((int)Texts.InteractableObjectName).text = "";
+                        Get<Slider>((int)Sliders.EnemyHpBar).gameObject.SetActive(false);
                     }
                     break;
                 }
