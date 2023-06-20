@@ -1,10 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameUI : UI_Game, IListener
 {
+    enum Texts
+    {
+        InteractableObjectName
+    }
+
     enum Images
     {
         HpFluid,
@@ -20,10 +26,20 @@ public class GameUI : UI_Game, IListener
     public override void Init()
     {
         base.Init();
+        Bind<TextMeshProUGUI>(typeof(Texts));
         Bind<Image>(typeof(Images));
         Managers.Event.AddListener(Define.EVENT_TYPE.PlayerHpChange, this);
+        Managers.Event.AddListener(Define.EVENT_TYPE.PlayerManaChange, this);
+        Managers.Event.AddListener(Define.EVENT_TYPE.CheckInteractableObject, this);
         PlayerHpChangeEvent(FindObjectOfType<PlayerStatus>().Health, FindObjectOfType<PlayerStatus>().MaxHealth);
         PlayerManaChangeEvent(FindObjectOfType<PlayerStatus>().Mana, FindObjectOfType<PlayerStatus>().MaxMana);
+
+        InitTexts();
+    }
+
+    private void InitTexts()
+    {
+        GetText((int)Texts.InteractableObjectName).text = "";
     }
     private void PlayerHpChangeEvent(float curHp, float maxHp)
     {
@@ -52,6 +68,18 @@ public class GameUI : UI_Game, IListener
                     if (Sender.TryGetComponent(out PlayerStatus playerStatus))
                     {
                         PlayerManaChangeEvent(playerStatus.Mana, playerStatus.MaxMana);
+                    }
+                    break;
+                }
+            case Define.EVENT_TYPE.CheckInteractableObject:
+                {
+                    if(Sender.TryGetComponent(out InteractableObject interactableObject))
+                    {
+                        GetText((int)Texts.InteractableObjectName).text = interactableObject.ObjectName;
+                    }
+                    else
+                    {
+                        GetText((int)Texts.InteractableObjectName).text = "";
                     }
                     break;
                 }

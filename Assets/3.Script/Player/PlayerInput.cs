@@ -25,6 +25,8 @@ public class PlayerInput : MonoBehaviour
     public bool Special { get; private set; }
     public bool ActiveItem { get; private set; }
 
+    public Ray Ray;
+    public RaycastHit Hit;
 
     private void Start()
     {
@@ -48,6 +50,7 @@ public class PlayerInput : MonoBehaviour
         Shift = Input.GetKey(KeyCode.LeftShift);
         Special = Input.GetKeyDown(KeyCode.R);
         ActiveItem = Input.GetKeyDown(KeyCode.Q);
+        MouseRay();
     }
 
     private void OnDisable()
@@ -68,4 +71,11 @@ public class PlayerInput : MonoBehaviour
         Special = false;
         ActiveItem = false;
     }
+
+    private void MouseRay()
+    {
+        Ray = Camera.main.ScreenPointToRay(MousePosition);
+        Physics.Raycast(Ray, out Hit);
+    }
+    
 }

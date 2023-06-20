@@ -39,7 +39,8 @@ public class Define
     public enum EVENT_TYPE
     {
         PlayerHpChange,
-        PlayerManaChange
+        PlayerManaChange,
+        CheckInteractableObject
 
     }
     public enum WhenItemActivates
