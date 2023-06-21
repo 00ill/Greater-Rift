@@ -98,8 +98,9 @@ namespace Enemy
         }
     }
     [RequireComponent(typeof(InteractableObject))]
-    public class EnemyStatus : MonoBehaviour
+    public class EnemyStatus : MonoBehaviour, IDamageable
     {
+        public string Name = "Hellion";
         public AttributeGroup Attributes;
         public StatsGroup Stats;
         public ValuePool LifePool;

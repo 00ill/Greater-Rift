@@ -107,7 +107,7 @@ public class ValuePool
     }
 }
 
-public class PlayerStatus : MonoBehaviour
+public class PlayerStatus : MonoBehaviour,IDamageable
 {
     public AttributeGroup Attributes;
     public StatsGroup Stats;
@@ -137,10 +137,7 @@ public class PlayerStatus : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            TakeDamage(10);
-        }
+      
     }
 
     public void TakeDamage(int damage)

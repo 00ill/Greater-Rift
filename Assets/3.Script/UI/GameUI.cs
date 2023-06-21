@@ -32,7 +32,7 @@ public class GameUI : UI_Game, IListener
 
     private void Update()
     {
-        GetImage((int)Images.Cursor).transform.position = Input.mousePosition + new Vector3(13.3f,-31f,0);
+        //GetImage((int)Images.Cursor).transform.position = Input.mousePosition + new Vector3(13.3f,-31f,0);
     }
     public override void Init()
     {
@@ -91,14 +91,18 @@ public class GameUI : UI_Game, IListener
                 }
             case Define.EVENT_TYPE.CheckInteractableObject:
                 {
-                    //Á×´Â °Å¸¦ interactiveobjectfalse·Î ¹Ú¾Æ³ö¼­ ÀÓ½Ã·Î Á×ÀÓ
-                    if (Sender.TryGetComponent(out InteractableObject interactableObject) && interactableObject.enabled)
+                    if(Sender != null)
                     {
-                        GetText((int)Texts.InteractableObjectName).text = interactableObject.ObjectName;
                         if(Sender.TryGetComponent(out EnemyStatus enemyStatus))
                         {
+                            GetText((int)Texts.InteractableObjectName).text = enemyStatus.Name;
                             Get<Slider>((int)Sliders.EnemyHpBar).gameObject.SetActive(true);
                             Get<Slider>((int)Sliders.EnemyHpBar).value = enemyStatus.LifePool.CurrentValue / (float)enemyStatus.LifePool.MaxValue;
+                        }
+                        else
+                        {
+                            GetText((int)Texts.InteractableObjectName).text = "";
+                            Get<Slider>((int)Sliders.EnemyHpBar).gameObject.SetActive(false);
                         }
                     }
                     else

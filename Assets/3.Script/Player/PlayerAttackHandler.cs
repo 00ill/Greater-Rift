@@ -4,16 +4,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.TextCore.Text;
 
-public class PlayerAttackHandler : MonoBehaviour
+public class PlayerAttackHandler : MonoBehaviour, ICommandHandle
 {
     //컴포넌트
     private Animator _playerAnimator;
     private PlayerControl _playerControl;
-    private PlayerInput _playerInput;
     private PlayerStatus _playerStatus;
     //공격관련 변수
-    [SerializeField] private float NormalAttackRange;
+    [SerializeField] private float _normalAttackRange;
     private InteractableObject _target;
     private float _normalAttackCooldown = 1.25f;
     private float _normalAttackCooldownRemain;
@@ -22,14 +22,12 @@ public class PlayerAttackHandler : MonoBehaviour
     {
         TryGetComponent(out _playerAnimator);
         TryGetComponent(out _playerControl);
-        TryGetComponent(out _playerInput);
         TryGetComponent(out _playerStatus);
 
     }
 
     private void Update()
     {
-        CheckNormalAttack();
         CheckAllCooldown();
     }
 
@@ -55,7 +53,7 @@ public class PlayerAttackHandler : MonoBehaviour
     private void ProcessNormalAttack()
     {
         float distance = Vector3.Distance(transform.position, _target.transform.position);
-        if (distance < NormalAttackRange)
+        if (distance < _normalAttackRange)
         {
             if(_normalAttackCooldownRemain > 0f)
             {
@@ -99,5 +97,32 @@ public class PlayerAttackHandler : MonoBehaviour
     {
         CheckCooldown(ref _normalAttackCooldownRemain);
        
+    }
+
+    public void ProcessCommand(Command command)
+    {
+        float distance = Vector3.Distance(transform.position, command.target.transform.position);
+
+        if (distance < _normalAttackRange)
+        {
+            if (_normalAttackCooldownRemain > 0f) { return; }
+
+            _normalAttackCooldownRemain = _normalAttackCooldown;
+
+            _playerAnimator.SetTrigger("NormalAttack");
+            DealDamage(command);
+            command.isComplete = true;
+        }
+        else
+        {
+            _playerControl.SetDestination(command.target.transform.position);
+        }
+    }
+
+    private void DealDamage(Command command)
+    {
+        IDamageable target = command.target.GetComponent<IDamageable>();
+        int damage = _playerStatus.GetStats(Statistic.Damage).IntetgerValue;
+        target.TakeDamage(damage);
     }
 }
