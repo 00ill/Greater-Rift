@@ -13,7 +13,6 @@ public class PlayerControlInput : MonoBehaviour
 
     private PlayerControl _playerControl;
     private CommandHandler _commandHandler;
-    private AttackInput _attackInput;
     private InteractInput _interactInput;
 
     public RaycastHit Hit;
@@ -21,7 +20,6 @@ public class PlayerControlInput : MonoBehaviour
     {
         TryGetComponent(out _playerControl);
         TryGetComponent(out _commandHandler);
-        TryGetComponent(out _attackInput);
         TryGetComponent(out _interactInput);
     }
 
@@ -31,7 +29,6 @@ public class PlayerControlInput : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(MouseInputPosition);
         if (Physics.Raycast(ray, out Hit, float.MaxValue))
         {
-        RaycastHit hit;
             RayToWorldIntersectionPoint = Hit.point;
         }
     }
@@ -43,20 +40,22 @@ public class PlayerControlInput : MonoBehaviour
 
     public void LMB(InputAction.CallbackContext callbackContext)
     {
-        if (_attackInput.AttackCheck())
+        if (_interactInput.AttackCheck())
         {
-            AttackCommand(_interactInput.hoveringOverObject.gameObject);
+            AttackCommand(_interactInput.AttackTarget.gameObject);
             return;
         }
 
         if (_interactInput.InteractCheck())
         {
-            InteractCommand(_interactInput.hoveringOverObject.gameObject);
+            InteractCommand(_interactInput.InteractableObjectTarget.gameObject);
             return;
         }
 
         MoveCommand(RayToWorldIntersectionPoint);
     }
+
+  
     private void MoveCommand(Vector3 point)
     {
         _commandHandler.SetCommand(new Command(CommandType.Move, point));

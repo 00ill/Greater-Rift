@@ -93,7 +93,7 @@ public class GameUI : UI_Game, IListener
                 {
                     if(Sender != null)
                     {
-                        if(Sender.TryGetComponent(out EnemyStatus enemyStatus))
+                        if(Sender.TryGetComponent(out EnemyStatus enemyStatus) && !enemyStatus.IsDead)
                         {
                             GetText((int)Texts.InteractableObjectName).text = enemyStatus.Name;
                             Get<Slider>((int)Sliders.EnemyHpBar).gameObject.SetActive(true);

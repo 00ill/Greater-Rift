@@ -1,3 +1,4 @@
+using Enemy;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,19 +7,13 @@ using UnityEngine.InputSystem;
 
 public class InteractInput : MonoBehaviour
 {
-
-    GameObject currentHoverOverObject;
-
-    [HideInInspector] public InteractableObject hoveringOverObject;
-    [HideInInspector] public IDamageable attackTarget;
-
+    [HideInInspector] public EnemyStatus AttackTarget;
+    [HideInInspector] public InteractableObject InteractableObjectTarget;
     private InteractHandler _interactHandler;
-
     private PlayerControlInput _playerControlInput;
-    private InteractableObject _interactableObject;
     private void Awake()
     {
-        TryGetComponent(out  _interactHandler);
+        TryGetComponent(out _interactHandler);
         TryGetComponent(out _playerControlInput);
     }
 
@@ -29,34 +24,31 @@ public class InteractInput : MonoBehaviour
 
     private void CheckInteractObject()
     {
-        if(!_playerControlInput.Hit.Equals(null))
+        if (!_playerControlInput.Hit.Equals(null))
         {
-            if(_playerControlInput.Hit.transform.TryGetComponent(out _interactableObject))
+            if (_playerControlInput.Hit.transform.TryGetComponent(out InteractableObjectTarget))
             {
+                if (!(InteractableObjectTarget.TryGetComponent(out AttackTarget) && !AttackTarget.IsDead))
+                {
+                    AttackTarget = null;
+                }
             }
-            UpdateInteractableObject(_playerControlInput.Hit);
-            Managers.Event.PostNotification(Define.EVENT_TYPE.CheckInteractableObject, _interactableObject);
-
+            else
+            {
+                InteractableObjectTarget = null;
+                AttackTarget = null;
+            }
         }
+        Managers.Event.PostNotification(Define.EVENT_TYPE.CheckInteractableObject, InteractableObjectTarget);
+    }
+
+    internal bool AttackCheck()
+    {
+        return AttackTarget != null;
     }
 
     internal bool InteractCheck()
     {
-        return _interactableObject != null;
-    }
-
-    private void UpdateInteractableObject(RaycastHit hit)
-    {
-        InteractableObject interactableObject = hit.transform.GetComponent<InteractableObject>();
-        if (interactableObject != null)
-        {
-            hoveringOverObject = interactableObject;
-            attackTarget = interactableObject.GetComponent<IDamageable>();
-        }
-        else
-        {
-            attackTarget = null;
-            hoveringOverObject = null;
-        }
+        return InteractableObjectTarget != null;
     }
 }

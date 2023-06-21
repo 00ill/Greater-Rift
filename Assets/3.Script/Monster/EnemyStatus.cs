@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Enemy
 {
@@ -97,18 +98,19 @@ namespace Enemy
             this.CurrentValue = MaxValue;
         }
     }
-    [RequireComponent(typeof(InteractableObject))]
+    //[RequireComponent(typeof(EnemyAI))]
     public class EnemyStatus : MonoBehaviour, IDamageable
     {
         public string Name = "Hellion";
+        public bool IsDead;
+        private NavMeshAgent _enemyAgent;
         public AttributeGroup Attributes;
         public StatsGroup Stats;
         public ValuePool LifePool;
-        private InteractableObject _interactableObject;
 
         private void Awake()
         {
-            TryGetComponent(out  _interactableObject);
+            TryGetComponent(out _enemyAgent);
         }
         private void Start()
         {
@@ -150,8 +152,9 @@ namespace Enemy
 
         private void OnDeath()
         {
+            _enemyAgent.isStopped = true;
+            IsDead = true;
             //ÀÓ½Ã Á×À½
-            _interactableObject.enabled = false;
         }
 
         public StatsValue GetStats(Statistic statisticToGet)
