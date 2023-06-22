@@ -1,15 +1,18 @@
 public class Define
 {
-
-
     public enum Scene
     {
         None,
         LoadingScene,
         MainMenu,
-        Town,
+        Town
     }
 
+    public enum InteractType
+    {
+        Dungeon,
+        Gem
+    }
 
     public enum SortingOrder
     {
@@ -28,14 +31,8 @@ public class Define
         OnBeginDrag,
         OnEndDrag,
         OnDrop
-
     }
-    public enum ItemType
-    {
-        Passive,
-        Active,
-
-    }
+  
     public enum EVENT_TYPE
     {
         PlayerHpChange,
@@ -43,69 +40,4 @@ public class Define
         CheckInteractableObject
 
     }
-    public enum WhenItemActivates
-    {
-        Always,
-        AfterBattle,
-        InBattle,
-        NotBattle,
-
-    }
-    public enum ECurrentClickType
-    {
-        ItemAndEquip,
-        Monster,
-        Character,
-        Enviroment,
-        None,
-
-    }
-    public enum EDifficulty
-    {
-
-        Easy,
-        Normal,
-        Hard,
-        VeryHard,
-        VeryHard2,
-        VeryHard3,
-        VeryHard4,
-        VeryHard5,
-
-
-    }
-    public enum ESkillType
-    {
-        Passive,
-        M1,
-        M21,
-        M22,
-        Shift1,
-        Shift2,
-        R1,
-        R2
-    }
-    public enum EGameState
-    {
-        NonTelePort,
-        ActiveTelePort,
-        KillBoss,
-        CompeleteTelePort,
-
-
-    }
-    public enum LayerMask
-    {
-        Enviroment = 6,
-        Skill = 10
-    }
-
-    public enum EDamageType
-    {
-        Nomal,
-        Cirtical,
-        Item,
-        Heal,
-    }
-
 }

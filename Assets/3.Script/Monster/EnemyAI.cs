@@ -36,7 +36,7 @@ public class EnemyAI : MonoBehaviour
         _animator.SetFloat("Turning", _enemyAgent.desiredVelocity.z);
     }
     public bool DetectPlayer()
-    {
+    {   
         float distance = Vector3.Distance(transform.position, Target.transform.position);
         if(distance < _enemyStatus.GetStats(Enemy.Statistic.DetectionRange).value)
         {

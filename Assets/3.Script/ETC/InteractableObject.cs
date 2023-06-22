@@ -1,17 +1,26 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class InteractableObject : MonoBehaviour
 {
+    private Action _interact;
     [HideInInspector] public string ObjectName;
 
     private void Start()
     {
         ObjectName = transform.name;
     }
+
+    public void AddInteract(Action action)
+    {
+        _interact -= action;
+        _interact += action;
+    }
+
     public void Interact()
     {
-        Debug.Log("테스트용이에용");
+        _interact?.Invoke();
     }
 }

@@ -1,3 +1,5 @@
+using Enemy;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -18,16 +20,11 @@ public class GameUI : UI_Game, IListener
     {
         HpFluid,
         ManaFluid,
-        Cursor,
-        Test
+        Cursor
     }
     enum Sliders
     {
         EnemyHpBar
-    }
-    enum GameObjects
-    {
-        DungeonNPC
     }
 
     private void Awake()
@@ -51,7 +48,6 @@ public class GameUI : UI_Game, IListener
         Bind<TextMeshProUGUI>(typeof(Texts));
         Bind<Image>(typeof(Images));
         Bind<Slider>(typeof(Sliders));
-        Bind<GameObject>(typeof(GameObjects));
 
         Managers.Event.AddListener(Define.EVENT_TYPE.PlayerHpChange, this);
         Managers.Event.AddListener(Define.EVENT_TYPE.PlayerManaChange, this);
@@ -61,12 +57,6 @@ public class GameUI : UI_Game, IListener
 
         InitTexts();
         InitSliders();
-
-        //GetObject((int)GameObjects.DungeonNPC).BindEvent((PointerEventData data) => PopUpEnterDungeonUI(), Define.UIEvent.PointerEnter);
-        //GetObject((int)GameObjects.DungeonNPC).BindEvent((PointerEventData data) => PopUpEnterDungeonUI());
-        GameObject ggo = GetImage((int)Images.Test).gameObject;
-        ggo.BindEvent((PointerEventData data) => PopUpEnterDungeonUI(), Define.UIEvent.PointerEnter);
-        ggo.BindEvent(((PointerEventData data) => { ggo.transform.position = data.position; }), Define.UIEvent.OnDrag);
     }
 
     private void InitTexts()
@@ -88,12 +78,6 @@ public class GameUI : UI_Game, IListener
     {
         GetImage((int)Images.ManaFluid).material.SetFloat("_FillLevel", Mathf.Clamp(curMana / maxMana, 0, 1));
     }
-
-    private void PopUpEnterDungeonUI()
-    {
-        Debug.Log("npc한테 마우스 올라감");
-    }
-
 
     public void OnEvent(Define.EVENT_TYPE Event_Type, Component Sender, object Param = null)
     {
@@ -121,13 +105,14 @@ public class GameUI : UI_Game, IListener
                     {
                         if(Sender.TryGetComponent(out Enemy.EnemyStatus enemyStatus) && !enemyStatus.IsDead)
                         {
+                            //몬스터
                             GetText((int)Texts.InteractableObjectName).text = enemyStatus.GetStats(Enemy.Statistic.Name).strValue;
                             Get<Slider>((int)Sliders.EnemyHpBar).gameObject.SetActive(true);
                             Get<Slider>((int)Sliders.EnemyHpBar).value = enemyStatus.LifePool.CurrentValue / (float)enemyStatus.LifePool.MaxValue;
                         }
-                        else
+                        else if(Sender.TryGetComponent(out InteractableObject interactableObject))
                         {
-                            GetText((int)Texts.InteractableObjectName).text = "";
+                            GetText((int)Texts.InteractableObjectName).text = interactableObject.ObjectName;
                             Get<Slider>((int)Sliders.EnemyHpBar).gameObject.SetActive(false);
                         }
                     }
