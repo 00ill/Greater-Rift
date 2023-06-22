@@ -74,8 +74,8 @@ public class EnemyBase : MonoBehaviour
     protected void SetEnemyData()
     {
         _name = _enemyData.Name;
-        MaxHealth= _enemyData.MaxHealth;
-        Health = _enemyData.Health;
+        //MaxHealth= _enemyData.MaxHealth;
+        //Health = _enemyData.Health;
         _damage = _enemyData.Damage;
         _detectionRange = _enemyData.DetectionRange;
         _attackRange = _enemyData.AttackRange;

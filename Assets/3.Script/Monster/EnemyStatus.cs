@@ -9,21 +9,30 @@ namespace Enemy
 {
     public enum Statistic
     {
+        Name,
         Life,
         Damage,
         Armor,
         MoveSpeed,
-        DetectionRange
+        DetectionRange,
+        AttackRange,
+        AttackCooldown,
     }
 
     public class StatsValue
     {
         public Statistic StatisticType;
         public int value;
+        public string strValue;
         public StatsValue(Statistic statisticType, int value = 0)
         {
             this.StatisticType = statisticType;
             this.value = value;
+        }
+        public StatsValue(Statistic statisticType, string value = "")
+        {
+            this.StatisticType = statisticType;
+            this.strValue = value;
         }
     }
 
@@ -35,13 +44,16 @@ namespace Enemy
             StatsList = new List<StatsValue>();
         }
 
-        public void Init()
+        public void Init(EnemyData enemyData)
         {
-            StatsList.Add(new StatsValue(Statistic.Life, 100));
-            StatsList.Add(new StatsValue(Statistic.Damage, 25));
-            StatsList.Add(new StatsValue(Statistic.Armor, 5));
-            StatsList.Add(new StatsValue(Statistic.MoveSpeed, 4));
-            StatsList.Add(new StatsValue(Statistic.DetectionRange, 30));
+            StatsList.Add(new StatsValue(Statistic.Name, enemyData.Name));
+            StatsList.Add(new StatsValue(Statistic.Life, enemyData.Life));
+            StatsList.Add(new StatsValue(Statistic.Damage, enemyData.Damage));
+            StatsList.Add(new StatsValue(Statistic.Armor, enemyData.Armor));
+            StatsList.Add(new StatsValue(Statistic.MoveSpeed, enemyData.MoveSpeed));
+            StatsList.Add(new StatsValue(Statistic.DetectionRange, enemyData.DetectionRange));
+            StatsList.Add(new StatsValue(Statistic.AttackRange, enemyData.AttackRange));
+            StatsList.Add(new StatsValue(Statistic.AttackCooldown, enemyData.AttackCooldown));
         }
 
         internal StatsValue Get(Statistic statisticToGet)
@@ -98,10 +110,11 @@ namespace Enemy
             this.CurrentValue = MaxValue;
         }
     }
+
     //[RequireComponent(typeof(EnemyAI))]
     public class EnemyStatus : MonoBehaviour, IDamageable
     {
-        public string Name = "Hellion";
+        [SerializeField] private EnemyData _enemyData;
         public bool IsDead;
         private NavMeshAgent _enemyAgent;
         public AttributeGroup Attributes;
@@ -117,7 +130,7 @@ namespace Enemy
             Attributes = new AttributeGroup();
             Attributes.Init();
             Stats = new StatsGroup();
-            Stats.Init();
+            Stats.Init(_enemyData);
 
             LifePool = new ValuePool(Stats.Get(Statistic.Life));
         }
