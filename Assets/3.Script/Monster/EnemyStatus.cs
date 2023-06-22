@@ -61,44 +61,6 @@ namespace Enemy
             return StatsList[(int)statisticToGet];
         }
     }
-
-    public enum Attribute
-    {
-        Strength,
-        Dexterity,
-        Intelligence
-    }
-
-    [Serializable]
-    public class AttributeValue
-    {
-        public Attribute AttributeType;
-        public int value;
-        public AttributeValue(Attribute attributeType, int value = 0)
-        {
-            AttributeType = attributeType;
-            this.value = value;
-        }
-    }
-
-    [Serializable]
-    public class AttributeGroup
-    {
-        public List<AttributeValue> AttributesValueList;
-
-        public AttributeGroup()
-        {
-            AttributesValueList = new List<AttributeValue>();
-        }
-
-        public void Init()
-        {
-            AttributesValueList.Add(new AttributeValue(Attribute.Strength));
-            AttributesValueList.Add(new AttributeValue(Attribute.Dexterity));
-            AttributesValueList.Add(new AttributeValue(Attribute.Intelligence));
-        }
-    }
-
     public class ValuePool
     {
         public int MaxValue;
