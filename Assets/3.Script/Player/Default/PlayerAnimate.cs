@@ -14,13 +14,19 @@ public class PlayerAnimate : MonoBehaviour
         TryGetComponent(out _playerAgent);
         TryGetComponent(out _playerAnimator);
     }
-    public void AbilityRMB(InputAction.CallbackContext callbackContext)
-    {
-        _playerAnimator.Play("Skill_BladeSlash");
-        Managers.Resource.Instantiate("Skill_BladeSlash", transform.position);
-    }
     private void Update()
     {
         _playerAnimator.SetFloat("Run", _playerAgent.velocity.magnitude);
+    }
+
+    public void AbilityRMB(InputAction.CallbackContext callbackContext)
+    {
+        _playerAnimator.Play("Skill_BladeSlash");
+        
+    }
+    
+    private void BladeSlash()
+    {
+        Managers.Resource.Instantiate("Skill_BladeSlash", transform.position);
     }
 }

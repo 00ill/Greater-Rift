@@ -13,19 +13,62 @@ public class GameUI : UI_Game, IListener
 
     enum Texts
     {
-        InteractableObjectName
+        InteractableObjectName,
+        SkillSettingTitle,
+        SkillSetM1Text,
+        SkillSetM2Text,
+        SkillSetNum1Text,
+        SkillSetNum2Text,
+        SkillSetNum3Text,
+        SkillSetNum4Text,
+        SkillM1Script,
+        SkillM2Script
     }
 
     enum Images
     {
         HpFluid,
         ManaFluid,
-        Cursor
+        Cursor,
+        SkillNum1,
+        SkillNum2,
+        SkillNum3,
+        SkillNum4,
+        SkillM1,
+        SkillM2,
+        SkillSetingM1_Cutting,
+        SkillSetingM1_Kick,
+        SkillSetingM2_BladeSlash,
+        SkillSetingM2_Temp
     }
     enum Sliders
     {
         EnemyHpBar
     }
+    enum Buttons
+    {
+        SkillSettingExit,
+        SkillSetM1,
+        SkillSetM2,
+        SkillSetNum1,
+        SkillSetNum2,
+        SkillSetNum3,
+        SkillSetNum4,
+        SkillM1Confirm,
+        SkillM1Exit,
+        SkillM2Confirm,
+        SkillM2Exit
+    }
+
+    enum Objects
+    {
+        SkillSettingUI,
+        SkillM1Panel,
+        SkillM2Panel
+    }
+
+
+    private readonly string _skillPath = "Images/Skill/";
 
     private void Awake()
     {
@@ -40,7 +83,7 @@ public class GameUI : UI_Game, IListener
 
     private void Update()
     {
-        GetImage((int)Images.Cursor).transform.position = _playerControlInput.MouseInputPosition + new Vector3(13.3f,-31f,0);
+        GetImage((int)Images.Cursor).transform.position = _playerControlInput.MouseInputPosition + new Vector3(13.3f, -31f, 0);
     }
     public override void Init()
     {
@@ -48,25 +91,83 @@ public class GameUI : UI_Game, IListener
         Bind<TextMeshProUGUI>(typeof(Texts));
         Bind<Image>(typeof(Images));
         Bind<Slider>(typeof(Sliders));
+        Bind<Button>(typeof(Buttons));
+        Bind<GameObject>(typeof(Objects));
 
         Managers.Event.AddListener(Define.EVENT_TYPE.PlayerHpChange, this);
         Managers.Event.AddListener(Define.EVENT_TYPE.PlayerManaChange, this);
         Managers.Event.AddListener(Define.EVENT_TYPE.CheckInteractableObject, this);
+        Managers.Event.AddListener(Define.EVENT_TYPE.SkillSettingUIOpen, this);
+
         PlayerHpChangeEvent(FindObjectOfType<PlayerStatus>().LifePool.CurrentValue, FindObjectOfType<PlayerStatus>().LifePool.MaxValue);
         PlayerManaChangeEvent(FindObjectOfType<PlayerStatus>().ManaPool.CurrentValue, FindObjectOfType<PlayerStatus>().ManaPool.MaxValue);
 
         InitTexts();
         InitSliders();
+        InitSkillimages();
+        InitButtonEvent();
+        InitPanel();
     }
 
+    
     private void InitTexts()
     {
         GetText((int)Texts.InteractableObjectName).text = "";
+        GetText((int)Texts.SkillSettingTitle).text = "Skill Setting";
+        GetText((int)Texts.SkillSetM1Text).text = "Mouse 1 Skill Setting";
+        GetText((int)Texts.SkillSetM2Text).text = "Mouse 2 Skill Setting";
+        GetText((int)Texts.SkillSetNum1Text).text = "num 1 Skill Setting";
+        GetText((int)Texts.SkillSetNum2Text).text = "num 2 Skill Setting";
+        GetText((int)Texts.SkillSetNum3Text).text = "num 3 Skill Setting";
+        GetText((int)Texts.SkillSetNum4Text).text = "num 4 Skill Setting";
+        GetText((int)Texts.SkillM1Script).text = "";
+        GetText((int)Texts.SkillM2Script).text = "";
     }
 
     private void InitSliders()
     {
         Get<Slider>((int)Sliders.EnemyHpBar).gameObject.SetActive(false);
+    }
+    private void InitSkillimages()
+    {
+        GetImage((int)Images.SkillM1).sprite = Managers.Resource.Load<Sprite>(_skillPath + "Cutting");
+        GetImage((int)Images.SkillM2).sprite = Managers.Resource.Load<Sprite>(_skillPath + "BladeSlash");
+        GetImage((int)Images.SkillNum1).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
+        GetImage((int)Images.SkillNum2).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
+        GetImage((int)Images.SkillNum3).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
+        GetImage((int)Images.SkillNum4).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
+        //스킬셋 M1
+        GetImage((int)Images.SkillSetingM1_Cutting).sprite = Managers.Resource.Load<Sprite>(_skillPath + "Cutting");
+        GetImage((int)Images.SkillSetingM1_Cutting).gameObject.BindEvent((PointerEventData data) =>
+        { GetText((int)Texts.SkillM1Script).text = FindSkillScript(Images.SkillSetingM1_Cutting); });
+        GetImage((int)Images.SkillSetingM1_Kick).sprite = Managers.Resource.Load<Sprite>(_skillPath + "Kick");
+        GetImage((int)Images.SkillSetingM1_Kick).gameObject.BindEvent((PointerEventData data) =>
+        { GetText((int)Texts.SkillM1Script).text = FindSkillScript(Images.SkillSetingM1_Kick); });
+        //스킬셋 M2
+        GetImage((int)Images.SkillSetingM2_BladeSlash).sprite = Managers.Resource.Load<Sprite>(_skillPath + "BladeSlash");
+        GetImage((int)Images.SkillSetingM2_BladeSlash).gameObject.BindEvent((PointerEventData data) =>
+        { GetText((int)Texts.SkillM2Script).text = FindSkillScript(Images.SkillSetingM2_BladeSlash); });
+        GetImage((int)Images.SkillSetingM2_Temp).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
+        GetImage((int)Images.SkillSetingM2_Temp).gameObject.BindEvent((PointerEventData data) =>
+        { GetText((int)Texts.SkillM2Script).text = FindSkillScript(Images.SkillSetingM2_Temp); });
+    }
+
+    private void InitPanel()
+    {
+        CloseSkillSettingUI();
+        SkillM1PanelExit();
+        SkillM2PanelExit();
+    }
+
+    private void InitButtonEvent()
+    {
+        GetButton((int)Buttons.SkillSettingExit).gameObject.BindEvent((PointerEventData data) => CloseSkillSettingUI());
+        GetButton((int)Buttons.SkillSetM1).gameObject.BindEvent((PointerEventData data) => SKillSetM1Open());
+        GetButton((int)Buttons.SkillM1Confirm).gameObject.BindEvent((PointerEventData data) => SkillM1PanelConfirm());
+        GetButton((int)Buttons.SkillM1Exit).gameObject.BindEvent((PointerEventData data) => SkillM1PanelExit());
+        GetButton((int)Buttons.SkillSetM2).gameObject.BindEvent((PointerEventData data) => SKillSetM2Open());
+        GetButton((int)Buttons.SkillM2Confirm).gameObject.BindEvent((PointerEventData data) => SkillM2PanelConfirm());
+        GetButton((int)Buttons.SkillM2Exit).gameObject.BindEvent((PointerEventData data) => SkillM2PanelExit());
     }
 
     private void PlayerHpChangeEvent(float curHp, float maxHp)
@@ -79,6 +180,72 @@ public class GameUI : UI_Game, IListener
         GetImage((int)Images.ManaFluid).material.SetFloat("_FillLevel", Mathf.Clamp(curMana / maxMana, 0, 1));
     }
 
+    
+    private string FindSkillScript(Images image)
+    {
+        switch (image)
+        {
+            case Images.SkillSetingM1_Cutting:
+                {
+                    return "Damage as much as 120% of the player's attack by cutting enemies";
+                }
+            case Images.SkillSetingM1_Kick:
+                {
+                    return "Damage as much as 120% of the player's attack by Kicking enemies";
+                }
+                case Images.SkillSetingM2_BladeSlash: 
+                {
+                    return "Swing a knife in a circle, dealing 200% damage to the enemy";
+                }
+            case Images.SkillSetingM2_Temp:
+                {
+                    return "Temp";
+                }
+        }
+
+        return "";
+    }
+    #region 스킬 세팅 UI Open/Close/Confirm
+    private void SKillSetM1Open()
+    {
+        GetObject((int)Objects.SkillM1Panel).SetActive(true);
+    }
+    private void SkillM1PanelConfirm()
+    {
+        //스킬등록 이벤트 넣을 곳
+        GetObject((int)Objects.SkillM1Panel).SetActive(false);
+        GetText((int)Texts.SkillM1Script).text = "";
+    }
+    private void SkillM1PanelExit()
+    {
+        GetObject((int)Objects.SkillM1Panel).SetActive(false);
+        GetText((int)Texts.SkillM1Script).text = "";
+    }
+
+    private void SKillSetM2Open()
+    {
+        GetObject((int)Objects.SkillM2Panel).SetActive(true);
+    }
+    private void SkillM2PanelConfirm()
+    {
+        //스킬등록 이벤트 넣을 곳
+        GetObject((int)Objects.SkillM2Panel).SetActive(false);
+        GetText((int)Texts.SkillM2Script).text = "";
+    }
+    private void SkillM2PanelExit()
+    {
+        GetObject((int)Objects.SkillM2Panel).SetActive(false);
+        GetText((int)Texts.SkillM2Script).text = "";
+    }
+    private void OpenSkillSettingUI()
+    {
+        GetObject((int)Objects.SkillSettingUI).SetActive(true);
+    }
+    private void CloseSkillSettingUI()
+    {
+        GetObject((int)Objects.SkillSettingUI).SetActive(false);
+    }
+    #endregion
     public void OnEvent(Define.EVENT_TYPE Event_Type, Component Sender, object Param = null)
     {
         switch (Event_Type)
@@ -101,16 +268,16 @@ public class GameUI : UI_Game, IListener
                 }
             case Define.EVENT_TYPE.CheckInteractableObject:
                 {
-                    if(Sender != null)
+                    if (Sender != null)
                     {
-                        if(Sender.TryGetComponent(out Enemy.EnemyStatus enemyStatus) && !enemyStatus.IsDead)
+                        if (Sender.TryGetComponent(out Enemy.EnemyStatus enemyStatus) && !enemyStatus.IsDead)
                         {
                             //몬스터
                             GetText((int)Texts.InteractableObjectName).text = enemyStatus.GetStats(Enemy.Statistic.Name).strValue;
                             Get<Slider>((int)Sliders.EnemyHpBar).gameObject.SetActive(true);
                             Get<Slider>((int)Sliders.EnemyHpBar).value = enemyStatus.LifePool.CurrentValue / (float)enemyStatus.LifePool.MaxValue;
                         }
-                        else if(Sender.TryGetComponent(out InteractableObject interactableObject))
+                        else if (Sender.TryGetComponent(out InteractableObject interactableObject))
                         {
                             GetText((int)Texts.InteractableObjectName).text = interactableObject.ObjectName;
                             Get<Slider>((int)Sliders.EnemyHpBar).gameObject.SetActive(false);
@@ -121,6 +288,11 @@ public class GameUI : UI_Game, IListener
                         GetText((int)Texts.InteractableObjectName).text = "";
                         Get<Slider>((int)Sliders.EnemyHpBar).gameObject.SetActive(false);
                     }
+                    break;
+                }
+            case Define.EVENT_TYPE.SkillSettingUIOpen:
+                {
+                    OpenSkillSettingUI();
                     break;
                 }
         }

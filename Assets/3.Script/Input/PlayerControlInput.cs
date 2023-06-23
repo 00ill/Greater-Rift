@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class PlayerControlInput : MonoBehaviour
@@ -16,6 +17,7 @@ public class PlayerControlInput : MonoBehaviour
     private InteractInput _interactInput;
 
     public RaycastHit Hit;
+    private LayerMask _layerMask;
     private void Awake()
     {
         TryGetComponent(out _playerControl);
@@ -23,13 +25,20 @@ public class PlayerControlInput : MonoBehaviour
         TryGetComponent(out _interactInput);
     }
 
+    private void Start()
+    {
+        _layerMask = (-1) - (1 << LayerMask.NameToLayer("UI"));
+    }
 
     void Update()
     {
         Ray ray = Camera.main.ScreenPointToRay(MouseInputPosition);
         if (Physics.Raycast(ray, out Hit, float.MaxValue))
         {
-            RayToWorldIntersectionPoint = Hit.point;
+            if (EventSystem.current.IsPointerOverGameObject() == false)
+            {
+                RayToWorldIntersectionPoint = Hit.point;
+            }
         }
     }
 
@@ -40,19 +49,22 @@ public class PlayerControlInput : MonoBehaviour
 
     public void LMB(InputAction.CallbackContext callbackContext)
     {
-        if (_interactInput.AttackCheck())
+        if(callbackContext.performed)
         {
-            AttackCommand(_interactInput.AttackTarget.gameObject);
-            return;
-        }
+            if (_interactInput.AttackCheck())
+            {
+                AttackCommand(_interactInput.AttackTarget.gameObject);
+                return;
+            }
 
-        if (_interactInput.InteractCheck())
-        {
-            InteractCommand(_interactInput.InteractableObjectTarget.gameObject);
-            return;
-        }
+            if (_interactInput.InteractCheck())
+            {
+                InteractCommand(_interactInput.InteractableObjectTarget.gameObject);
+                return;
+            }
 
-        MoveCommand(RayToWorldIntersectionPoint);
+            MoveCommand(RayToWorldIntersectionPoint);
+        }
     }
 
   
@@ -69,5 +81,13 @@ public class PlayerControlInput : MonoBehaviour
     private void AttackCommand(GameObject target)
     {
         _commandHandler.SetCommand(new Command(CommandType.Attack, target));
+    }
+
+    public void OpenSkillSettingUI(InputAction.CallbackContext callbackContext)
+    {
+        if(callbackContext.performed)
+        {
+            Managers.Event.PostNotification(Define.EVENT_TYPE.SkillSettingUIOpen, this);
+        }
     }
 }

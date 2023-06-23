@@ -661,10 +661,10 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.23917995
-        functionName: OnEffect
+      - time: 0.26167426
+        functionName: BladeSlash
         data: 
-        objectReferenceParameter: {fileID: 11500000, guid: e99eb03506d01c349be7873901acbdf7, type: 3}
+        objectReferenceParameter: {fileID: 11500000, guid: 74ac01d5bf809034e951b88dc35fb389, type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0

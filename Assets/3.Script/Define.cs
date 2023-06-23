@@ -37,7 +37,8 @@ public class Define
     {
         PlayerHpChange,
         PlayerManaChange,
-        CheckInteractableObject
+        CheckInteractableObject,
+        SkillSettingUIOpen
 
     }
 }

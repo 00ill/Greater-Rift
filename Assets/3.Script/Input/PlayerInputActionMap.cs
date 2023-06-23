@@ -64,7 +64,7 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""OpenQuestPanel"",
+                    ""name"": ""OpenSkillSetPanel"",
                     ""type"": ""Button"",
                     ""id"": ""00658bf3-7432-4017-85fe-9da08ee144ea"",
                     ""expectedControlType"": ""Button"",
@@ -220,11 +220,11 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""a4e91174-2650-48e1-a87c-89e15ceb7ff3"",
-                    ""path"": ""<Keyboard>/j"",
+                    ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""OpenQuestPanel"",
+                    ""action"": ""OpenSkillSetPanel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -360,7 +360,7 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
         m_Player_LeftMouseButton = m_Player.FindAction("LeftMouseButton", throwIfNotFound: true);
         m_Player_OpenInventory = m_Player.FindAction("OpenInventory", throwIfNotFound: true);
         m_Player_OpenStatsPanel = m_Player.FindAction("OpenStatsPanel", throwIfNotFound: true);
-        m_Player_OpenQuestPanel = m_Player.FindAction("OpenQuestPanel", throwIfNotFound: true);
+        m_Player_OpenSkillSetPanel = m_Player.FindAction("OpenSkillSetPanel", throwIfNotFound: true);
         m_Player_Ability1 = m_Player.FindAction("Ability1", throwIfNotFound: true);
         m_Player_Ability2 = m_Player.FindAction("Ability2", throwIfNotFound: true);
         m_Player_Ability3 = m_Player.FindAction("Ability3", throwIfNotFound: true);
@@ -437,7 +437,7 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_LeftMouseButton;
     private readonly InputAction m_Player_OpenInventory;
     private readonly InputAction m_Player_OpenStatsPanel;
-    private readonly InputAction m_Player_OpenQuestPanel;
+    private readonly InputAction m_Player_OpenSkillSetPanel;
     private readonly InputAction m_Player_Ability1;
     private readonly InputAction m_Player_Ability2;
     private readonly InputAction m_Player_Ability3;
@@ -457,7 +457,7 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
         public InputAction @LeftMouseButton => m_Wrapper.m_Player_LeftMouseButton;
         public InputAction @OpenInventory => m_Wrapper.m_Player_OpenInventory;
         public InputAction @OpenStatsPanel => m_Wrapper.m_Player_OpenStatsPanel;
-        public InputAction @OpenQuestPanel => m_Wrapper.m_Player_OpenQuestPanel;
+        public InputAction @OpenSkillSetPanel => m_Wrapper.m_Player_OpenSkillSetPanel;
         public InputAction @Ability1 => m_Wrapper.m_Player_Ability1;
         public InputAction @Ability2 => m_Wrapper.m_Player_Ability2;
         public InputAction @Ability3 => m_Wrapper.m_Player_Ability3;
@@ -490,9 +490,9 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
             @OpenStatsPanel.started += instance.OnOpenStatsPanel;
             @OpenStatsPanel.performed += instance.OnOpenStatsPanel;
             @OpenStatsPanel.canceled += instance.OnOpenStatsPanel;
-            @OpenQuestPanel.started += instance.OnOpenQuestPanel;
-            @OpenQuestPanel.performed += instance.OnOpenQuestPanel;
-            @OpenQuestPanel.canceled += instance.OnOpenQuestPanel;
+            @OpenSkillSetPanel.started += instance.OnOpenSkillSetPanel;
+            @OpenSkillSetPanel.performed += instance.OnOpenSkillSetPanel;
+            @OpenSkillSetPanel.canceled += instance.OnOpenSkillSetPanel;
             @Ability1.started += instance.OnAbility1;
             @Ability1.performed += instance.OnAbility1;
             @Ability1.canceled += instance.OnAbility1;
@@ -542,9 +542,9 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
             @OpenStatsPanel.started -= instance.OnOpenStatsPanel;
             @OpenStatsPanel.performed -= instance.OnOpenStatsPanel;
             @OpenStatsPanel.canceled -= instance.OnOpenStatsPanel;
-            @OpenQuestPanel.started -= instance.OnOpenQuestPanel;
-            @OpenQuestPanel.performed -= instance.OnOpenQuestPanel;
-            @OpenQuestPanel.canceled -= instance.OnOpenQuestPanel;
+            @OpenSkillSetPanel.started -= instance.OnOpenSkillSetPanel;
+            @OpenSkillSetPanel.performed -= instance.OnOpenSkillSetPanel;
+            @OpenSkillSetPanel.canceled -= instance.OnOpenSkillSetPanel;
             @Ability1.started -= instance.OnAbility1;
             @Ability1.performed -= instance.OnAbility1;
             @Ability1.canceled -= instance.OnAbility1;
@@ -601,7 +601,7 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
         void OnLeftMouseButton(InputAction.CallbackContext context);
         void OnOpenInventory(InputAction.CallbackContext context);
         void OnOpenStatsPanel(InputAction.CallbackContext context);
-        void OnOpenQuestPanel(InputAction.CallbackContext context);
+        void OnOpenSkillSetPanel(InputAction.CallbackContext context);
         void OnAbility1(InputAction.CallbackContext context);
         void OnAbility2(InputAction.CallbackContext context);
         void OnAbility3(InputAction.CallbackContext context);
