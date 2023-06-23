@@ -41,4 +41,13 @@ public class Define
         SkillSettingUIOpen
 
     }
+    public enum Skill_Type
+    {
+        M1Skill,
+        M2Skill,
+        Num1Skill,
+        Num2Skill,
+        Num3Skill,
+        Num4Skill
+    }
 }

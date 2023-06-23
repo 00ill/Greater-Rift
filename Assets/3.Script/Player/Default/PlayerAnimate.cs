@@ -21,8 +21,10 @@ public class PlayerAnimate : MonoBehaviour
 
     public void AbilityRMB(InputAction.CallbackContext callbackContext)
     {
-        _playerAnimator.Play("Skill_BladeSlash");
-        
+        if(callbackContext.performed)
+        {
+            _playerAnimator.Play("Skill_BladeSlash");
+        }
     }
     
     private void BladeSlash()

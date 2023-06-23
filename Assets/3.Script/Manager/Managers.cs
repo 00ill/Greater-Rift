@@ -15,15 +15,17 @@ public class Managers : MonoBehaviour
     EventManager _eventManager = new EventManager();
     PoolManager _pool = new PoolManager();
     UIManager _ui = new UIManager();
+    SkillManager _skill = new SkillManager();
     public static GameManager Manager { get { return Instance._game; } }
     public static ResourceManager Resource { get { return Instance._resource; } }
     public static SceneManagerEx Scene { get { return Instance._scene; } }
     public static EventManager Event { get { return Instance._eventManager; } }
     public static PoolManager Pool { get { return Instance._pool; } }    
     public static UIManager UI { get { return Instance._ui; } }
-
+    public static SkillManager Skill { get {  return Instance._skill; } }
     void Start()
     {
+        Debug.Log("매니저 스타트");
         Init();
     }
 

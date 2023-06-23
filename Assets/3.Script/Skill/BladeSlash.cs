@@ -14,4 +14,8 @@ public class BladeSlash : MonoBehaviour
             enemyStatus.TakeDamage(10);
         }
     }
+    private IEnumerator DestroySkill()
+    {
+        yield return null;
+    }
 }

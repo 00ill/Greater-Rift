@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class GameUI : UI_Game, IListener
+public class GameUI : UI_Scene, IListener
 {
     private PlayerControlInput _playerControlInput;
 
@@ -21,7 +21,9 @@ public class GameUI : UI_Game, IListener
         SkillSetNum2Text,
         SkillSetNum3Text,
         SkillSetNum4Text,
+        SkillM1PanelTitle,
         SkillM1Script,
+        SkillM2PanelTitle,
         SkillM2Script
     }
 
@@ -70,6 +72,7 @@ public class GameUI : UI_Game, IListener
 
     private readonly string _skillPath = "Images/Skill/";
 
+
     private void Awake()
     {
         _playerControlInput = FindAnyObjectByType<PlayerControlInput>();
@@ -109,17 +112,19 @@ public class GameUI : UI_Game, IListener
         InitPanel();
     }
 
-    
+
     private void InitTexts()
     {
         GetText((int)Texts.InteractableObjectName).text = "";
         GetText((int)Texts.SkillSettingTitle).text = "Skill Setting";
-        GetText((int)Texts.SkillSetM1Text).text = "Mouse 1 Skill Setting";
-        GetText((int)Texts.SkillSetM2Text).text = "Mouse 2 Skill Setting";
-        GetText((int)Texts.SkillSetNum1Text).text = "num 1 Skill Setting";
-        GetText((int)Texts.SkillSetNum2Text).text = "num 2 Skill Setting";
-        GetText((int)Texts.SkillSetNum3Text).text = "num 3 Skill Setting";
-        GetText((int)Texts.SkillSetNum4Text).text = "num 4 Skill Setting";
+        GetText((int)Texts.SkillSetM1Text).text = "<color=white>Mouse 1 Skill Setting</color>";
+        GetText((int)Texts.SkillSetM2Text).text = "<color=white>Mouse 2 Skill Setting</color>";
+        GetText((int)Texts.SkillSetNum1Text).text = "<color=white>num 1 Skill Setting</color>";
+        GetText((int)Texts.SkillSetNum2Text).text = "<color=white>num 2 Skill Setting</color>";
+        GetText((int)Texts.SkillSetNum3Text).text = "<color=white>num 3 Skill Setting</color>";
+        GetText((int)Texts.SkillSetNum4Text).text = "<color=white>num 4 Skill Setting</color>";
+        GetText((int)Texts.SkillM1PanelTitle).text = "<color=white>Mouse 1 Skill Setting</color>";
+        GetText((int)Texts.SkillM2PanelTitle).text = "<color=white>Mouse 2 Skill Setting</color>";
         GetText((int)Texts.SkillM1Script).text = "";
         GetText((int)Texts.SkillM2Script).text = "";
     }
@@ -139,10 +144,16 @@ public class GameUI : UI_Game, IListener
         //스킬셋 M1
         GetImage((int)Images.SkillSetingM1_Cutting).sprite = Managers.Resource.Load<Sprite>(_skillPath + "Cutting");
         GetImage((int)Images.SkillSetingM1_Cutting).gameObject.BindEvent((PointerEventData data) =>
-        { GetText((int)Texts.SkillM1Script).text = FindSkillScript(Images.SkillSetingM1_Cutting); });
+        {
+            GetText((int)Texts.SkillM1Script).text = FindSkillScript(Images.SkillSetingM1_Cutting);
+            Managers.Skill.CurrentSelectSkillName = SkillName.Cutting;
+        });
         GetImage((int)Images.SkillSetingM1_Kick).sprite = Managers.Resource.Load<Sprite>(_skillPath + "Kick");
         GetImage((int)Images.SkillSetingM1_Kick).gameObject.BindEvent((PointerEventData data) =>
-        { GetText((int)Texts.SkillM1Script).text = FindSkillScript(Images.SkillSetingM1_Kick); });
+        {
+            GetText((int)Texts.SkillM1Script).text = FindSkillScript(Images.SkillSetingM1_Kick);
+            Managers.Skill.CurrentSelectSkillName = SkillName.Kick;
+        });
         //스킬셋 M2
         GetImage((int)Images.SkillSetingM2_BladeSlash).sprite = Managers.Resource.Load<Sprite>(_skillPath + "BladeSlash");
         GetImage((int)Images.SkillSetingM2_BladeSlash).gameObject.BindEvent((PointerEventData data) =>
@@ -180,7 +191,7 @@ public class GameUI : UI_Game, IListener
         GetImage((int)Images.ManaFluid).material.SetFloat("_FillLevel", Mathf.Clamp(curMana / maxMana, 0, 1));
     }
 
-    
+
     private string FindSkillScript(Images image)
     {
         switch (image)
@@ -193,7 +204,7 @@ public class GameUI : UI_Game, IListener
                 {
                     return "Damage as much as 120% of the player's attack by Kicking enemies";
                 }
-                case Images.SkillSetingM2_BladeSlash: 
+            case Images.SkillSetingM2_BladeSlash:
                 {
                     return "Swing a knife in a circle, dealing 200% damage to the enemy";
                 }
@@ -208,6 +219,7 @@ public class GameUI : UI_Game, IListener
     #region 스킬 세팅 UI Open/Close/Confirm
     private void SKillSetM1Open()
     {
+        Managers.Skill.CurrentChangeSkillType = SkillType.M1Skill;
         GetObject((int)Objects.SkillM1Panel).SetActive(true);
     }
     private void SkillM1PanelConfirm()
@@ -215,6 +227,12 @@ public class GameUI : UI_Game, IListener
         //스킬등록 이벤트 넣을 곳
         GetObject((int)Objects.SkillM1Panel).SetActive(false);
         GetText((int)Texts.SkillM1Script).text = "";
+
+        if (Managers.Skill.CurrentChangeSkillType == SkillType.M1Skill)
+        {
+            Debug.Log(Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentSelectSkillName).SpriteName);
+            GetImage((int)Images.SkillM1).sprite = Managers.Resource.Load<Sprite>(_skillPath + Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentSelectSkillName).SpriteName);
+        }
     }
     private void SkillM1PanelExit()
     {
