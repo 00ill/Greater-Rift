@@ -25,7 +25,6 @@ public class Managers : MonoBehaviour
     public static SkillManager Skill { get {  return Instance._skill; } }
     void Start()
     {
-        Debug.Log("매니저 스타트");
         Init();
     }
 

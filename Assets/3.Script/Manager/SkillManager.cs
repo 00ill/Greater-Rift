@@ -26,7 +26,7 @@ public class SkillData
     public SkillType Type;
     public float Cooldown;
     public int LevelLimit;
-    public string SpriteName;
+    public string ResourceName;
 
     public SkillData(SkillName name, SkillType type, float cooldown, int levelLimit, string spriteName)
     {
@@ -34,7 +34,7 @@ public class SkillData
         Type = type;
         Cooldown = cooldown;
         LevelLimit = levelLimit;
-        SpriteName = spriteName;
+        ResourceName = spriteName;
     }
 
 }
@@ -66,10 +66,48 @@ public class SkillManager
     public SkillType CurrentChangeSkillType;
     public SkillName CurrentSelectSkillName;
     public SkillGroup Skills = new();
+    public SkillName CurrentM1SKillName;
+    public SkillName CurrentM2SKillName = SkillName.BladeSlash;
+    public SkillName CurrentNum1SKillName;
+    public SkillName CurrentNum2SKillName;
+    public SkillName CurrentNum3SKillName;
+    public SkillName CurrentNum4SKillName;
+    public float M1SkillCooldownRemain;
+    public float M2SkillCooldownRemain;
+    public float Num1SkillCooldownRemain;
+    public float Num2SkillCooldownRemain;
+    public float Num3SkillCooldownRemain;
+    public float Num4SkillCooldownRemain;
 
     public SkillData GetSkillData(SkillName skillNameToGet)
     {
         return Skills.GetSkillData(skillNameToGet);
     }
+
+    public void StartM1Cooldown()
+    {
+        M1SkillCooldownRemain = Skills.GetSkillData(CurrentM1SKillName).Cooldown;        
+    }
+    public void StartM2Cooldown()
+    {
+        M2SkillCooldownRemain = Skills.GetSkillData(CurrentM2SKillName).Cooldown;
+    }
+    public void StartNum1Cooldown()
+    {
+        Num1SkillCooldownRemain = Skills.GetSkillData(CurrentNum1SKillName).Cooldown;
+    }
+    public void StartNum2Cooldown()
+    {
+        Num2SkillCooldownRemain = Skills.GetSkillData(CurrentNum2SKillName).Cooldown;
+    }
+    public void StartNum3Cooldown()
+    {
+        Num3SkillCooldownRemain = Skills.GetSkillData(CurrentNum3SKillName).Cooldown;
+    }
+    public void StartNum4Cooldown()
+    {
+        Num4SkillCooldownRemain = Skills.GetSkillData(CurrentNum4SKillName).Cooldown;
+    }
+
 }
 

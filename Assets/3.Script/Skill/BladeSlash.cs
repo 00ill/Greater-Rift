@@ -6,7 +6,10 @@ using UnityEngine;
 public class BladeSlash : MonoBehaviour
 {
 
-
+    private void OnEnable()
+    {
+        StartCoroutine(DestroySkill());
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out EnemyStatus enemyStatus))
@@ -16,6 +19,8 @@ public class BladeSlash : MonoBehaviour
     }
     private IEnumerator DestroySkill()
     {
-        yield return null;
+        yield return new WaitForSeconds(0.5f);
+        Managers.Resource.Destroy(gameObject);
+
     }
 }

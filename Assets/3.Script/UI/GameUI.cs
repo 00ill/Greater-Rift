@@ -38,10 +38,16 @@ public class GameUI : UI_Scene, IListener
         SkillNum4,
         SkillM1,
         SkillM2,
+        SkillNum1Cooldown,
+        SkillNum2Cooldown,
+        SkillNum3Cooldown,
+        SkillNum4Cooldown,
+        SkillM2Cooldown,
         SkillSetingM1_Cutting,
         SkillSetingM1_Kick,
         SkillSetingM2_BladeSlash,
         SkillSetingM2_Temp
+
     }
     enum Sliders
     {
@@ -87,6 +93,7 @@ public class GameUI : UI_Scene, IListener
     private void Update()
     {
         GetImage((int)Images.Cursor).transform.position = _playerControlInput.MouseInputPosition + new Vector3(13.3f, -31f, 0);
+        UpdateSkillCooldown();
     }
     public override void Init()
     {
@@ -135,6 +142,11 @@ public class GameUI : UI_Scene, IListener
     }
     private void InitSkillimages()
     {
+        GetImage((int)Images.SkillNum1Cooldown).fillAmount = 0f;
+        GetImage((int)Images.SkillNum2Cooldown).fillAmount = 0f;
+        GetImage((int)Images.SkillNum3Cooldown).fillAmount = 0f;
+        GetImage((int)Images.SkillNum4Cooldown).fillAmount = 0f;
+        GetImage((int)Images.SkillM2Cooldown).fillAmount = 0f;
         GetImage((int)Images.SkillM1).sprite = Managers.Resource.Load<Sprite>(_skillPath + "Cutting");
         GetImage((int)Images.SkillM2).sprite = Managers.Resource.Load<Sprite>(_skillPath + "BladeSlash");
         GetImage((int)Images.SkillNum1).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
@@ -230,8 +242,9 @@ public class GameUI : UI_Scene, IListener
 
         if (Managers.Skill.CurrentChangeSkillType == SkillType.M1Skill)
         {
-            Debug.Log(Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentSelectSkillName).SpriteName);
-            GetImage((int)Images.SkillM1).sprite = Managers.Resource.Load<Sprite>(_skillPath + Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentSelectSkillName).SpriteName);
+            GetImage((int)Images.SkillM1).sprite = Managers.Resource.Load<Sprite>(_skillPath
+                + Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentSelectSkillName).ResourceName);
+            Managers.Skill.CurrentM1SKillName = Managers.Skill.CurrentSelectSkillName;
         }
     }
     private void SkillM1PanelExit()
@@ -264,6 +277,16 @@ public class GameUI : UI_Scene, IListener
         GetObject((int)Objects.SkillSettingUI).SetActive(false);
     }
     #endregion
+
+    private void UpdateSkillCooldown()
+    {
+        GetImage((int)Images.SkillNum1Cooldown).fillAmount = Managers.Skill.Num1SkillCooldownRemain / Managers.Skill.GetSkillData(Managers.Skill.CurrentNum1SKillName).Cooldown;
+        GetImage((int)Images.SkillNum2Cooldown).fillAmount = Managers.Skill.Num2SkillCooldownRemain / Managers.Skill.GetSkillData(Managers.Skill.CurrentNum2SKillName).Cooldown;
+        GetImage((int)Images.SkillNum3Cooldown).fillAmount = Managers.Skill.Num3SkillCooldownRemain / Managers.Skill.GetSkillData(Managers.Skill.CurrentNum3SKillName).Cooldown;
+        GetImage((int)Images.SkillNum4Cooldown).fillAmount = Managers.Skill.Num4SkillCooldownRemain / Managers.Skill.GetSkillData(Managers.Skill.CurrentNum4SKillName).Cooldown;
+        GetImage((int)Images.SkillM2Cooldown).fillAmount = Managers.Skill.M2SkillCooldownRemain / Managers.Skill.GetSkillData(Managers.Skill.CurrentM2SKillName).Cooldown;
+
+    }
     public void OnEvent(Define.EVENT_TYPE Event_Type, Component Sender, object Param = null)
     {
         switch (Event_Type)
