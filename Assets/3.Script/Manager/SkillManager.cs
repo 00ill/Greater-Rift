@@ -7,7 +7,8 @@ public enum SkillName
 {
     Cutting,
     Kick,
-    BladeSlash
+    BladeSlash,
+    DarkFlare
 }
 
 public enum SkillType
@@ -52,6 +53,7 @@ public class SkillGroup
         SkillList.Add(new SkillData(SkillName.Cutting, SkillType.M1Skill, 1f, 1, "Cutting"));
         SkillList.Add(new SkillData(SkillName.Kick, SkillType.M1Skill, 1f, 5, "Kick"));
         SkillList.Add(new SkillData(SkillName.BladeSlash, SkillType.M2Skill, 5f, 2, "BladeSlash"));
+        SkillList.Add(new SkillData(SkillName.DarkFlare, SkillType.M2Skill, 5f, 2, "DarkFlare"));
     }
 
     public SkillData GetSkillData(SkillName skillName)

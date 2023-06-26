@@ -103,5 +103,15 @@ public class PlayerAnimate : MonoBehaviour
     {
         GameObject go = Managers.Resource.Instantiate("Skill_BladeSlash");
         go.transform.position = transform.position;
+        go.transform.rotation = Quaternion.Euler( new Vector3(180, transform.rotation.y, 0f));
+        
+    }
+
+    private void DarkFlare()
+    {
+        GameObject go = Managers.Resource.Instantiate("DarkFlare");
+        go.transform.position = transform.position + Vector3.up * 0.5f;
+        go.transform.rotation = transform.rotation;
+        go.GetComponent<Projectile>().ShootForward();
     }
 }

@@ -3192,7 +3192,7 @@ GameObject:
   - component: {fileID: 8350107322664331992}
   - component: {fileID: 4944111516346023186}
   m_Layer: 5
-  m_Name: SkillSetingM2_Temp
+  m_Name: SkillSetingM2_DarkFlare
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

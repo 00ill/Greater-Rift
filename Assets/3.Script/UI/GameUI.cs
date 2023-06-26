@@ -46,7 +46,7 @@ public class GameUI : UI_Scene, IListener
         SkillSetingM1_Cutting,
         SkillSetingM1_Kick,
         SkillSetingM2_BladeSlash,
-        SkillSetingM2_Temp
+        SkillSetingM2_DarkFlare
 
     }
     enum Sliders
@@ -169,10 +169,16 @@ public class GameUI : UI_Scene, IListener
         //스킬셋 M2
         GetImage((int)Images.SkillSetingM2_BladeSlash).sprite = Managers.Resource.Load<Sprite>(_skillPath + "BladeSlash");
         GetImage((int)Images.SkillSetingM2_BladeSlash).gameObject.BindEvent((PointerEventData data) =>
-        { GetText((int)Texts.SkillM2Script).text = FindSkillScript(Images.SkillSetingM2_BladeSlash); });
-        GetImage((int)Images.SkillSetingM2_Temp).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
-        GetImage((int)Images.SkillSetingM2_Temp).gameObject.BindEvent((PointerEventData data) =>
-        { GetText((int)Texts.SkillM2Script).text = FindSkillScript(Images.SkillSetingM2_Temp); });
+        {
+            GetText((int)Texts.SkillM2Script).text = FindSkillScript(Images.SkillSetingM2_BladeSlash);
+            Managers.Skill.CurrentSelectSkillName = SkillName.BladeSlash;
+        });
+        GetImage((int)Images.SkillSetingM2_DarkFlare).sprite = Managers.Resource.Load<Sprite>(_skillPath + "DarkFlare");
+        GetImage((int)Images.SkillSetingM2_DarkFlare).gameObject.BindEvent((PointerEventData data) =>
+        {
+            GetText((int)Texts.SkillM2Script).text = FindSkillScript(Images.SkillSetingM2_DarkFlare);
+            Managers.Skill.CurrentSelectSkillName = SkillName.DarkFlare;
+        });
     }
 
     private void InitPanel()
@@ -220,9 +226,9 @@ public class GameUI : UI_Scene, IListener
                 {
                     return "Swing a knife in a circle, dealing 200% damage to the enemy";
                 }
-            case Images.SkillSetingM2_Temp:
+            case Images.SkillSetingM2_DarkFlare:
                 {
-                    return "Temp";
+                    return "Fire a sphere that deals 200% damage";
                 }
         }
 
@@ -255,6 +261,7 @@ public class GameUI : UI_Scene, IListener
 
     private void SKillSetM2Open()
     {
+        Managers.Skill.CurrentChangeSkillType = SkillType.M2Skill;
         GetObject((int)Objects.SkillM2Panel).SetActive(true);
     }
     private void SkillM2PanelConfirm()
@@ -262,6 +269,12 @@ public class GameUI : UI_Scene, IListener
         //스킬등록 이벤트 넣을 곳
         GetObject((int)Objects.SkillM2Panel).SetActive(false);
         GetText((int)Texts.SkillM2Script).text = "";
+        if (Managers.Skill.CurrentChangeSkillType == SkillType.M2Skill)
+        {
+            GetImage((int)Images.SkillM2).sprite = Managers.Resource.Load<Sprite>(_skillPath
+                + Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentSelectSkillName).ResourceName);
+            Managers.Skill.CurrentM2SKillName = Managers.Skill.CurrentSelectSkillName;
+        }
     }
     private void SkillM2PanelExit()
     {
