@@ -6,6 +6,7 @@ using UnityEngine;
 
 public enum Statistic
 {
+    Level,
     Life,
     Mana,
     Damage,
@@ -44,6 +45,7 @@ public class StatsGroup
 
     public void Init()
     {
+        StatsList.Add(new StatsValue(Statistic.Level, 1));
         StatsList.Add(new StatsValue(Statistic.Life, 100));
         StatsList.Add(new StatsValue(Statistic.Mana, 100));
         StatsList.Add(new StatsValue(Statistic.Damage, 25));

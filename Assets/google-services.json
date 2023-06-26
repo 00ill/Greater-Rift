@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "481295306696",
+    "firebase_url": "https://greater-rift-2b932-default-rtdb.firebaseio.com",
+    "project_id": "greater-rift-2b932",
+    "storage_bucket": "greater-rift-2b932.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:481295306696:android:97cc13747da556b712fafd",
+        "android_client_info": {
+          "package_name": "com.Project.GreaterRift"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "481295306696-goe2rel1dif5l0r9updcq5packsfe7h8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkbzwFUd0MFoSUuvBhOJOw_uQNGhemG8A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "481295306696-goe2rel1dif5l0r9updcq5packsfe7h8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

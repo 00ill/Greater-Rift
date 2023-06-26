@@ -1,0 +1,424 @@
+{
+  "PlayerStatusData":[
+    {
+      "Level": 1,
+      "Life": 130,
+      "Mana": 100,
+      "Damage": 20,
+      "Armor": 5
+    },
+    {
+      "Level": 2,
+      "Life": 154,
+      "Mana": 120,
+      "Damage": 30,
+      "Armor": 7
+    },
+    {
+      "Level": 3,
+      "Life": 178,
+      "Mana": 140,
+      "Damage": 40,
+      "Armor": 9
+    },
+    {
+      "Level": 4,
+      "Life": 202,
+      "Mana": 160,
+      "Damage": 50,
+      "Armor": 11
+    },
+    {
+      "Level": 5,
+      "Life": 226,
+      "Mana": 180,
+      "Damage": 60,
+      "Armor": 13
+    },
+    {
+      "Level": 6,
+      "Life": 250,
+      "Mana": 200,
+      "Damage": 70,
+      "Armor": 15
+    },
+    {
+      "Level": 7,
+      "Life": 274,
+      "Mana": 220,
+      "Damage": 80,
+      "Armor": 17
+    },
+    {
+      "Level": 8,
+      "Life": 298,
+      "Mana": 240,
+      "Damage": 90,
+      "Armor": 19
+    },
+    {
+      "Level": 9,
+      "Life": 322,
+      "Mana": 260,
+      "Damage": 100,
+      "Armor": 21
+    },
+    {
+      "Level": 10,
+      "Life": 346,
+      "Mana": 280,
+      "Damage": 110,
+      "Armor": 23
+    },
+    {
+      "Level": 11,
+      "Life": 370,
+      "Mana": 300,
+      "Damage": 120,
+      "Armor": 25
+    },
+    {
+      "Level": 12,
+      "Life": 394,
+      "Mana": 320,
+      "Damage": 130,
+      "Armor": 27
+    },
+    {
+      "Level": 13,
+      "Life": 418,
+      "Mana": 340,
+      "Damage": 140,
+      "Armor": 29
+    },
+    {
+      "Level": 14,
+      "Life": 442,
+      "Mana": 360,
+      "Damage": 150,
+      "Armor": 31
+    },
+    {
+      "Level": 15,
+      "Life": 466,
+      "Mana": 380,
+      "Damage": 160,
+      "Armor": 33
+    },
+    {
+      "Level": 16,
+      "Life": 490,
+      "Mana": 400,
+      "Damage": 170,
+      "Armor": 35
+    },
+    {
+      "Level": 17,
+      "Life": 514,
+      "Mana": 420,
+      "Damage": 180,
+      "Armor": 37
+    },
+    {
+      "Level": 18,
+      "Life": 538,
+      "Mana": 440,
+      "Damage": 190,
+      "Armor": 39
+    },
+    {
+      "Level": 19,
+      "Life": 562,
+      "Mana": 460,
+      "Damage": 200,
+      "Armor": 41
+    },
+    {
+      "Level": 20,
+      "Life": 586,
+      "Mana": 480,
+      "Damage": 210,
+      "Armor": 43
+    },
+    {
+      "Level": 21,
+      "Life": 610,
+      "Mana": 500,
+      "Damage": 220,
+      "Armor": 45
+    },
+    {
+      "Level": 22,
+      "Life": 634,
+      "Mana": 520,
+      "Damage": 230,
+      "Armor": 47
+    },
+    {
+      "Level": 23,
+      "Life": 658,
+      "Mana": 540,
+      "Damage": 240,
+      "Armor": 49
+    },
+    {
+      "Level": 24,
+      "Life": 682,
+      "Mana": 560,
+      "Damage": 250,
+      "Armor": 51
+    },
+    {
+      "Level": 25,
+      "Life": 706,
+      "Mana": 580,
+      "Damage": 260,
+      "Armor": 53
+    },
+    {
+      "Level": 26,
+      "Life": 730,
+      "Mana": 600,
+      "Damage": 270,
+      "Armor": 55
+    },
+    {
+      "Level": 27,
+      "Life": 754,
+      "Mana": 620,
+      "Damage": 280,
+      "Armor": 57
+    },
+    {
+      "Level": 28,
+      "Life": 778,
+      "Mana": 640,
+      "Damage": 290,
+      "Armor": 59
+    },
+    {
+      "Level": 29,
+      "Life": 802,
+      "Mana": 660,
+      "Damage": 300,
+      "Armor": 61
+    },
+    {
+      "Level": 30,
+      "Life": 826,
+      "Mana": 680,
+      "Damage": 310,
+      "Armor": 63
+    },
+    {
+      "Level": 31,
+      "Life": 850,
+      "Mana": 700,
+      "Damage": 320,
+      "Armor": 65
+    },
+    {
+      "Level": 32,
+      "Life": 874,
+      "Mana": 720,
+      "Damage": 330,
+      "Armor": 67
+    },
+    {
+      "Level": 33,
+      "Life": 898,
+      "Mana": 740,
+      "Damage": 340,
+      "Armor": 69
+    },
+    {
+      "Level": 34,
+      "Life": 922,
+      "Mana": 760,
+      "Damage": 350,
+      "Armor": 71
+    },
+    {
+      "Level": 35,
+      "Life": 946,
+      "Mana": 780,
+      "Damage": 360,
+      "Armor": 73
+    },
+    {
+      "Level": 36,
+      "Life": 970,
+      "Mana": 800,
+      "Damage": 370,
+      "Armor": 75
+    },
+    {
+      "Level": 37,
+      "Life": 994,
+      "Mana": 820,
+      "Damage": 380,
+      "Armor": 77
+    },
+    {
+      "Level": 38,
+      "Life": 1018,
+      "Mana": 840,
+      "Damage": 390,
+      "Armor": 79
+    },
+    {
+      "Level": 39,
+      "Life": 1042,
+      "Mana": 860,
+      "Damage": 400,
+      "Armor": 81
+    },
+    {
+      "Level": 40,
+      "Life": 1066,
+      "Mana": 880,
+      "Damage": 410,
+      "Armor": 83
+    },
+    {
+      "Level": 41,
+      "Life": 1090,
+      "Mana": 900,
+      "Damage": 420,
+      "Armor": 85
+    },
+    {
+      "Level": 42,
+      "Life": 1114,
+      "Mana": 920,
+      "Damage": 430,
+      "Armor": 87
+    },
+    {
+      "Level": 43,
+      "Life": 1138,
+      "Mana": 940,
+      "Damage": 440,
+      "Armor": 89
+    },
+    {
+      "Level": 44,
+      "Life": 1162,
+      "Mana": 960,
+      "Damage": 450,
+      "Armor": 91
+    },
+    {
+      "Level": 45,
+      "Life": 1186,
+      "Mana": 980,
+      "Damage": 460,
+      "Armor": 93
+    },
+    {
+      "Level": 46,
+      "Life": 1210,
+      "Mana": 1000,
+      "Damage": 470,
+      "Armor": 95
+    },
+    {
+      "Level": 47,
+      "Life": 1234,
+      "Mana": 1020,
+      "Damage": 480,
+      "Armor": 97
+    },
+    {
+      "Level": 48,
+      "Life": 1258,
+      "Mana": 1040,
+      "Damage": 490,
+      "Armor": 99
+    },
+    {
+      "Level": 49,
+      "Life": 1282,
+      "Mana": 1060,
+      "Damage": 500,
+      "Armor": 101
+    },
+    {
+      "Level": 50,
+      "Life": 1306,
+      "Mana": 1080,
+      "Damage": 510,
+      "Armor": 103
+    },
+    {
+      "Level": 51,
+      "Life": 1330,
+      "Mana": 1100,
+      "Damage": 520,
+      "Armor": 105
+    },
+    {
+      "Level": 52,
+      "Life": 1354,
+      "Mana": 1120,
+      "Damage": 530,
+      "Armor": 107
+    },
+    {
+      "Level": 53,
+      "Life": 1378,
+      "Mana": 1140,
+      "Damage": 540,
+      "Armor": 109
+    },
+    {
+      "Level": 54,
+      "Life": 1402,
+      "Mana": 1160,
+      "Damage": 550,
+      "Armor": 111
+    },
+    {
+      "Level": 55,
+      "Life": 1426,
+      "Mana": 1180,
+      "Damage": 560,
+      "Armor": 113
+    },
+    {
+      "Level": 56,
+      "Life": 1450,
+      "Mana": 1200,
+      "Damage": 570,
+      "Armor": 115
+    },
+    {
+      "Level": 57,
+      "Life": 1474,
+      "Mana": 1220,
+      "Damage": 580,
+      "Armor": 117
+    },
+    {
+      "Level": 58,
+      "Life": 1498,
+      "Mana": 1240,
+      "Damage": 590,
+      "Armor": 119
+    },
+    {
+      "Level": 59,
+      "Life": 1522,
+      "Mana": 1260,
+      "Damage": 600,
+      "Armor": 121
+    },
+    {
+      "Level": 60,
+      "Life": 1546,
+      "Mana": 1280,
+      "Damage": 610,
+      "Armor": 123
+    }
+  ]
+}

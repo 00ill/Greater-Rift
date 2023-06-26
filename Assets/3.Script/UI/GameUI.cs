@@ -245,7 +245,7 @@ public class GameUI : UI_Scene, IListener
     {
         //스킬등록 이벤트 넣을 곳
         GetText((int)Texts.SkillM1Script).text = "";
-        if (SkillLevelCheck() && Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentSelectSkillName).Type == SkillType.M1Skill)
+        if (SkillLevelCheck(Texts.SkillM1Script) && Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentSelectSkillName).Type == SkillType.M1Skill)
         {
             GetImage((int)Images.SkillM1).sprite = Managers.Resource.Load<Sprite>(_skillPath
                 + Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentSelectSkillName).ResourceName);
@@ -269,7 +269,7 @@ public class GameUI : UI_Scene, IListener
     {
         //스킬등록 이벤트 넣을 곳
         GetText((int)Texts.SkillM2Script).text = "";
-        if ( SkillLevelCheck() && Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentSelectSkillName).Type == SkillType.M2Skill )
+        if ( SkillLevelCheck(Texts.SkillM2Script) && Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentSelectSkillName).Type == SkillType.M2Skill )
         {
             GetImage((int)Images.SkillM2).sprite = Managers.Resource.Load<Sprite>(_skillPath
                 + Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentSelectSkillName).ResourceName);
@@ -292,11 +292,11 @@ public class GameUI : UI_Scene, IListener
     }
     #endregion
 
-    private bool SkillLevelCheck()
+    private bool SkillLevelCheck(Texts text)
     {
         if (Managers.Skill.GetSkillData(Managers.Skill.CurrentSelectSkillName).LevelLimit > GameManager.PlayerLevel)
         {
-            GetText((int)Texts.SkillM2Script).text = string.Format($"This skill is available from level " +
+            GetText((int)text).text = string.Format($"This skill is available from level " +
                 $"{Managers.Skill.GetSkillData(Managers.Skill.CurrentSelectSkillName).LevelLimit}");
             return false;
         }

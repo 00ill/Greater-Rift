@@ -16,6 +16,8 @@ public class Managers : MonoBehaviour
     PoolManager _pool = new PoolManager();
     UIManager _ui = new UIManager();
     SkillManager _skill = new SkillManager();
+    DataManager _data = new DataManager();
+    DBManager _db = new DBManager();
     public static GameManager Game { get { return Instance._game; } }
     public static ResourceManager Resource { get { return Instance._resource; } }
     public static SceneManagerEx Scene { get { return Instance._scene; } }
@@ -23,9 +25,13 @@ public class Managers : MonoBehaviour
     public static PoolManager Pool { get { return Instance._pool; } }    
     public static UIManager UI { get { return Instance._ui; } }
     public static SkillManager Skill { get {  return Instance._skill; } }
+    public static DataManager Data { get { return Instance._data; } }
+    public static DBManager DB { get { return Instance._db; } }
     void Start()
     {
         Init();
+        //Data.Init();
+        DB.Init();
     }
 
     static void Init()
@@ -53,6 +59,5 @@ public class Managers : MonoBehaviour
         Scene.Clear();
         UI.Clear();
         Event.ClearEventList();
-
     }
 }

@@ -35,6 +35,7 @@ public class Define
   
     public enum EVENT_TYPE
     {
+        DuplicateNickname,
         PlayerHpChange,
         PlayerManaChange,
         CheckInteractableObject,
