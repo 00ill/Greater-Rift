@@ -1,7 +1,5 @@
-﻿using System;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
-using InfinityPBR;
 
 namespace InfinityPBR
 {
@@ -16,7 +14,7 @@ namespace InfinityPBR
         private int childSelectIndex = 0;
 
         private string[] childNames;
-        
+
         Vector2 scrollPos;
 
         private string[] colorSetOptions;
@@ -52,16 +50,16 @@ namespace InfinityPBR
                         }
                     }
                 }
-                
+
             }
         }
 
         void OnGUI()
         {
             CheckListSize();
-            
+
             scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
-            
+
             if (!Shader.Find(_shaderName) && !Shader.Find(_shaderNameURP) && !Shader.Find(_shaderNameHDRP))
             {
                 EditorGUILayout.HelpBox(
@@ -79,7 +77,7 @@ namespace InfinityPBR
             EditorPrefs.SetBool("ColorShifter_ShowHelp", EditorGUILayout.Toggle("Show Help Boxes", EditorPrefs.GetBool("ColorShifter_ShowHelp")));
             EditorPrefs.SetBool("ColorShifter_ShowFull", EditorGUILayout.Toggle("Show Full Data", EditorPrefs.GetBool("ColorShifter_ShowFull")));
             EditorGUILayout.EndHorizontal();
-            
+
             if (EditorPrefs.GetBool("ColorShifter_ShowHelp"))
             {
                 EditorGUILayout.HelpBox(
@@ -96,16 +94,16 @@ namespace InfinityPBR
                         "like to keep your object, right click and select \"Create/Infinity PBR/Create Color Shifter Object\", and then name your object as you'd like.", MessageType.Warning);
                 }
             }
-            
+
             colorShifterObject = EditorGUILayout.ObjectField("Color Shifter Object", colorShifterObject,
                 typeof(ColorShifterObject), false) as ColorShifterObject;
-            
+
             if (!colorShifterObject)
             {
                 EditorGUILayout.EndScrollView();
                 return;
             }
-            
+
             colorShifterObject.material = EditorGUILayout.ObjectField("Material", colorShifterObject.material, typeof(Material), false) as Material;
             if (!colorShifterObject.material)
             {
@@ -139,16 +137,16 @@ namespace InfinityPBR
                 EditorGUILayout.EndScrollView();
                 return;
             }
-            
+
             colorShifterObject.activeColors = Mathf.Clamp(EditorGUILayout.IntField("Active Colors", colorShifterObject.activeColors), 0, 49);
 
-            
+
             if (EditorPrefs.GetBool("ColorShifter_ShowFull"))
             {
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.BeginVertical();
-                colorShifterObject.material.SetFloat("_ColorIDRange", EditorGUILayout.FloatField("Range",colorShifterObject.material.GetFloat("_ColorIDRange")));
-                colorShifterObject.material.SetFloat("_ColorIDFuzziness",EditorGUILayout.FloatField("Fuzziness",colorShifterObject.material.GetFloat("_ColorIDFuzziness")));
+                colorShifterObject.material.SetFloat("_ColorIDRange", EditorGUILayout.FloatField("Range", colorShifterObject.material.GetFloat("_ColorIDRange")));
+                colorShifterObject.material.SetFloat("_ColorIDFuzziness", EditorGUILayout.FloatField("Fuzziness", colorShifterObject.material.GetFloat("_ColorIDFuzziness")));
 
                 EditorGUILayout.EndVertical();
                 EditorGUILayout.HelpBox(
@@ -156,7 +154,7 @@ namespace InfinityPBR
                     MessageType.Warning);
                 EditorGUILayout.EndHorizontal();
             }
-            
+
             if (colorShifterObject.material.GetFloat("_ColorIDRange") < 0.01f)
                 colorShifterObject.material.SetFloat("_ColorIDRange", 0.01f);
             if (colorShifterObject.material.GetFloat("_ColorIDFuzziness") < 0.01f)
@@ -168,7 +166,7 @@ namespace InfinityPBR
                     "Please click the button below to set the exportPath for saving PNG files of your textures.",
                     MessageType.Error);
             }
-            
+
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("Export Path", colorShifterObject.exportPath, EditorStyles.wordWrappedLabel);
             if (GUILayout.Button("Choose"))
@@ -187,8 +185,8 @@ namespace InfinityPBR
                 GUILayout.Label(colorShifterObject.material.mainTexture, GUILayout.Width(300));
             }
             */
-            
-            
+
+
             // ---------------------------------------
             // COLOR SET SELECTION
             // ---------------------------------------
@@ -204,7 +202,7 @@ namespace InfinityPBR
             }
             EditorGUILayout.BeginHorizontal();
             colorShifterObject.activeColorSetIndex = EditorGUILayout.Popup(colorShifterObject.activeColorSetIndex, colorSetOptions);
-          
+
             if (GUILayout.Button("Copy Color Set"))
             {
                 Undo.RecordObject(colorShifterObject, "Copy Color Set");
@@ -220,7 +218,7 @@ namespace InfinityPBR
                 }
             }
             EditorGUILayout.EndHorizontal();
-            
+
             EditorGUILayout.BeginHorizontal();
 
             if (GUILayout.Button("Create New Color Set"))
@@ -239,9 +237,9 @@ namespace InfinityPBR
                 ExportActiveColorSet();
             }
             EditorGUILayout.EndHorizontal();
-            
-            
-            
+
+
+
 
             // ---------------------------------------
             // DISPLAY COLORS HEADER
@@ -261,7 +259,7 @@ namespace InfinityPBR
             {
                 ActiveColorSet().name = "Unnamed Color Set " + colorShifterObject.activeColorSetIndex;
             }
-            
+
             EditorGUILayout.BeginHorizontal();
             if (GUILayout.Button("Expand All"))
             {
@@ -279,11 +277,11 @@ namespace InfinityPBR
                 Undo.RecordObject(colorShifterObject, "Sort by name");
                 ActiveColorSet().colorShifterItems.Sort();
             }
-            
+
             EditorGUILayout.EndHorizontal();
-            
-            
-            
+
+
+
             // ---------------------------------------
             // DISPLAY COLORS ETC
             // ---------------------------------------
@@ -299,7 +297,7 @@ namespace InfinityPBR
                 else if (!colorShifterItem.isOn && !colorShifterItem.isChild)
                     DisplayItemClosed(colorShifterItem);
             }
-            
+
             if (EditorPrefs.GetBool("ColorShifter_ShowHelp"))
             {
                 EditorGUILayout.HelpBox(
@@ -354,10 +352,10 @@ namespace InfinityPBR
                     "Color 47: 0,0,0\n" +
                     "Color 48: 255,255,255", MessageType.None);
             }
-            
+
             EditorGUILayout.EndScrollView();
             colorShifterObject.SetActiveColorSet();
-            
+
             EditorUtility.SetDirty(colorShifterObject);
         }
 
@@ -368,7 +366,7 @@ namespace InfinityPBR
         {
             colorShifterObject.material.shader = Shader.Find(_shaderName);
         }
-        
+
         private void CreateColorSet()
         {
             colorShifterObject.colorSets.Add(new ColorSet());
@@ -393,7 +391,7 @@ namespace InfinityPBR
             colorShifterObject.colorSets.RemoveAt(colorShifterObject.activeColorSetIndex);
             colorShifterObject.activeColorSetIndex = newIndex;
         }
-        
+
         private void SetColorSetOptions()
         {
             colorSetOptions = new string[colorShifterObject.colorSets.Count];
@@ -413,7 +411,7 @@ namespace InfinityPBR
             {
                 ColorShifterItem copyTo = copyToColorSet.colorShifterItems[i];
                 ColorShifterItem copyFrom = copyFromColorSet.colorShifterItems[i];
-                
+
                 copyTo.color = copyFrom.color;
                 copyTo.name = copyFrom.name;
                 copyTo.hue = copyFrom.hue;
@@ -423,7 +421,7 @@ namespace InfinityPBR
                 copyTo.orderIndex = copyFrom.orderIndex;
                 copyTo.shaderIndex = copyFrom.shaderIndex;
 
-                
+
                 for (int c = 0; c < copyFrom.children.Count; c++)
                 {
                     copyTo.children.Add(copyFrom.children[c]);
@@ -460,23 +458,23 @@ namespace InfinityPBR
         {
             ExportColorSet(colorShifterObject.activeColorSetIndex);
         }
-        
+
         private void ExportColorSet(int index)
         {
             //int currentIndex = colorShifterObject.activeColorSetIndex;
 
             colorShifterObject.activeColorSetIndex = index;
             Repaint();
-            
+
             Texture2D outputTex = new Texture2D(512, 512, TextureFormat.ARGB32, false, true);
             RenderTexture buffer = new RenderTexture(
-                512, 
-                512, 
+                512,
+                512,
                 0,                            // No depth/stencil buffer
                 RenderTextureFormat.ARGB32//RenderTextureReadWrite.Linear // No sRGB conversions
             );
-            
-            
+
+
             Graphics.Blit(colorShifterObject.material.GetTexture("_MainTex"), buffer, colorShifterObject.material, 2);
 
             //RenderTexture.active = colorShifterObject.renderTexture;           // If not using a scene camera
@@ -485,10 +483,10 @@ namespace InfinityPBR
                 0, 0,                          // Write starting at the top-left texel
                 false                          // No mipmaps
             );
-            
-           
 
-            System.IO.File.WriteAllBytes( colorShifterObject.exportPath + "/" + ActiveColorSet().name + ".png", outputTex.EncodeToPNG());
+
+
+            System.IO.File.WriteAllBytes(colorShifterObject.exportPath + "/" + ActiveColorSet().name + ".png", outputTex.EncodeToPNG());
 
 
             //colorShifterObject.activeColorSetIndex = currentIndex;
@@ -500,7 +498,7 @@ namespace InfinityPBR
             EditorGUILayout.BeginHorizontal();
             colorShifterItem.isOn = EditorGUILayout.Foldout(colorShifterItem.isOn, colorShifterItem.name);
             Color.RGBToHSV(EditorGUILayout.ColorField("", Color.HSVToRGB(colorShifterItem.hue, colorShifterItem.saturation, colorShifterItem.value)), out colorShifterItem.hue, out colorShifterItem.saturation, out colorShifterItem.value);
-                    
+
             if (GUILayout.Button(colorShifterItem.testView ? "Revert" : "Test"))
             {
                 colorShifterItem.testView = !colorShifterItem.testView;
@@ -524,24 +522,24 @@ namespace InfinityPBR
             EditorGUILayout.BeginVertical();
             //EditorGUILayout.LabelField("COLOR ID VALUE");
             colorShifterItem.color = EditorGUILayout.ColorField("ColorID color", colorShifterItem.color);
-            colorShifterItem.color.r = (EditorGUILayout.Slider("R",  255 * colorShifterItem.color.r, 0,255) / 255);
-            colorShifterItem.color.g = (EditorGUILayout.Slider("G",  255 * colorShifterItem.color.g, 0,255) / 255);
-            colorShifterItem.color.b = (EditorGUILayout.Slider("B",  255 * colorShifterItem.color.b, 0,255) / 255);
+            colorShifterItem.color.r = (EditorGUILayout.Slider("R", 255 * colorShifterItem.color.r, 0, 255) / 255);
+            colorShifterItem.color.g = (EditorGUILayout.Slider("G", 255 * colorShifterItem.color.g, 0, 255) / 255);
+            colorShifterItem.color.b = (EditorGUILayout.Slider("B", 255 * colorShifterItem.color.b, 0, 255) / 255);
             EditorGUILayout.EndVertical();
             EditorGUILayout.BeginVertical();
             //EditorGUILayout.LabelField("FINAL COLOR VALUE");
             //Undo.RecordObject(colorShifterObject, "Change Color");
             Color.RGBToHSV(EditorGUILayout.ColorField("Output Color", Color.HSVToRGB(colorShifterItem.hue, colorShifterItem.saturation, colorShifterItem.value)), out colorShifterItem.hue, out colorShifterItem.saturation, out colorShifterItem.value);
-            colorShifterItem.hue = EditorGUILayout.Slider("Hue", colorShifterItem.hue, 0f,1f);
-            colorShifterItem.saturation = EditorGUILayout.Slider("Saturation", colorShifterItem.saturation, 0f,1f);
-            colorShifterItem.value = EditorGUILayout.Slider("Value", colorShifterItem.value, 0f,1f);
+            colorShifterItem.hue = EditorGUILayout.Slider("Hue", colorShifterItem.hue, 0f, 1f);
+            colorShifterItem.saturation = EditorGUILayout.Slider("Saturation", colorShifterItem.saturation, 0f, 1f);
+            colorShifterItem.value = EditorGUILayout.Slider("Value", colorShifterItem.value, 0f, 1f);
             EditorGUILayout.EndVertical();
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.BeginHorizontal();
             childNames = GetChildNames();
             childSelectIndex = EditorGUILayout.Popup(childSelectIndex, childNames);
-            
+
             if (GUILayout.Button("Control This"))
             {
                 AddParentLink(colorShifterItem, childNames[childSelectIndex]);
@@ -561,9 +559,9 @@ namespace InfinityPBR
                     }
                     EditorGUILayout.EndHorizontal();
                 }
-                
+
             }
-            
+
             if (EditorPrefs.GetBool("ColorShifter_ShowFull"))
             {
                 EditorGUILayout.BeginVertical(EditorStyles.helpBox);
@@ -578,10 +576,10 @@ namespace InfinityPBR
                 colorShifterItem.hue = EditorGUILayout.FloatField("Hue", colorShifterItem.hue);
                 colorShifterItem.saturation = EditorGUILayout.FloatField("Saturation", colorShifterItem.saturation);
                 colorShifterItem.value = EditorGUILayout.FloatField("Lightness", colorShifterItem.value);
-                
+
                 EditorGUILayout.EndVertical();
             }
-            
+
             EditorGUI.indentLevel--;
             EditorGUILayout.EndVertical();
         }
@@ -621,11 +619,11 @@ namespace InfinityPBR
             }
             EditorGUILayout.EndVertical();
             EditorGUILayout.BeginVertical();
-            
+
             EditorGUILayout.LabelField("Shift the final color by the values below");
-            colorShifterItem.childHueShift = EditorGUILayout.Slider("Hue Shift", colorShifterItem.childHueShift, -1f,1f);
-            colorShifterItem.childSaturationShift = EditorGUILayout.Slider("Saturation Shift", colorShifterItem.childSaturationShift, -1f,1f);
-            colorShifterItem.childValueShift = EditorGUILayout.Slider("Value Shift", colorShifterItem.childValueShift, -1f,1f);
+            colorShifterItem.childHueShift = EditorGUILayout.Slider("Hue Shift", colorShifterItem.childHueShift, -1f, 1f);
+            colorShifterItem.childSaturationShift = EditorGUILayout.Slider("Saturation Shift", colorShifterItem.childSaturationShift, -1f, 1f);
+            colorShifterItem.childValueShift = EditorGUILayout.Slider("Value Shift", colorShifterItem.childValueShift, -1f, 1f);
             EditorGUILayout.EndVertical();
             EditorGUILayout.EndHorizontal();
 
@@ -668,7 +666,7 @@ namespace InfinityPBR
 
             return 9999;
         }
-        
+
         private ColorShifterItem GetColorShifterItem(string name)
         {
             for (int i = 0; i < ActiveColorSet().colorShifterItems.Count; i++)

@@ -1,15 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Firebase;
 using Firebase.Database;
 using System;
+using UnityEngine;
 
 public class DBManager : MonoBehaviour
 {
     public string DBurl = "https://greater-rift-2b932-default-rtdb.firebaseio.com/";
     DatabaseReference reference;
-
     public void Init()
     {
         FirebaseApp.DefaultInstance.Options.DatabaseUrl = new Uri(DBurl);
@@ -20,36 +17,32 @@ public class DBManager : MonoBehaviour
     }
 
 
-    public bool CreatePlayerData(string name)
+    public void CreatePlayerData(string name)
     {
-        bool result = false;    
         DatabaseReference dataRef = reference.Child("PlayerData").Child(name);
         dataRef.GetValueAsync().ContinueWith(tast =>
         {
-            if(tast.IsFaulted)
+            if (tast.IsFaulted)
             {
                 Debug.Log("데이터 생성 중 오류 발생");
-                result = false;
                 return;
             }
-            if(tast.IsCompleted)
+            if (tast.IsCompleted)
             {
                 DataSnapshot snapshot = tast.Result;
-                if(snapshot.Exists)
+                if (snapshot.Exists)
                 {
                     Managers.Event.PostNotification(Define.EVENT_TYPE.DuplicateNickname, this);
-                    Debug.Log("중복된 닉네임");
-
-                    result = false;
-                    return;
                 }
-                PlayerData playerData = new PlayerData(1, 0f);
-                string playerDataJson = JsonUtility.ToJson(playerData);
-                reference.Child("PlayerData").Child(name).SetRawJsonValueAsync(playerDataJson);
-                result = true;
+                else
+                {
+                    PlayerData playerData = new(1, 0f);
+                    string playerDataJson = JsonUtility.ToJson(playerData);
+                    reference.Child("PlayerData").Child(name).SetRawJsonValueAsync(playerDataJson);
+                    Managers.Event.PostNotification(Define.EVENT_TYPE.SuccessCreateNewPlayer, this);
+                }
             }
         });
-        return result;
     }
 
     /// <summary>
@@ -74,7 +67,7 @@ public class DBManager : MonoBehaviour
             {
                 return;
             }
-            if(task.IsCompleted) 
+            if (task.IsCompleted)
             {
             }
 
@@ -89,7 +82,7 @@ public class DBManager : MonoBehaviour
         playerRef.GetValueAsync().ContinueWith(task =>
         {
             if (task.IsFaulted) { Debug.Log("로드를 못했ㄷㅇ"); }
-            if(task.IsCompleted) 
+            if (task.IsCompleted)
             {
                 DataSnapshot snapshot = task.Result;
                 string test = snapshot.Child("Youngil").Child("Level").Value.ToString();

@@ -15,7 +15,7 @@ namespace InfinityPBR
         public List<GameObject> orphanWardrobe = new List<GameObject>();
         public List<WardrobeGroup> wardrobeGroups = new List<WardrobeGroup>();
         [HideInInspector] public int groupIndex = 0;
-        
+
 
         public void AddWardrobeGroup()
         {
@@ -49,7 +49,7 @@ namespace InfinityPBR
 
         public void RandomWardrobe()
         {
-            ActivateWardrobe(Random.Range(0,wardrobeGroups.Count));
+            ActivateWardrobe(Random.Range(0, wardrobeGroups.Count));
         }
 
         public void ActivateWardrobe(string v, bool turnturnOffOtherWardrobeFirst = true)
@@ -75,7 +75,7 @@ namespace InfinityPBR
                     DeactivateBlendShapes(groupIndex);
                     TurnOffAllWardrobe();
                 }
-                
+
                 groupIndex = i;
 
                 for (int w = 0; w < wardrobeGroups[i].wardrobe.Count; w++)
@@ -210,13 +210,14 @@ namespace InfinityPBR
             {
                 wardrobeGroups[g].skinnedMeshRenderers.Add(newSkinnedMeshRenderer);
                 wardrobeGroups[g].materials.Add(newSkinnedMeshRenderer.sharedMaterial);
-            } else if (newMeshRenderer)
+            }
+            else if (newMeshRenderer)
             {
                 wardrobeGroups[g].meshRenderers.Add(newMeshRenderer);
                 wardrobeGroups[g].materials.Add(newMeshRenderer.sharedMaterial);
             }
         }
-        
+
         public void PopulateWardrobeGroup(int g)
         {
             for (int i = 0; i < orphanWardrobe.Count; i++)
@@ -269,7 +270,7 @@ namespace InfinityPBR
                     }
                 }
             }
-            
+
             // Remove from Orphans
             for (int o = 0; o < orphanWardrobe.Count; o++)
             {
@@ -318,6 +319,6 @@ namespace InfinityPBR
         public float activateValue;
         public float deactivateValue;
     }
-    
+
 }
 

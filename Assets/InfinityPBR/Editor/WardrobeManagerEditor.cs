@@ -1,8 +1,7 @@
-﻿using UnityEngine;
-using UnityEditor;
+﻿using InfinityPBR;
 using System;
-using InfinityPBR;
-using UnityEditor.PackageManager.Requests;
+using UnityEditor;
+using UnityEngine;
 
 [CustomEditor(typeof(WardrobeManager))]
 [CanEditMultipleObjects]
@@ -27,10 +26,10 @@ public class WardrobeManagerEditor : Editor
     private string blendShapeItemName = "";
     private float blendShapeSliderA = 0f;
     private float blendShapeSliderD = 0f;
-    
+
     public override void OnInspectorGUI()
     {
-        WardrobeManager wardrobeManager = (WardrobeManager) target;
+        WardrobeManager wardrobeManager = (WardrobeManager)target;
 
         // Keep parent objects on
         for (int i = 0; i < wardrobeManager.wardrobeParents.Count; i++)
@@ -41,7 +40,7 @@ public class WardrobeManagerEditor : Editor
         {
             showHelpBoxes = EditorGUILayout.Toggle("Show Help Boxes", showHelpBoxes);
             showFullInspector = EditorGUILayout.Toggle("Show Full Inspector", showFullInspector);
-            
+
             if (showHelpBoxes)
             {
                 EditorGUILayout.HelpBox("WARDROBE MANAGER\n" +
@@ -53,7 +52,7 @@ public class WardrobeManagerEditor : Editor
                     "ToggleWardrobe(string name) - Turn on a wardrobe group by name\n" +
                     "ToggleWardrobe(int i) - Turn on a wardrobe group by index", MessageType.None);
             }
-            
+
             /* ------------------------------------------------------------------------------------------
              WARDROBE PARENTS
              ------------------------------------------------------------------------------------------*/
@@ -79,21 +78,21 @@ public class WardrobeManagerEditor : Editor
                 {
                     EditorGUILayout.BeginHorizontal();
                     EditorGUILayout.LabelField("", GUILayout.Width(10));
-                    Undo.RecordObject (wardrobeManager, "Remove Wardrobe Parent");
+                    Undo.RecordObject(wardrobeManager, "Remove Wardrobe Parent");
                     if (GUILayout.Button("X", GUILayout.Width(25)))
                     {
                         wardrobeManager.wardrobeParents.RemoveAt(p);
                     }
                     else
                     {
-                        Undo.RecordObject (wardrobeManager, "Toggle On Wardrobe Parent " + p);
+                        Undo.RecordObject(wardrobeManager, "Toggle On Wardrobe Parent " + p);
                         EditorGUILayout.LabelField(wardrobeManager.wardrobeParents[p].name);
-                        
-                        
-                        Undo.RecordObject (wardrobeManager, "Toggle On Wardrobe Parent " + p);
+
+
+                        Undo.RecordObject(wardrobeManager, "Toggle On Wardrobe Parent " + p);
                         if (GUILayout.Button("All On", GUILayout.Width(50)))
                             wardrobeManager.ToggleAllWardrobeInParent(wardrobeManager.wardrobeParents[p], true);
-                        Undo.RecordObject (wardrobeManager, "Toggle Off Wardrobe Parent " + p);
+                        Undo.RecordObject(wardrobeManager, "Toggle Off Wardrobe Parent " + p);
                         if (GUILayout.Button("All Off", GUILayout.Width(50)))
                             wardrobeManager.ToggleAllWardrobeInParent(wardrobeManager.wardrobeParents[p], false);
                     }
@@ -103,10 +102,10 @@ public class WardrobeManagerEditor : Editor
             }
 
 
-            
+
             /* ------------------------------------------------------------------------------------------
              OPRHAN WARDROBE
-             ------------------------------------------------------------------------------------------*/ 
+             ------------------------------------------------------------------------------------------*/
             EditorGUILayout.Space();
 
             EditorGUILayout.LabelField("Orphan Wardrobe", EditorStyles.boldLabel);
@@ -115,13 +114,13 @@ public class WardrobeManagerEditor : Editor
                 EditorGUILayout.HelpBox("Wardrobe objects which are not a child of a Wardrobe Parent can be specified here. " +
                                         "Each one is considered wardrobe for the purposes of this script.", MessageType.Info);
             }
-            
+
             GameObject newOrphanWardrobe = null;
             newOrphanWardrobe = EditorGUILayout.ObjectField("Add New Orphan Wardrobe", newOrphanWardrobe, typeof(GameObject), true) as GameObject;
 
             showOrphanWardrobe = EditorGUILayout.Foldout(showOrphanWardrobe, wardrobeManager.orphanWardrobe.Count + " Orphan Wardrobe GameObjects");
-            
-             
+
+
             if (showOrphanWardrobe)
             {
                 for (int o = 0; o < wardrobeManager.orphanWardrobe.Count; o++)
@@ -131,55 +130,55 @@ public class WardrobeManagerEditor : Editor
 
                     if (wardrobeManager.orphanWardrobe[o].activeSelf)
                     {
-                        Undo.RecordObject (wardrobeManager, "Turn Object Off");
+                        Undo.RecordObject(wardrobeManager, "Turn Object Off");
                         if (GUILayout.Button("Turn Off", GUILayout.Width(80)))
                             wardrobeManager.orphanWardrobe[o].SetActive(false);
                     }
                     else
                     {
-                        Undo.RecordObject (wardrobeManager, "Turn Object On");
+                        Undo.RecordObject(wardrobeManager, "Turn Object On");
                         if (GUILayout.Button("Turn On", GUILayout.Width(80)))
                             wardrobeManager.orphanWardrobe[o].SetActive(true);
                     }
-                    
-                    
-                    Undo.RecordObject (wardrobeManager, "Remove Orphan Wardrobe");
+
+
+                    Undo.RecordObject(wardrobeManager, "Remove Orphan Wardrobe");
                     if (GUILayout.Button("X", GUILayout.Width(25)))
                     {
                         wardrobeManager.RemoveOrphanObject(wardrobeManager.orphanWardrobe[o]);
                     }
                     else
                     {
-                        wardrobeManager.orphanWardrobe[o] = EditorGUILayout.ObjectField(wardrobeManager.orphanWardrobe[o], typeof(GameObject),true) as GameObject;
-                    
-                        Undo.RecordObject (wardrobeManager, "Add To Wardrobe Groups");
+                        wardrobeManager.orphanWardrobe[o] = EditorGUILayout.ObjectField(wardrobeManager.orphanWardrobe[o], typeof(GameObject), true) as GameObject;
+
+                        Undo.RecordObject(wardrobeManager, "Add To Wardrobe Groups");
                         if (GUILayout.Button("Add to All", GUILayout.Width(100)))
                             wardrobeManager.AddGameObjectToAll(wardrobeManager.orphanWardrobe[o], true);
-                        Undo.RecordObject (wardrobeManager, "Remove From Wardrobe Groups");
+                        Undo.RecordObject(wardrobeManager, "Remove From Wardrobe Groups");
                         if (GUILayout.Button("Remove from All", GUILayout.Width(100)))
                             wardrobeManager.AddGameObjectToAll(wardrobeManager.orphanWardrobe[o], false);
                     }
                     EditorGUILayout.EndHorizontal();
                 }
             }
-            
+
             /* ------------------------------------------------------------------------------------------
              CODE / MANAGEMENT
              ------------------------------------------------------------------------------------------*/
             if (newParentObject)
             {
-                Undo.RecordObject (wardrobeManager, "Add Wardrobe Parent");
+                Undo.RecordObject(wardrobeManager, "Add Wardrobe Parent");
                 wardrobeManager.AddWardrobeParent(newParentObject);
             }
-        
+
             if (newOrphanWardrobe)
             {
-                Undo.RecordObject (wardrobeManager, "Add Orphan Wardrobe");
+                Undo.RecordObject(wardrobeManager, "Add Orphan Wardrobe");
                 wardrobeManager.AddOrphanWardrobe(newOrphanWardrobe);
             }
         }
-        
-        
+
+
 
 
         /* ------------------------------------------------------------------------------------------
@@ -204,7 +203,7 @@ public class WardrobeManagerEditor : Editor
         {
             wardrobeManager.CreateNewWardrobeGroup();
         }
-        
+
         showWardrobeGroups = EditorGUILayout.Foldout(showWardrobeGroups, wardrobeManager.wardrobeGroups.Count + " Wardrobe Groups");
         if (showWardrobeGroups)
         {
@@ -215,7 +214,7 @@ public class WardrobeManagerEditor : Editor
                 if (wardrobeManager.groupIndex == g)
                     GUI.backgroundColor = activeColor;
                 EditorGUILayout.LabelField("", GUILayout.Width(10));
-                Undo.RecordObject (wardrobeManager, "Remove Wardrobe Group");
+                Undo.RecordObject(wardrobeManager, "Remove Wardrobe Group");
                 if (GUILayout.Button("X", GUILayout.Width(25)))
                 {
                     EditorGUILayout.EndHorizontal();
@@ -224,7 +223,7 @@ public class WardrobeManagerEditor : Editor
                         if (g > 0)
                             wardrobeManager.ActivateWardrobe(g - 1);
                         else if (wardrobeManager.wardrobeGroups.Count > 1)
-                        {    
+                        {
                             wardrobeManager.ActivateWardrobe(1);
                             wardrobeManager.groupIndex = 0;
                         }
@@ -235,15 +234,15 @@ public class WardrobeManagerEditor : Editor
                     {
                         wardrobeManager.groupIndex -= 1;
                     }
-                    
+
                     wardrobeManager.wardrobeGroups.RemoveAt(g);
                 }
                 else
                 {
-                    Undo.RecordObject (wardrobeManager, "Change Wardrobe Group Name");
+                    Undo.RecordObject(wardrobeManager, "Change Wardrobe Group Name");
                     wardrobeManager.wardrobeGroups[g].name = EditorGUILayout.TextField(wardrobeManager.wardrobeGroups[g].name, GUILayout.Width(180));
 
-                    Undo.RecordObject (wardrobeManager, "Toggle Wardrobe Group Objects On");
+                    Undo.RecordObject(wardrobeManager, "Toggle Wardrobe Group Objects On");
                     if (GUILayout.Button("Activate", GUILayout.Width(80)))
                     {
                         wardrobeManager.ActivateWardrobe(g);
@@ -252,7 +251,7 @@ public class WardrobeManagerEditor : Editor
                     if (wardrobeManager.wardrobeGroups[g].showWardrobeObjects)
                     {
                         GUI.backgroundColor = wardrobeManager.groupIndex == g ? activeColor2 : inactiveColor2;
-                        Undo.RecordObject (wardrobeManager, "Toggle Wardrobe Group Show Objects");
+                        Undo.RecordObject(wardrobeManager, "Toggle Wardrobe Group Show Objects");
                         if (GUILayout.Button("Objects", GUILayout.Width(80)))
                         {
                             wardrobeManager.wardrobeGroups[g].showWardrobeObjects = false;
@@ -261,19 +260,19 @@ public class WardrobeManagerEditor : Editor
                     }
                     else
                     {
-                        Undo.RecordObject (wardrobeManager, "Toggle Wardrobe Group Show Objects");
+                        Undo.RecordObject(wardrobeManager, "Toggle Wardrobe Group Show Objects");
                         if (GUILayout.Button("Objects", GUILayout.Width(80)))
                         {
                             wardrobeManager.wardrobeGroups[g].showBlendShapes = false;
                             wardrobeManager.wardrobeGroups[g].showWardrobeObjects = true;
                         }
                     }
-                    
+
                     if (wardrobeManager.wardrobeGroups[g].showBlendShapes && wardrobeManager.gameObject.GetComponent<SFB_BlendShapesManager>())
                     {
-                        
+
                         GUI.backgroundColor = wardrobeManager.groupIndex == g ? activeColor2 : inactiveColor2;
-                        Undo.RecordObject (wardrobeManager, "Toggle Wardrobe Group Show Blend Shapes");
+                        Undo.RecordObject(wardrobeManager, "Toggle Wardrobe Group Show Blend Shapes");
                         if (GUILayout.Button("Blend Shapes", GUILayout.Width(120)))
                         {
                             wardrobeManager.wardrobeGroups[g].showBlendShapes = false;
@@ -282,7 +281,7 @@ public class WardrobeManagerEditor : Editor
                     }
                     else
                     {
-                        Undo.RecordObject (wardrobeManager, "Toggle Wardrobe Group Show Blend Shapes");
+                        Undo.RecordObject(wardrobeManager, "Toggle Wardrobe Group Show Blend Shapes");
                         if (GUILayout.Button("Blend Shapes", GUILayout.Width(120)))
                         {
                             wardrobeManager.wardrobeGroups[g].showWardrobeObjects = false;
@@ -292,7 +291,7 @@ public class WardrobeManagerEditor : Editor
 
                     if (wardrobeManager.groupIndex == g)
                     {
-                        Undo.RecordObject (wardrobeManager, "Update Wardrobe Group");
+                        Undo.RecordObject(wardrobeManager, "Update Wardrobe Group");
                         if (GUILayout.Button("Update Group", GUILayout.Width(100)))
                         {
                             wardrobeManager.UpdateWardrobeGroup(g);
@@ -300,7 +299,7 @@ public class WardrobeManagerEditor : Editor
                     }
 
                     EditorGUILayout.EndHorizontal();
-                    
+
                     /*
                      * SHOW WARDROBE OBJECTS
                      */
@@ -317,7 +316,7 @@ public class WardrobeManagerEditor : Editor
                         {
                             EditorGUILayout.BeginHorizontal();
                             EditorGUILayout.LabelField("", GUILayout.Width(30));
-                            Undo.RecordObject (wardrobeManager, "Remove Wardrobe Group GameObject");
+                            Undo.RecordObject(wardrobeManager, "Remove Wardrobe Group GameObject");
                             if (GUILayout.Button("X", GUILayout.Width(25)))
                             {
                                 EditorGUILayout.EndHorizontal();
@@ -325,7 +324,7 @@ public class WardrobeManagerEditor : Editor
                             }
                             else
                             {
-                                Undo.RecordObject (wardrobeManager, "Update Game Object In Group");
+                                Undo.RecordObject(wardrobeManager, "Update Game Object In Group");
 
                                 GameObject oldObject = wardrobeManager.wardrobeGroups[g].wardrobe[i];
                                 wardrobeManager.wardrobeGroups[g].wardrobe[i] = EditorGUILayout.ObjectField(wardrobeManager.wardrobeGroups[g].wardrobe[i], typeof(GameObject), true) as GameObject;
@@ -344,30 +343,30 @@ public class WardrobeManagerEditor : Editor
                                             oldObject.SetActive(false);
                                             wardrobeManager.wardrobeGroups[g].wardrobe[i].SetActive(true);
                                         }
-                                        
-                                        
+
+
                                         // Reset SkinnedMeshRenderer & Material
                                         if (wardrobeManager.GetSkinnedMeshRenderer(wardrobeManager.wardrobeGroups[g].wardrobe[i]) != null)
                                         {
                                             wardrobeManager.wardrobeGroups[g].skinnedMeshRenderers[i] = wardrobeManager.GetSkinnedMeshRenderer(wardrobeManager.wardrobeGroups[g].wardrobe[i]);
                                             wardrobeManager.wardrobeGroups[g].materials[i] = wardrobeManager.wardrobeGroups[g].skinnedMeshRenderers[i].sharedMaterial;
-                                        } 
+                                        }
                                         else if (wardrobeManager.GetMeshRenderer(wardrobeManager.wardrobeGroups[g].wardrobe[i]) != null)
                                         {
                                             wardrobeManager.wardrobeGroups[g].meshRenderers[i] = wardrobeManager.GetMeshRenderer(wardrobeManager.wardrobeGroups[g].wardrobe[i]);
                                             wardrobeManager.wardrobeGroups[g].materials[i] = wardrobeManager.wardrobeGroups[g].meshRenderers[i].sharedMaterial;
                                         }
                                     }
-                                        
+
                                 }
-                                
-                                
-                                Undo.RecordObject (wardrobeManager, "Update Material In Group");
+
+
+                                Undo.RecordObject(wardrobeManager, "Update Material In Group");
                                 wardrobeManager.wardrobeGroups[g].materials[i] = EditorGUILayout.ObjectField(wardrobeManager.wardrobeGroups[g].materials[i], typeof(Material), false) as Material;
 
                                 if (wardrobeManager.groupIndex == g && wardrobeManager.wardrobeGroups[g].showWardrobeObjects)
                                 {
-                                    
+
                                     // SkinnedMeshRenderer -- or -- MeshRenderer
                                     if (wardrobeManager.wardrobeGroups[g].skinnedMeshRenderers[i] != null)
                                     {
@@ -375,7 +374,7 @@ public class WardrobeManagerEditor : Editor
                                         {
                                             wardrobeManager.wardrobeGroups[g].skinnedMeshRenderers[i].sharedMaterial = wardrobeManager.wardrobeGroups[g].materials[i];
                                         }
-                                    } 
+                                    }
                                     else if (wardrobeManager.wardrobeGroups[g].meshRenderers[i] != null)
                                     {
                                         if (wardrobeManager.wardrobeGroups[g].meshRenderers[i].sharedMaterial != wardrobeManager.wardrobeGroups[g].materials[i])
@@ -383,14 +382,14 @@ public class WardrobeManagerEditor : Editor
                                             wardrobeManager.wardrobeGroups[g].meshRenderers[i].sharedMaterial = wardrobeManager.wardrobeGroups[g].materials[i];
                                         }
                                     }
-                                    
+
                                 }
-                                
+
                                 EditorGUILayout.EndHorizontal();
                             }
                         }
                     }
-                    
+
                     /*
                      * SHOW BLEND SHAPES
                      */
@@ -403,7 +402,7 @@ public class WardrobeManagerEditor : Editor
                         if (showBlendShapeAdd)
                         {
                             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-                            
+
                             // Add new shapes
                             int objectCount = wardrobeManager.gameObject.GetComponent<SFB_BlendShapesManager>().blendShapeObjects.Count;
                             string[] blendShapeObjects = new string[objectCount];
@@ -421,11 +420,11 @@ public class WardrobeManagerEditor : Editor
                             {
                                 blendShapeItemIndex = 0;
                             }
-                            
+
                             int itemCount = wardrobeManager.gameObject.GetComponent<SFB_BlendShapesManager>().blendShapeObjects[blendShapeObjectIndex].blendShapes.Count;
                             int primaryIndex = 0;
-                            
-                            
+
+
                             string[] blendShapes = new string[itemCount];
                             for (int i = 0; i < wardrobeManager.gameObject.GetComponent<SFB_BlendShapesManager>().blendShapeObjects[blendShapeObjectIndex].blendShapes.Count; i++)
                             {
@@ -440,7 +439,7 @@ public class WardrobeManagerEditor : Editor
                                         displayName = displayName.Replace("Plus", "");
                                         displayName = displayName.Replace("plus", "");
                                     }
-                                
+
                                     blendShapes[i] = displayName;
                                     primaryIndex++;
                                 }
@@ -461,23 +460,23 @@ public class WardrobeManagerEditor : Editor
                             if (wardrobeManager.gameObject.GetComponent<SFB_BlendShapesManager>()
                                 .blendShapeObjects[blendShapeObjectIndex].blendShapes[blendShapeItemIndex].isPlus)
                             {
-                                blendShapeSliderA = EditorGUILayout.Slider("Value on Activate", blendShapeSliderA, -100f, 100f);  
+                                blendShapeSliderA = EditorGUILayout.Slider("Value on Activate", blendShapeSliderA, -100f, 100f);
                             }
                             else
                             {
                                 blendShapeSliderA = EditorGUILayout.Slider("Value on Activate", blendShapeSliderA, 0f, 100f);
                             }
-                            
+
                             if (wardrobeManager.gameObject.GetComponent<SFB_BlendShapesManager>()
                                 .blendShapeObjects[blendShapeObjectIndex].blendShapes[blendShapeItemIndex].isPlus)
                             {
-                                blendShapeSliderD = EditorGUILayout.Slider("Value on Deactivate", blendShapeSliderD, -100f, 100f);  
+                                blendShapeSliderD = EditorGUILayout.Slider("Value on Deactivate", blendShapeSliderD, -100f, 100f);
                             }
                             else
                             {
                                 blendShapeSliderD = EditorGUILayout.Slider("Value on Deactivate", blendShapeSliderD, 0f, 100f);
                             }
-                            
+
                             if (GUILayout.Button("Add Blend Shape"))
                             {
                                 wardrobeManager.wardrobeGroups[g].blendShapes.Add(new WardrobeBlendShapes());
@@ -491,18 +490,18 @@ public class WardrobeManagerEditor : Editor
                                 newShapes.deactivateValue = blendShapeSliderD;
                                 newShapes.activateValue = blendShapeSliderA;
                             }
-                            
-                            
+
+
                             EditorGUILayout.EndVertical();
                         }
                         // Show list of existing shapes
                         for (int b = 0; b < wardrobeManager.wardrobeGroups[g].blendShapes.Count; b++)
                         {
                             WardrobeBlendShapes shape = wardrobeManager.wardrobeGroups[g].blendShapes[b];
-                            
+
                             EditorGUILayout.BeginHorizontal();
                             EditorGUILayout.LabelField("", GUILayout.Width(30));
-                            Undo.RecordObject (wardrobeManager, "Remove BlendShape");
+                            Undo.RecordObject(wardrobeManager, "Remove BlendShape");
                             if (GUILayout.Button("X", GUILayout.Width(25)))
                             {
                                 wardrobeManager.wardrobeGroups[g].blendShapes.RemoveAt(b);
@@ -534,10 +533,10 @@ public class WardrobeManagerEditor : Editor
             EditorGUILayout.Space();
             DrawDefaultInspector();
         }
-            
-        
-        
-        
-        
+
+
+
+
+
     }
 }

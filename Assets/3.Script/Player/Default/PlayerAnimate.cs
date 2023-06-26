@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
@@ -8,7 +6,7 @@ public class PlayerAnimate : MonoBehaviour
 {
     private NavMeshAgent _playerAgent;
     private Animator _playerAnimator;
-    
+
     private void Awake()
     {
         TryGetComponent(out _playerAgent);
@@ -22,9 +20,9 @@ public class PlayerAnimate : MonoBehaviour
 
     public void AbilityRMB(InputAction.CallbackContext callbackContext)
     {
-        if(callbackContext.performed)
+        if (callbackContext.performed)
         {
-            if(Managers.Skill.M2SkillCooldownRemain <= 0)
+            if (Managers.Skill.M2SkillCooldownRemain <= 0)
             {
                 Managers.Skill.StartM2Cooldown();
                 _playerAnimator.Play(Managers.Skill.GetSkillData(Managers.Skill.CurrentM2SKillName).ResourceName);
@@ -33,7 +31,7 @@ public class PlayerAnimate : MonoBehaviour
     }
     public void AbilityNum1(InputAction.CallbackContext callbackContext)
     {
-        if(callbackContext.performed)
+        if (callbackContext.performed)
         {
             if (Managers.Skill.Num1SkillCooldownRemain <= 0)
             {
@@ -98,13 +96,13 @@ public class PlayerAnimate : MonoBehaviour
         CheckCooldown(ref Managers.Skill.Num4SkillCooldownRemain);
 
     }
-  
+
     private void BladeSlash()
     {
         GameObject go = Managers.Resource.Instantiate("Skill_BladeSlash");
         go.transform.position = transform.position;
-        go.transform.rotation = Quaternion.Euler( new Vector3(180, transform.rotation.y, 0f));
-        
+        go.transform.rotation = Quaternion.Euler(new Vector3(180, transform.rotation.y, 0f));
+
     }
 
     private void DarkFlare()

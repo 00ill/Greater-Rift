@@ -18,7 +18,7 @@ public class DataManager
         PlayerStatusDataDict = LoadJson<Data.PlayerStatusLoader, int, Data.PlayerStatus>("PlayerStatusData").MakeDict();
         //Debug.Log(PlayerStatusDataDict[30].Life);
         Debug.Log("데이터 매니저 초기화 끝");
-    }   
+    }
 
 
     //지정해둔 Loader형식을 받는 LoadJSon 함수 

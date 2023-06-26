@@ -1,8 +1,4 @@
 using Enemy;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyAttackHandler : MonoBehaviour
@@ -33,11 +29,11 @@ public class EnemyAttackHandler : MonoBehaviour
 
     private void CheckNormalAttack()
     {
-        if(_enemyAI.DetectPlayer() )
+        if (_enemyAI.DetectPlayer())
         {
             NormalAttack(_enemyAI.Target);
         }
-        
+
         if (_target != null)
         {
             ProcessNormalAttack();

@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 
 public enum SkillName
@@ -88,7 +86,7 @@ public class SkillManager
 
     public void StartM1Cooldown()
     {
-        M1SkillCooldownRemain = Skills.GetSkillData(CurrentM1SKillName).Cooldown;        
+        M1SkillCooldownRemain = Skills.GetSkillData(CurrentM1SKillName).Cooldown;
     }
     public void StartM2Cooldown()
     {

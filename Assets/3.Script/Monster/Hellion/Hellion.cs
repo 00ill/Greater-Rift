@@ -1,7 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Data.Common;
 using UnityEngine;
 
 public class Hellion : EnemyBase
@@ -49,7 +47,7 @@ public class Hellion : EnemyBase
         _agent.SetDestination(_player.position);
         _agent.isStopped = true;
         yield return null;
-        if(DetectPlayer())
+        if (DetectPlayer())
         {
             _currentState = States.Move;
         }
@@ -64,11 +62,11 @@ public class Hellion : EnemyBase
         _agent.SetDestination(_player.position);
         _agent.isStopped = false;
         yield return null;
-        if(_agent.remainingDistance <= _attackRange)
+        if (_agent.remainingDistance <= _attackRange)
         {
             _currentState = States.Attack;
         }
-        else if(_agent.remainingDistance > _detectionRange)
+        else if (_agent.remainingDistance > _detectionRange)
         {
             _currentState = States.Idle;
         }
@@ -82,9 +80,9 @@ public class Hellion : EnemyBase
 
     private void PlayAnimation(AnimatorParameters parameter)
     {
-        for(int i =0; i<_animatorParameterArr.Length; i++) 
+        for (int i = 0; i < _animatorParameterArr.Length; i++)
         {
-            if(_animatorParameterArr[i].type == AnimatorControllerParameterType.Bool)
+            if (_animatorParameterArr[i].type == AnimatorControllerParameterType.Bool)
             {
                 if ((int)parameter != i)
                 {

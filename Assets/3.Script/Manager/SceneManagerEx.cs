@@ -9,7 +9,7 @@ public class SceneManagerEx
     public void LoadScene(Define.Scene type)
     {
         Managers.Clear();
-
+        Debug.Log("·Îµå¾À");
         SceneManager.LoadScene(GetSceneName(Define.Scene.LoadingScene));
         NextScene = type;
     }

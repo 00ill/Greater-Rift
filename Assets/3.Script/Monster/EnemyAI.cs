@@ -1,6 +1,4 @@
 using Enemy;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,7 +14,7 @@ public class EnemyAI : MonoBehaviour
     private NavMeshAgent _enemyAgent;
     private EnemyStatus _enemyStatus;
     private Animator _animator;
-    [HideInInspector]public PlayerControl Target;
+    [HideInInspector] public PlayerControl Target;
 
     private void Awake()
     {
@@ -36,9 +34,9 @@ public class EnemyAI : MonoBehaviour
         _animator.SetFloat("Turning", _enemyAgent.desiredVelocity.z);
     }
     public bool DetectPlayer()
-    {   
+    {
         float distance = Vector3.Distance(transform.position, Target.transform.position);
-        if(distance < _enemyStatus.GetStats(Enemy.Statistic.DetectionRange).value)
+        if (distance < _enemyStatus.GetStats(Enemy.Statistic.DetectionRange).value)
         {
             return true;
         }

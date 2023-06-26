@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public enum Statistic
@@ -109,7 +107,7 @@ public class ValuePool
     }
 }
 
-public class PlayerStatus : MonoBehaviour,IDamageable
+public class PlayerStatus : MonoBehaviour, IDamageable
 {
     public AttributeGroup Attributes;
     public StatsGroup Stats;
@@ -139,7 +137,7 @@ public class PlayerStatus : MonoBehaviour,IDamageable
 
     private void Update()
     {
-      
+
     }
 
     public void TakeDamage(int damage)

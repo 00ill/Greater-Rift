@@ -32,10 +32,11 @@ public class Define
         OnEndDrag,
         OnDrop
     }
-  
+
     public enum EVENT_TYPE
     {
         DuplicateNickname,
+        SuccessCreateNewPlayer,
         PlayerHpChange,
         PlayerManaChange,
         CheckInteractableObject,

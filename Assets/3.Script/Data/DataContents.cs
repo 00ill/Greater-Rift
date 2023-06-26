@@ -1,7 +1,6 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 namespace Data
 {
@@ -20,7 +19,7 @@ namespace Data
         public Dictionary<string, PlayerSaveData> MakeDict()
         {
             Dictionary<string, PlayerSaveData> dict = new();
-            foreach(PlayerSaveData data in PlayerSaveDataList) 
+            foreach (PlayerSaveData data in PlayerSaveDataList)
             {
                 dict.Add(data.Name, data);
             }
@@ -38,18 +37,18 @@ namespace Data
         public int Armor;
     }
     [Serializable]
-    public class PlayerStatusLoader :ILoader<int, Data.PlayerStatus>
+    public class PlayerStatusLoader : ILoader<int, Data.PlayerStatus>
     {
-        public List <PlayerStatus> PlayerStatusData = new();
-        
+        public List<PlayerStatus> PlayerStatusData = new();
+
         public Dictionary<int, PlayerStatus> MakeDict()
         {
             Debug.Log("플레이어 스테이터스 로더 딕셔너리");
             Debug.Log(PlayerStatusData.Count);
-            Dictionary <int, PlayerStatus> dict = new();
-            foreach(PlayerStatus data in PlayerStatusData)
+            Dictionary<int, PlayerStatus> dict = new();
+            foreach (PlayerStatus data in PlayerStatusData)
             {
-                dict.Add (data.Level, data);
+                dict.Add(data.Level, data);
             }
             return dict;
         }

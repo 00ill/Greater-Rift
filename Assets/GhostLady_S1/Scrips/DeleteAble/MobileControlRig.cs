@@ -1,4 +1,3 @@
-using System;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -21,7 +20,7 @@ namespace UnityStandardAssets.CrossPlatformInput
 	{
 		CheckEnableControlRig();
 	}
-	#endif
+#endif
 
         private void Start()
         {
@@ -68,7 +67,7 @@ namespace UnityStandardAssets.CrossPlatformInput
         {
 #if MOBILE_INPUT
 		EnableControlRig(true);
-		#else
+#else
             EnableControlRig(false);
 #endif
         }

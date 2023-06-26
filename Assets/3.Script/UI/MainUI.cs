@@ -55,7 +55,6 @@ public class MainUI : UI_Scene, IListener
         GetText((int)Texts.WarningText).text = "";
 
 
-
         GetObject((int)GameObjects.NewCharacter).SetActive(false);
 
         GetButton((int)Buttons.NewStartButton).gameObject
@@ -70,6 +69,7 @@ public class MainUI : UI_Scene, IListener
      .BindEvent((PointerEventData data) => CharacterCancel());
 
         Managers.Event.AddListener(Define.EVENT_TYPE.DuplicateNickname, this);
+        Managers.Event.AddListener(Define.EVENT_TYPE.SuccessCreateNewPlayer, this);
 
     }
     private void Start()
@@ -97,13 +97,11 @@ public class MainUI : UI_Scene, IListener
     {
         if (GetText((int)Texts.NameInputText).text != string.Empty)
         {
-            if(Managers.DB.CreatePlayerData(GetText((int)Texts.NameInputText).text))
-            {
-                Debug.Log("여기에 안들어오나용");
-                //새로운데이터로 시작
-                Managers.Scene.LoadScene(Define.Scene.Town);
-                
-            }
+            Managers.DB.CreatePlayerData(GetText((int)Texts.NameInputText).text);
+        }
+        else
+        {
+            GetText((int)Texts.WarningText).text = "Please enter your name";
         }
     }
     private void CharacterCancel()
@@ -117,6 +115,15 @@ public class MainUI : UI_Scene, IListener
         {
             case Define.EVENT_TYPE.DuplicateNickname:
                 {
+                    Debug.Log("중복닉네임 이벤트");
+                    GetText((int)Texts.WarningText).text = "Duplicate Name!";
+                    break;
+                }
+            case Define.EVENT_TYPE.SuccessCreateNewPlayer:
+                {
+                    Debug.Log("데이터 생성 성공 이벤트");
+                    Managers.Scene.LoadScene(Define.Scene.Town);
+                    Debug.Log("로드씬 후");
                     break;
                 }
         }

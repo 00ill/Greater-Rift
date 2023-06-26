@@ -1,10 +1,4 @@
-using Enemy;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.TextCore.Text;
 
 public class PlayerAttackHandler : MonoBehaviour, ICommandHandle
 {
@@ -52,7 +46,7 @@ public class PlayerAttackHandler : MonoBehaviour, ICommandHandle
     private void CheckAllCooldown()
     {
         CheckCooldown(ref _normalAttackCooldownRemain);
-       
+
     }
 
     public void ProcessCommand(Command command)

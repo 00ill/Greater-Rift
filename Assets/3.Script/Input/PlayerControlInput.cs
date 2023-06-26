@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -49,7 +45,7 @@ public class PlayerControlInput : MonoBehaviour
 
     public void LMB(InputAction.CallbackContext callbackContext)
     {
-        if(callbackContext.performed)
+        if (callbackContext.performed)
         {
             if (_interactInput.AttackCheck())
             {
@@ -67,7 +63,7 @@ public class PlayerControlInput : MonoBehaviour
         }
     }
 
-  
+
     private void MoveCommand(Vector3 point)
     {
         _commandHandler.SetCommand(new Command(CommandType.Move, point));
@@ -85,7 +81,7 @@ public class PlayerControlInput : MonoBehaviour
 
     public void OpenSkillSettingUI(InputAction.CallbackContext callbackContext)
     {
-        if(callbackContext.performed)
+        if (callbackContext.performed)
         {
             Managers.Event.PostNotification(Define.EVENT_TYPE.SkillSettingUIOpen, this);
         }

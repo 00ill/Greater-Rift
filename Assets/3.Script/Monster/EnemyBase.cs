@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 /// <summary>
@@ -42,7 +40,7 @@ public class EnemyBase : MonoBehaviour
     protected float _attackRange;
     protected float _attackCooldown;
     protected float _attackCooldownReamain;
-    
+
     //Enemy 기본 동작을 위한 변수
     private Vector3 _rayOffset = new(0, 0.5f, 0);
     protected Transform _player;

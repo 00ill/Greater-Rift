@@ -1,15 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class SFB_MonsterCreature2Demo : MonoBehaviour {
+public class SFB_MonsterCreature2Demo : MonoBehaviour
+{
 
     public Animator animator;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         animator = GetComponent<Animator>();
-	}
+    }
 
     public void Locomotion(float value)
     {
@@ -21,7 +21,8 @@ public class SFB_MonsterCreature2Demo : MonoBehaviour {
         animator.SetFloat("Turning", value);
     }
 
-    public void TriggerAnimation(string value){
+    public void TriggerAnimation(string value)
+    {
         animator.SetTrigger(value);
     }
 

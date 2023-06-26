@@ -8,7 +8,7 @@ namespace InfinityPBR
     [System.Serializable]
     public class ColorShifterObject : ScriptableObject
     {
-        
+
         public int activeColorSetIndex = 0;
         public int activeColors = 49;
         public List<ColorSet> colorSets = new List<ColorSet>();
@@ -32,7 +32,7 @@ namespace InfinityPBR
         }
 
         public void OnValidate()
-        { 
+        {
             activeColors = Mathf.Clamp(activeColors, 0, 49);
         }
 
@@ -50,30 +50,30 @@ namespace InfinityPBR
         {
             if (index >= colorSets.Count)
             {
-                #if UNITY_EDITOR
+#if UNITY_EDITOR
                 Debug.LogWarning("Warning: index was greater than the available color sets.");
-                #endif
+#endif
                 return;
             }
 
             if (updateActiveIndex)
                 activeColorSetIndex = index;
-            
+
             for (int i = 0; i < colorSets[index].colorShifterItems.Count; i++)
             {
                 ColorShifterItem item = colorSets[index].colorShifterItems[i];
                 bool testView = colorSets[index].colorShifterItems[i].testView;
-                #if !UNITY_EDITOR
+#if !UNITY_EDITOR
                 testView = false;
-                #endif
-                
+#endif
+
                 float testH;
                 float testS;
                 float testV;
                 Color.RGBToHSV(Color.magenta, out testH, out testS, out testV);
 
                 ColorShifterItem parent = item.isChild ? colorSets[index].colorShifterItems[item.parentIndex] : null;
-                
+
                 float hue = item.isChild ? parent.hue + item.childHueShift : item.hue;
                 float saturation = item.isChild ? parent.saturation + item.childSaturationShift : item.saturation;
                 float value = item.isChild ? parent.value + item.childValueShift : item.value;
@@ -96,9 +96,9 @@ namespace InfinityPBR
                     return;
                 }
             }
-            #if UNITY_EDITOR
+#if UNITY_EDITOR
             Debug.LogWarning("Warning: No color set named \"name\" was found.");
-            #endif
+#endif
         }
     }
 
@@ -107,7 +107,7 @@ namespace InfinityPBR
     {
         public string name;
         public List<ColorShifterItem> colorShifterItems = new List<ColorShifterItem>();
-        
+
         public void SetDefaultValues()
         {
             colorShifterItems.Clear();
@@ -126,7 +126,7 @@ namespace InfinityPBR
             float v0 = 0f;
             float v196 = 196f / 255f;
             float v96 = 96f / 255f;
-            
+
 
             colorShifterItems[0].color = new Color(v255, v0, v0);
             colorShifterItems[1].color = new Color(v0, v255, v0);
@@ -200,17 +200,19 @@ namespace InfinityPBR
         public float childHueShift = 0f;
         public float childSaturationShift = 0f;
         public float childValueShift = 0f;
-        
+
         public int CompareTo(ColorShifterItem item)
         {       // A null value means that this object is greater.
-            if (name == null){
-                return 1;  
+            if (name == null)
+            {
+                return 1;
             }
-            else {
+            else
+            {
                 return this.name.CompareTo(item.name);
             }
         }
-        
-      
+
+
     }
 }

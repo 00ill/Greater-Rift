@@ -1,7 +1,3 @@
-using Enemy;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -269,7 +265,7 @@ public class GameUI : UI_Scene, IListener
     {
         //스킬등록 이벤트 넣을 곳
         GetText((int)Texts.SkillM2Script).text = "";
-        if ( SkillLevelCheck(Texts.SkillM2Script) && Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentSelectSkillName).Type == SkillType.M2Skill )
+        if (SkillLevelCheck(Texts.SkillM2Script) && Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentSelectSkillName).Type == SkillType.M2Skill)
         {
             GetImage((int)Images.SkillM2).sprite = Managers.Resource.Load<Sprite>(_skillPath
                 + Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentSelectSkillName).ResourceName);

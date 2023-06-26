@@ -1,15 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class SFB_MonsterCreature2DemoLP : MonoBehaviour {
+public class SFB_MonsterCreature2DemoLP : MonoBehaviour
+{
 
     public Animator animator;
     public Renderer[] renderer;
     public GameObject[] randomObjects;
-    
+
     // Use this for initialization
-	void Start () {
+    void Start()
+    {
         animator = GetComponent<Animator>();
     }
 
@@ -31,7 +31,8 @@ public class SFB_MonsterCreature2DemoLP : MonoBehaviour {
         animator.SetFloat("Turning", value);
     }
 
-    public void TriggerAnimation(string value){
+    public void TriggerAnimation(string value)
+    {
         animator.SetTrigger(value);
     }
 
@@ -42,7 +43,7 @@ public class SFB_MonsterCreature2DemoLP : MonoBehaviour {
             renderer[i].material.SetFloat("_Hue", value);
         }
     }
-    
+
     public void SetSaturation(float value)
     {
         for (int i = 0; i < renderer.Length; i++)
@@ -50,7 +51,7 @@ public class SFB_MonsterCreature2DemoLP : MonoBehaviour {
             renderer[i].material.SetFloat("_Saturation", value);
         }
     }
-    
+
     public void SetValue(float value)
     {
         for (int i = 0; i < renderer.Length; i++)
@@ -61,7 +62,7 @@ public class SFB_MonsterCreature2DemoLP : MonoBehaviour {
 
     public void Randomize()
     {
-        SetHue(Random.Range(0f,1f));
+        SetHue(Random.Range(0f, 1f));
         for (int i = 0; i < randomObjects.Length; i++)
         {
             randomObjects[i].SetActive(GetRandom());
