@@ -237,20 +237,20 @@ public class GameUI : UI_Scene, IListener
     #region 스킬 세팅 UI Open/Close/Confirm
     private void SKillSetM1Open()
     {
+        GetText((int)Texts.SkillM1Script).text = "";
         Managers.Skill.CurrentChangeSkillType = SkillType.M1Skill;
         GetObject((int)Objects.SkillM1Panel).SetActive(true);
     }
     private void SkillM1PanelConfirm()
     {
         //스킬등록 이벤트 넣을 곳
-        GetObject((int)Objects.SkillM1Panel).SetActive(false);
         GetText((int)Texts.SkillM1Script).text = "";
-
-        if (Managers.Skill.CurrentChangeSkillType == SkillType.M1Skill)
+        if (SkillLevelCheck() && Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentSelectSkillName).Type == SkillType.M1Skill)
         {
             GetImage((int)Images.SkillM1).sprite = Managers.Resource.Load<Sprite>(_skillPath
                 + Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentSelectSkillName).ResourceName);
             Managers.Skill.CurrentM1SKillName = Managers.Skill.CurrentSelectSkillName;
+            GetObject((int)Objects.SkillM1Panel).SetActive(false);
         }
     }
     private void SkillM1PanelExit()
@@ -261,19 +261,20 @@ public class GameUI : UI_Scene, IListener
 
     private void SKillSetM2Open()
     {
+        GetText((int)Texts.SkillM2Script).text = "";
         Managers.Skill.CurrentChangeSkillType = SkillType.M2Skill;
         GetObject((int)Objects.SkillM2Panel).SetActive(true);
     }
     private void SkillM2PanelConfirm()
     {
         //스킬등록 이벤트 넣을 곳
-        GetObject((int)Objects.SkillM2Panel).SetActive(false);
         GetText((int)Texts.SkillM2Script).text = "";
-        if (Managers.Skill.CurrentChangeSkillType == SkillType.M2Skill)
+        if ( SkillLevelCheck() && Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentSelectSkillName).Type == SkillType.M2Skill )
         {
             GetImage((int)Images.SkillM2).sprite = Managers.Resource.Load<Sprite>(_skillPath
                 + Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentSelectSkillName).ResourceName);
             Managers.Skill.CurrentM2SKillName = Managers.Skill.CurrentSelectSkillName;
+            GetObject((int)Objects.SkillM2Panel).SetActive(false);
         }
     }
     private void SkillM2PanelExit()
@@ -290,6 +291,17 @@ public class GameUI : UI_Scene, IListener
         GetObject((int)Objects.SkillSettingUI).SetActive(false);
     }
     #endregion
+
+    private bool SkillLevelCheck()
+    {
+        if (Managers.Skill.GetSkillData(Managers.Skill.CurrentSelectSkillName).LevelLimit > GameManager.PlayerLevel)
+        {
+            GetText((int)Texts.SkillM2Script).text = string.Format($"This skill is available from level " +
+                $"{Managers.Skill.GetSkillData(Managers.Skill.CurrentSelectSkillName).LevelLimit}");
+            return false;
+        }
+        return true;
+    }
 
     private void UpdateSkillCooldown()
     {

@@ -16,7 +16,7 @@ public class Managers : MonoBehaviour
     PoolManager _pool = new PoolManager();
     UIManager _ui = new UIManager();
     SkillManager _skill = new SkillManager();
-    public static GameManager Manager { get { return Instance._game; } }
+    public static GameManager Game { get { return Instance._game; } }
     public static ResourceManager Resource { get { return Instance._resource; } }
     public static SceneManagerEx Scene { get { return Instance._scene; } }
     public static EventManager Event { get { return Instance._eventManager; } }

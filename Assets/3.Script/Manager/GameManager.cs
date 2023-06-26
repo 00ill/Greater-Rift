@@ -4,5 +4,6 @@ using UnityEngine;
 
 public class GameManager
 {
-    public static int PlayerLevel = 1;
+    internal static int PlayerLevel = 1;
+    internal int PlayerLevelTest = 1;
 }
