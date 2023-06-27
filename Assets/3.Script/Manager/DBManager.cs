@@ -15,6 +15,8 @@ public class DBManager
     private string _dataSlot2 = "DataSlot2";
     private string _dataSlot3 = "DataSlot3";
     private List<string> _dataList = new();
+
+    public string CurrecntUserID = string.Empty;
     public void Init()
     {
         FirebaseApp.DefaultInstance.Options.DatabaseUrl = new Uri(DBurl);
@@ -44,7 +46,6 @@ public class DBManager
                 DataSnapshot snapshot = task.Result;
                 if(snapshot.Exists)
                 {
-                    Debug.Log("중복 발생");
                     Managers.Event.DBEvent?.Invoke(Define.DB_Event.DuplicateID);
                     return;
                 }
@@ -59,9 +60,6 @@ public class DBManager
                         }
                         else if (task.IsCompleted)
                         {
-                            //AccountData accountData = new(id, password);
-                            //string accountDatajson = JsonUtility.ToJson(accountData);
-                            //아이디의 키값이 패스워드
                             reference.Child("Account").Child("ID").Child(id).Child("Password").SetValueAsync(password);
                             Managers.Event.DBEvent?.Invoke(Define.DB_Event.SuccessCreateNewAccount);
                         }
@@ -87,6 +85,7 @@ public class DBManager
                 {
                     if(snapshot.Child("Password").Value.ToString() == password)
                     {
+                        CurrecntUserID = id;
                         Managers.Event.DBEvent?.Invoke(Define.DB_Event.SuccessLogin);
                     }
                     else
@@ -127,7 +126,7 @@ public class DBManager
                     {
                         PlayerData playerData = new(name);
                         string playerDataJson = JsonUtility.ToJson(playerData);
-                        reference.Child("PlayerData").Child(_dataList[CountData()]).SetRawJsonValueAsync(playerDataJson);
+                        reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataList[CountData()]).SetRawJsonValueAsync(playerDataJson);
                     }
                 }
             }

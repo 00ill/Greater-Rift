@@ -177,7 +177,7 @@ public class MainUI : UI_Scene
         GetText((int)Texts.QuitGameText).text = "QUIT";
         
         GetButton((int)Buttons.LoginButton).gameObject
-            .BindEvent((PointerEventData data) => { Debug.Log("로그인 버튼"); Login(); });
+            .BindEvent((PointerEventData data) => { Login(); });
         GetButton((int)Buttons.SignUpButton).gameObject
             .BindEvent((PointerEventData data) => 
         {
@@ -355,6 +355,8 @@ public class MainUI : UI_Scene
                     EnqueueAction(action =>
                     {
                         GetText((int)Texts.SignUpWarningText).text = "Account creation complete!";
+                        //GetObject((int)GameObjects.SignUpPanel).SetActive(false);
+                        //GetObject((int)GameObjects.LoginPanel).SetActive(true);
                     }, eventType);
                     break;
                 }
