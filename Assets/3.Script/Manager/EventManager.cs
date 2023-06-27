@@ -9,18 +9,8 @@ public class EventManager
     private Dictionary<EVENT_TYPE, List<IListener>> Listeners = new();
 
     //Sender와 관련이 없는 이벤트들
-    public Action<int> AddItem;
-    public Action<int> DifficultyChange;
-    public Action<int> GoldChange;
-    public Action<int> EquipItemChange;
+    public Action<Define.DB_Event> DBEvent;
 
-    public Action BossProgress;
-
-    public Action ExcuteActiveItem;
-
-    public Action GameStateChange;
-
-    public Action CreatePlayer;
 
     // 이벤트 리스너를 추가하는 메서드
     public void AddListener(EVENT_TYPE Event_Type, IListener Listener)

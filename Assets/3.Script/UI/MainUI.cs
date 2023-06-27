@@ -2,8 +2,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using System.Collections;
+using System.Collections.Generic;
+using System;
 
-public class MainUI : UI_Scene, IListener
+public class MainUI : UI_Scene
 {
     enum Buttons
     {
@@ -12,13 +16,21 @@ public class MainUI : UI_Scene, IListener
         OptionButton,
         QuitButton,
         CharacterConfirm,
-        CharacterCancel
+        CharacterCancel,
+        FirstDataDelete,
+        SecondDataDelete,
+        ThirdDataDelete,
+        LoadStart,
+        LoadCancel,
+        LoginButton,
+        SignUpButton,
+        QuitGame,
+        SignUpConfirmButton,
+        SignUpCancelButton
+        
     }
     enum Images
     {
-        BackGround,
-        MainTitle,
-
     }
     enum Texts
     {
@@ -30,32 +42,81 @@ public class MainUI : UI_Scene, IListener
         NameInputText,
         CharacterConfirmText,
         CharacterCancelText,
-        WarningText
+        WarningText,
+        FirstDataName,
+        FirstDataLevel,
+        SecondDataName,
+        SecondDataLevel,
+        ThirdDataName,
+        ThirdDataLevel,
+        LoginIDText,
+        LoginPWText,
+        LoginWaringText,
+        SignUpButtonText,
+        LoginButtonText,
+        QuitGameText,
+        SignUpIDText,
+        SignUpPWText,
+        SignUpConfirmText,
+        SignUpCancelText,
+        SignUpWarningText
     }
     enum GameObjects
     {
+        LoginPanel,
+        SignUpPanel,
         MenuPanel,
-        NewCharacter
+        NewCharacter,
+        LoadDataPanel,
+        FirstData,
+        SecondData,
+        ThirdData
+    }
+    enum InputFields
+    {
+        NameInput,
+        LoginIDInput,
+        LoginPWInput,
+        SignUpIDInput,
+        SignUpPWInput
     }
     public override void Init()
     {
         base.Init();
         Bind<Button>(typeof(Buttons));
         Bind<TextMeshProUGUI>(typeof(Texts));
-        //Bind<Image>(typeof(Images));
+        Bind<Image>(typeof(Images));
         Bind<GameObject>(typeof(GameObjects));
+        Bind<TMP_InputField>(typeof(InputFields));
 
+
+        InitLoginPanel();
+        InitSignUpPanel();
+        InitMenuPanel();
+        InitNewCharacterPanel();
+        InitLoadDataPanel();
+
+        Managers.Event.DBEvent -= DB_Event;
+        Managers.Event.DBEvent += DB_Event;
+    }
+    private void Start()
+    {
+        Init();
+    }
+    private void Update()
+    {
+        if (ActionQueue.Count > 0)
+        {
+            StartCoroutine(ProcessActionQueue());
+        }
+    }
+
+    private void InitMenuPanel()
+    {
         GetText((int)Texts.TitleText).text = $"Greater Rift";
         GetText((int)Texts.NewStartText).text = $"New Game";
         GetText((int)Texts.LoadDataText).text = $"Load Data";
         GetText((int)Texts.OptionText).text = $"Option";
-        GetText((int)Texts.CharacterName).text = $"Character Name";
-        GetText((int)Texts.CharacterConfirmText).text = $"New Start";
-        GetText((int)Texts.CharacterCancelText).text = $"Cancel";
-        GetText((int)Texts.WarningText).text = "";
-
-
-        GetObject((int)GameObjects.NewCharacter).SetActive(false);
 
         GetButton((int)Buttons.NewStartButton).gameObject
             .BindEvent((PointerEventData data) => NewStartEvent());
@@ -63,39 +124,149 @@ public class MainUI : UI_Scene, IListener
             .BindEvent((PointerEventData data) => LoadDataEvent());
         GetButton((int)Buttons.OptionButton).gameObject
             .BindEvent((PointerEventData data) => OptionEvent());
-        GetButton((int)Buttons.CharacterConfirm).gameObject
-           .BindEvent((PointerEventData data) => CharacterConfirm());
-        GetButton((int)Buttons.CharacterCancel).gameObject
-     .BindEvent((PointerEventData data) => CharacterCancel());
 
-        Managers.Event.AddListener(Define.EVENT_TYPE.DuplicateNickname, this);
-        Managers.Event.AddListener(Define.EVENT_TYPE.SuccessCreateNewPlayer, this);
+        GetObject((int)GameObjects.MenuPanel).SetActive(false);
+    }
+    private void InitNewCharacterPanel()
+    {
+        GetText((int)Texts.CharacterName).text = $"Character Name";
+        GetText((int)Texts.CharacterConfirmText).text = $"New Start";
+        GetText((int)Texts.CharacterCancelText).text = $"Cancel";
+        GetText((int)Texts.WarningText).text = "";
+
+        GetButton((int)Buttons.CharacterConfirm).gameObject
+            .BindEvent((PointerEventData data) => CharacterConfirm());
+        GetButton((int)Buttons.CharacterCancel).gameObject
+            .BindEvent((PointerEventData data) => CharacterCancel());
+        GetObject((int)GameObjects.NewCharacter).SetActive(false);
 
     }
-    private void Start()
+    private void InitLoadDataPanel()
     {
-        Init();
+        GetText((int)Texts.FirstDataName).text = "No Data";
+        GetText((int)Texts.FirstDataLevel).text = "";
+        GetText((int)Texts.SecondDataName).text = "No Data";
+        GetText((int)Texts.SecondDataLevel).text = "";
+        GetText((int)Texts.ThirdDataName).text = "No Data";
+        GetText((int)Texts.ThirdDataLevel).text = "";
+        GetObject((int)GameObjects.FirstData).GetComponent<Outline>().enabled = false;
+        GetObject((int)GameObjects.SecondData).GetComponent<Outline>().enabled = false;
+        GetObject((int)GameObjects.ThirdData).GetComponent<Outline>().enabled = false;
+
+        GetObject((int)GameObjects.FirstData).gameObject
+            .BindEvent((PointerEventData data) => { HighrightData(GameObjects.FirstData); });
+        GetObject((int)GameObjects.SecondData).gameObject
+            .BindEvent((PointerEventData data) => { HighrightData(GameObjects.SecondData); });
+        GetObject((int)GameObjects.ThirdData).gameObject
+            .BindEvent((PointerEventData data) => { HighrightData(GameObjects.ThirdData); });
+        GetButton((int)Buttons.LoadStart).gameObject
+            .BindEvent((PointerEventData data) => LoadStart());
+        GetButton((int)Buttons.LoadCancel).gameObject
+            .BindEvent((PointerEventData data) => LoadCancel());
+
+        GetObject((int)GameObjects.LoadDataPanel).SetActive(false);
+
+    }
+    private void InitLoginPanel()
+    {
+        GetText((int)Texts.LoginIDText).text = "ID";
+        GetText((int)Texts.LoginPWText).text = "Password";
+        GetText((int)Texts.LoginWaringText).text = "";
+        GetText((int)Texts.LoginButtonText).text = "Login";
+        GetText((int)Texts.SignUpButtonText).text = "Sign Up";
+        GetText((int)Texts.QuitGameText).text = "QUIT";
+        
+        GetButton((int)Buttons.LoginButton).gameObject
+            .BindEvent((PointerEventData data) => { Debug.Log("로그인 버튼"); Login(); });
+        GetButton((int)Buttons.SignUpButton).gameObject
+            .BindEvent((PointerEventData data) => 
+        {
+            GetObject((int)GameObjects.SignUpPanel).SetActive(true);
+            GetObject((int)GameObjects.LoginPanel).SetActive(false);
+        });
+    }
+
+    private void InitSignUpPanel()
+    {
+        GetText((int)Texts.SignUpIDText).text = "ID";
+        GetText((int)Texts.SignUpPWText).text = "Password";
+        GetText((int)Texts.SignUpConfirmText).text = "Confirm";
+        GetText((int)Texts.SignUpCancelText).text = "Cancel";
+        GetText((int)Texts.SignUpWarningText).text = "";
+
+        GetButton((int)Buttons.SignUpConfirmButton).gameObject
+            .BindEvent((PointerEventData data) => { CreateAccount(); });
+        GetButton((int)Buttons.SignUpCancelButton).gameObject
+            .BindEvent((PointerEventData data) =>
+            {
+                GetObject((int)GameObjects.SignUpPanel).SetActive(false);
+                GetObject((int)GameObjects.LoginPanel).SetActive(true);
+            });
+
+        GetObject((int)GameObjects.SignUpPanel).SetActive(false);
+    }
+
+    private void OnDestroy()
+    {
+        Managers.Event.DBEvent -= DB_Event;
+    }
+
+    private void CreateAccount()
+    {
+        string id = Get<TMP_InputField>((int)InputFields.SignUpIDInput).text;
+        string password = Get<TMP_InputField>((int)InputFields.SignUpPWInput).text;
+
+        if (id == string.Empty)
+        {
+            GetText((int)Texts.SignUpWarningText).text = "Please enter your ID.";
+            return;
+        }
+        if(password == string.Empty)
+        {
+            GetText((int)Texts.SignUpWarningText).text = "Please enter your Password.";
+            return;
+        }
+        Managers.DB.CreateAccount(id, password);    
+    }
+
+    private void Login()
+    {
+        string id = Get<TMP_InputField>((int)InputFields.LoginIDInput).text;
+        string password = Get<TMP_InputField>((int)InputFields.LoginPWInput).text;
+        if(id == string.Empty) 
+        {
+            GetText((int)Texts.LoginWaringText).text = "Please enter your ID";
+            return;
+        }
+        if (password == string.Empty)
+        {
+            GetText((int)Texts.LoginWaringText).text = "Please enter your Password";
+            return;
+        }
+        Managers.DB.Login(id, password);
+
     }
     private void NewStartEvent()
     {
-        //여기에 씬전환
-        //Managers.Scene.LoadScene(Define.Scene.Town);
         GetObject((int)GameObjects.MenuPanel).SetActive(false);
         GetObject((int)GameObjects.NewCharacter).SetActive(true);
-
     }
+
     private void LoadDataEvent()
     {
         //불러오기
+        GetObject((int)GameObjects.MenuPanel).SetActive(false);
+        GetObject((int)GameObjects.LoadDataPanel).SetActive(true);
     }
 
     private void OptionEvent()
     {
         //옵션 UI 출력
     }
+
     private void CharacterConfirm()
     {
-        if (GetText((int)Texts.NameInputText).text != string.Empty)
+        if (Get<TMP_InputField>((int)InputFields.NameInput).text != string.Empty)
         {
             Managers.DB.CreatePlayerData(GetText((int)Texts.NameInputText).text);
         }
@@ -106,26 +277,125 @@ public class MainUI : UI_Scene, IListener
     }
     private void CharacterCancel()
     {
+        GetText((int)Texts.WarningText).text = "";
         GetObject((int)GameObjects.MenuPanel).SetActive(true);
         GetObject((int)GameObjects.NewCharacter).SetActive(false);
     }
-    public void OnEvent(Define.EVENT_TYPE Event_Type, Component Sender, object Param = null)
+
+    private void LoadStart()
     {
-        switch (Event_Type)
+        Debug.Log("선택한 캐릭터로 시작할 곳");
+    }
+    private void LoadCancel()
+    {
+        GetObject((int)GameObjects.MenuPanel).SetActive(true);
+        GetObject((int)GameObjects.LoadDataPanel).SetActive(false);
+    }
+
+    private void HighrightData(GameObjects dataObject)
+    {
+        List<GameObjects> list = new List<GameObjects>
         {
-            case Define.EVENT_TYPE.DuplicateNickname:
+            GameObjects.FirstData,
+            GameObjects.SecondData,
+            GameObjects.ThirdData
+        };
+
+        foreach (GameObjects _object in list) 
+        {
+            if(_object != dataObject)
+            {
+                GetObject((int)_object).GetComponent<Outline>().enabled = false;
+            }
+            else
+            {
+                GetObject((int)_object).GetComponent<Outline>().enabled = true;
+            }
+        }
+    }
+
+    private Queue<(Action<Define.DB_Event>, Define.DB_Event)> ActionQueue = new Queue<(Action<Define.DB_Event>, Define.DB_Event)>();
+    private void EnqueueAction(Action<Define.DB_Event> action, Define.DB_Event eventType)
+    {
+        ActionQueue.Enqueue((action, eventType));
+    }
+
+    private void DB_Event(Define.DB_Event eventType)
+    {
+        switch (eventType)
+        {
+            case Define.DB_Event.DuplicateNickname:
                 {
-                    Debug.Log("중복닉네임 이벤트");
-                    GetText((int)Texts.WarningText).text = "Duplicate Name!";
+                    EnqueueAction(action =>
+                    {
+                        GetText((int)Texts.WarningText).text = "Duplicate Name!";
+                    }, eventType);
                     break;
                 }
-            case Define.EVENT_TYPE.SuccessCreateNewPlayer:
+            case Define.DB_Event.SuccessCreateNewPlayer:
                 {
-                    Debug.Log("데이터 생성 성공 이벤트");
-                    Managers.Scene.LoadScene(Define.Scene.Town);
-                    Debug.Log("로드씬 후");
+                    EnqueueAction(action =>
+                    {
+                        GetText((int)Texts.WarningText).text = "Creating Data...";
+                        Managers.Scene.LoadScene(Define.Scene.Town);
+                    }, eventType);
+                    //새로운 캐릭터로 생성
                     break;
                 }
+            case Define.DB_Event.DuplicateID:
+                {
+                    EnqueueAction(action =>
+                    {
+                        GetText((int)Texts.SignUpWarningText).text = "Duplicate ID!";
+                    }, eventType);
+                    break;
+                }
+            case Define.DB_Event.SuccessCreateNewAccount:
+                {
+                    EnqueueAction(action =>
+                    {
+                        GetText((int)Texts.SignUpWarningText).text = "Account creation complete!";
+                    }, eventType);
+                    break;
+                }
+            case Define.DB_Event.NonExistID:
+                {
+                    EnqueueAction(action =>
+                    {
+                        GetText((int)Texts.LoginWaringText).text = "Non Exist ID";
+                    }, eventType);
+                    break;
+                }
+            case Define.DB_Event.WrongPassword:
+                {
+                    EnqueueAction(action =>
+                    {
+                        GetText((int)Texts.LoginWaringText).text = "Wrong Password";
+                    }, eventType);
+                    break;
+                }
+            case Define.DB_Event.SuccessLogin:
+                {
+                    EnqueueAction(action =>
+                    {
+                        GetText((int)Texts.LoginWaringText).text = "Success Login";
+                        GetObject((int)GameObjects.LoginPanel).SetActive(false);
+                        GetObject((int)GameObjects.MenuPanel).SetActive(true);
+
+                    }, eventType);
+                    break;
+                }
+        }
+    }
+
+
+    private IEnumerator ProcessActionQueue()
+    {
+        while (ActionQueue.Count > 0)
+        {
+            (Action<Define.DB_Event> action, Define.DB_Event eventType) = ActionQueue.Dequeue();
+            action?.Invoke(eventType);
+            yield return new WaitForSeconds(1.0f);
         }
     }
 }

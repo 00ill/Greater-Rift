@@ -35,13 +35,21 @@ public class Define
 
     public enum EVENT_TYPE
     {
-        DuplicateNickname,
-        SuccessCreateNewPlayer,
         PlayerHpChange,
         PlayerManaChange,
         CheckInteractableObject,
         SkillSettingUIOpen
+    }
 
+    public enum DB_Event
+    {
+        DuplicateID,
+        NonExistID,
+        WrongPassword,
+        SuccessLogin,
+        SuccessCreateNewAccount,
+        DuplicateNickname,
+        SuccessCreateNewPlayer
     }
     public enum Skill_Type
     {
