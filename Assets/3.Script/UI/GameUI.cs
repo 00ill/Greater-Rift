@@ -212,13 +212,17 @@ public class GameUI : UI_Scene, IListener
         GetText((int)Texts.ContinueText).text = "Continue";
         GetText((int)Texts.SaveAndQuitText).text = "Save Exit";
 
-        GetButton((int)Buttons.Continue).gameObject
-            .BindEvent((PointerEventData data) => { Time.timeScale = 1.0f; GetObject((int)Objects.PausePanel).SetActive(false); });
-        GetButton((int)Buttons.SaveAndQuit).gameObject
-            .BindEvent((PointerEventData data) => {
-                Time.timeScale = 1.0f; Managers.DB
-                .SaveData(new DBManager.PlayerData(Managers.DB.CurrentPlayerData.Name, FindObjectOfType<PlayerStatus>().GetStats(Statistic.Level).IntetgerValue,
-                FindObjectOfType<PlayerStatus>().ExpPool.CurrentValue));
+        GetButton((int)Buttons.Continue).gameObject.BindEvent((PointerEventData data) =>
+            {
+                Time.timeScale = 1.0f;
+                GetObject((int)Objects.PausePanel).SetActive(false);
+            });
+        GetButton((int)Buttons.SaveAndQuit).gameObject.BindEvent((PointerEventData data) =>
+            {
+                Time.timeScale = 1.0f;
+                Managers.DB.SaveData(new DBManager.PlayerData(Managers.DB.CurrentPlayerData.Name,
+                    FindObjectOfType<PlayerStatus>().GetStats(Statistic.Level).IntetgerValue,
+                    FindObjectOfType<PlayerStatus>().ExpPool.CurrentValue));
                 GetObject((int)Objects.PausePanel).SetActive(false); Managers.Scene.LoadScene(Define.Scene.MainMenu);
             });
         GetObject((int)Objects.PausePanel).SetActive(false);
@@ -236,7 +240,7 @@ public class GameUI : UI_Scene, IListener
 
     private void PlayerExpChangeEvent(float curExp, float MaxExp)
     {
-        Get<Slider>((int)Sliders.ExpBar).value = Mathf.Clamp(curExp / MaxExp, 0, 1);    
+        Get<Slider>((int)Sliders.ExpBar).value = Mathf.Clamp(curExp / MaxExp, 0, 1);
     }
     private string FindSkillScript(Images image)
     {

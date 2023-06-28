@@ -89,7 +89,7 @@ public class PlayerControlInput : MonoBehaviour
 
     public void Pause(InputAction.CallbackContext callbackContext)
     {
-        if(callbackContext.performed) 
+        if (callbackContext.performed)
         {
             Managers.Event.PostNotification(Define.EVENT_TYPE.Pause, this);
         }
@@ -97,7 +97,7 @@ public class PlayerControlInput : MonoBehaviour
 
     public void Test(InputAction.CallbackContext callbackContext)
     {
-        if(callbackContext.performed)
+        if (callbackContext.performed)
         {
             Debug.Log("테스트 버든");
             FindObjectOfType<PlayerStatus>().GainExp(1);

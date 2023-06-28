@@ -1,10 +1,10 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using System.Collections;
-using System.Collections.Generic;
-using System;
 
 public class MainUI : UI_Scene
 {
@@ -118,12 +118,9 @@ public class MainUI : UI_Scene
         GetText((int)Texts.LoadDataText).text = $"Load Data";
         GetText((int)Texts.OptionText).text = $"Option";
 
-        GetButton((int)Buttons.NewStartButton).gameObject
-            .BindEvent((PointerEventData data) => NewStartEvent());
-        GetButton((int)Buttons.LoadDataButton).gameObject
-            .BindEvent((PointerEventData data) => LoadDataEvent());
-        GetButton((int)Buttons.OptionButton).gameObject
-            .BindEvent((PointerEventData data) => OptionEvent());
+        GetButton((int)Buttons.NewStartButton).gameObject.BindEvent((PointerEventData data) => NewStartEvent());
+        GetButton((int)Buttons.LoadDataButton).gameObject.BindEvent((PointerEventData data) => LoadDataEvent());
+        GetButton((int)Buttons.OptionButton).gameObject.BindEvent((PointerEventData data) => OptionEvent());
 
         GetObject((int)GameObjects.MenuPanel).SetActive(false);
     }
@@ -154,8 +151,7 @@ public class MainUI : UI_Scene
         GetObject((int)GameObjects.SecondData).GetComponent<Outline>().enabled = false;
         GetObject((int)GameObjects.ThirdData).GetComponent<Outline>().enabled = false;
 
-        GetObject((int)GameObjects.FirstData).gameObject
-            .BindEvent((PointerEventData data) =>
+        GetObject((int)GameObjects.FirstData).BindEvent((PointerEventData data) =>
             {
                 HighrightData(GameObjects.FirstData);
                 if (GetText((int)Texts.FirstDataName).text != "No Data")
@@ -170,8 +166,7 @@ public class MainUI : UI_Scene
                     GetText((int)Texts.LoadWarningText).text = "Please Select Exist Data";
                 }
             });
-        GetObject((int)GameObjects.SecondData).gameObject
-            .BindEvent((PointerEventData data) =>
+        GetObject((int)GameObjects.SecondData).BindEvent((PointerEventData data) =>
             {
                 HighrightData(GameObjects.SecondData);
                 if (GetText((int)Texts.SecondDataName).text != "No Data")
@@ -187,8 +182,7 @@ public class MainUI : UI_Scene
                 }
 
             });
-        GetObject((int)GameObjects.ThirdData).gameObject
-            .BindEvent((PointerEventData data) =>
+        GetObject((int)GameObjects.ThirdData).BindEvent((PointerEventData data) =>
             {
                 HighrightData(GameObjects.ThirdData);
                 if (GetText((int)Texts.ThirdDataName).text != "No Data")
@@ -204,16 +198,12 @@ public class MainUI : UI_Scene
                 }
 
             });
-        GetButton((int)Buttons.FirstDataDelete).gameObject
-            .BindEvent((PointerEventData data) => { Managers.DB.DeletaData(1); });
-        GetButton((int)Buttons.SecondDataDelete).gameObject
-            .BindEvent((PointerEventData data) => { Managers.DB.DeletaData(2); });
-        GetButton((int)Buttons.ThirdDataDelete).gameObject
-            .BindEvent((PointerEventData data) => { Managers.DB.DeletaData(3); });
-        GetButton((int)Buttons.LoadStart).gameObject
-            .BindEvent((PointerEventData data) => LoadStart());
-        GetButton((int)Buttons.LoadCancel).gameObject
-            .BindEvent((PointerEventData data) => LoadCancel());
+
+        GetButton((int)Buttons.FirstDataDelete).gameObject.BindEvent((PointerEventData data) => { Managers.DB.DeletaData(1); });
+        GetButton((int)Buttons.SecondDataDelete).gameObject.BindEvent((PointerEventData data) => { Managers.DB.DeletaData(2); });
+        GetButton((int)Buttons.ThirdDataDelete).gameObject.BindEvent((PointerEventData data) => { Managers.DB.DeletaData(3); });
+        GetButton((int)Buttons.LoadStart).gameObject.BindEvent((PointerEventData data) => LoadStart());
+        GetButton((int)Buttons.LoadCancel).gameObject.BindEvent((PointerEventData data) => LoadCancel());
 
         GetObject((int)GameObjects.LoadDataPanel).SetActive(false);
 
@@ -227,10 +217,8 @@ public class MainUI : UI_Scene
         GetText((int)Texts.SignUpButtonText).text = "Sign Up";
         GetText((int)Texts.QuitGameText).text = "QUIT";
 
-        GetButton((int)Buttons.LoginButton).gameObject
-            .BindEvent((PointerEventData data) => { Login(); });
-        GetButton((int)Buttons.SignUpButton).gameObject
-            .BindEvent((PointerEventData data) =>
+        GetButton((int)Buttons.LoginButton).gameObject.BindEvent((PointerEventData data) => { Login(); });
+        GetButton((int)Buttons.SignUpButton).gameObject.BindEvent((PointerEventData data) =>
         {
             GetObject((int)GameObjects.SignUpPanel).SetActive(true);
             GetObject((int)GameObjects.LoginPanel).SetActive(false);
@@ -245,10 +233,8 @@ public class MainUI : UI_Scene
         GetText((int)Texts.SignUpCancelText).text = "Cancel";
         GetText((int)Texts.SignUpWarningText).text = "";
 
-        GetButton((int)Buttons.SignUpConfirmButton).gameObject
-            .BindEvent((PointerEventData data) => { CreateAccount(); });
-        GetButton((int)Buttons.SignUpCancelButton).gameObject
-            .BindEvent((PointerEventData data) =>
+        GetButton((int)Buttons.SignUpConfirmButton).gameObject.BindEvent((PointerEventData data) => { CreateAccount(); });
+        GetButton((int)Buttons.SignUpCancelButton).gameObject.BindEvent((PointerEventData data) =>
             {
                 GetObject((int)GameObjects.SignUpPanel).SetActive(false);
                 GetObject((int)GameObjects.LoginPanel).SetActive(true);
@@ -495,7 +481,6 @@ public class MainUI : UI_Scene
                 }
         }
     }
-
 
     private IEnumerator ProcessActionQueue()
     {

@@ -1,9 +1,7 @@
 using Firebase;
 using Firebase.Database;
-using Firebase.Extensions;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 
 public class DBManager
@@ -41,14 +39,14 @@ public class DBManager
         DatabaseReference duplicateRef = reference.Child("Account").Child("ID").Child(id);
         duplicateRef.GetValueAsync().ContinueWith(task =>
         {
-            if(task.IsFaulted)
+            if (task.IsFaulted)
             {
                 Debug.Log("중복 체크 중 오류 발생");
             }
-            else if(task.IsCompleted)
+            else if (task.IsCompleted)
             {
                 DataSnapshot snapshot = task.Result;
-                if(snapshot.Exists)
+                if (snapshot.Exists)
                 {
                     Managers.Event.DBEvent?.Invoke(Define.DB_Event.DuplicateID);
                     return;
@@ -73,24 +71,24 @@ public class DBManager
         });
     }
 
-    public void Login(string id, string password) 
+    public void Login(string id, string password)
     {
         DatabaseReference accountRef = reference.Child("Account").Child("ID").Child(id);
         accountRef.GetValueAsync().ContinueWith(task =>
         {
-            if(task.IsFaulted)
+            if (task.IsFaulted)
             {
                 Debug.Log("로그인 중 오류 발생");
             }
-            else if(task.IsCompleted)
+            else if (task.IsCompleted)
             {
                 DataSnapshot snapshot = task.Result;
-                if(snapshot.Exists)
+                if (snapshot.Exists)
                 {
-                    if(snapshot.Child("Password").Value.ToString() == password)
+                    if (snapshot.Child("Password").Value.ToString() == password)
                     {
                         CurrecntUserID = id;
-                        if(snapshot.HasChild(_dataSlot1))
+                        if (snapshot.HasChild(_dataSlot1))
                         {
                             Slot1Data.Name = snapshot.Child(_dataSlot1).Child("Name").Value.ToString();
                             Slot1Data.Level = int.Parse(snapshot.Child(_dataSlot1).Child("Level").Value.ToString());
@@ -146,7 +144,7 @@ public class DBManager
                 {
                     PlayerData playerData = new(name);
                     string playerDataJson = JsonUtility.ToJson(playerData);
-                    if(!snapshot.HasChild(_dataSlot1))
+                    if (!snapshot.HasChild(_dataSlot1))
                     {
                         reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot1).SetRawJsonValueAsync(playerDataJson);
                         CurrentDataSlot = _dataSlot1;
@@ -184,18 +182,18 @@ public class DBManager
         DatabaseReference dataRef = reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(CurrentDataSlot);
         dataRef.GetValueAsync().ContinueWith(task =>
         {
-            if(task.IsFaulted)
+            if (task.IsFaulted)
             {
                 Debug.Log("데이터 저장 중 오류");
             }
-            else if(task.IsCompleted)
+            else if (task.IsCompleted)
             {
                 DataSnapshot snapshot = task.Result;
                 string playerDataJson = JsonUtility.ToJson(playerData);
                 reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(CurrentDataSlot).SetRawJsonValueAsync(playerDataJson);
             }
         });
-        
+
     }
 
     public void DeletaData(int slotNum)
@@ -203,11 +201,11 @@ public class DBManager
         DatabaseReference accountDelRef = reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataList[slotNum - 1]);
         accountDelRef.RemoveValueAsync().ContinueWith(delTask =>
         {
-            if(delTask.IsFaulted)
+            if (delTask.IsFaulted)
             {
                 Debug.Log("데이터 삭제 중 오류 발생");
             }
-            else if(delTask.IsCompleted)
+            else if (delTask.IsCompleted)
             {
                 DatabaseReference accountRef = reference.Child("Account").Child("ID").Child(CurrecntUserID);
                 accountRef.GetValueAsync().ContinueWith(task =>
