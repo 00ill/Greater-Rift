@@ -120,18 +120,30 @@ public class GameUI : UI_Scene, IListener
         PlayerManaChangeEvent(FindObjectOfType<PlayerStatus>().ManaPool.CurrentValue, FindObjectOfType<PlayerStatus>().ManaPool.MaxValue);
         PlayerExpChangeEvent(FindObjectOfType<PlayerStatus>().ExpPool.CurrentValue, FindObjectOfType<PlayerStatus>().ExpPool.MaxValue);
 
-        InitTexts();
-        InitSliders();
+        InitPlayerUI();
+        InitInformation();
+        InitSkillSettingUI();
         InitPausePanel();
-        InitSkillimages();
-        InitButtonEvent();
-        InitPanel();
     }
 
 
-    private void InitTexts()
+
+
+    private void InitPlayerUI()
+    {
+        GetText((int)Texts.Level).text = Managers.DB.CurrentPlayerData.Level.ToString();
+    }
+
+    private void InitInformation()
     {
         GetText((int)Texts.InteractableObjectName).text = "";
+        Get<Slider>((int)Sliders.EnemyHpBar).gameObject.SetActive(false);
+
+
+    }
+
+    private void InitSkillSettingUI()
+    {
         GetText((int)Texts.SkillSettingTitle).text = "Skill Setting";
         GetText((int)Texts.SkillSetM1Text).text = "<color=white>Mouse 1 Skill Setting</color>";
         GetText((int)Texts.SkillSetM2Text).text = "<color=white>Mouse 2 Skill Setting</color>";
@@ -143,15 +155,7 @@ public class GameUI : UI_Scene, IListener
         GetText((int)Texts.SkillM2PanelTitle).text = "<color=white>Mouse 2 Skill Setting</color>";
         GetText((int)Texts.SkillM1Script).text = "";
         GetText((int)Texts.SkillM2Script).text = "";
-        GetText((int)Texts.Level).text = Managers.DB.CurrentPlayerData.Level.ToString();
-    }
 
-    private void InitSliders()
-    {
-        Get<Slider>((int)Sliders.EnemyHpBar).gameObject.SetActive(false);
-    }
-    private void InitSkillimages()
-    {
         GetImage((int)Images.SkillNum1Cooldown).fillAmount = 0f;
         GetImage((int)Images.SkillNum2Cooldown).fillAmount = 0f;
         GetImage((int)Images.SkillNum3Cooldown).fillAmount = 0f;
@@ -189,15 +193,19 @@ public class GameUI : UI_Scene, IListener
             GetText((int)Texts.SkillM2Script).text = FindSkillScript(Images.SkillSetingM2_DarkFlare);
             Managers.Skill.CurrentSelectSkillName = SkillName.DarkFlare;
         });
-    }
 
-    private void InitPanel()
-    {
+        GetButton((int)Buttons.SkillSettingExit).gameObject.BindEvent((PointerEventData data) => CloseSkillSettingUI());
+        GetButton((int)Buttons.SkillSetM1).gameObject.BindEvent((PointerEventData data) => SKillSetM1Open());
+        GetButton((int)Buttons.SkillM1Confirm).gameObject.BindEvent((PointerEventData data) => SkillM1PanelConfirm());
+        GetButton((int)Buttons.SkillM1Exit).gameObject.BindEvent((PointerEventData data) => SkillM1PanelExit());
+        GetButton((int)Buttons.SkillSetM2).gameObject.BindEvent((PointerEventData data) => SKillSetM2Open());
+        GetButton((int)Buttons.SkillM2Confirm).gameObject.BindEvent((PointerEventData data) => SkillM2PanelConfirm());
+        GetButton((int)Buttons.SkillM2Exit).gameObject.BindEvent((PointerEventData data) => SkillM2PanelExit());
+
         CloseSkillSettingUI();
         SkillM1PanelExit();
         SkillM2PanelExit();
     }
-
     private void InitPausePanel()
     {
         GetText((int)Texts.PauseText).text = "Pause";
@@ -207,24 +215,13 @@ public class GameUI : UI_Scene, IListener
         GetButton((int)Buttons.Continue).gameObject
             .BindEvent((PointerEventData data) => { Time.timeScale = 1.0f; GetObject((int)Objects.PausePanel).SetActive(false); });
         GetButton((int)Buttons.SaveAndQuit).gameObject
-            .BindEvent((PointerEventData data) => { Time.timeScale = 1.0f; Managers.DB
+            .BindEvent((PointerEventData data) => {
+                Time.timeScale = 1.0f; Managers.DB
                 .SaveData(new DBManager.PlayerData(Managers.DB.CurrentPlayerData.Name, FindObjectOfType<PlayerStatus>().GetStats(Statistic.Level).IntetgerValue,
                 FindObjectOfType<PlayerStatus>().ExpPool.CurrentValue));
                 GetObject((int)Objects.PausePanel).SetActive(false); Managers.Scene.LoadScene(Define.Scene.MainMenu);
             });
         GetObject((int)Objects.PausePanel).SetActive(false);
-    }
-
-
-    private void InitButtonEvent()
-    {
-        GetButton((int)Buttons.SkillSettingExit).gameObject.BindEvent((PointerEventData data) => CloseSkillSettingUI());
-        GetButton((int)Buttons.SkillSetM1).gameObject.BindEvent((PointerEventData data) => SKillSetM1Open());
-        GetButton((int)Buttons.SkillM1Confirm).gameObject.BindEvent((PointerEventData data) => SkillM1PanelConfirm());
-        GetButton((int)Buttons.SkillM1Exit).gameObject.BindEvent((PointerEventData data) => SkillM1PanelExit());
-        GetButton((int)Buttons.SkillSetM2).gameObject.BindEvent((PointerEventData data) => SKillSetM2Open());
-        GetButton((int)Buttons.SkillM2Confirm).gameObject.BindEvent((PointerEventData data) => SkillM2PanelConfirm());
-        GetButton((int)Buttons.SkillM2Exit).gameObject.BindEvent((PointerEventData data) => SkillM2PanelExit());
     }
 
     private void PlayerHpChangeEvent(float curHp, float maxHp)
@@ -319,6 +316,8 @@ public class GameUI : UI_Scene, IListener
     }
     private void CloseSkillSettingUI()
     {
+        SkillM1PanelExit();
+        SkillM2PanelExit();
         GetObject((int)Objects.SkillSettingUI).SetActive(false);
     }
     #endregion
