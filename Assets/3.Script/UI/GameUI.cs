@@ -1,6 +1,4 @@
 using TMPro;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
-using UnityEditor.Experimental.RestService;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -211,7 +209,7 @@ public class GameUI : UI_Scene, IListener
         GetButton((int)Buttons.SaveAndQuit).gameObject
             .BindEvent((PointerEventData data) => { Time.timeScale = 1.0f; Managers.DB
                 .SaveData(new DBManager.PlayerData(Managers.DB.CurrentPlayerData.Name, FindObjectOfType<PlayerStatus>().GetStats(Statistic.Level).IntetgerValue,
-                FindObjectOfType<PlayerStatus>().GetStats(Statistic.Exp).IntetgerValue));
+                FindObjectOfType<PlayerStatus>().ExpPool.CurrentValue));
                 GetObject((int)Objects.PausePanel).SetActive(false); Managers.Scene.LoadScene(Define.Scene.MainMenu);
             });
         GetObject((int)Objects.PausePanel).SetActive(false);

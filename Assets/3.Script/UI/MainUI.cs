@@ -162,9 +162,11 @@ public class MainUI : UI_Scene
                 {
                     Managers.DB.CurrentDataSlot = "DataSlot1";
                     Managers.DB.CurrentPlayerData = Managers.DB.Slot1Data;
+                    GetText((int)Texts.LoadWarningText).text = "";
                 }
                 else
                 {
+                    Managers.DB.CurrentPlayerData = null;
                     GetText((int)Texts.LoadWarningText).text = "Please Select Exist Data";
                 }
             });
@@ -176,9 +178,11 @@ public class MainUI : UI_Scene
                 {
                     Managers.DB.CurrentDataSlot = "DataSlot2";
                     Managers.DB.CurrentPlayerData = Managers.DB.Slot2Data;
+                    GetText((int)Texts.LoadWarningText).text = "";
                 }
                 else
                 {
+                    Managers.DB.CurrentPlayerData = null;
                     GetText((int)Texts.LoadWarningText).text = "Please Select Exist Data";
                 }
 
@@ -191,9 +195,11 @@ public class MainUI : UI_Scene
                 {
                     Managers.DB.CurrentDataSlot = "DataSlot3";
                     Managers.DB.CurrentPlayerData = Managers.DB.Slot3Data;
+                    GetText((int)Texts.LoadWarningText).text = "";
                 }
                 else
                 {
+                    Managers.DB.CurrentPlayerData = null;
                     GetText((int)Texts.LoadWarningText).text = "Please Select Exist Data";
                 }
 
