@@ -18,6 +18,7 @@ public class DBManager
 
     public string CurrecntUserID = string.Empty;
     public string CurrentDataSlot = string.Empty;
+    public PlayerData CurrentPlayerData = null;
     public PlayerData Slot1Data = new("Empty");
     public PlayerData Slot2Data = new("Empty");
     public PlayerData Slot3Data = new("Empty");
@@ -149,6 +150,7 @@ public class DBManager
                     {
                         reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot1).SetRawJsonValueAsync(playerDataJson);
                         CurrentDataSlot = _dataSlot1;
+                        Managers.DB.CurrentPlayerData = Managers.DB.Slot1Data;
                         Managers.Event.DBEvent?.Invoke(Define.DB_Event.SuccessCreateNewPlayer);
                         return;
                     }
@@ -156,6 +158,7 @@ public class DBManager
                     {
                         reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot2).SetRawJsonValueAsync(playerDataJson);
                         CurrentDataSlot = _dataSlot2;
+                        Managers.DB.CurrentPlayerData = Managers.DB.Slot2Data;
                         Managers.Event.DBEvent?.Invoke(Define.DB_Event.SuccessCreateNewPlayer);
                         return;
                     }
@@ -163,6 +166,7 @@ public class DBManager
                     {
                         reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot3).SetRawJsonValueAsync(playerDataJson);
                         CurrentDataSlot = _dataSlot3;
+                        Managers.DB.CurrentPlayerData = Managers.DB.Slot3Data;
                         Managers.Event.DBEvent?.Invoke(Define.DB_Event.SuccessCreateNewPlayer);
                         return;
                     }
@@ -175,9 +179,9 @@ public class DBManager
         });
     }
 
-    public void SaveData(string dataSlot)
+    public void SaveData(PlayerData playerData)
     {
-        DatabaseReference dataRef = reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(dataSlot);
+        DatabaseReference dataRef = reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(CurrentDataSlot);
         dataRef.GetValueAsync().ContinueWith(task =>
         {
             if(task.IsFaulted)
@@ -187,7 +191,8 @@ public class DBManager
             else if(task.IsCompleted)
             {
                 DataSnapshot snapshot = task.Result;
-                //reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(dataSlot).SetRawJsonValueAsync(playerDataJson);
+                string playerDataJson = JsonUtility.ToJson(playerData);
+                reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(CurrentDataSlot).SetRawJsonValueAsync(playerDataJson);
             }
         });
         

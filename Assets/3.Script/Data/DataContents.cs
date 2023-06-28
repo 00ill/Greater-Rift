@@ -35,6 +35,7 @@ namespace Data
         public int Mana;
         public int Damage;
         public int Armor;
+        public int RequireExp;
     }
     [Serializable]
     public class PlayerStatusLoader : ILoader<int, Data.PlayerStatus>
@@ -43,8 +44,6 @@ namespace Data
 
         public Dictionary<int, PlayerStatus> MakeDict()
         {
-            Debug.Log("플레이어 스테이터스 로더 딕셔너리");
-            Debug.Log(PlayerStatusData.Count);
             Dictionary<int, PlayerStatus> dict = new();
             foreach (PlayerStatus data in PlayerStatusData)
             {

@@ -2,7 +2,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -27,7 +26,7 @@ public class MainUI : UI_Scene
         QuitGame,
         SignUpConfirmButton,
         SignUpCancelButton
-        
+
     }
     enum Images
     {
@@ -49,6 +48,7 @@ public class MainUI : UI_Scene
         SecondDataLevel,
         ThirdDataName,
         ThirdDataLevel,
+        LoadWarningText,
         LoginIDText,
         LoginPWText,
         LoginWaringText,
@@ -143,6 +143,7 @@ public class MainUI : UI_Scene
     }
     private void InitLoadDataPanel()
     {
+        GetText((int)Texts.LoadWarningText).text = "";
         GetText((int)Texts.FirstDataName).text = "No Data";
         GetText((int)Texts.FirstDataLevel).text = "";
         GetText((int)Texts.SecondDataName).text = "No Data";
@@ -154,11 +155,49 @@ public class MainUI : UI_Scene
         GetObject((int)GameObjects.ThirdData).GetComponent<Outline>().enabled = false;
 
         GetObject((int)GameObjects.FirstData).gameObject
-            .BindEvent((PointerEventData data) => { HighrightData(GameObjects.FirstData); Managers.DB.CurrentDataSlot = "DataSlot1"; });
+            .BindEvent((PointerEventData data) =>
+            {
+                HighrightData(GameObjects.FirstData);
+                if (GetText((int)Texts.FirstDataName).text != "No Data")
+                {
+                    Managers.DB.CurrentDataSlot = "DataSlot1";
+                    Managers.DB.CurrentPlayerData = Managers.DB.Slot1Data;
+                }
+                else
+                {
+                    GetText((int)Texts.LoadWarningText).text = "Please Select Exist Data";
+                }
+            });
         GetObject((int)GameObjects.SecondData).gameObject
-            .BindEvent((PointerEventData data) => { HighrightData(GameObjects.SecondData); Managers.DB.CurrentDataSlot = "DataSlot2"; });
+            .BindEvent((PointerEventData data) =>
+            {
+                HighrightData(GameObjects.SecondData);
+                if (GetText((int)Texts.SecondDataName).text != "No Data")
+                {
+                    Managers.DB.CurrentDataSlot = "DataSlot2";
+                    Managers.DB.CurrentPlayerData = Managers.DB.Slot2Data;
+                }
+                else
+                {
+                    GetText((int)Texts.LoadWarningText).text = "Please Select Exist Data";
+                }
+
+            });
         GetObject((int)GameObjects.ThirdData).gameObject
-            .BindEvent((PointerEventData data) => { HighrightData(GameObjects.ThirdData); Managers.DB.CurrentDataSlot = "DataSlot3"; });
+            .BindEvent((PointerEventData data) =>
+            {
+                HighrightData(GameObjects.ThirdData);
+                if (GetText((int)Texts.ThirdDataName).text != "No Data")
+                {
+                    Managers.DB.CurrentDataSlot = "DataSlot3";
+                    Managers.DB.CurrentPlayerData = Managers.DB.Slot3Data;
+                }
+                else
+                {
+                    GetText((int)Texts.LoadWarningText).text = "Please Select Exist Data";
+                }
+
+            });
         GetButton((int)Buttons.FirstDataDelete).gameObject
             .BindEvent((PointerEventData data) => { Managers.DB.DeletaData(1); });
         GetButton((int)Buttons.SecondDataDelete).gameObject
@@ -181,11 +220,11 @@ public class MainUI : UI_Scene
         GetText((int)Texts.LoginButtonText).text = "Login";
         GetText((int)Texts.SignUpButtonText).text = "Sign Up";
         GetText((int)Texts.QuitGameText).text = "QUIT";
-        
+
         GetButton((int)Buttons.LoginButton).gameObject
             .BindEvent((PointerEventData data) => { Login(); });
         GetButton((int)Buttons.SignUpButton).gameObject
-            .BindEvent((PointerEventData data) => 
+            .BindEvent((PointerEventData data) =>
         {
             GetObject((int)GameObjects.SignUpPanel).SetActive(true);
             GetObject((int)GameObjects.LoginPanel).SetActive(false);
@@ -227,19 +266,19 @@ public class MainUI : UI_Scene
             GetText((int)Texts.SignUpWarningText).text = "Please enter your ID.";
             return;
         }
-        if(password == string.Empty)
+        if (password == string.Empty)
         {
             GetText((int)Texts.SignUpWarningText).text = "Please enter your Password.";
             return;
         }
-        Managers.DB.CreateAccount(id, password);    
+        Managers.DB.CreateAccount(id, password);
     }
 
     private void Login()
     {
         string id = Get<TMP_InputField>((int)InputFields.LoginIDInput).text;
         string password = Get<TMP_InputField>((int)InputFields.LoginPWInput).text;
-        if(id == string.Empty) 
+        if (id == string.Empty)
         {
             GetText((int)Texts.LoginWaringText).text = "Please enter your ID";
             return;
@@ -290,7 +329,14 @@ public class MainUI : UI_Scene
 
     private void LoadStart()
     {
-        Debug.Log("선택한 캐릭터로 시작할 곳");
+        if (Managers.DB.CurrentPlayerData == null)
+        {
+            GetText((int)Texts.LoadWarningText).text = "Please Select Data";
+        }
+        else
+        {
+            Managers.Scene.LoadScene(Define.Scene.Town);
+        }
     }
     private void LoadCancel()
     {
@@ -307,9 +353,9 @@ public class MainUI : UI_Scene
             GameObjects.ThirdData
         };
 
-        foreach (GameObjects _object in list) 
+        foreach (GameObjects _object in list)
         {
-            if(_object != dataObject)
+            if (_object != dataObject)
             {
                 GetObject((int)_object).GetComponent<Outline>().enabled = false;
             }
@@ -321,7 +367,7 @@ public class MainUI : UI_Scene
     }
     private void UpdateLoadData()
     {
-        if(Managers.DB.Slot1Data.Name != "Empty")
+        if (Managers.DB.Slot1Data.Name != "Empty")
         {
             GetText((int)Texts.FirstDataName).text = Managers.DB.Slot1Data.Name;
             GetText((int)Texts.FirstDataLevel).text = "Level : " + Managers.DB.Slot1Data.Level.ToString();
@@ -394,8 +440,6 @@ public class MainUI : UI_Scene
                     EnqueueAction(action =>
                     {
                         GetText((int)Texts.SignUpWarningText).text = "Account creation complete!";
-                        //GetObject((int)GameObjects.SignUpPanel).SetActive(false);
-                        //GetObject((int)GameObjects.LoginPanel).SetActive(true);
                     }, eventType);
                     break;
                 }

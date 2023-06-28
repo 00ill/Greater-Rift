@@ -37,9 +37,11 @@ public class Define
     {
         PlayerHpChange,
         PlayerManaChange,
+        PlayerExpChange,
         CheckInteractableObject,
         SkillSettingUIOpen,
-        Pause
+        Pause,
+        LevelUp
     }
 
     public enum DB_Event

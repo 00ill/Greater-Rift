@@ -26,7 +26,7 @@ public class Managers : MonoBehaviour
     void Start()
     {
         Init();
-        //Data.Init();
+        Data.Init();
         DB.Init();
     }
 

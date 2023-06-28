@@ -16372,7 +16372,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.46181038, y: 0.000000015261694, z: -0.0000000079460865, w: 0.8869787}
+  m_LocalRotation: {x: 0.46181035, y: -0.000000015261694, z: 0.000000007946086, w: 0.88697875}
   m_LocalPosition: {x: -4.56, y: 10.5, z: 7.38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -21255,7 +21255,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1213080556}
-  m_LocalRotation: {x: 0.46181038, y: 0.000000015261694, z: -0.0000000079460865, w: 0.8869787}
+  m_LocalRotation: {x: 0.46181035, y: -0.000000015261694, z: 0.000000007946086, w: 0.88697875}
   m_LocalPosition: {x: -4.56, y: 10.5, z: 7.38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -71107,7 +71107,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 9187535603368014505}
         m_TargetAssemblyTypeName: PlayerControlInput, Assembly-CSharp
-        m_MethodName: Pause
+        m_MethodName: Test
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -71117,8 +71117,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: dcba31db-8e66-41a3-a564-de6e00979eb5
-    m_ActionName: Player/PauseTest[/Keyboard/t]
+    m_ActionId: 0903a8ac-f047-41e2-b390-086b0850989e
+    m_ActionName: Player/Test[/Keyboard/t]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

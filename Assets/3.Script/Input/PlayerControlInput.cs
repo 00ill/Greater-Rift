@@ -94,4 +94,13 @@ public class PlayerControlInput : MonoBehaviour
             Managers.Event.PostNotification(Define.EVENT_TYPE.Pause, this);
         }
     }
+
+    public void Test(InputAction.CallbackContext callbackContext)
+    {
+        if(callbackContext.performed)
+        {
+            Debug.Log("테스트 버든");
+            FindObjectOfType<PlayerStatus>().GainExp(1);
+        }
+    }
 }

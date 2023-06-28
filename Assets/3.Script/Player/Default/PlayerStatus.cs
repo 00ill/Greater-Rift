@@ -5,6 +5,7 @@ using UnityEngine;
 public enum Statistic
 {
     Level,
+    Exp,
     Life,
     Mana,
     Damage,
@@ -43,11 +44,12 @@ public class StatsGroup
 
     public void Init()
     {
-        StatsList.Add(new StatsValue(Statistic.Level, 1));
-        StatsList.Add(new StatsValue(Statistic.Life, 100));
-        StatsList.Add(new StatsValue(Statistic.Mana, 100));
-        StatsList.Add(new StatsValue(Statistic.Damage, 25));
-        StatsList.Add(new StatsValue(Statistic.Armor, 5));
+        StatsList.Add(new StatsValue(Statistic.Level, Managers.DB.CurrentPlayerData.Level));
+        StatsList.Add(new StatsValue(Statistic.Exp, Managers.DB.CurrentPlayerData.CurExp));
+        StatsList.Add(new StatsValue(Statistic.Life, Managers.Data.PlayerStatusDataDict[Managers.DB.CurrentPlayerData.Level].Life));
+        StatsList.Add(new StatsValue(Statistic.Mana, Managers.Data.PlayerStatusDataDict[Managers.DB.CurrentPlayerData.Level].Mana));
+        StatsList.Add(new StatsValue(Statistic.Damage, Managers.Data.PlayerStatusDataDict[Managers.DB.CurrentPlayerData.Level].Damage));
+        StatsList.Add(new StatsValue(Statistic.Armor, Managers.Data.PlayerStatusDataDict[Managers.DB.CurrentPlayerData.Level].Armor));
         StatsList.Add(new StatsValue(Statistic.AttackSpeed, 1f));
         StatsList.Add(new StatsValue(Statistic.MoveSpeed, 10f));
     }
@@ -105,6 +107,12 @@ public class ValuePool
         this.MaxValue = maxValue.IntetgerValue;
         this.CurrentValue = MaxValue;
     }
+
+    public ValuePool(int maxValue, int cuttentValue)
+    {
+        this.MaxValue = maxValue;
+        this.CurrentValue = cuttentValue;
+    }
 }
 
 public class PlayerStatus : MonoBehaviour, IDamageable
@@ -113,8 +121,20 @@ public class PlayerStatus : MonoBehaviour, IDamageable
     public StatsGroup Stats;
     public ValuePool LifePool;
     public ValuePool ManaPool;
+    public ValuePool ExpPool;
 
-    private void Awake()
+    //private void Awake()
+    //{
+    //    Attributes = new AttributeGroup();
+    //    Attributes.Init();
+    //    Stats = new StatsGroup();
+    //    Stats.Init();
+
+    //    LifePool = new ValuePool(Stats.Get(Statistic.Life));
+    //    ManaPool = new ValuePool(Stats.Get(Statistic.Mana));
+    //}
+
+    private void OnEnable()
     {
         Attributes = new AttributeGroup();
         Attributes.Init();
@@ -123,6 +143,7 @@ public class PlayerStatus : MonoBehaviour, IDamageable
 
         LifePool = new ValuePool(Stats.Get(Statistic.Life));
         ManaPool = new ValuePool(Stats.Get(Statistic.Mana));
+        ExpPool = new ValuePool((Managers.Data.PlayerStatusDataDict[Stats.Get(Statistic.Level).IntetgerValue].RequireExp), Stats.Get(Statistic.Exp).IntetgerValue);
     }
     //private void Start()
     //{
@@ -170,5 +191,18 @@ public class PlayerStatus : MonoBehaviour, IDamageable
     public StatsValue GetStats(Statistic statisticToGet)
     {
         return Stats.Get(statisticToGet);
+    }
+
+    public void GainExp(int exp)
+    {
+        ExpPool.CurrentValue += exp;
+        if (ExpPool.CurrentValue >= ExpPool.MaxValue)
+        {
+            Stats.StatsList[(int)Statistic.Level].IntetgerValue += 1;
+            Stats.StatsList[(int)Statistic.Exp].IntetgerValue = 0;
+            ExpPool = new ValuePool((Managers.Data.PlayerStatusDataDict[Stats.Get(Statistic.Level).IntetgerValue].RequireExp), Stats.StatsList[(int)Statistic.Exp].IntetgerValue);
+            Managers.Event.PostNotification(Define.EVENT_TYPE.LevelUp, this);
+        }
+        Managers.Event.PostNotification(Define.EVENT_TYPE.PlayerExpChange, this);
     }
 }

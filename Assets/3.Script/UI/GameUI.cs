@@ -1,4 +1,6 @@
 using TMPro;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
+using UnityEditor.Experimental.RestService;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -12,6 +14,7 @@ public class GameUI : UI_Scene, IListener
         PauseText,
         ContinueText,
         SaveAndQuitText,
+        Level,
         InteractableObjectName,
         SkillSettingTitle,
         SkillSetM1Text,
@@ -50,6 +53,7 @@ public class GameUI : UI_Scene, IListener
     }
     enum Sliders
     {
+        ExpBar,
         EnemyHpBar
     }
     enum Buttons
@@ -108,12 +112,15 @@ public class GameUI : UI_Scene, IListener
 
         Managers.Event.AddListener(Define.EVENT_TYPE.PlayerHpChange, this);
         Managers.Event.AddListener(Define.EVENT_TYPE.PlayerManaChange, this);
+        Managers.Event.AddListener(Define.EVENT_TYPE.PlayerExpChange, this);
         Managers.Event.AddListener(Define.EVENT_TYPE.CheckInteractableObject, this);
         Managers.Event.AddListener(Define.EVENT_TYPE.SkillSettingUIOpen, this);
         Managers.Event.AddListener(Define.EVENT_TYPE.Pause, this);
+        Managers.Event.AddListener(Define.EVENT_TYPE.LevelUp, this);
 
         PlayerHpChangeEvent(FindObjectOfType<PlayerStatus>().LifePool.CurrentValue, FindObjectOfType<PlayerStatus>().LifePool.MaxValue);
         PlayerManaChangeEvent(FindObjectOfType<PlayerStatus>().ManaPool.CurrentValue, FindObjectOfType<PlayerStatus>().ManaPool.MaxValue);
+        PlayerExpChangeEvent(FindObjectOfType<PlayerStatus>().ExpPool.CurrentValue, FindObjectOfType<PlayerStatus>().ExpPool.MaxValue);
 
         InitTexts();
         InitSliders();
@@ -138,6 +145,7 @@ public class GameUI : UI_Scene, IListener
         GetText((int)Texts.SkillM2PanelTitle).text = "<color=white>Mouse 2 Skill Setting</color>";
         GetText((int)Texts.SkillM1Script).text = "";
         GetText((int)Texts.SkillM2Script).text = "";
+        GetText((int)Texts.Level).text = Managers.DB.CurrentPlayerData.Level.ToString();
     }
 
     private void InitSliders()
@@ -201,7 +209,11 @@ public class GameUI : UI_Scene, IListener
         GetButton((int)Buttons.Continue).gameObject
             .BindEvent((PointerEventData data) => { Time.timeScale = 1.0f; GetObject((int)Objects.PausePanel).SetActive(false); });
         GetButton((int)Buttons.SaveAndQuit).gameObject
-            .BindEvent((PointerEventData data) => { Debug.Log("데이터 저장 후 메인 화면으로 이동"); });
+            .BindEvent((PointerEventData data) => { Time.timeScale = 1.0f; Managers.DB
+                .SaveData(new DBManager.PlayerData(Managers.DB.CurrentPlayerData.Name, FindObjectOfType<PlayerStatus>().GetStats(Statistic.Level).IntetgerValue,
+                FindObjectOfType<PlayerStatus>().GetStats(Statistic.Exp).IntetgerValue));
+                GetObject((int)Objects.PausePanel).SetActive(false); Managers.Scene.LoadScene(Define.Scene.MainMenu);
+            });
         GetObject((int)Objects.PausePanel).SetActive(false);
     }
 
@@ -227,7 +239,10 @@ public class GameUI : UI_Scene, IListener
         GetImage((int)Images.ManaFluid).material.SetFloat("_FillLevel", Mathf.Clamp(curMana / maxMana, 0, 1));
     }
 
-
+    private void PlayerExpChangeEvent(float curExp, float MaxExp)
+    {
+        Get<Slider>((int)Sliders.ExpBar).value = Mathf.Clamp(curExp / MaxExp, 0, 1);    
+    }
     private string FindSkillScript(Images image)
     {
         switch (image)
@@ -312,7 +327,7 @@ public class GameUI : UI_Scene, IListener
 
     private bool SkillLevelCheck(Texts text)
     {
-        if (Managers.Skill.GetSkillData(Managers.Skill.CurrentSelectSkillName).LevelLimit > GameManager.PlayerLevel)
+        if (Managers.Skill.GetSkillData(Managers.Skill.CurrentSelectSkillName).LevelLimit > FindObjectOfType<PlayerStatus>().GetStats(Statistic.Level).IntetgerValue)
         {
             GetText((int)text).text = string.Format($"This skill is available from level " +
                 $"{Managers.Skill.GetSkillData(Managers.Skill.CurrentSelectSkillName).LevelLimit}");
@@ -350,6 +365,14 @@ public class GameUI : UI_Scene, IListener
                     }
                     break;
                 }
+            case Define.EVENT_TYPE.PlayerExpChange:
+                {
+                    if (Sender.TryGetComponent(out PlayerStatus playerStatus))
+                    {
+                        PlayerExpChangeEvent(playerStatus.ExpPool.CurrentValue, playerStatus.ExpPool.MaxValue);
+                    }
+                    break;
+                }
             case Define.EVENT_TYPE.CheckInteractableObject:
                 {
                     if (Sender != null)
@@ -383,6 +406,11 @@ public class GameUI : UI_Scene, IListener
                 {
                     GetObject((int)Objects.PausePanel).SetActive(true);
                     Time.timeScale = 0f;
+                    break;
+                }
+            case Define.EVENT_TYPE.LevelUp:
+                {
+                    GetText((int)Texts.Level).text = FindObjectOfType<PlayerStatus>().GetStats(Statistic.Level).IntetgerValue.ToString();
                     break;
                 }
         }
