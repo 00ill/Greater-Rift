@@ -38,7 +38,8 @@ public class Define
         PlayerHpChange,
         PlayerManaChange,
         CheckInteractableObject,
-        SkillSettingUIOpen
+        SkillSettingUIOpen,
+        Pause
     }
 
     public enum DB_Event
@@ -49,7 +50,9 @@ public class Define
         SuccessLogin,
         SuccessCreateNewAccount,
         DuplicateNickname,
-        SuccessCreateNewPlayer
+        SuccessCreateNewPlayer,
+        FullDataSlot,
+        UpdateLoadData
     }
     public enum Skill_Type
     {

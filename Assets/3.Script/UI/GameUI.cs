@@ -9,6 +9,9 @@ public class GameUI : UI_Scene, IListener
 
     enum Texts
     {
+        PauseText,
+        ContinueText,
+        SaveAndQuitText,
         InteractableObjectName,
         SkillSettingTitle,
         SkillSetM1Text,
@@ -51,6 +54,8 @@ public class GameUI : UI_Scene, IListener
     }
     enum Buttons
     {
+        Continue,
+        SaveAndQuit,
         SkillSettingExit,
         SkillSetM1,
         SkillSetM2,
@@ -66,6 +71,7 @@ public class GameUI : UI_Scene, IListener
 
     enum Objects
     {
+        PausePanel,
         SkillSettingUI,
         SkillM1Panel,
         SkillM2Panel
@@ -104,12 +110,14 @@ public class GameUI : UI_Scene, IListener
         Managers.Event.AddListener(Define.EVENT_TYPE.PlayerManaChange, this);
         Managers.Event.AddListener(Define.EVENT_TYPE.CheckInteractableObject, this);
         Managers.Event.AddListener(Define.EVENT_TYPE.SkillSettingUIOpen, this);
+        Managers.Event.AddListener(Define.EVENT_TYPE.Pause, this);
 
         PlayerHpChangeEvent(FindObjectOfType<PlayerStatus>().LifePool.CurrentValue, FindObjectOfType<PlayerStatus>().LifePool.MaxValue);
         PlayerManaChangeEvent(FindObjectOfType<PlayerStatus>().ManaPool.CurrentValue, FindObjectOfType<PlayerStatus>().ManaPool.MaxValue);
 
         InitTexts();
         InitSliders();
+        InitPausePanel();
         InitSkillimages();
         InitButtonEvent();
         InitPanel();
@@ -183,6 +191,20 @@ public class GameUI : UI_Scene, IListener
         SkillM1PanelExit();
         SkillM2PanelExit();
     }
+
+    private void InitPausePanel()
+    {
+        GetText((int)Texts.PauseText).text = "Pause";
+        GetText((int)Texts.ContinueText).text = "Continue";
+        GetText((int)Texts.SaveAndQuitText).text = "Save Exit";
+
+        GetButton((int)Buttons.Continue).gameObject
+            .BindEvent((PointerEventData data) => { Time.timeScale = 1.0f; GetObject((int)Objects.PausePanel).SetActive(false); });
+        GetButton((int)Buttons.SaveAndQuit).gameObject
+            .BindEvent((PointerEventData data) => { Debug.Log("데이터 저장 후 메인 화면으로 이동"); });
+        GetObject((int)Objects.PausePanel).SetActive(false);
+    }
+
 
     private void InitButtonEvent()
     {
@@ -355,6 +377,12 @@ public class GameUI : UI_Scene, IListener
             case Define.EVENT_TYPE.SkillSettingUIOpen:
                 {
                     OpenSkillSettingUI();
+                    break;
+                }
+            case Define.EVENT_TYPE.Pause:
+                {
+                    GetObject((int)Objects.PausePanel).SetActive(true);
+                    Time.timeScale = 0f;
                     break;
                 }
         }

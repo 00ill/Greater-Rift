@@ -86,4 +86,12 @@ public class PlayerControlInput : MonoBehaviour
             Managers.Event.PostNotification(Define.EVENT_TYPE.SkillSettingUIOpen, this);
         }
     }
+
+    public void Pause(InputAction.CallbackContext callbackContext)
+    {
+        if(callbackContext.performed) 
+        {
+            Managers.Event.PostNotification(Define.EVENT_TYPE.Pause, this);
+        }
+    }
 }

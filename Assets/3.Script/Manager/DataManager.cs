@@ -1,5 +1,8 @@
+using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static DBManager;
 
 public interface ILoader<Key, Value>
 {
@@ -8,16 +11,8 @@ public interface ILoader<Key, Value>
 
 public class DataManager
 {
-    public Dictionary<string, Data.PlayerSaveData> PlayerSaveDataDict { get; private set; } = new Dictionary<string, Data.PlayerSaveData>();
-    public Dictionary<int, Data.PlayerStatus> PlayerStatusDataDict { get; private set; } = new Dictionary<int, Data.PlayerStatus>();
     public void Init()
     {
-
-        Debug.Log("데이터 매니저 초기화");
-        //PlayerSaveDataDict = LoadJson<Data.PlayerSaveDataLoader, string, Data.PlayerSaveData>("PlayerSaveData").MakeDict();
-        PlayerStatusDataDict = LoadJson<Data.PlayerStatusLoader, int, Data.PlayerStatus>("PlayerStatusData").MakeDict();
-        //Debug.Log(PlayerStatusDataDict[30].Life);
-        Debug.Log("데이터 매니저 초기화 끝");
     }
 
 

@@ -154,11 +154,17 @@ public class MainUI : UI_Scene
         GetObject((int)GameObjects.ThirdData).GetComponent<Outline>().enabled = false;
 
         GetObject((int)GameObjects.FirstData).gameObject
-            .BindEvent((PointerEventData data) => { HighrightData(GameObjects.FirstData); });
+            .BindEvent((PointerEventData data) => { HighrightData(GameObjects.FirstData); Managers.DB.CurrentDataSlot = "DataSlot1"; });
         GetObject((int)GameObjects.SecondData).gameObject
-            .BindEvent((PointerEventData data) => { HighrightData(GameObjects.SecondData); });
+            .BindEvent((PointerEventData data) => { HighrightData(GameObjects.SecondData); Managers.DB.CurrentDataSlot = "DataSlot2"; });
         GetObject((int)GameObjects.ThirdData).gameObject
-            .BindEvent((PointerEventData data) => { HighrightData(GameObjects.ThirdData); });
+            .BindEvent((PointerEventData data) => { HighrightData(GameObjects.ThirdData); Managers.DB.CurrentDataSlot = "DataSlot3"; });
+        GetButton((int)Buttons.FirstDataDelete).gameObject
+            .BindEvent((PointerEventData data) => { Managers.DB.DeletaData(1); });
+        GetButton((int)Buttons.SecondDataDelete).gameObject
+            .BindEvent((PointerEventData data) => { Managers.DB.DeletaData(2); });
+        GetButton((int)Buttons.ThirdDataDelete).gameObject
+            .BindEvent((PointerEventData data) => { Managers.DB.DeletaData(3); });
         GetButton((int)Buttons.LoadStart).gameObject
             .BindEvent((PointerEventData data) => LoadStart());
         GetButton((int)Buttons.LoadCancel).gameObject
@@ -313,6 +319,39 @@ public class MainUI : UI_Scene
             }
         }
     }
+    private void UpdateLoadData()
+    {
+        if(Managers.DB.Slot1Data.Name != "Empty")
+        {
+            GetText((int)Texts.FirstDataName).text = Managers.DB.Slot1Data.Name;
+            GetText((int)Texts.FirstDataLevel).text = "Level : " + Managers.DB.Slot1Data.Level.ToString();
+        }
+        else
+        {
+            GetText((int)Texts.FirstDataName).text = "No Data";
+            GetText((int)Texts.FirstDataLevel).text = "";
+        }
+        if (Managers.DB.Slot2Data.Name != "Empty")
+        {
+            GetText((int)Texts.SecondDataName).text = Managers.DB.Slot2Data.Name;
+            GetText((int)Texts.SecondDataLevel).text = "Level : " + Managers.DB.Slot2Data.Level.ToString();
+        }
+        else
+        {
+            GetText((int)Texts.SecondDataName).text = "No Data";
+            GetText((int)Texts.SecondDataLevel).text = "";
+        }
+        if (Managers.DB.Slot3Data.Name != "Empty")
+        {
+            GetText((int)Texts.ThirdDataName).text = Managers.DB.Slot3Data.Name;
+            GetText((int)Texts.ThirdDataLevel).text = "Level : " + Managers.DB.Slot3Data.Level.ToString();
+        }
+        else
+        {
+            GetText((int)Texts.ThirdDataName).text = "No Data";
+            GetText((int)Texts.ThirdDataLevel).text = "";
+        }
+    }
 
     private Queue<(Action<Define.DB_Event>, Define.DB_Event)> ActionQueue = new Queue<(Action<Define.DB_Event>, Define.DB_Event)>();
     private void EnqueueAction(Action<Define.DB_Event> action, Define.DB_Event eventType)
@@ -383,7 +422,24 @@ public class MainUI : UI_Scene
                         GetText((int)Texts.LoginWaringText).text = "Success Login";
                         GetObject((int)GameObjects.LoginPanel).SetActive(false);
                         GetObject((int)GameObjects.MenuPanel).SetActive(true);
+                        UpdateLoadData();
 
+                    }, eventType);
+                    break;
+                }
+            case Define.DB_Event.FullDataSlot:
+                {
+                    EnqueueAction(action =>
+                    {
+                        GetText((int)Texts.WarningText).text = "Data slot is full";
+                    }, eventType);
+                    break;
+                }
+            case Define.DB_Event.UpdateLoadData:
+                {
+                    EnqueueAction(action =>
+                    {
+                        UpdateLoadData();
                     }, eventType);
                     break;
                 }

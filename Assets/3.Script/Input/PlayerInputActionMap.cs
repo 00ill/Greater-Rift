@@ -55,15 +55,6 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""OpenStatsPanel"",
-                    ""type"": ""Button"",
-                    ""id"": ""c33183eb-68f5-4d4c-93b4-774b80f5d1cf"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""OpenSkillSetPanel"",
                     ""type"": ""Button"",
                     ""id"": ""00658bf3-7432-4017-85fe-9da08ee144ea"",
@@ -109,63 +100,9 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Ability5"",
+                    ""name"": ""Pause"",
                     ""type"": ""Button"",
                     ""id"": ""19141cd5-0cd1-456e-bbac-b20f6e6d6ced"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Ability6"",
-                    ""type"": ""Button"",
-                    ""id"": ""8ca6c50a-5a6e-4e19-842a-5de0fb5abcd4"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Potion1"",
-                    ""type"": ""Button"",
-                    ""id"": ""8f392954-9b73-4a23-8217-00cce5a27d13"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Potion2"",
-                    ""type"": ""Button"",
-                    ""id"": ""2f532247-8fd6-49a2-b483-cf9883187c48"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Potion3"",
-                    ""type"": ""Button"",
-                    ""id"": ""13059f05-b461-4fb1-9e6d-84abddaacbaa"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Potion4"",
-                    ""type"": ""Button"",
-                    ""id"": ""84af6b0a-e578-488a-8d09-7504b9474120"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Potion5"",
-                    ""type"": ""Button"",
-                    ""id"": ""9693695b-983c-43cf-bffd-f27267a5c9a5"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -203,17 +140,6 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""OpenInventory"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""d6afb38a-9b35-46fe-a9ef-a31d2f528ae3"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""OpenStatsPanel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -275,77 +201,11 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""aa2c9aaf-abb7-41db-8af0-9e0ca1e53076"",
-                    ""path"": ""<Keyboard>/5"",
+                    ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Ability5"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""7d832a14-b758-4ff3-9d5e-fcd11bc2b069"",
-                    ""path"": ""<Keyboard>/6"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Ability6"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""c32f3113-c369-4eae-822c-1ffb8bfbc20d"",
-                    ""path"": ""<Keyboard>/q"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Potion1"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""f9859c6f-11b8-487a-9e29-902e559e69de"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Potion2"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""c98df0d4-fae0-4afe-83de-3f2840d4d6ef"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Potion3"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""964b7b35-96c7-4e51-a1ea-dff787f7dcf5"",
-                    ""path"": ""<Keyboard>/r"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Potion4"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""86c7f5ce-5d92-49b7-b389-1873e81fb54d"",
-                    ""path"": ""<Keyboard>/t"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Potion5"",
+                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -359,19 +219,12 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
         m_Player_MousePosition = m_Player.FindAction("MousePosition", throwIfNotFound: true);
         m_Player_LeftMouseButton = m_Player.FindAction("LeftMouseButton", throwIfNotFound: true);
         m_Player_OpenInventory = m_Player.FindAction("OpenInventory", throwIfNotFound: true);
-        m_Player_OpenStatsPanel = m_Player.FindAction("OpenStatsPanel", throwIfNotFound: true);
         m_Player_OpenSkillSetPanel = m_Player.FindAction("OpenSkillSetPanel", throwIfNotFound: true);
         m_Player_Ability1 = m_Player.FindAction("Ability1", throwIfNotFound: true);
         m_Player_Ability2 = m_Player.FindAction("Ability2", throwIfNotFound: true);
         m_Player_Ability3 = m_Player.FindAction("Ability3", throwIfNotFound: true);
         m_Player_Ability4 = m_Player.FindAction("Ability4", throwIfNotFound: true);
-        m_Player_Ability5 = m_Player.FindAction("Ability5", throwIfNotFound: true);
-        m_Player_Ability6 = m_Player.FindAction("Ability6", throwIfNotFound: true);
-        m_Player_Potion1 = m_Player.FindAction("Potion1", throwIfNotFound: true);
-        m_Player_Potion2 = m_Player.FindAction("Potion2", throwIfNotFound: true);
-        m_Player_Potion3 = m_Player.FindAction("Potion3", throwIfNotFound: true);
-        m_Player_Potion4 = m_Player.FindAction("Potion4", throwIfNotFound: true);
-        m_Player_Potion5 = m_Player.FindAction("Potion5", throwIfNotFound: true);
+        m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -436,19 +289,12 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_MousePosition;
     private readonly InputAction m_Player_LeftMouseButton;
     private readonly InputAction m_Player_OpenInventory;
-    private readonly InputAction m_Player_OpenStatsPanel;
     private readonly InputAction m_Player_OpenSkillSetPanel;
     private readonly InputAction m_Player_Ability1;
     private readonly InputAction m_Player_Ability2;
     private readonly InputAction m_Player_Ability3;
     private readonly InputAction m_Player_Ability4;
-    private readonly InputAction m_Player_Ability5;
-    private readonly InputAction m_Player_Ability6;
-    private readonly InputAction m_Player_Potion1;
-    private readonly InputAction m_Player_Potion2;
-    private readonly InputAction m_Player_Potion3;
-    private readonly InputAction m_Player_Potion4;
-    private readonly InputAction m_Player_Potion5;
+    private readonly InputAction m_Player_Pause;
     public struct PlayerActions
     {
         private @PlayerInputActionMap m_Wrapper;
@@ -456,19 +302,12 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
         public InputAction @MousePosition => m_Wrapper.m_Player_MousePosition;
         public InputAction @LeftMouseButton => m_Wrapper.m_Player_LeftMouseButton;
         public InputAction @OpenInventory => m_Wrapper.m_Player_OpenInventory;
-        public InputAction @OpenStatsPanel => m_Wrapper.m_Player_OpenStatsPanel;
         public InputAction @OpenSkillSetPanel => m_Wrapper.m_Player_OpenSkillSetPanel;
         public InputAction @Ability1 => m_Wrapper.m_Player_Ability1;
         public InputAction @Ability2 => m_Wrapper.m_Player_Ability2;
         public InputAction @Ability3 => m_Wrapper.m_Player_Ability3;
         public InputAction @Ability4 => m_Wrapper.m_Player_Ability4;
-        public InputAction @Ability5 => m_Wrapper.m_Player_Ability5;
-        public InputAction @Ability6 => m_Wrapper.m_Player_Ability6;
-        public InputAction @Potion1 => m_Wrapper.m_Player_Potion1;
-        public InputAction @Potion2 => m_Wrapper.m_Player_Potion2;
-        public InputAction @Potion3 => m_Wrapper.m_Player_Potion3;
-        public InputAction @Potion4 => m_Wrapper.m_Player_Potion4;
-        public InputAction @Potion5 => m_Wrapper.m_Player_Potion5;
+        public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -487,9 +326,6 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
             @OpenInventory.started += instance.OnOpenInventory;
             @OpenInventory.performed += instance.OnOpenInventory;
             @OpenInventory.canceled += instance.OnOpenInventory;
-            @OpenStatsPanel.started += instance.OnOpenStatsPanel;
-            @OpenStatsPanel.performed += instance.OnOpenStatsPanel;
-            @OpenStatsPanel.canceled += instance.OnOpenStatsPanel;
             @OpenSkillSetPanel.started += instance.OnOpenSkillSetPanel;
             @OpenSkillSetPanel.performed += instance.OnOpenSkillSetPanel;
             @OpenSkillSetPanel.canceled += instance.OnOpenSkillSetPanel;
@@ -505,27 +341,9 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
             @Ability4.started += instance.OnAbility4;
             @Ability4.performed += instance.OnAbility4;
             @Ability4.canceled += instance.OnAbility4;
-            @Ability5.started += instance.OnAbility5;
-            @Ability5.performed += instance.OnAbility5;
-            @Ability5.canceled += instance.OnAbility5;
-            @Ability6.started += instance.OnAbility6;
-            @Ability6.performed += instance.OnAbility6;
-            @Ability6.canceled += instance.OnAbility6;
-            @Potion1.started += instance.OnPotion1;
-            @Potion1.performed += instance.OnPotion1;
-            @Potion1.canceled += instance.OnPotion1;
-            @Potion2.started += instance.OnPotion2;
-            @Potion2.performed += instance.OnPotion2;
-            @Potion2.canceled += instance.OnPotion2;
-            @Potion3.started += instance.OnPotion3;
-            @Potion3.performed += instance.OnPotion3;
-            @Potion3.canceled += instance.OnPotion3;
-            @Potion4.started += instance.OnPotion4;
-            @Potion4.performed += instance.OnPotion4;
-            @Potion4.canceled += instance.OnPotion4;
-            @Potion5.started += instance.OnPotion5;
-            @Potion5.performed += instance.OnPotion5;
-            @Potion5.canceled += instance.OnPotion5;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -539,9 +357,6 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
             @OpenInventory.started -= instance.OnOpenInventory;
             @OpenInventory.performed -= instance.OnOpenInventory;
             @OpenInventory.canceled -= instance.OnOpenInventory;
-            @OpenStatsPanel.started -= instance.OnOpenStatsPanel;
-            @OpenStatsPanel.performed -= instance.OnOpenStatsPanel;
-            @OpenStatsPanel.canceled -= instance.OnOpenStatsPanel;
             @OpenSkillSetPanel.started -= instance.OnOpenSkillSetPanel;
             @OpenSkillSetPanel.performed -= instance.OnOpenSkillSetPanel;
             @OpenSkillSetPanel.canceled -= instance.OnOpenSkillSetPanel;
@@ -557,27 +372,9 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
             @Ability4.started -= instance.OnAbility4;
             @Ability4.performed -= instance.OnAbility4;
             @Ability4.canceled -= instance.OnAbility4;
-            @Ability5.started -= instance.OnAbility5;
-            @Ability5.performed -= instance.OnAbility5;
-            @Ability5.canceled -= instance.OnAbility5;
-            @Ability6.started -= instance.OnAbility6;
-            @Ability6.performed -= instance.OnAbility6;
-            @Ability6.canceled -= instance.OnAbility6;
-            @Potion1.started -= instance.OnPotion1;
-            @Potion1.performed -= instance.OnPotion1;
-            @Potion1.canceled -= instance.OnPotion1;
-            @Potion2.started -= instance.OnPotion2;
-            @Potion2.performed -= instance.OnPotion2;
-            @Potion2.canceled -= instance.OnPotion2;
-            @Potion3.started -= instance.OnPotion3;
-            @Potion3.performed -= instance.OnPotion3;
-            @Potion3.canceled -= instance.OnPotion3;
-            @Potion4.started -= instance.OnPotion4;
-            @Potion4.performed -= instance.OnPotion4;
-            @Potion4.canceled -= instance.OnPotion4;
-            @Potion5.started -= instance.OnPotion5;
-            @Potion5.performed -= instance.OnPotion5;
-            @Potion5.canceled -= instance.OnPotion5;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -600,18 +397,11 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
         void OnMousePosition(InputAction.CallbackContext context);
         void OnLeftMouseButton(InputAction.CallbackContext context);
         void OnOpenInventory(InputAction.CallbackContext context);
-        void OnOpenStatsPanel(InputAction.CallbackContext context);
         void OnOpenSkillSetPanel(InputAction.CallbackContext context);
         void OnAbility1(InputAction.CallbackContext context);
         void OnAbility2(InputAction.CallbackContext context);
         void OnAbility3(InputAction.CallbackContext context);
         void OnAbility4(InputAction.CallbackContext context);
-        void OnAbility5(InputAction.CallbackContext context);
-        void OnAbility6(InputAction.CallbackContext context);
-        void OnPotion1(InputAction.CallbackContext context);
-        void OnPotion2(InputAction.CallbackContext context);
-        void OnPotion3(InputAction.CallbackContext context);
-        void OnPotion4(InputAction.CallbackContext context);
-        void OnPotion5(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }
