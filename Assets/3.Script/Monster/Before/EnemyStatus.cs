@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering;
 
 namespace Enemy
 {
@@ -19,12 +21,18 @@ namespace Enemy
     public class StatsValue
     {
         public Statistic StatisticType;
-        public int value;
+        public int IntegerValue;
+        public float FloatValue;
         public string strValue;
         public StatsValue(Statistic statisticType, int value = 0)
         {
             this.StatisticType = statisticType;
-            this.value = value;
+            this.IntegerValue = value;
+        }
+        public StatsValue(Statistic statisticType, float value = 0)
+        {
+            this.StatisticType = statisticType;
+            this.FloatValue = value;
         }
         public StatsValue(Statistic statisticType, string value = "")
         {
@@ -57,8 +65,8 @@ namespace Enemy
             StatsList.Add(new StatsValue(Statistic.Armor, 5));
             StatsList.Add(new StatsValue(Statistic.MoveSpeed, 6));
             StatsList.Add(new StatsValue(Statistic.FovRange, 20));
-            StatsList.Add(new StatsValue(Statistic.AttackRange, 5));
-            StatsList.Add(new StatsValue(Statistic.AttackCooldown, 3));
+            StatsList.Add(new StatsValue(Statistic.AttackRange, 2.4f));
+            StatsList.Add(new StatsValue(Statistic.AttackCooldown, 3f));
         }
 
         internal StatsValue Get(Statistic statisticToGet)
@@ -73,7 +81,7 @@ namespace Enemy
 
         public ValuePool(StatsValue maxValue)
         {
-            this.MaxValue = maxValue.value;
+            this.MaxValue = maxValue.IntegerValue;
             this.CurrentValue = MaxValue;
         }
     }
@@ -81,15 +89,18 @@ namespace Enemy
     public class EnemyStatus : MonoBehaviour, IDamageable
     {
         [SerializeField] private EnemyData _enemyData;
+        private Animator _enemyAnimator;
         public bool IsDead;
         private NavMeshAgent _enemyAgent;
         public AttributeGroup Attributes;
         public StatsGroup Stats;
         public ValuePool LifePool;
+        public Action OnDeath;
 
         private void Awake()
         {
             TryGetComponent(out _enemyAgent);
+            TryGetComponent(out _enemyAnimator);
         }
         private void OnEnable()
         {
@@ -112,7 +123,7 @@ namespace Enemy
 
         private int ApplyDefence(int damage)
         {
-            damage -= Stats.Get(Statistic.Armor).value;
+            damage -= Stats.Get(Statistic.Armor).IntegerValue;
             if (damage <= 0)
             {
                 damage = 1;
@@ -122,19 +133,20 @@ namespace Enemy
 
         private void CheckDeath()
         {
-            if (LifePool.CurrentValue <= 0)
+            if (LifePool.CurrentValue <= 0 && !IsDead)
             {
                 Debug.Log("¿¡³Ê¹Ì »ç¸Á");
-                OnDeath();
+                OnDeath?.Invoke();
             }
         }
 
-        private void OnDeath()
-        {
-            _enemyAgent.isStopped = true;
-            IsDead = true;
-            //ÀÓ½Ã Á×À½
-        }
+        //private void OnDeath()
+        //{
+        //    _enemyAgent.isStopped = true;
+        //    IsDead = true;
+        //    _enemyAnimator.SetTrigger("Death");
+        //    //ÀÓ½Ã Á×À½
+        //}
 
         public StatsValue GetStats(Statistic statisticToGet)
         {

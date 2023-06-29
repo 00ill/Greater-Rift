@@ -52,6 +52,7 @@ public class StatsGroup
         StatsList.Add(new StatsValue(Statistic.Armor, Managers.Data.PlayerStatusDataDict[Managers.DB.CurrentPlayerData.Level].Armor));
         StatsList.Add(new StatsValue(Statistic.AttackSpeed, 1f));
         StatsList.Add(new StatsValue(Statistic.MoveSpeed, 10f));
+        Debug.Log(Managers.Data.PlayerStatusDataDict[Managers.DB.CurrentPlayerData.Level].Damage);
     }
 
     internal StatsValue Get(Statistic statisticToGet)

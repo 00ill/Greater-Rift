@@ -25,7 +25,7 @@ public class EnemyAI : MonoBehaviour
     }
     private void Start()
     {
-        _enemyAgent.speed = _enemyStatus.GetStats(Enemy.Statistic.MoveSpeed).value;
+        _enemyAgent.speed = _enemyStatus.GetStats(Enemy.Statistic.MoveSpeed).IntegerValue;
     }
 
     private void Update()

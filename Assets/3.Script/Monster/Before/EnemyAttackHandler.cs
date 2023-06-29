@@ -70,7 +70,7 @@ public class EnemyAttackHandler : MonoBehaviour
 
             if (_target.TryGetComponent(out PlayerStatus playerStatus))
             {
-                playerStatus.TakeDamage(_enemyStatus.GetStats(Enemy.Statistic.Damage).value);
+                playerStatus.TakeDamage(_enemyStatus.GetStats(Enemy.Statistic.Damage).IntegerValue);
                 //enemyStatus.TakeDamage(_enemyStatus.GetStats(Statistic.Damage).value);
             }
             _target = null;

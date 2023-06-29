@@ -380,13 +380,14 @@ public class GameUI : UI_Scene, IListener
                     {
                         if (Sender.TryGetComponent(out Enemy.EnemyStatus enemyStatus) && !enemyStatus.IsDead)
                         {
-                            //몬스터
+                            //몬스터이고 죽지 않았다면
                             GetText((int)Texts.InteractableObjectName).text = enemyStatus.GetStats(Enemy.Statistic.Name).strValue;
                             Get<Slider>((int)Sliders.EnemyHpBar).gameObject.SetActive(true);
                             Get<Slider>((int)Sliders.EnemyHpBar).value = enemyStatus.LifePool.CurrentValue / (float)enemyStatus.LifePool.MaxValue;
                         }
                         else if (Sender.TryGetComponent(out InteractableObject interactableObject))
                         {
+                            //상호작용이 가능하다면
                             GetText((int)Texts.InteractableObjectName).text = interactableObject.ObjectName;
                             Get<Slider>((int)Sliders.EnemyHpBar).gameObject.SetActive(false);
                         }

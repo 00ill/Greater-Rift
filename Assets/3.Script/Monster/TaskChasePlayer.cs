@@ -21,7 +21,9 @@ public class TaskChasePlayer : Node
     public override NodeState Evaluate()
     {
         Transform target = (Transform)GetData("target");
+        _enemyAgent.avoidancePriority = 50;
         _enemyAgent.SetDestination(target.position);
+        _enemyAgent.isStopped = false;
         state = NodeState.Running;
         Debug.Log("ÂÑ¾Æ°¡´Â Áß");
         return state;

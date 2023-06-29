@@ -11,8 +11,10 @@ public class BladeSlash : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("ºÎµúÈû");
         if (other.TryGetComponent(out EnemyStatus enemyStatus))
         {
+            Debug.Log("µ¥¹ÌÁö ÀÔÈû");
             enemyStatus.TakeDamage(10);
         }
     }

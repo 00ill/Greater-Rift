@@ -26,7 +26,7 @@ public class CheckPlayerInFOVRange : Node
         {
             Transform player = GameObject.FindGameObjectWithTag("Player").transform;
 
-            if (Vector3.Distance(_transform.position, player.position) <= _enemyStatus.GetStats(Enemy.Statistic.FovRange).value)
+            if (Vector3.Distance(_transform.position, player.position) <= _enemyStatus.GetStats(Enemy.Statistic.FovRange).IntegerValue)
             {
                 parent.parent.SetData("target", player);
                 _animator.SetFloat("Locomotion", 1f);
