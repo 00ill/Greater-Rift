@@ -35,11 +35,11 @@ public class EnemyAI : MonoBehaviour
     }
     public bool DetectPlayer()
     {
-        float distance = Vector3.Distance(transform.position, Target.transform.position);
-        if (distance < _enemyStatus.GetStats(Enemy.Statistic.DetectionRange).value)
-        {
-            return true;
-        }
+        //float distance = Vector3.Distance(transform.position, Target.transform.position);
+        //if (distance < _enemyStatus.GetStats(Enemy.Statistic.DetectionRange).value)
+        //{
+        //    return true;
+        //}
         return false;
     }
 

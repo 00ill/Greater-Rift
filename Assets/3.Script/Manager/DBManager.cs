@@ -136,42 +136,35 @@ public class DBManager
             if (task.IsCompletedSuccessfully)
             {
                 DataSnapshot snapshot = task.Result;
-                if (snapshot.Child(name).Exists)
+                PlayerData playerData = new(name);
+                string playerDataJson = JsonUtility.ToJson(playerData);
+                if (!snapshot.HasChild(_dataSlot1))
                 {
-                    Managers.Event.DBEvent?.Invoke(Define.DB_Event.DuplicateNickname);
+                    reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot1).SetRawJsonValueAsync(playerDataJson);
+                    CurrentDataSlot = _dataSlot1;
+                    Managers.DB.CurrentPlayerData = Managers.DB.Slot1Data;
+                    Managers.Event.DBEvent?.Invoke(Define.DB_Event.SuccessCreateNewPlayer);
+                    return;
+                }
+                else if (!snapshot.HasChild(_dataSlot2))
+                {
+                    reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot2).SetRawJsonValueAsync(playerDataJson);
+                    CurrentDataSlot = _dataSlot2;
+                    Managers.DB.CurrentPlayerData = Managers.DB.Slot2Data;
+                    Managers.Event.DBEvent?.Invoke(Define.DB_Event.SuccessCreateNewPlayer);
+                    return;
+                }
+                else if (!snapshot.HasChild(_dataSlot3))
+                {
+                    reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot3).SetRawJsonValueAsync(playerDataJson);
+                    CurrentDataSlot = _dataSlot3;
+                    Managers.DB.CurrentPlayerData = Managers.DB.Slot3Data;
+                    Managers.Event.DBEvent?.Invoke(Define.DB_Event.SuccessCreateNewPlayer);
+                    return;
                 }
                 else
                 {
-                    PlayerData playerData = new(name);
-                    string playerDataJson = JsonUtility.ToJson(playerData);
-                    if (!snapshot.HasChild(_dataSlot1))
-                    {
-                        reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot1).SetRawJsonValueAsync(playerDataJson);
-                        CurrentDataSlot = _dataSlot1;
-                        Managers.DB.CurrentPlayerData = Managers.DB.Slot1Data;
-                        Managers.Event.DBEvent?.Invoke(Define.DB_Event.SuccessCreateNewPlayer);
-                        return;
-                    }
-                    else if (!snapshot.HasChild(_dataSlot2))
-                    {
-                        reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot2).SetRawJsonValueAsync(playerDataJson);
-                        CurrentDataSlot = _dataSlot2;
-                        Managers.DB.CurrentPlayerData = Managers.DB.Slot2Data;
-                        Managers.Event.DBEvent?.Invoke(Define.DB_Event.SuccessCreateNewPlayer);
-                        return;
-                    }
-                    else if (!snapshot.HasChild(_dataSlot3))
-                    {
-                        reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot3).SetRawJsonValueAsync(playerDataJson);
-                        CurrentDataSlot = _dataSlot3;
-                        Managers.DB.CurrentPlayerData = Managers.DB.Slot3Data;
-                        Managers.Event.DBEvent?.Invoke(Define.DB_Event.SuccessCreateNewPlayer);
-                        return;
-                    }
-                    else
-                    {
-                        Managers.Event.DBEvent?.Invoke(Define.DB_Event.FullDataSlot);
-                    }
+                    Managers.Event.DBEvent?.Invoke(Define.DB_Event.FullDataSlot);
                 }
             }
         });

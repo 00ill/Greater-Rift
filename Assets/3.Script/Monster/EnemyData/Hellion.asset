@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: Hellion
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  Name: Hellion
-  Life: 40
-  Damage: 5
-  Armor: 3
-  DetectionRange: 20
-  AttackRange: 2
-  AttackCooldown: 2
-  MoveSpeed: 12
+  Name: 1
+  Life: 1
+  Damage: 1
+  Armor: 1
+  DetectionRange: 1
+  AttackRange: 1
+  AttackCooldown: 1
+  MoveSpeed: 1

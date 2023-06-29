@@ -11,7 +11,7 @@ namespace Enemy
         Damage,
         Armor,
         MoveSpeed,
-        DetectionRange,
+        FovRange,
         AttackRange,
         AttackCooldown,
     }
@@ -41,16 +41,24 @@ namespace Enemy
             StatsList = new List<StatsValue>();
         }
 
-        public void Init(EnemyData enemyData)
+        public void Init()
         {
-            StatsList.Add(new StatsValue(Statistic.Name, enemyData.Name));
-            StatsList.Add(new StatsValue(Statistic.Life, enemyData.Life));
-            StatsList.Add(new StatsValue(Statistic.Damage, enemyData.Damage));
-            StatsList.Add(new StatsValue(Statistic.Armor, enemyData.Armor));
-            StatsList.Add(new StatsValue(Statistic.MoveSpeed, enemyData.MoveSpeed));
-            StatsList.Add(new StatsValue(Statistic.DetectionRange, enemyData.DetectionRange));
-            StatsList.Add(new StatsValue(Statistic.AttackRange, enemyData.AttackRange));
-            StatsList.Add(new StatsValue(Statistic.AttackCooldown, enemyData.AttackCooldown));
+            //StatsList.Add(new StatsValue(Statistic.Name, enemyData.Name));
+            //StatsList.Add(new StatsValue(Statistic.Life, enemyData.Life));
+            //StatsList.Add(new StatsValue(Statistic.Damage, enemyData.Damage));
+            //StatsList.Add(new StatsValue(Statistic.Armor, enemyData.Armor));
+            //StatsList.Add(new StatsValue(Statistic.MoveSpeed, enemyData.MoveSpeed));
+            //StatsList.Add(new StatsValue(Statistic.DetectionRange, enemyData.DetectionRange));
+            //StatsList.Add(new StatsValue(Statistic.AttackRange, enemyData.AttackRange));
+            //StatsList.Add(new StatsValue(Statistic.AttackCooldown, enemyData.AttackCooldown));
+            StatsList.Add(new StatsValue(Statistic.Name, "Hellion"));
+            StatsList.Add(new StatsValue(Statistic.Life, 20));
+            StatsList.Add(new StatsValue(Statistic.Damage, 3));
+            StatsList.Add(new StatsValue(Statistic.Armor, 5));
+            StatsList.Add(new StatsValue(Statistic.MoveSpeed, 6));
+            StatsList.Add(new StatsValue(Statistic.FovRange, 20));
+            StatsList.Add(new StatsValue(Statistic.AttackRange, 5));
+            StatsList.Add(new StatsValue(Statistic.AttackCooldown, 3));
         }
 
         internal StatsValue Get(Statistic statisticToGet)
@@ -70,7 +78,6 @@ namespace Enemy
         }
     }
 
-    //[RequireComponent(typeof(EnemyAI))]
     public class EnemyStatus : MonoBehaviour, IDamageable
     {
         [SerializeField] private EnemyData _enemyData;
@@ -84,12 +91,12 @@ namespace Enemy
         {
             TryGetComponent(out _enemyAgent);
         }
-        private void Start()
+        private void OnEnable()
         {
             Attributes = new AttributeGroup();
             Attributes.Init();
             Stats = new StatsGroup();
-            Stats.Init(_enemyData);
+            Stats.Init();
 
             LifePool = new ValuePool(Stats.Get(Statistic.Life));
         }

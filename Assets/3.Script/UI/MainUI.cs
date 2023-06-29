@@ -153,7 +153,7 @@ public class MainUI : UI_Scene
 
         GetObject((int)GameObjects.FirstData).BindEvent((PointerEventData data) =>
             {
-                HighrightData(GameObjects.FirstData);
+                HighlightData(GameObjects.FirstData);
                 if (GetText((int)Texts.FirstDataName).text != "No Data")
                 {
                     Managers.DB.CurrentDataSlot = "DataSlot1";
@@ -168,7 +168,7 @@ public class MainUI : UI_Scene
             });
         GetObject((int)GameObjects.SecondData).BindEvent((PointerEventData data) =>
             {
-                HighrightData(GameObjects.SecondData);
+                HighlightData(GameObjects.SecondData);
                 if (GetText((int)Texts.SecondDataName).text != "No Data")
                 {
                     Managers.DB.CurrentDataSlot = "DataSlot2";
@@ -184,7 +184,7 @@ public class MainUI : UI_Scene
             });
         GetObject((int)GameObjects.ThirdData).BindEvent((PointerEventData data) =>
             {
-                HighrightData(GameObjects.ThirdData);
+                HighlightData(GameObjects.ThirdData);
                 if (GetText((int)Texts.ThirdDataName).text != "No Data")
                 {
                     Managers.DB.CurrentDataSlot = "DataSlot3";
@@ -336,7 +336,7 @@ public class MainUI : UI_Scene
         GetObject((int)GameObjects.LoadDataPanel).SetActive(false);
     }
 
-    private void HighrightData(GameObjects dataObject)
+    private void HighlightData(GameObjects dataObject)
     {
         List<GameObjects> list = new List<GameObjects>
         {
@@ -401,14 +401,6 @@ public class MainUI : UI_Scene
     {
         switch (eventType)
         {
-            case Define.DB_Event.DuplicateNickname:
-                {
-                    EnqueueAction(action =>
-                    {
-                        GetText((int)Texts.WarningText).text = "Duplicate Name!";
-                    }, eventType);
-                    break;
-                }
             case Define.DB_Event.SuccessCreateNewPlayer:
                 {
                     EnqueueAction(action =>

@@ -1,98 +1,44 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
+using BehaviorTree;
+using Enemy;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 
-public class Hellion : EnemyBase
+[RequireComponent(typeof(EnemyStatus))]
+[RequireComponent(typeof(NavMeshAgent))]
+public class Hellion : BehaviorTree.Tree
 {
-    enum AnimatorParameters
+    [HideInInspector] public EnemyStatus EnemyStatus;
+    [HideInInspector] public NavMeshAgent EnemyAgent;
+    private void Awake()
     {
-        Locomotion,
-        Turning,
-        Attack1,
-        Attack2,
-        Block,
-        Death,
-        EatStart,
-        EatStop,
-        GotHitHead,
-        GotHitBody,
-        IdleBreak,
-        Roar
-    }
-    protected override void Awake()
-    {
-        _name = "Hellion";
-        base.Awake();
-        SetEnemyData();
-
+        TryGetComponent(out EnemyStatus);
+        TryGetComponent(out EnemyAgent);
     }
     protected override void Start()
     {
         base.Start();
-        StartCoroutine(FSM());
-        Debug.Log(Enum.GetName(typeof(AnimatorParameters), AnimatorParameters.Locomotion));
+        Init();
     }
-
-    protected virtual IEnumerator FSM()
+    private void Init()
     {
-        yield return null;
-        while (true)
-        {
-            yield return StartCoroutine(_currentState.ToString());
-        }
+        EnemyAgent.speed = EnemyStatus.GetStats(Enemy.Statistic.MoveSpeed).value;
+        EnemyAgent.acceleration = 1000f;
+        EnemyAgent.angularSpeed = 1000f;
     }
-
-    protected IEnumerator Idle()
+    protected override Node SetupTree()
     {
-        _agent.SetDestination(_player.position);
-        _agent.isStopped = true;
-        yield return null;
-        if (DetectPlayer())
+        Node root = new Selector(new List<Node>
         {
-            _currentState = States.Move;
-        }
-        else
-        {
-            Debug.Log("플레이어를 못 찾음");
-        }
-    }
-    protected IEnumerator Move()
-    {
-        _animator.SetFloat(Enum.GetName(typeof(AnimatorParameters), AnimatorParameters.Locomotion), 1f);
-        _agent.SetDestination(_player.position);
-        _agent.isStopped = false;
-        yield return null;
-        if (_agent.remainingDistance <= _attackRange)
-        {
-            _currentState = States.Attack;
-        }
-        else if (_agent.remainingDistance > _detectionRange)
-        {
-            _currentState = States.Idle;
-        }
-    }
-
-    protected IEnumerator Attack()
-    {
-        yield return null;
-        PlayAnimation(AnimatorParameters.Attack1);
-    }
-
-    private void PlayAnimation(AnimatorParameters parameter)
-    {
-        for (int i = 0; i < _animatorParameterArr.Length; i++)
-        {
-            if (_animatorParameterArr[i].type == AnimatorControllerParameterType.Bool)
+            new BehaviorTree.Sequence(new List<Node>
             {
-                if ((int)parameter != i)
-                {
-                    _animator.SetBool(_animatorParameterArr[i].name, false);
-                }
-                else
-                {
-                    _animator.SetBool(_animatorParameterArr[i].name, true);
-                }
-            }
-        }
+                new CheckPlayerInFOVRange(transform),
+                new TaskChasePlayer(transform)
+            })
+        });
+        return root;
     }
 }
