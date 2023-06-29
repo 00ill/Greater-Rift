@@ -26,14 +26,16 @@ public class SkillData
     public float Cooldown;
     public int LevelLimit;
     public string ResourceName;
+    public int ManaCost;
 
-    public SkillData(SkillName name, SkillType type, float cooldown, int levelLimit, string spriteName)
+    public SkillData(SkillName name, SkillType type, float cooldown, int levelLimit, string spriteName, int manaCost)
     {
         Name = name;
         Type = type;
         Cooldown = cooldown;
         LevelLimit = levelLimit;
         ResourceName = spriteName;
+        ManaCost = manaCost;
     }
 
 }
@@ -48,10 +50,10 @@ public class SkillGroup
     }
     public void InitSkillList()
     {
-        SkillList.Add(new SkillData(SkillName.Cutting, SkillType.M1Skill, 1f, 1, "Cutting"));
-        SkillList.Add(new SkillData(SkillName.Kick, SkillType.M1Skill, 1f, 5, "Kick"));
-        SkillList.Add(new SkillData(SkillName.BladeSlash, SkillType.M2Skill, 5f, 1, "BladeSlash"));
-        SkillList.Add(new SkillData(SkillName.DarkFlare, SkillType.M2Skill, 3f, 4, "DarkFlare"));
+        SkillList.Add(new SkillData(SkillName.Cutting, SkillType.M1Skill, 1f, 1, "Cutting",0));
+        SkillList.Add(new SkillData(SkillName.Kick, SkillType.M1Skill, 1f, 5, "Kick", 0));
+        SkillList.Add(new SkillData(SkillName.BladeSlash, SkillType.M2Skill, 5f, 1, "BladeSlash",30));
+        SkillList.Add(new SkillData(SkillName.DarkFlare, SkillType.M2Skill, 3f, 4, "DarkFlare",10));
     }
 
     public SkillData GetSkillData(SkillName skillName)

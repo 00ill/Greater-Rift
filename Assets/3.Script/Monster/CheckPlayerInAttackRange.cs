@@ -12,7 +12,6 @@ public class CheckPlayerInAttackRange : BehaviorTree.Node
     private Animator _enemyAnimator;
     private EnemyStatus _enemyStatus;
     private NavMeshAgent _enemyAgent;
-
     public CheckPlayerInAttackRange(Transform transform)
     {
         _enemyTransform = transform;
@@ -36,7 +35,6 @@ public class CheckPlayerInAttackRange : BehaviorTree.Node
             Debug.Log("플레이어가 공격 범위 내에 있음");
             _enemyAgent.avoidancePriority = 49;
             _enemyAgent.isStopped = true;
-            //_enemyAnimator.SetTrigger("Attack1");
             _enemyAnimator.SetFloat("Locomotion", 0f);
             state = NodeState.Success;
             return state;

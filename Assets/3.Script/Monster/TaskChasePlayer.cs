@@ -9,17 +9,18 @@ using Enemy;
 
 public class TaskChasePlayer : Node
 {
+    private Animator m_Animator;
     private NavMeshAgent _enemyAgent;
-    private EnemyStatus _enemyStatus;
     
     public TaskChasePlayer(Transform transform)
     {
         transform.TryGetComponent(out _enemyAgent);
-        transform.TryGetComponent(out _enemyStatus);
+        transform.TryGetComponent(out m_Animator);
     }
 
     public override NodeState Evaluate()
     {
+        m_Animator.SetFloat("Locomotion", 1f);
         Transform target = (Transform)GetData("target");
         _enemyAgent.avoidancePriority = 50;
         _enemyAgent.SetDestination(target.position);

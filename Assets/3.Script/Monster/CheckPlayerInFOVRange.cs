@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using BehaviorTree;
 using Enemy;
 
@@ -11,7 +12,6 @@ public class CheckPlayerInFOVRange : Node
     private Transform _transform;
     private Animator _animator;
     private EnemyStatus _enemyStatus;
-
     public CheckPlayerInFOVRange(Transform transform)
     {
         _transform = transform;
@@ -30,6 +30,7 @@ public class CheckPlayerInFOVRange : Node
             {
                 parent.parent.SetData("target", player);
                 _animator.SetFloat("Locomotion", 1f);
+
                 state = NodeState.Success;
                 Debug.Log("Å½Áö ¼º°ø Áß");
                 return state;
