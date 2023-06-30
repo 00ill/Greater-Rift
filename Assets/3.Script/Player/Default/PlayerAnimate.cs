@@ -1,23 +1,33 @@
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
+using UnityStandardAssets.Cameras;
 
 public class PlayerAnimate : MonoBehaviour
 {
     private NavMeshAgent _playerAgent;
     private Animator _playerAnimator;
     private PlayerStatus _playerStatus;
-
+    private PlayerControlInput _playerControlInput;
     private void Awake()
     {
         TryGetComponent(out _playerAgent);
         TryGetComponent(out _playerAnimator);
         TryGetComponent(out _playerStatus);
+        TryGetComponent(out _playerControlInput);
     }
     private void Update()
     {
         _playerAnimator.SetFloat("Run", _playerAgent.velocity.magnitude);
         CheckAllCooldown();
+    }
+
+    private void LookAtTarget()
+    {
+        _playerAgent.updateRotation = false;
+        Quaternion lookDirection = Quaternion.LookRotation(_playerControlInput.Hit.point - transform.position);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookDirection, Time.deltaTime * 1000);
+        _playerAgent.updateRotation = true;
     }
 
     public void AbilityRMB(InputAction.CallbackContext callbackContext)
@@ -34,7 +44,7 @@ public class PlayerAnimate : MonoBehaviour
                 Managers.Event.PostNotification(Define.EVENT_TYPE.NotEnoughMana, this);
                 return;
             }
-
+            LookAtTarget();
             Managers.Skill.StartM2Cooldown();
             _playerStatus.ManaPool.CurrentValue -= Managers.Skill.GetSkillData(Managers.Skill.CurrentM2SKillName).ManaCost;
             _playerAnimator.Play(Managers.Skill.GetSkillData(Managers.Skill.CurrentM2SKillName).ResourceName);
