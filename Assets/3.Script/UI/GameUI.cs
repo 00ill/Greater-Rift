@@ -177,7 +177,7 @@ public class GameUI : UI_Scene, IListener
         GetImage((int)Images.SkillSetingM1_Cutting).gameObject.BindEvent((PointerEventData data) =>
         {
             GetText((int)Texts.SkillM1Script).text = FindSkillScript(Images.SkillSetingM1_Cutting);
-            Managers.Skill.CurrentSelectSkillName = SkillName.Cutting;
+            Managers.Skill.CurrentSelectSkillName = SkillName.ShadowSlash;
         });
         GetImage((int)Images.SkillSetingM1_Kick).sprite = Managers.Resource.Load<Sprite>(_skillPath + "Kick");
         GetImage((int)Images.SkillSetingM1_Kick).gameObject.BindEvent((PointerEventData data) =>

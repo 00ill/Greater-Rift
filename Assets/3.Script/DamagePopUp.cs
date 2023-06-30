@@ -4,17 +4,9 @@ using UnityEngine;
 
 public class DamagePopUp : MonoBehaviour
 {
-    private WaitForSeconds _playTime = new(0.25f);
-    private Animation _animation;
-
-
-    private void Start()
-    {
-        TryGetComponent(out  _animation);
-    }
+    private WaitForSeconds _playTime = new(0.4f);
     private void OnEnable()
     {
-        //_animation.Play();
         StartCoroutine(Destroy());
     }
 

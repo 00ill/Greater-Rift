@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class BladeSlash : MonoBehaviour
 {
+    private PlayerStatus _playerStatus;
 
+    private void Awake()
+    {
+        
+    }
     private void OnEnable()
     {
         StartCoroutine(DestroySkill());

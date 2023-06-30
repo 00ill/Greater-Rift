@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-
+using UnityEngine.Rendering;
 
 public enum SkillName
 {
-    Cutting,
+    ShadowSlash,
     Kick,
     BladeSlash,
     DarkFlare
@@ -24,18 +24,19 @@ public class SkillData
     public SkillName Name;
     public SkillType Type;
     public float Cooldown;
+    public int ManaCost;
     public int LevelLimit;
     public string ResourceName;
-    public int ManaCost;
-
-    public SkillData(SkillName name, SkillType type, float cooldown, int levelLimit, string spriteName, int manaCost)
+    public float DamageCoefficient;
+    public SkillData(SkillName name, SkillType type, float cooldown, int manaCost, int levelLimit, string resourceName, float damageCoefficient)
     {
         Name = name;
         Type = type;
         Cooldown = cooldown;
-        LevelLimit = levelLimit;
-        ResourceName = spriteName;
         ManaCost = manaCost;
+        LevelLimit = levelLimit;
+        ResourceName = resourceName;
+        DamageCoefficient = damageCoefficient;
     }
 
 }
@@ -50,10 +51,10 @@ public class SkillGroup
     }
     public void InitSkillList()
     {
-        SkillList.Add(new SkillData(SkillName.Cutting, SkillType.M1Skill, 1f, 1, "Cutting",0));
-        SkillList.Add(new SkillData(SkillName.Kick, SkillType.M1Skill, 1f, 5, "Kick", 0));
-        SkillList.Add(new SkillData(SkillName.BladeSlash, SkillType.M2Skill, 5f, 1, "BladeSlash",30));
-        SkillList.Add(new SkillData(SkillName.DarkFlare, SkillType.M2Skill, 3f, 4, "DarkFlare",10));
+        SkillList.Add(new SkillData(SkillName.ShadowSlash, SkillType.M1Skill, 1f, 0, 1, "Cutting", 1.2f));
+        SkillList.Add(new SkillData(SkillName.Kick, SkillType.M1Skill, 1f, 0, 5, "Kick", 1.2f));
+        SkillList.Add(new SkillData(SkillName.BladeSlash, SkillType.M2Skill, 5f, 30, 1, "BladeSlash", 1.5f));
+        SkillList.Add(new SkillData(SkillName.DarkFlare, SkillType.M2Skill, 3f, 10, 4, "DarkFlare", 1.2f));
     }
 
     public SkillData GetSkillData(SkillName skillName)

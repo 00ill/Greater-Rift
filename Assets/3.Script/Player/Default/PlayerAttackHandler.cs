@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.AI;
+using UnityStandardAssets.Cameras;
 
 public class PlayerAttackHandler : MonoBehaviour, ICommandHandle
 {
@@ -6,47 +8,26 @@ public class PlayerAttackHandler : MonoBehaviour, ICommandHandle
     private Animator _playerAnimator;
     private PlayerControl _playerControl;
     private PlayerStatus _playerStatus;
+    private PlayerControlInput _playerControlInput;
+    private NavMeshAgent _playerAgent;
+
     //공격관련 변수
     [SerializeField] private float _normalAttackRange;
-    private InteractableObject _target;
-    private float _normalAttackCooldown = 1.25f;
-    private float _normalAttackCooldownRemain;
 
     private void Awake()
     {
         TryGetComponent(out _playerAnimator);
         TryGetComponent(out _playerControl);
         TryGetComponent(out _playerStatus);
-
+        TryGetComponent(out _playerControlInput);
+        TryGetComponent(out _playerAgent);
     }
-
-    private void Update()
+    private void LookAtTarget()
     {
-        CheckAllCooldown();
-    }
-
-    private float GetAttackTime(float cooldown)
-    {
-        float attackTime = _normalAttackCooldown;
-        attackTime *= _playerStatus.GetStats(Statistic.AttackSpeed).FloatValue;
-        return attackTime;
-    }
-    private void CheckCooldown(ref float skillCooldownRemain)
-    {
-        if (skillCooldownRemain > 0)
-        {
-            skillCooldownRemain -= Time.deltaTime;
-        }
-        else
-        {
-            skillCooldownRemain = 0f;
-        }
-    }
-
-    private void CheckAllCooldown()
-    {
-        CheckCooldown(ref _normalAttackCooldownRemain);
-
+        _playerAgent.updateRotation = false;
+        Quaternion lookDirection = Quaternion.LookRotation(_playerControlInput.Hit.point - transform.position);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookDirection, Time.deltaTime * 1000);
+        _playerAgent.updateRotation = true;
     }
 
     public void ProcessCommand(Command command)
@@ -55,13 +36,18 @@ public class PlayerAttackHandler : MonoBehaviour, ICommandHandle
 
         if (distance < _normalAttackRange)
         {
-            if (_normalAttackCooldownRemain > 0f) { return; }
-
-            _normalAttackCooldownRemain = _normalAttackCooldown;
-
-            _playerAnimator.SetTrigger("NormalAttack");
-            DealDamage(command);
-            command.isComplete = true;
+            if(!_playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("NormalAttack"))
+            {
+                LookAtTarget();
+                _playerAnimator.SetTrigger("NormalAttack");
+                //DealDamage(command);
+                command.isComplete = true;
+            }
+            else
+            {
+                command.isComplete = true;
+                return;
+            }
         }
         else
         {
@@ -69,10 +55,22 @@ public class PlayerAttackHandler : MonoBehaviour, ICommandHandle
         }
     }
 
+    //이거 애니메이션 이벤트에 넣던가
+    //이펙트에 집어 넣던가0000000
     private void DealDamage(Command command)
     {
         IDamageable target = command.target.GetComponent<IDamageable>();
         int damage = _playerStatus.GetStats(Statistic.Damage).IntetgerValue;
         target.TakeDamage(damage);
+    }
+
+    private void ShadowSlash()
+    {
+        GameObject go = Managers.Resource.Instantiate("ShadowSlash");
+        Quaternion goDirection = Quaternion.LookRotation(transform.position - go.transform.position);
+        go.transform.SetPositionAndRotation(transform.position + transform.forward + transform.up * 0.5f, transform.rotation);
+        //go.transform.position = transform.position + transform.forward;
+        //go.transform.rotation = goDirection;
+
     }
 }

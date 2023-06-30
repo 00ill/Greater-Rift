@@ -50,24 +50,24 @@ namespace Enemy
             StatsList = new List<StatsValue>();
         }
 
-        public void Init()
+        public void Init(EnemyData enemyData)
         {
-            //StatsList.Add(new StatsValue(Statistic.Name, enemyData.Name));
-            //StatsList.Add(new StatsValue(Statistic.Life, enemyData.Life));
-            //StatsList.Add(new StatsValue(Statistic.Damage, enemyData.Damage));
-            //StatsList.Add(new StatsValue(Statistic.Armor, enemyData.Armor));
-            //StatsList.Add(new StatsValue(Statistic.MoveSpeed, enemyData.MoveSpeed));
-            //StatsList.Add(new StatsValue(Statistic.DetectionRange, enemyData.DetectionRange));
-            //StatsList.Add(new StatsValue(Statistic.AttackRange, enemyData.AttackRange));
-            //StatsList.Add(new StatsValue(Statistic.AttackCooldown, enemyData.AttackCooldown));
-            StatsList.Add(new StatsValue(Statistic.Name, "Hellion"));
-            StatsList.Add(new StatsValue(Statistic.Life, 20));
-            StatsList.Add(new StatsValue(Statistic.Damage, 3));
-            StatsList.Add(new StatsValue(Statistic.Armor, 5));
-            StatsList.Add(new StatsValue(Statistic.MoveSpeed, 6));
-            StatsList.Add(new StatsValue(Statistic.FovRange, 20));
-            StatsList.Add(new StatsValue(Statistic.AttackRange, 2.4f));
-            StatsList.Add(new StatsValue(Statistic.AttackCooldown, 3f));
+            StatsList.Add(new StatsValue(Statistic.Name, enemyData.Name));
+            StatsList.Add(new StatsValue(Statistic.Life, enemyData.Life));
+            StatsList.Add(new StatsValue(Statistic.Damage, enemyData.Damage));
+            StatsList.Add(new StatsValue(Statistic.Armor, enemyData.Armor));
+            StatsList.Add(new StatsValue(Statistic.MoveSpeed, enemyData.MoveSpeed));
+            StatsList.Add(new StatsValue(Statistic.FovRange, enemyData.DetectionRange));
+            StatsList.Add(new StatsValue(Statistic.AttackRange, enemyData.AttackRange));
+            StatsList.Add(new StatsValue(Statistic.AttackCooldown, enemyData.AttackCooldown));
+            //StatsList.Add(new StatsValue(Statistic.Name, "Hellion"));
+            //StatsList.Add(new StatsValue(Statistic.Life, 20));
+            //StatsList.Add(new StatsValue(Statistic.Damage, 3));
+            //StatsList.Add(new StatsValue(Statistic.Armor, 5));
+            //StatsList.Add(new StatsValue(Statistic.MoveSpeed, 6));
+            //StatsList.Add(new StatsValue(Statistic.FovRange, 20));
+            //StatsList.Add(new StatsValue(Statistic.AttackRange, 2.4f));
+            //StatsList.Add(new StatsValue(Statistic.AttackCooldown, 3f));
         }
 
         internal StatsValue Get(Statistic statisticToGet)
@@ -112,7 +112,7 @@ namespace Enemy
             Attributes = new AttributeGroup();
             Attributes.Init();
             Stats = new StatsGroup();
-            Stats.Init();
+            Stats.Init(_enemyData);
 
             LifePool = new ValuePool(Stats.Get(Statistic.Life));
             //_gameUI = GameObject.FindObjectOfType<Canvas>();
@@ -121,21 +121,24 @@ namespace Enemy
 
         public void TakeDamage(int damage)
         {
-            damage = ApplyDefence(damage);
-            Debug.Log(string.Format($"{transform.name}가 {damage} 데미지 입음"));
-            Debug.Log(string.Format($"{transform.name}의 현재 체력 {LifePool.CurrentValue}, 최대체력 {LifePool.MaxValue}"));
-            LifePool.CurrentValue -= damage;
-            GameObject go = Managers.Resource.Instantiate("DamagePopUp");
-            _gameUI = FindObjectOfType<Canvas>();
-            go.transform.SetParent(_gameUI.transform, false);
-            go.GetComponent<TextMeshProUGUI>().text = damage.ToString();
-            go.transform.position = Camera.main.WorldToScreenPoint(transform.position + Vector3.up);
-            CheckDeath();
+            if(!IsDead)
+            {
+                damage = ApplyDefence(damage);
+                Debug.Log(string.Format($"{transform.name}가 {damage} 데미지 입음"));
+                Debug.Log(string.Format($"{transform.name}의 현재 체력 {LifePool.CurrentValue}, 최대체력 {LifePool.MaxValue}"));
+                LifePool.CurrentValue -= damage;
+                GameObject go = Managers.Resource.Instantiate("DamagePopUp");
+                _gameUI = FindObjectOfType<Canvas>();
+                go.transform.SetParent(_gameUI.transform, false);
+                go.GetComponent<TextMeshProUGUI>().text = damage.ToString();
+                go.transform.position = Camera.main.WorldToScreenPoint(transform.position + Vector3.up * 2);
+                CheckDeath();
+            }
         }
 
         private int ApplyDefence(int damage)
         {
-            damage -= Stats.Get(Statistic.Armor).IntegerValue;
+            damage -= GetStats(Enemy.Statistic.Armor).IntegerValue;
             if (damage <= 0)
             {
                 damage = 1;

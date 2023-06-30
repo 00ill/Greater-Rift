@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 905160334634368426}
   - component: {fileID: 1772160596804717755}
   - component: {fileID: 9147464694989829250}
-  - component: {fileID: 2257842425094020154}
   - component: {fileID: 7952068990569850898}
+  - component: {fileID: -8640083331962149246}
   m_Layer: 5
   m_Name: DamagePopUp
   m_TagString: Untagged
@@ -151,22 +151,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsUsing: 0
---- !u!111 &2257842425094020154
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3945564842731046765}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 40b2deb6b4584bf47a4b6c9941312047, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 40b2deb6b4584bf47a4b6c9941312047, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!114 &7952068990569850898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,3 +163,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2593cc3219de14f4886e2c55c6c2e82b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &-8640083331962149246
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3945564842731046765}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3045988e87af35140975ec9e8db9166b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
