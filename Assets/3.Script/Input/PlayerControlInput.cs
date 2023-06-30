@@ -60,6 +60,7 @@ public class PlayerControlInput : MonoBehaviour
             }
 
             MoveCommand(RayToWorldIntersectionPoint);
+
         }
     }
 
