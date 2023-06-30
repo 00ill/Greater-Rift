@@ -41,7 +41,10 @@ public class Define
         CheckInteractableObject,
         SkillSettingUIOpen,
         Pause,
-        LevelUp
+        LevelUp,
+        SkillInCooldown,
+        NotEnoughMana
+
     }
 
     public enum DB_Event

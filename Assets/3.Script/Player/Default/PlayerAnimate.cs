@@ -24,13 +24,22 @@ public class PlayerAnimate : MonoBehaviour
     {
         if (callbackContext.performed)
         {
-            if (Managers.Skill.M2SkillCooldownRemain <= 0 && _playerStatus.ManaPool.CurrentValue >= Managers.Skill.GetSkillData(Managers.Skill.CurrentM2SKillName).ManaCost)
+            if (Managers.Skill.M2SkillCooldownRemain > 0f)
             {
-                Managers.Skill.StartM2Cooldown();
-                _playerStatus.ManaPool.CurrentValue -=  Managers.Skill.GetSkillData(Managers.Skill.CurrentM2SKillName).ManaCost;
-                _playerAnimator.Play(Managers.Skill.GetSkillData(Managers.Skill.CurrentM2SKillName).ResourceName);
-                Managers.Event.PostNotification(Define.EVENT_TYPE.PlayerManaChange, this);
+                Managers.Event.PostNotification(Define.EVENT_TYPE.SkillInCooldown, this);
+                return;
             }
+            if (_playerStatus.ManaPool.CurrentValue < Managers.Skill.GetSkillData(Managers.Skill.CurrentM2SKillName).ManaCost)
+            {
+                Managers.Event.PostNotification(Define.EVENT_TYPE.NotEnoughMana, this);
+                return;
+            }
+
+            Managers.Skill.StartM2Cooldown();
+            _playerStatus.ManaPool.CurrentValue -= Managers.Skill.GetSkillData(Managers.Skill.CurrentM2SKillName).ManaCost;
+            _playerAnimator.Play(Managers.Skill.GetSkillData(Managers.Skill.CurrentM2SKillName).ResourceName);
+            Managers.Event.PostNotification(Define.EVENT_TYPE.PlayerManaChange, this);
+
         }
     }
     public void AbilityNum1(InputAction.CallbackContext callbackContext)

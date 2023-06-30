@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,6 +10,7 @@ public class GameUI : UI_Scene, IListener
 
     enum Texts
     {
+        WarningText,
         PauseText,
         ContinueText,
         SaveAndQuitText,
@@ -81,8 +83,8 @@ public class GameUI : UI_Scene, IListener
 
 
     private readonly string _skillPath = "Images/Skill/";
-
-
+    private readonly WaitForSeconds _warningTime = new(1);
+    private Coroutine _warningCoroutine = null;
     private void Awake()
     {
         _playerControlInput = FindAnyObjectByType<PlayerControlInput>();
@@ -115,6 +117,8 @@ public class GameUI : UI_Scene, IListener
         Managers.Event.AddListener(Define.EVENT_TYPE.SkillSettingUIOpen, this);
         Managers.Event.AddListener(Define.EVENT_TYPE.Pause, this);
         Managers.Event.AddListener(Define.EVENT_TYPE.LevelUp, this);
+        Managers.Event.AddListener(Define.EVENT_TYPE.NotEnoughMana, this);
+        Managers.Event.AddListener(Define.EVENT_TYPE.SkillInCooldown, this);
 
         PlayerHpChangeEvent(FindObjectOfType<PlayerStatus>().LifePool.CurrentValue, FindObjectOfType<PlayerStatus>().LifePool.MaxValue);
         PlayerManaChangeEvent(FindObjectOfType<PlayerStatus>().ManaPool.CurrentValue, FindObjectOfType<PlayerStatus>().ManaPool.MaxValue);
@@ -132,6 +136,7 @@ public class GameUI : UI_Scene, IListener
     private void InitPlayerUI()
     {
         GetText((int)Texts.Level).text = Managers.DB.CurrentPlayerData.Level.ToString();
+        GetText((int)Texts.WarningText).text = "";
     }
 
     private void InitInformation()
@@ -346,6 +351,14 @@ public class GameUI : UI_Scene, IListener
         GetImage((int)Images.SkillM2Cooldown).fillAmount = Managers.Skill.M2SkillCooldownRemain / Managers.Skill.GetSkillData(Managers.Skill.CurrentM2SKillName).Cooldown;
 
     }
+
+    private IEnumerator WarningText()
+    {
+        yield return _warningTime;
+        GetText((int)Texts.WarningText).text = "";
+        _warningCoroutine = null;
+
+    }
     public void OnEvent(Define.EVENT_TYPE Event_Type, Component Sender, object Param = null)
     {
         switch (Event_Type)
@@ -413,6 +426,28 @@ public class GameUI : UI_Scene, IListener
             case Define.EVENT_TYPE.LevelUp:
                 {
                     GetText((int)Texts.Level).text = FindObjectOfType<PlayerStatus>().GetStats(Statistic.Level).IntetgerValue.ToString();
+                    break;
+                }
+            case Define.EVENT_TYPE.SkillInCooldown:
+                {
+                    GetText((int)Texts.WarningText).text = "Ability in Cooldown!";
+                    if(_warningCoroutine != null)
+                    {
+                        StopCoroutine(_warningCoroutine);
+                        _warningCoroutine = null;
+                    }
+                    _warningCoroutine = StartCoroutine(WarningText());
+                    break;
+                }
+            case Define.EVENT_TYPE.NotEnoughMana:
+                {
+                    GetText((int)Texts.WarningText).text = "There is not enough mana!";
+                    if (_warningCoroutine != null)
+                    {
+                        StopCoroutine(_warningCoroutine);
+                        _warningCoroutine = null;
+                    }
+                    _warningCoroutine = StartCoroutine(WarningText());
                     break;
                 }
         }

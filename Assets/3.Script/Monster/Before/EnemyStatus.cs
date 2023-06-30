@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering;
@@ -97,6 +98,10 @@ namespace Enemy
         public ValuePool LifePool;
         public Action OnDeath;
 
+
+        //Damage PopUp
+        private static GameObject _damagePopUpText;
+        private static Canvas _gameUI;
         private void Awake()
         {
             TryGetComponent(out _enemyAgent);
@@ -110,6 +115,8 @@ namespace Enemy
             Stats.Init();
 
             LifePool = new ValuePool(Stats.Get(Statistic.Life));
+            //_gameUI = GameObject.FindObjectOfType<Canvas>();
+            //_damagePopUpText = Managers.Resource.Load<GameObject>("DamagePopUp");
         }
 
         public void TakeDamage(int damage)
@@ -118,6 +125,11 @@ namespace Enemy
             Debug.Log(string.Format($"{transform.name}가 {damage} 데미지 입음"));
             Debug.Log(string.Format($"{transform.name}의 현재 체력 {LifePool.CurrentValue}, 최대체력 {LifePool.MaxValue}"));
             LifePool.CurrentValue -= damage;
+            GameObject go = Managers.Resource.Instantiate("DamagePopUp");
+            _gameUI = FindObjectOfType<Canvas>();
+            go.transform.SetParent(_gameUI.transform, false);
+            go.GetComponent<TextMeshProUGUI>().text = damage.ToString();
+            go.transform.position = Camera.main.WorldToScreenPoint(transform.position + Vector3.up);
             CheckDeath();
         }
 
