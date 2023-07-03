@@ -17,6 +17,6 @@ MonoBehaviour:
   Damage: 5
   Armor: 5
   DetectionRange: 20
-  AttackRange: 5
+  AttackRange: 10
   AttackCooldown: 1
   MoveSpeed: 6
