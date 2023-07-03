@@ -47,20 +47,22 @@ public class PlayerControlInput : MonoBehaviour
     {
         if (callbackContext.performed)
         {
-            if (_interactInput.AttackCheck())
+            if(!Managers.Game.IsUiPopUp)
             {
-                AttackCommand(_interactInput.AttackTarget.gameObject);
-                return;
+                if (_interactInput.AttackCheck())
+                {
+                    AttackCommand(_interactInput.AttackTarget.gameObject);
+                    return;
+                }
+
+                if (_interactInput.InteractCheck())
+                {
+                    InteractCommand(_interactInput.InteractableObjectTarget.gameObject);
+                    return;
+                }
+
+                MoveCommand(RayToWorldIntersectionPoint);
             }
-
-            if (_interactInput.InteractCheck())
-            {
-                InteractCommand(_interactInput.InteractableObjectTarget.gameObject);
-                return;
-            }
-
-            MoveCommand(RayToWorldIntersectionPoint);
-
         }
     }
 

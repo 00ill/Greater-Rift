@@ -15,8 +15,8 @@ public class RiftNPC : MonoBehaviour
 
     private void ShowDialogUI()
     {
-        //Managers.UI.ShowPopupUI
-        Debug.Log("던전 입장 UI 띄워요");
+        Managers.Game.IsUiPopUp = true;
+        Managers.UI.ShowPopupUI<UI_Popup>("EnterRiftUI");
     }
 
 }

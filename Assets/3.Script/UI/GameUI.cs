@@ -536,12 +536,18 @@ public class GameUI : UI_Scene, IListener
     private void OpenSkillSettingUI()
     {
         GetObject((int)Objects.SkillSettingUI).SetActive(true);
+        Managers.Game.IsUiPopUp = true;
     }
     private void CloseSkillSettingUI()
     {
         SkillM1PanelExit();
         SkillM2PanelExit();
+        SkillNum1PanelExit();
+        SkillNum2PanelExit();
+        SkillNum3PanelExit();
+        SkillNum4PanelExit();
         GetObject((int)Objects.SkillSettingUI).SetActive(false);
+        Managers.Game.IsUiPopUp = false;
     }
     #endregion
 

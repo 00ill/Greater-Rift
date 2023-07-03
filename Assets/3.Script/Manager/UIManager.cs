@@ -64,7 +64,7 @@ public class UIManager
 
 
         go.transform.SetParent(Root.transform);
-
+        //go.GetComponent<UI_Base>().Init();
 
         return popup;
     }
