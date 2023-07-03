@@ -44,7 +44,6 @@ public class StatsGroup
 
     public void Init()
     {
-        Debug.Log("이닛");
         StatsList.Add(new StatsValue(Statistic.Level, Managers.DB.CurrentPlayerData.Level));
         StatsList.Add(new StatsValue(Statistic.Exp, Managers.DB.CurrentPlayerData.CurExp));
         StatsList.Add(new StatsValue(Statistic.Life, Managers.Data.PlayerStatusDataDict[Managers.DB.CurrentPlayerData.Level].Life));
@@ -197,15 +196,16 @@ public class PlayerStatus : MonoBehaviour, IDamageable
     {
         return Stats.Get(statisticToGet);
     }
+
     //외부에서 플레이어 스테이터스 변경이 필요한 경우에 쓸 수 있음
-    //public void SetStats(Statistic statisticToSet, int value)
-    //{
-    //    Stats.Set(statisticToSet, value);
-    //}
-    //public void SetStats(Statistic statisticToSet, float value)
-    //{
-    //    Stats.Set(statisticToSet, value);
-    //}
+    public void SetStats(Statistic statisticToSet, int value)
+    {
+        Stats.Set(statisticToSet, value);
+    }
+    public void SetStats(Statistic statisticToSet, float value)
+    {
+        Stats.Set(statisticToSet, value);
+    }
     public void GainExp(int exp)
     {
         ExpPool.CurrentValue += exp;

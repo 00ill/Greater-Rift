@@ -114,5 +114,15 @@ public class SkillManager
         Num4SkillCooldownRemain = Skills.GetSkillData(CurrentNum4SKillName).Cooldown;
     }
 
+    public void ResetSkillCooldown()
+    {
+        M1SkillCooldownRemain = 0;
+        M2SkillCooldownRemain = 0;
+        Num1SkillCooldownRemain = 0;
+        Num2SkillCooldownRemain = 0;
+        Num3SkillCooldownRemain = 0;
+        Num4SkillCooldownRemain = 0;
+    }
+
 }
 

@@ -23,13 +23,13 @@ public class PlayerControlInput : MonoBehaviour
 
     private void Start()
     {
-        _layerMask = (-1) - (1 << LayerMask.NameToLayer("UI"));
+        _layerMask = (-1) - (1 << LayerMask.NameToLayer("Skill"));
     }
 
     void Update()
     {
         Ray ray = Camera.main.ScreenPointToRay(MouseInputPosition);
-        if (Physics.Raycast(ray, out Hit, float.MaxValue))
+        if (Physics.Raycast(ray, out Hit, float.MaxValue, _layerMask))
         {
             if (EventSystem.current.IsPointerOverGameObject() == false)
             {
@@ -100,7 +100,7 @@ public class PlayerControlInput : MonoBehaviour
     {
         if (callbackContext.performed)
         {
-            Debug.Log("테스트 버든");
+            Debug.Log("테스트 버튼");
             FindObjectOfType<PlayerStatus>().GainExp(1);
         }
     }

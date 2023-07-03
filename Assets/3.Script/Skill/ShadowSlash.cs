@@ -7,19 +7,22 @@ public class ShadowSlash : MonoBehaviour
 {
     private readonly WaitForSeconds _playTime = new(0.25f);
     private PlayerStatus _playerStatus;
+    private readonly int _manaRecovery = 2;
 
     private void Awake()
     {
-        _playerStatus = GameObject.FindFirstObjectByType<PlayerStatus>();
+        _playerStatus = FindObjectOfType<PlayerStatus>();
     }
+   
 
     private void OnEnable() => StartCoroutine(Destroy());
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("ÆòÅ¸¶û ÀûÀÌ¶û ºÎµúÈû");
         if(other.TryGetComponent(out EnemyStatus enemyStatus))
         {
             enemyStatus.TakeDamage((int)(_playerStatus.GetStats(Statistic.Damage).IntetgerValue * Managers.Skill.GetSkillData(SkillName.ShadowSlash).DamageCoefficient));
+            _playerStatus.ManaPool.CurrentValue += _manaRecovery;
+            Managers.Event.PostNotification(Define.EVENT_TYPE.PlayerManaChange, _playerStatus);
         }
     }
 

@@ -274,6 +274,7 @@ public class MainUI : UI_Scene
 
     private void Login()
     {
+        GetText((int)Texts.LoginWaringText).text = "<color=white>Login....</color>";
         string id = Get<TMP_InputField>((int)InputFields.LoginIDInput).text;
         string password = Get<TMP_InputField>((int)InputFields.LoginPWInput).text;
         if (id == string.Empty)
@@ -334,6 +335,7 @@ public class MainUI : UI_Scene
         }
         else
         {
+            GetText((int)Texts.LoadWarningText).text = "<color=white>Starting....</color>";
             Managers.DB.UpdateSkillData();
             Managers.Scene.LoadScene(Define.Scene.Town);
         }
@@ -367,10 +369,8 @@ public class MainUI : UI_Scene
     }
     private void UpdateLoadData()
     {
-        Debug.Log("업데이트 로드 데이터");
         if (Managers.DB.Slot1Data.Name != "Empty")
         {
-            Debug.Log("첫 번째 데이터 업데이트");
             GetText((int)Texts.FirstDataName).text = Managers.DB.Slot1Data.Name;
             GetText((int)Texts.FirstDataLevel).text = "Level : " + Managers.DB.Slot1Data.Level.ToString();
         }

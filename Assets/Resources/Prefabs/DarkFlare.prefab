@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 135786414431410116}
   - component: {fileID: 7568465613306292512}
   - component: {fileID: 2108165010568064122}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DarkFlare
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5064,7 +5064,7 @@ GameObject:
   - component: {fileID: 198518836926748252}
   - component: {fileID: 114350767316425528}
   - component: {fileID: 199521921230696920}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Splash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9918,7 +9918,7 @@ GameObject:
   - component: {fileID: 4240465620660220}
   - component: {fileID: 198089175232673952}
   - component: {fileID: 199210428818871524}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Black
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14816,7 +14816,7 @@ GameObject:
   - component: {fileID: 4990306732473442}
   - component: {fileID: 198234933476325144}
   - component: {fileID: 199375778162501098}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19656,7 +19656,7 @@ GameObject:
   - component: {fileID: 4963464717961012}
   - component: {fileID: 198290293610539364}
   - component: {fileID: 199799540852237024}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24514,7 +24514,7 @@ GameObject:
   - component: {fileID: 4634278251622126}
   - component: {fileID: 198313319477106990}
   - component: {fileID: 199733371228064804}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Spiral
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29353,7 +29353,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1352949967500719732}
   - component: {fileID: 9167696925446485444}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shadow Beam (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29498,7 +29498,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3481411891129881622}
   - component: {fileID: 2426419605603619110}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shadow Beam (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29643,7 +29643,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3280436499638787835}
   - component: {fileID: 8331939894929232227}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shadow Beam (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29788,7 +29788,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2081340132558010949}
   - component: {fileID: 2081340132548650849}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shadow Beam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29933,7 +29933,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6324949789415860629}
   - component: {fileID: 7036087613753607210}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shadow Beam (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30078,7 +30078,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3509360109791076414}
   - component: {fileID: 8577892992450567194}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shadow Beam (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30223,7 +30223,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3871922420783378890}
   - component: {fileID: 2861385766921976690}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shadow Beam (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30368,7 +30368,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1007108632834626782}
   - component: {fileID: 680941674121022435}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shadow Beam (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30512,7 +30512,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8524308363228311040}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LineRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30554,7 +30554,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6508531138723151681}
   - component: {fileID: 1024476742013943361}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shadow Beam (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30699,7 +30699,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6649695746839378936}
   - component: {fileID: 3051351007417347799}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shadow Beam (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

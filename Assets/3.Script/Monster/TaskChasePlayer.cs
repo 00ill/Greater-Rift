@@ -26,7 +26,6 @@ public class TaskChasePlayer : Node
         _enemyAgent.SetDestination(target.position);
         _enemyAgent.isStopped = false;
         state = NodeState.Running;
-        Debug.Log("ÂÑ¾Æ°¡´Â Áß");
         return state;
     }
 }

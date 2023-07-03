@@ -280,6 +280,13 @@ public class DBManager
         Managers.Skill.CurrentNum3SKillName = CurrentPlayerSkillData.Num3SkillName;
         Managers.Skill.CurrentNum4SKillName = CurrentPlayerSkillData.Num4SkillName;
     }
+
+    public void ResetLoadData()
+    {
+        Slot1Data = new("Empty");
+        Slot2Data = new("Empty");
+        Slot3Data = new("Empty");
+    }
     public class AccountData
     {
         public string ID;

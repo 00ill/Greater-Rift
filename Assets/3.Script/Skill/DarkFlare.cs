@@ -32,7 +32,8 @@ public class DarkFlare : Projectile
     }
     private void Update()
     {
-        numColliders = Physics.OverlapSphereNonAlloc(transform.position, 10f, _hitColliders);
+        int layerMask = 1 << LayerMask.NameToLayer("Monster");
+        numColliders = Physics.OverlapSphereNonAlloc(transform.position, 10f, _hitColliders,layerMask);
         for (int i = 0; i < numColliders; i++)
         {
             if (_hitColliders[i].TryGetComponent(out EnemyStatus enemyStatus))
@@ -42,17 +43,22 @@ public class DarkFlare : Projectile
                 {
                     _lineRenderers[i].enabled = true;
                     _lineRenderers[i].SetPosition(0, transform.position);
-                    _lineRenderers[i].SetPosition(1, _hitColliders[i].transform.position);
+                    _lineRenderers[i].SetPosition(1, _hitColliders[i].transform.position + Vector3.up * 0.5f);
                 }
                 else
                 {
                     _lineRenderers[i].enabled = false;
                 }
             }
+            else
+            {
+                _enemyStatuses[i] = null;
+            }
         }
         for (int i = numColliders; i < _maxTargetNum; i++)
         {
             _lineRenderers[i].enabled = false;
+            _enemyStatuses[i] = null;
         }
     }
     protected override void InitializeProjectile()
@@ -77,19 +83,6 @@ public class DarkFlare : Projectile
                     _enemyStatuses[i].TakeDamage(10);
                 }
             }
-            //for (int i = 0; i < numColliders; i++)
-            //{
-            //    if (_hitColliders[i].CompareTag("Monster"))
-            //    {
-            //        if(_hitColliders[i].TryGetComponent(out EnemyStatus enemyStatus))
-            //        {
-            //            if(!enemyStatus.IsDead)
-            //            {
-            //                enemyStatus.TakeDamage(10);
-            //            }
-            //        }
-            //    }
-            //}
             yield return _damageTick;
         }
     }

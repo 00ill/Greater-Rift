@@ -32,13 +32,11 @@ public class CheckPlayerInFOVRange : Node
                 _animator.SetFloat("Locomotion", 1f);
 
                 state = NodeState.Success;
-                Debug.Log("탐지 성공 중");
                 return state;
             }
 
             state = NodeState.Failure;
             parent.parent.ClearData("target");
-            Debug.Log("탐지 실패 중");
             return state;
         }
 

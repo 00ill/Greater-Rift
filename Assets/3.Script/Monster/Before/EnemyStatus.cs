@@ -124,8 +124,6 @@ namespace Enemy
             if(!IsDead)
             {
                 damage = ApplyDefence(damage);
-                Debug.Log(string.Format($"{transform.name}가 {damage} 데미지 입음"));
-                Debug.Log(string.Format($"{transform.name}의 현재 체력 {LifePool.CurrentValue}, 최대체력 {LifePool.MaxValue}"));
                 LifePool.CurrentValue -= damage;
                 GameObject go = Managers.Resource.Instantiate("DamagePopUp");
                 _gameUI = FindObjectOfType<Canvas>();

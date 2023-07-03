@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2598514127933867009}
   - component: {fileID: 8866899625855988947}
   - component: {fileID: 3121486139864882097}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Skill_BladeSlash
   m_TagString: Untagged
   m_Icon: {fileID: 0}

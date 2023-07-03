@@ -345,6 +345,8 @@ public class GameUI : UI_Scene, IListener
                 Managers.DB.SaveData(new DBManager.PlayerData(Managers.DB.CurrentPlayerData.Name,
                     FindObjectOfType<PlayerStatus>().GetStats(Statistic.Level).IntetgerValue,
                     FindObjectOfType<PlayerStatus>().ExpPool.CurrentValue));
+                Managers.DB.ResetLoadData();
+                Managers.Skill.ResetSkillCooldown();
                 GetObject((int)Objects.PausePanel).SetActive(false); Managers.Scene.LoadScene(Define.Scene.MainMenu);
             });
         GetObject((int)Objects.PausePanel).SetActive(false);
