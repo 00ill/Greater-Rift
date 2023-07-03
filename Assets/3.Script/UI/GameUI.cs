@@ -176,12 +176,12 @@ public class GameUI : UI_Scene, IListener
         GetImage((int)Images.SkillNum3Cooldown).fillAmount = 0f;
         GetImage((int)Images.SkillNum4Cooldown).fillAmount = 0f;
         GetImage((int)Images.SkillM2Cooldown).fillAmount = 0f;
-        GetImage((int)Images.SkillM1).sprite = Managers.Resource.Load<Sprite>(_skillPath + "Cutting");
-        GetImage((int)Images.SkillM2).sprite = Managers.Resource.Load<Sprite>(_skillPath + "BladeSlash");
-        GetImage((int)Images.SkillNum1).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
-        GetImage((int)Images.SkillNum2).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
-        GetImage((int)Images.SkillNum3).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
-        GetImage((int)Images.SkillNum4).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
+        GetImage((int)Images.SkillM1).sprite = Managers.Resource.Load<Sprite>(_skillPath + Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentM1SKillName).ResourceName);
+        GetImage((int)Images.SkillM2).sprite = Managers.Resource.Load<Sprite>(_skillPath + Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentM2SKillName).ResourceName);
+        GetImage((int)Images.SkillNum1).sprite = Managers.Resource.Load<Sprite>(_skillPath + Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentNum1SKillName).ResourceName);
+        GetImage((int)Images.SkillNum2).sprite = Managers.Resource.Load<Sprite>(_skillPath + Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentNum2SKillName).ResourceName);
+        GetImage((int)Images.SkillNum3).sprite = Managers.Resource.Load<Sprite>(_skillPath + Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentNum3SKillName).ResourceName);
+        GetImage((int)Images.SkillNum4).sprite = Managers.Resource.Load<Sprite>(_skillPath + Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentNum4SKillName).ResourceName);
     }
 
     private void InitInformation()

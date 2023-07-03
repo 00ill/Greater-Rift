@@ -3,6 +3,7 @@ using Firebase.Database;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class DBManager
 {
@@ -20,6 +21,10 @@ public class DBManager
     public PlayerData Slot1Data = new("Empty");
     public PlayerData Slot2Data = new("Empty");
     public PlayerData Slot3Data = new("Empty");
+    public PlayerSkillData CurrentPlayerSkillData = null;
+    public PlayerSkillData Slot1SkillData = new();
+    public PlayerSkillData Slot2SkillData = new();
+    public PlayerSkillData Slot3SkillData = new();
     public void Init()
     {
         FirebaseApp.DefaultInstance.Options.DatabaseUrl = new Uri(DBurl);
@@ -90,21 +95,15 @@ public class DBManager
                         CurrecntUserID = id;
                         if (snapshot.HasChild(_dataSlot1))
                         {
-                            Slot1Data.Name = snapshot.Child(_dataSlot1).Child("Name").Value.ToString();
-                            Slot1Data.Level = int.Parse(snapshot.Child(_dataSlot1).Child("Level").Value.ToString());
-                            Slot1Data.CurExp = int.Parse(snapshot.Child(_dataSlot1).Child("CurExp").Value.ToString());
+                            LoadData(Slot1Data, Slot1SkillData, snapshot, _dataSlot1);
                         }
                         if (snapshot.HasChild(_dataSlot2))
                         {
-                            Slot2Data.Name = snapshot.Child(_dataSlot2).Child("Name").Value.ToString();
-                            Slot2Data.Level = int.Parse(snapshot.Child(_dataSlot2).Child("Level").Value.ToString());
-                            Slot2Data.CurExp = int.Parse(snapshot.Child(_dataSlot2).Child("CurExp").Value.ToString());
+                            LoadData(Slot2Data, Slot2SkillData, snapshot, _dataSlot2);
                         }
                         if (snapshot.HasChild(_dataSlot3))
                         {
-                            Slot3Data.Name = snapshot.Child(_dataSlot3).Child("Name").Value.ToString();
-                            Slot3Data.Level = int.Parse(snapshot.Child(_dataSlot3).Child("Level").Value.ToString());
-                            Slot3Data.CurExp = int.Parse(snapshot.Child(_dataSlot3).Child("CurExp").Value.ToString());
+                            LoadData(Slot3Data, Slot3SkillData, snapshot, _dataSlot3);
                         }
 
                         Managers.Event.DBEvent?.Invoke(Define.DB_Event.SuccessLogin);
@@ -138,10 +137,20 @@ public class DBManager
                 DataSnapshot snapshot = task.Result;
                 PlayerData playerData = new(name);
                 string playerDataJson = JsonUtility.ToJson(playerData);
+                PlayerSkillData playerSkillData = new();
+                string playerSkillDataJson = JsonUtility.ToJson(playerSkillData);
+                Managers.Skill.CurrentM1SKillName = playerSkillData.M1SkillName;
+                Managers.Skill.CurrentM2SKillName = playerSkillData.M2SkillName;
+                Managers.Skill.CurrentNum1SKillName = playerSkillData.Num1SkillName;
+                Managers.Skill.CurrentNum2SKillName = playerSkillData.Num2SkillName;
+                Managers.Skill.CurrentNum3SKillName = playerSkillData.Num3SkillName;
+                Managers.Skill.CurrentNum4SKillName = playerSkillData.Num4SkillName;
                 if (!snapshot.HasChild(_dataSlot1))
                 {
                     reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot1).SetRawJsonValueAsync(playerDataJson);
+                    reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot1).Child("SkillSet").SetRawJsonValueAsync(playerSkillDataJson);
                     CurrentDataSlot = _dataSlot1;
+                    Slot1Data.Name = name;
                     Managers.DB.CurrentPlayerData = Managers.DB.Slot1Data;
                     Managers.Event.DBEvent?.Invoke(Define.DB_Event.SuccessCreateNewPlayer);
                     return;
@@ -149,7 +158,9 @@ public class DBManager
                 else if (!snapshot.HasChild(_dataSlot2))
                 {
                     reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot2).SetRawJsonValueAsync(playerDataJson);
+                    reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot2).Child("SkillSet").SetRawJsonValueAsync(playerSkillDataJson);
                     CurrentDataSlot = _dataSlot2;
+                    Slot2Data.Name = name;
                     Managers.DB.CurrentPlayerData = Managers.DB.Slot2Data;
                     Managers.Event.DBEvent?.Invoke(Define.DB_Event.SuccessCreateNewPlayer);
                     return;
@@ -157,7 +168,9 @@ public class DBManager
                 else if (!snapshot.HasChild(_dataSlot3))
                 {
                     reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot3).SetRawJsonValueAsync(playerDataJson);
+                    reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot3).Child("SkillSet").SetRawJsonValueAsync(playerSkillDataJson);
                     CurrentDataSlot = _dataSlot3;
+                    Slot3Data.Name = name;
                     Managers.DB.CurrentPlayerData = Managers.DB.Slot3Data;
                     Managers.Event.DBEvent?.Invoke(Define.DB_Event.SuccessCreateNewPlayer);
                     return;
@@ -184,6 +197,10 @@ public class DBManager
                 DataSnapshot snapshot = task.Result;
                 string playerDataJson = JsonUtility.ToJson(playerData);
                 reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(CurrentDataSlot).SetRawJsonValueAsync(playerDataJson);
+                PlayerSkillData playerSkillData = new(Managers.Skill.CurrentM1SKillName, Managers.Skill.CurrentM2SKillName,
+                    Managers.Skill.CurrentNum1SKillName, Managers.Skill.CurrentNum2SKillName, Managers.Skill.CurrentNum3SKillName, Managers.Skill.CurrentNum4SKillName);
+                string playerSkillDataJson = JsonUtility.ToJson(playerSkillData);
+                reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(CurrentDataSlot).Child("SkillSet").SetRawJsonValueAsync(playerSkillDataJson);
             }
         });
 
@@ -241,6 +258,18 @@ public class DBManager
         });
     }
 
+    private void LoadData(PlayerData playerData, PlayerSkillData playerSkillData, DataSnapshot snapshot, string dataSlot)
+    {
+        playerData.Name = snapshot.Child(dataSlot).Child("Name").Value.ToString();
+        playerData.Level = int.Parse(snapshot.Child(dataSlot).Child("Level").Value.ToString());
+        playerData.CurExp = int.Parse(snapshot.Child(dataSlot).Child("CurExp").Value.ToString());
+        playerSkillData.M1SkillName = (SkillName)int.Parse(snapshot.Child(dataSlot).Child("SkillSet").Child("M1SkillName").Value.ToString());
+        playerSkillData.M2SkillName = (SkillName)int.Parse(snapshot.Child(dataSlot).Child("SkillSet").Child("M2SkillName").Value.ToString());
+        playerSkillData.Num1SkillName = (SkillName)int.Parse(snapshot.Child(dataSlot).Child("SkillSet").Child("Num1SkillName").Value.ToString());
+        playerSkillData.Num2SkillName = (SkillName)int.Parse(snapshot.Child(dataSlot).Child("SkillSet").Child("Num2SkillName").Value.ToString());
+        playerSkillData.Num3SkillName = (SkillName)int.Parse(snapshot.Child(dataSlot).Child("SkillSet").Child("Num3SkillName").Value.ToString());
+        playerSkillData.Num4SkillName = (SkillName)int.Parse(snapshot.Child(dataSlot).Child("SkillSet").Child("Num4SkillName").Value.ToString());
+    }
     public class AccountData
     {
         public string ID;
@@ -265,4 +294,25 @@ public class DBManager
             CurExp = curExp;
         }
     }
+
+    public class PlayerSkillData
+    {
+        public SkillName M1SkillName;
+        public SkillName M2SkillName;
+        public SkillName Num1SkillName;
+        public SkillName Num2SkillName;
+        public SkillName Num3SkillName;
+        public SkillName Num4SkillName;
+        public PlayerSkillData(SkillName m1SkillName = SkillName.ShadowSlash, SkillName m2SkillName = SkillName.None,
+            SkillName num1SkillName = SkillName.None, SkillName num2SkillName = SkillName.None, SkillName num3SkillName = SkillName.None, SkillName num4SkillName = SkillName.None)
+        {
+            M1SkillName = m1SkillName;
+            M2SkillName = m2SkillName;
+            Num1SkillName = num1SkillName;
+            Num2SkillName = num2SkillName;
+            Num3SkillName = num3SkillName;
+            Num4SkillName = num4SkillName;
+        }
+    }
+
 }

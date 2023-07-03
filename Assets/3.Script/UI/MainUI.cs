@@ -158,6 +158,7 @@ public class MainUI : UI_Scene
                 {
                     Managers.DB.CurrentDataSlot = "DataSlot1";
                     Managers.DB.CurrentPlayerData = Managers.DB.Slot1Data;
+                    Managers.DB.CurrentPlayerSkillData = Managers.DB.Slot1SkillData;
                     GetText((int)Texts.LoadWarningText).text = "";
                 }
                 else
@@ -305,6 +306,7 @@ public class MainUI : UI_Scene
     {
         if (Get<TMP_InputField>((int)InputFields.NameInput).text != string.Empty)
         {
+            Debug.Log(string.Format($"입력한 이름  {GetText((int)Texts.NameInputText).text}"));
             Managers.DB.CreatePlayerData(GetText((int)Texts.NameInputText).text);
         }
         else
@@ -359,8 +361,10 @@ public class MainUI : UI_Scene
     }
     private void UpdateLoadData()
     {
+        Debug.Log("업데이트 로드 데이터");
         if (Managers.DB.Slot1Data.Name != "Empty")
         {
+            Debug.Log("첫 번째 데이터 업데이트");
             GetText((int)Texts.FirstDataName).text = Managers.DB.Slot1Data.Name;
             GetText((int)Texts.FirstDataLevel).text = "Level : " + Managers.DB.Slot1Data.Level.ToString();
         }
