@@ -157,11 +157,6 @@ public class PlayerStatus : MonoBehaviour, IDamageable
     //    ManaPool = new ValuePool(Stats.Get(Statistic.Mana));
     //}
 
-    private void Update()
-    {
-
-    }
-
     public void TakeDamage(int damage)
     {
         damage = ApplyDefence(damage);

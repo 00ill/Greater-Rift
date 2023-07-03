@@ -26,7 +26,17 @@ public class GameUI : UI_Scene, IListener
         SkillM1PanelTitle,
         SkillM1Script,
         SkillM2PanelTitle,
-        SkillM2Script
+        SkillM2Script,
+        //스킬 추가시마다 추가할 것들
+        SkillNum1PanelTitle,
+        SkillNum1Script,
+        SkillNum2PanelTitle,
+        SkillNum2Script,
+        SkillNum3PanelTitle,
+        SkillNum3Script,
+        SkillNum4PanelTitle,
+        SkillNum4Script
+
     }
 
     enum Images
@@ -48,7 +58,16 @@ public class GameUI : UI_Scene, IListener
         SkillSetingM1_Cutting,
         SkillSetingM1_Kick,
         SkillSetingM2_BladeSlash,
-        SkillSetingM2_DarkFlare
+        SkillSetingM2_DarkFlare,
+        //스킬 추가시마다 추가할 것들
+        SkillSettingNum1_Temp1,
+        SkillSettingNum1_Temp2,
+        SkillSettingNum2_Temp1,
+        SkillSettingNum2_Temp2,
+        SkillSettingNum3_Temp1,
+        SkillSettingNum3_Temp2,
+        SkillSettingNum4_Temp1,
+        SkillSettingNum4_Temp2,
 
     }
     enum Sliders
@@ -70,7 +89,16 @@ public class GameUI : UI_Scene, IListener
         SkillM1Confirm,
         SkillM1Exit,
         SkillM2Confirm,
-        SkillM2Exit
+        SkillM2Exit,
+        //스킬 추가시마다 추가할 것들
+        SkillNum1Confirm,
+        SkillNum1Exit,
+        SkillNum2Confirm,
+        SkillNum2Exit,
+        SkillNum3Confirm,
+        SkillNum3Exit,
+        SkillNum4Confirm,
+        SkillNum4Exit
     }
 
     enum Objects
@@ -78,7 +106,13 @@ public class GameUI : UI_Scene, IListener
         PausePanel,
         SkillSettingUI,
         SkillM1Panel,
-        SkillM2Panel
+        SkillM2Panel,
+        //스킬 추가시마다 추가할 것들
+        SkillNum1Panel,
+        SkillNum2Panel,
+        SkillNum3Panel,
+        SkillNum4Panel
+
     }
 
 
@@ -137,6 +171,17 @@ public class GameUI : UI_Scene, IListener
     {
         GetText((int)Texts.Level).text = Managers.DB.CurrentPlayerData.Level.ToString();
         GetText((int)Texts.WarningText).text = "";
+        GetImage((int)Images.SkillNum1Cooldown).fillAmount = 0f;
+        GetImage((int)Images.SkillNum2Cooldown).fillAmount = 0f;
+        GetImage((int)Images.SkillNum3Cooldown).fillAmount = 0f;
+        GetImage((int)Images.SkillNum4Cooldown).fillAmount = 0f;
+        GetImage((int)Images.SkillM2Cooldown).fillAmount = 0f;
+        GetImage((int)Images.SkillM1).sprite = Managers.Resource.Load<Sprite>(_skillPath + "Cutting");
+        GetImage((int)Images.SkillM2).sprite = Managers.Resource.Load<Sprite>(_skillPath + "BladeSlash");
+        GetImage((int)Images.SkillNum1).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
+        GetImage((int)Images.SkillNum2).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
+        GetImage((int)Images.SkillNum3).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
+        GetImage((int)Images.SkillNum4).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
     }
 
     private void InitInformation()
@@ -152,26 +197,23 @@ public class GameUI : UI_Scene, IListener
         GetText((int)Texts.SkillSettingTitle).text = "Skill Setting";
         GetText((int)Texts.SkillSetM1Text).text = "<color=white>Mouse 1 Skill Setting</color>";
         GetText((int)Texts.SkillSetM2Text).text = "<color=white>Mouse 2 Skill Setting</color>";
-        GetText((int)Texts.SkillSetNum1Text).text = "<color=white>num 1 Skill Setting</color>";
-        GetText((int)Texts.SkillSetNum2Text).text = "<color=white>num 2 Skill Setting</color>";
-        GetText((int)Texts.SkillSetNum3Text).text = "<color=white>num 3 Skill Setting</color>";
-        GetText((int)Texts.SkillSetNum4Text).text = "<color=white>num 4 Skill Setting</color>";
+        GetText((int)Texts.SkillSetNum1Text).text = "<color=white>Num 1 Skill Setting</color>";
+        GetText((int)Texts.SkillSetNum2Text).text = "<color=white>Num 2 Skill Setting</color>";
+        GetText((int)Texts.SkillSetNum3Text).text = "<color=white>Num 3 Skill Setting</color>";
+        GetText((int)Texts.SkillSetNum4Text).text = "<color=white>Num 4 Skill Setting</color>";
         GetText((int)Texts.SkillM1PanelTitle).text = "<color=white>Mouse 1 Skill Setting</color>";
         GetText((int)Texts.SkillM2PanelTitle).text = "<color=white>Mouse 2 Skill Setting</color>";
+        GetText((int)Texts.SkillNum1PanelTitle).text = "<color=white>Num 1 Skill Setting</color>";
+        GetText((int)Texts.SkillNum2PanelTitle).text = "<color=white>Num 2 Skill Setting</color>";
+        GetText((int)Texts.SkillNum3PanelTitle).text = "<color=white>Num 3 Skill Setting</color>";
+        GetText((int)Texts.SkillNum4PanelTitle).text = "<color=white>Num 4 Skill Setting</color>";
         GetText((int)Texts.SkillM1Script).text = "";
         GetText((int)Texts.SkillM2Script).text = "";
-
-        GetImage((int)Images.SkillNum1Cooldown).fillAmount = 0f;
-        GetImage((int)Images.SkillNum2Cooldown).fillAmount = 0f;
-        GetImage((int)Images.SkillNum3Cooldown).fillAmount = 0f;
-        GetImage((int)Images.SkillNum4Cooldown).fillAmount = 0f;
-        GetImage((int)Images.SkillM2Cooldown).fillAmount = 0f;
-        GetImage((int)Images.SkillM1).sprite = Managers.Resource.Load<Sprite>(_skillPath + "Cutting");
-        GetImage((int)Images.SkillM2).sprite = Managers.Resource.Load<Sprite>(_skillPath + "BladeSlash");
-        GetImage((int)Images.SkillNum1).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
-        GetImage((int)Images.SkillNum2).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
-        GetImage((int)Images.SkillNum3).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
-        GetImage((int)Images.SkillNum4).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
+        GetText((int)Texts.SkillNum1Script).text = "";
+        GetText((int)Texts.SkillNum2Script).text = "";
+        GetText((int)Texts.SkillNum3Script).text = "";
+        GetText((int)Texts.SkillNum4Script).text = "";
+        
         //스킬셋 M1
         GetImage((int)Images.SkillSetingM1_Cutting).sprite = Managers.Resource.Load<Sprite>(_skillPath + "Cutting");
         GetImage((int)Images.SkillSetingM1_Cutting).gameObject.BindEvent((PointerEventData data) =>
@@ -198,6 +240,64 @@ public class GameUI : UI_Scene, IListener
             GetText((int)Texts.SkillM2Script).text = FindSkillScript(Images.SkillSetingM2_DarkFlare);
             Managers.Skill.CurrentSelectSkillName = SkillName.DarkFlare;
         });
+        ///스킬 만들 때마다 바꿀 곳;
+
+        //스킬셋 Num1
+        GetImage((int)Images.SkillSettingNum1_Temp1).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
+        GetImage((int)Images.SkillSettingNum1_Temp1).gameObject.BindEvent((PointerEventData data) =>
+        {
+            GetText((int)Texts.SkillNum1Script).text = FindSkillScript(Images.SkillSettingNum1_Temp1);
+            
+            Managers.Skill.CurrentSelectSkillName = SkillName.BladeSlash;
+        });
+        GetImage((int)Images.SkillSettingNum1_Temp2).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
+        GetImage((int)Images.SkillSettingNum1_Temp2).gameObject.BindEvent((PointerEventData data) =>
+        {
+            GetText((int)Texts.SkillNum1Script).text = FindSkillScript(Images.SkillSettingNum1_Temp2);
+            Managers.Skill.CurrentSelectSkillName = SkillName.DarkFlare;
+        });
+        //스킬셋 Num2
+        GetImage((int)Images.SkillSettingNum2_Temp1).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
+        GetImage((int)Images.SkillSettingNum2_Temp1).gameObject.BindEvent((PointerEventData data) =>
+        {
+            GetText((int)Texts.SkillNum2Script).text = FindSkillScript(Images.SkillSettingNum2_Temp1);
+
+            Managers.Skill.CurrentSelectSkillName = SkillName.BladeSlash;
+        });
+        GetImage((int)Images.SkillSettingNum2_Temp2).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
+        GetImage((int)Images.SkillSettingNum2_Temp2).gameObject.BindEvent((PointerEventData data) =>
+        {
+            GetText((int)Texts.SkillNum2Script).text = FindSkillScript(Images.SkillSettingNum2_Temp2);
+            Managers.Skill.CurrentSelectSkillName = SkillName.DarkFlare;
+        });
+        //스킬셋 Num3
+        GetImage((int)Images.SkillSettingNum3_Temp1).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
+        GetImage((int)Images.SkillSettingNum3_Temp1).gameObject.BindEvent((PointerEventData data) =>
+        {
+            GetText((int)Texts.SkillNum3Script).text = FindSkillScript(Images.SkillSettingNum3_Temp1);
+
+            Managers.Skill.CurrentSelectSkillName = SkillName.BladeSlash;
+        });
+        GetImage((int)Images.SkillSettingNum3_Temp2).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
+        GetImage((int)Images.SkillSettingNum3_Temp2).gameObject.BindEvent((PointerEventData data) =>
+        {
+            GetText((int)Texts.SkillNum3Script).text = FindSkillScript(Images.SkillSettingNum3_Temp2);
+            Managers.Skill.CurrentSelectSkillName = SkillName.DarkFlare;
+        });
+        //스킬셋 Num4
+        GetImage((int)Images.SkillSettingNum4_Temp1).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
+        GetImage((int)Images.SkillSettingNum4_Temp1).gameObject.BindEvent((PointerEventData data) =>
+        {
+            GetText((int)Texts.SkillNum4Script).text = FindSkillScript(Images.SkillSettingNum4_Temp1);
+
+            Managers.Skill.CurrentSelectSkillName = SkillName.BladeSlash;
+        });
+        GetImage((int)Images.SkillSettingNum4_Temp2).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
+        GetImage((int)Images.SkillSettingNum4_Temp2).gameObject.BindEvent((PointerEventData data) =>
+        {
+            GetText((int)Texts.SkillNum4Script).text = FindSkillScript(Images.SkillSettingNum4_Temp2);
+            Managers.Skill.CurrentSelectSkillName = SkillName.DarkFlare;
+        });
 
         GetButton((int)Buttons.SkillSettingExit).gameObject.BindEvent((PointerEventData data) => CloseSkillSettingUI());
         GetButton((int)Buttons.SkillSetM1).gameObject.BindEvent((PointerEventData data) => SKillSetM1Open());
@@ -206,10 +306,26 @@ public class GameUI : UI_Scene, IListener
         GetButton((int)Buttons.SkillSetM2).gameObject.BindEvent((PointerEventData data) => SKillSetM2Open());
         GetButton((int)Buttons.SkillM2Confirm).gameObject.BindEvent((PointerEventData data) => SkillM2PanelConfirm());
         GetButton((int)Buttons.SkillM2Exit).gameObject.BindEvent((PointerEventData data) => SkillM2PanelExit());
+        GetButton((int)Buttons.SkillSetNum1).gameObject.BindEvent((PointerEventData data) => SKillSetNum1Open());
+        GetButton((int)Buttons.SkillNum1Confirm).gameObject.BindEvent((PointerEventData data) => SkillNum1PanelConfirm());
+        GetButton((int)Buttons.SkillNum1Exit).gameObject.BindEvent((PointerEventData data) => SkillNum1PanelExit());
+        GetButton((int)Buttons.SkillSetNum2).gameObject.BindEvent((PointerEventData data) => SKillSetNum2Open());
+        GetButton((int)Buttons.SkillNum2Confirm).gameObject.BindEvent((PointerEventData data) => SkillNum2PanelConfirm());
+        GetButton((int)Buttons.SkillNum2Exit).gameObject.BindEvent((PointerEventData data) => SkillNum2PanelExit());
+        GetButton((int)Buttons.SkillSetNum3).gameObject.BindEvent((PointerEventData data) => SKillSetNum3Open());
+        GetButton((int)Buttons.SkillNum3Confirm).gameObject.BindEvent((PointerEventData data) => SkillNum3PanelConfirm());
+        GetButton((int)Buttons.SkillNum3Exit).gameObject.BindEvent((PointerEventData data) => SkillNum3PanelExit());
+        GetButton((int)Buttons.SkillSetNum4).gameObject.BindEvent((PointerEventData data) => SKillSetNum4Open());
+        GetButton((int)Buttons.SkillNum4Confirm).gameObject.BindEvent((PointerEventData data) => SkillNum4PanelConfirm());
+        GetButton((int)Buttons.SkillNum4Exit).gameObject.BindEvent((PointerEventData data) => SkillNum4PanelExit());
 
         CloseSkillSettingUI();
         SkillM1PanelExit();
         SkillM2PanelExit();
+        SkillNum1PanelExit();
+        SkillNum2PanelExit();
+        SkillNum3PanelExit();
+        SkillNum4PanelExit();
     }
     private void InitPausePanel()
     {
@@ -319,6 +435,101 @@ public class GameUI : UI_Scene, IListener
         GetObject((int)Objects.SkillM2Panel).SetActive(false);
         GetText((int)Texts.SkillM2Script).text = "";
     }
+    private void SKillSetNum1Open()
+    {
+        GetText((int)Texts.SkillNum1Script).text = "";
+        Managers.Skill.CurrentChangeSkillType = SkillType.SkillSet1;
+        GetObject((int)Objects.SkillNum1Panel).SetActive(true);
+    }
+    private void SkillNum1PanelConfirm()
+    {
+        //스킬등록 이벤트 넣을 곳
+        GetText((int)Texts.SkillNum1Script).text = "";
+        if (SkillLevelCheck(Texts.SkillNum1Script) && Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentSelectSkillName).Type == SkillType.SkillSet1)
+        {
+            GetImage((int)Images.SkillNum1).sprite = Managers.Resource.Load<Sprite>(_skillPath
+                + Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentSelectSkillName).ResourceName);
+            Managers.Skill.CurrentNum1SKillName = Managers.Skill.CurrentSelectSkillName;
+            GetObject((int)Objects.SkillM2Panel).SetActive(false);
+        }
+    }
+    private void SkillNum1PanelExit()
+    {
+        GetObject((int)Objects.SkillNum1Panel).SetActive(false);
+        GetText((int)Texts.SkillNum1Script).text = "";
+    }
+
+    private void SKillSetNum2Open()
+    {
+        GetText((int)Texts.SkillNum2Script).text = "";
+        Managers.Skill.CurrentChangeSkillType = SkillType.SkillSet2;
+        GetObject((int)Objects.SkillNum2Panel).SetActive(true);
+    }
+    private void SkillNum2PanelConfirm()
+    {
+        //스킬등록 이벤트 넣을 곳
+        GetText((int)Texts.SkillNum2Script).text = "";
+        if (SkillLevelCheck(Texts.SkillNum2Script) && Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentSelectSkillName).Type == SkillType.SkillSet2)
+        {
+            GetImage((int)Images.SkillNum2).sprite = Managers.Resource.Load<Sprite>(_skillPath
+                + Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentSelectSkillName).ResourceName);
+            Managers.Skill.CurrentNum1SKillName = Managers.Skill.CurrentSelectSkillName;
+            GetObject((int)Objects.SkillNum2Panel).SetActive(false);
+        }
+    }
+    private void SkillNum2PanelExit()
+    {
+        GetObject((int)Objects.SkillNum2Panel).SetActive(false);
+        GetText((int)Texts.SkillNum2Script).text = "";
+    }
+    private void SKillSetNum3Open()
+    {
+        GetText((int)Texts.SkillNum3Script).text = "";
+        Managers.Skill.CurrentChangeSkillType = SkillType.SkillSet3;
+        GetObject((int)Objects.SkillNum3Panel).SetActive(true);
+    }
+    private void SkillNum3PanelConfirm()
+    {
+        //스킬등록 이벤트 넣을 곳
+        GetText((int)Texts.SkillNum3Script).text = "";
+        if (SkillLevelCheck(Texts.SkillNum3Script) && Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentSelectSkillName).Type == SkillType.SkillSet3)
+        {
+            GetImage((int)Images.SkillNum3).sprite = Managers.Resource.Load<Sprite>(_skillPath
+                + Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentSelectSkillName).ResourceName);
+            Managers.Skill.CurrentNum3SKillName = Managers.Skill.CurrentSelectSkillName;
+            GetObject((int)Objects.SkillNum3Panel).SetActive(false);
+        }
+    }
+    private void SkillNum3PanelExit()
+    {
+        GetObject((int)Objects.SkillNum3Panel).SetActive(false);
+        GetText((int)Texts.SkillNum3Script).text = "";
+    }
+    private void SKillSetNum4Open()
+    {
+        GetText((int)Texts.SkillNum4Script).text = "";
+        Managers.Skill.CurrentChangeSkillType = SkillType.SkillSet4;
+        GetObject((int)Objects.SkillNum4Panel).SetActive(true);
+    }
+    private void SkillNum4PanelConfirm()
+    {
+        //스킬등록 이벤트 넣을 곳
+        GetText((int)Texts.SkillNum4Script).text = "";
+        if (SkillLevelCheck(Texts.SkillNum4Script) && Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentSelectSkillName).Type == SkillType.SkillSet4)
+        {
+            GetImage((int)Images.SkillNum4).sprite = Managers.Resource.Load<Sprite>(_skillPath
+                + Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentSelectSkillName).ResourceName);
+            Managers.Skill.CurrentNum4SKillName = Managers.Skill.CurrentSelectSkillName;
+            GetObject((int)Objects.SkillNum4Panel).SetActive(false);
+        }
+    }
+    private void SkillNum4PanelExit()
+    {
+        GetObject((int)Objects.SkillNum4Panel).SetActive(false);
+        GetText((int)Texts.SkillNum4Script).text = "";
+    }
+
+
     private void OpenSkillSettingUI()
     {
         GetObject((int)Objects.SkillSettingUI).SetActive(true);
