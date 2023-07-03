@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.AI;
-using UnityStandardAssets.Cameras;
 
 public class PlayerAttackHandler : MonoBehaviour, ICommandHandle
 {
@@ -36,7 +35,7 @@ public class PlayerAttackHandler : MonoBehaviour, ICommandHandle
 
         if (distance < _normalAttackRange)
         {
-            if(!_playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("NormalAttack"))
+            if (!_playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("NormalAttack"))
             {
                 LookAtTarget();
                 _playerAnimator.SetTrigger("NormalAttack");

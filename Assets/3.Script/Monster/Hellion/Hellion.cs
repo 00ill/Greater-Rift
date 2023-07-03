@@ -1,11 +1,8 @@
-using System;
-using System.Collections;
-using UnityEngine;
-using UnityEngine.AI;
 using BehaviorTree;
 using Enemy;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(EnemyStatus))]
 [RequireComponent(typeof(NavMeshAgent))]
@@ -40,8 +37,8 @@ public class Hellion : BehaviorTree.Tree
         EnemyAnimator.SetTrigger("Death");
         EnemyAgent.enabled = false;
         this.enabled = false;
-        
-        
+
+
     }
     protected override Node SetupTree()
     {

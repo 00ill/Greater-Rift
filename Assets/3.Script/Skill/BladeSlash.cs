@@ -8,7 +8,7 @@ public class BladeSlash : MonoBehaviour
 
     private void Awake()
     {
-        
+
     }
     private void OnEnable()
     {

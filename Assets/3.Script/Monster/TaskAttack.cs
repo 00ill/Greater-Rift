@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using BehaviorTree;
 using Enemy;
-using UnityEditorInternal;
+using UnityEngine;
 
 public class TaskAttack : BehaviorTree.Node
 {
@@ -15,7 +12,7 @@ public class TaskAttack : BehaviorTree.Node
 
     public TaskAttack(Transform transform)
     {
-        transform.TryGetComponent(out  _enemyAnimator);
+        transform.TryGetComponent(out _enemyAnimator);
         if (transform.TryGetComponent(out _enemyStatus))
         {
             _attackCooldown = _enemyStatus.GetStats(Enemy.Statistic.AttackCooldown).IntegerValue;
@@ -35,7 +32,7 @@ public class TaskAttack : BehaviorTree.Node
         }
         else
         {
-            _attackCooldownRemain -=Time.deltaTime;
+            _attackCooldownRemain -= Time.deltaTime;
         }
         state = NodeState.Running;
         return state;

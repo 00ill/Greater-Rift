@@ -3,7 +3,6 @@ using Firebase.Database;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class DBManager
 {

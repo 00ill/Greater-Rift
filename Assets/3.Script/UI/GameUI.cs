@@ -213,7 +213,7 @@ public class GameUI : UI_Scene, IListener
         GetText((int)Texts.SkillNum2Script).text = "";
         GetText((int)Texts.SkillNum3Script).text = "";
         GetText((int)Texts.SkillNum4Script).text = "";
-        
+
         //½ºÅ³¼Â M1
         GetImage((int)Images.SkillSetingM1_Cutting).sprite = Managers.Resource.Load<Sprite>(_skillPath + "Cutting");
         GetImage((int)Images.SkillSetingM1_Cutting).gameObject.BindEvent((PointerEventData data) =>
@@ -247,7 +247,7 @@ public class GameUI : UI_Scene, IListener
         GetImage((int)Images.SkillSettingNum1_Temp1).gameObject.BindEvent((PointerEventData data) =>
         {
             GetText((int)Texts.SkillNum1Script).text = FindSkillScript(Images.SkillSettingNum1_Temp1);
-            
+
             Managers.Skill.CurrentSelectSkillName = SkillName.BladeSlash;
         });
         GetImage((int)Images.SkillSettingNum1_Temp2).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
@@ -645,7 +645,7 @@ public class GameUI : UI_Scene, IListener
             case Define.EVENT_TYPE.SkillInCooldown:
                 {
                     GetText((int)Texts.WarningText).text = "Ability in Cooldown!";
-                    if(_warningCoroutine != null)
+                    if (_warningCoroutine != null)
                     {
                         StopCoroutine(_warningCoroutine);
                         _warningCoroutine = null;

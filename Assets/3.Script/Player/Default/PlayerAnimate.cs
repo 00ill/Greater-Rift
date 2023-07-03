@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
-using UnityStandardAssets.Cameras;
 
 public class PlayerAnimate : MonoBehaviour
 {
@@ -45,7 +44,7 @@ public class PlayerAnimate : MonoBehaviour
                 Managers.Event.PostNotification(Define.EVENT_TYPE.NotEnoughMana, this);
                 return;
             }
-            
+
             LookAtTarget();
             Managers.Skill.StartM2Cooldown();
             _playerStatus.ManaPool.CurrentValue -= Managers.Skill.GetSkillData(Managers.Skill.CurrentM2SKillName).ManaCost;

@@ -19,8 +19,8 @@ public class DarkFlare : Projectile
         _hitColliders = new Collider[_maxTargetNum];
         _lineRenderers = new LineRenderer[_maxTargetNum];
         _enemyStatuses = new EnemyStatus[_maxTargetNum];
-       
-        for(int i = 0; i < _maxTargetNum; i++)
+
+        for (int i = 0; i < _maxTargetNum; i++)
         {
             _lines[i] = transform.GetChild(0).GetChild(i).gameObject;
             _lineRenderers[i] = _lines[i].GetComponent<LineRenderer>();
@@ -33,7 +33,7 @@ public class DarkFlare : Projectile
     private void Update()
     {
         int layerMask = 1 << LayerMask.NameToLayer("Monster");
-        numColliders = Physics.OverlapSphereNonAlloc(transform.position, 10f, _hitColliders,layerMask);
+        numColliders = Physics.OverlapSphereNonAlloc(transform.position, 10f, _hitColliders, layerMask);
         for (int i = 0; i < numColliders; i++)
         {
             if (_hitColliders[i].TryGetComponent(out EnemyStatus enemyStatus))
@@ -74,7 +74,7 @@ public class DarkFlare : Projectile
     }
     private IEnumerator AttackMonster()
     {
-        while(true)
+        while (true)
         {
             for (int i = 0; i < _enemyStatuses.Length; i++)
             {

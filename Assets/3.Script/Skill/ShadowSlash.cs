@@ -1,6 +1,5 @@
 using Enemy;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ShadowSlash : MonoBehaviour
@@ -13,12 +12,12 @@ public class ShadowSlash : MonoBehaviour
     {
         _playerStatus = FindObjectOfType<PlayerStatus>();
     }
-   
+
 
     private void OnEnable() => StartCoroutine(Destroy());
     private void OnTriggerEnter(Collider other)
     {
-        if(other.TryGetComponent(out EnemyStatus enemyStatus))
+        if (other.TryGetComponent(out EnemyStatus enemyStatus))
         {
             enemyStatus.TakeDamage((int)(_playerStatus.GetStats(Statistic.Damage).IntetgerValue * Managers.Skill.GetSkillData(SkillName.ShadowSlash).DamageCoefficient));
             _playerStatus.ManaPool.CurrentValue += _manaRecovery;

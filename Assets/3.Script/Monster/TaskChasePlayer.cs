@@ -1,17 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
+using BehaviorTree;
 using UnityEngine;
 using UnityEngine.AI;
-using BehaviorTree;
-using System;
-using System.Runtime.CompilerServices;
-using Enemy;
 
 public class TaskChasePlayer : Node
 {
     private Animator m_Animator;
     private NavMeshAgent _enemyAgent;
-    
+
     public TaskChasePlayer(Transform transform)
     {
         transform.TryGetComponent(out _enemyAgent);

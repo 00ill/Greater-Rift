@@ -180,7 +180,7 @@ public class MainUI : UI_Scene
                 }
                 else
                 {
-                    Managers.DB.CurrentPlayerData = null; 
+                    Managers.DB.CurrentPlayerData = null;
                     Managers.DB.CurrentPlayerSkillData = null;
                     GetText((int)Texts.LoadWarningText).text = "Please Select Exist Data";
                 }

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using BehaviorTree;
 
 public class GuardBT : Tree

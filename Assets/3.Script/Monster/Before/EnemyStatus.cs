@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Rendering;
 
 namespace Enemy
 {
@@ -121,7 +120,7 @@ namespace Enemy
 
         public void TakeDamage(int damage)
         {
-            if(!IsDead)
+            if (!IsDead)
             {
                 damage = ApplyDefence(damage);
                 LifePool.CurrentValue -= damage;
