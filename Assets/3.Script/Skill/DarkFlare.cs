@@ -35,11 +35,19 @@ public class DarkFlare : Projectile
         numColliders = Physics.OverlapSphereNonAlloc(transform.position, 10f, _hitColliders);
         for (int i = 0; i < numColliders; i++)
         {
-            if (_hitColliders[i].CompareTag("Monster"))
+            if (_hitColliders[i].TryGetComponent(out EnemyStatus enemyStatus))
             {
-                _lineRenderers[i].enabled = true;
-                _lineRenderers[i].SetPosition(0, transform.position);
-                _lineRenderers[i].SetPosition(1, _hitColliders[i].transform.position);
+                _enemyStatuses[i] = enemyStatus;
+                if (!enemyStatus.IsDead)
+                {
+                    _lineRenderers[i].enabled = true;
+                    _lineRenderers[i].SetPosition(0, transform.position);
+                    _lineRenderers[i].SetPosition(1, _hitColliders[i].transform.position);
+                }
+                else
+                {
+                    _lineRenderers[i].enabled = false;
+                }
             }
         }
         for (int i = numColliders; i < _maxTargetNum; i++)
@@ -62,23 +70,26 @@ public class DarkFlare : Projectile
     {
         while(true)
         {
-            for (int i = 0; i < numColliders; i++)
+            for (int i = 0; i < _enemyStatuses.Length; i++)
             {
-                if (_hitColliders[i].CompareTag("Monster"))
+                if (_enemyStatuses[i] != null)
                 {
-                    if(_hitColliders[i].TryGetComponent(out EnemyStatus enemyStatus))
-                    {
-                        if(!enemyStatus.IsDead)
-                        {
-                            enemyStatus.TakeDamage(10);
-                        }
-                        else
-                        {
-                            _lineRenderers[i].enabled=false;
-                        }
-                    }
+                    _enemyStatuses[i].TakeDamage(10);
                 }
             }
+            //for (int i = 0; i < numColliders; i++)
+            //{
+            //    if (_hitColliders[i].CompareTag("Monster"))
+            //    {
+            //        if(_hitColliders[i].TryGetComponent(out EnemyStatus enemyStatus))
+            //        {
+            //            if(!enemyStatus.IsDead)
+            //            {
+            //                enemyStatus.TakeDamage(10);
+            //            }
+            //        }
+            //    }
+            //}
             yield return _damageTick;
         }
     }

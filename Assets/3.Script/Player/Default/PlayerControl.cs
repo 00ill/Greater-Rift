@@ -35,6 +35,5 @@ public class PlayerControl : MonoBehaviour, ICommandHandle
         GameObject marker = Managers.Resource.Instantiate("Marker");
         marker.transform.position = _playerAgent.destination + Vector3.up * 0.5f;
         command.isComplete = true;
-        
     }
 }

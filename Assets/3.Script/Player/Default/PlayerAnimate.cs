@@ -24,9 +24,10 @@ public class PlayerAnimate : MonoBehaviour
 
     private void LookAtTarget()
     {
+        _playerAgent.ResetPath();
         _playerAgent.updateRotation = false;
         Quaternion lookDirection = Quaternion.LookRotation(_playerControlInput.Hit.point - transform.position);
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookDirection, Time.deltaTime * 1000);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookDirection, Time.deltaTime * 10000);
         _playerAgent.updateRotation = true;
     }
 
@@ -44,6 +45,7 @@ public class PlayerAnimate : MonoBehaviour
                 Managers.Event.PostNotification(Define.EVENT_TYPE.NotEnoughMana, this);
                 return;
             }
+            
             LookAtTarget();
             Managers.Skill.StartM2Cooldown();
             _playerStatus.ManaPool.CurrentValue -= Managers.Skill.GetSkillData(Managers.Skill.CurrentM2SKillName).ManaCost;

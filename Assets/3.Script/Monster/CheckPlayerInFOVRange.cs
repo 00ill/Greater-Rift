@@ -37,6 +37,7 @@ public class CheckPlayerInFOVRange : Node
             }
 
             state = NodeState.Failure;
+            parent.parent.ClearData("target");
             Debug.Log("탐지 실패 중");
             return state;
         }

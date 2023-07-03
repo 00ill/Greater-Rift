@@ -18,7 +18,7 @@ public class TaskAttack : BehaviorTree.Node
         transform.TryGetComponent(out  _enemyAnimator);
         if (transform.TryGetComponent(out _enemyStatus))
         {
-            _attackCooldown = _enemyStatus.GetStats(Enemy.Statistic.AttackCooldown).FloatValue;
+            _attackCooldown = _enemyStatus.GetStats(Enemy.Statistic.AttackCooldown).IntegerValue;
         }
 
     }

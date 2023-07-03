@@ -30,7 +30,7 @@ public class CheckPlayerInAttackRange : BehaviorTree.Node
         }
 
         Transform target = (Transform)t;
-        if(Vector3.Distance(_enemyTransform.position, target.position) <= _enemyStatus.GetStats(Enemy.Statistic.AttackRange).FloatValue)
+        if(Vector3.Distance(_enemyTransform.position, target.position) <= _enemyStatus.GetStats(Enemy.Statistic.AttackRange).IntegerValue)
         {
             Debug.Log("플레이어가 공격 범위 내에 있음");
             _enemyAgent.avoidancePriority = 49;
