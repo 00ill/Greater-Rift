@@ -270,6 +270,16 @@ public class DBManager
         playerSkillData.Num3SkillName = (SkillName)int.Parse(snapshot.Child(dataSlot).Child("SkillSet").Child("Num3SkillName").Value.ToString());
         playerSkillData.Num4SkillName = (SkillName)int.Parse(snapshot.Child(dataSlot).Child("SkillSet").Child("Num4SkillName").Value.ToString());
     }
+
+    public void UpdateSkillData()
+    {
+        Managers.Skill.CurrentM1SKillName = CurrentPlayerSkillData.M1SkillName;
+        Managers.Skill.CurrentM2SKillName = CurrentPlayerSkillData.M2SkillName;
+        Managers.Skill.CurrentNum1SKillName = CurrentPlayerSkillData.Num1SkillName;
+        Managers.Skill.CurrentNum2SKillName = CurrentPlayerSkillData.Num2SkillName;
+        Managers.Skill.CurrentNum3SKillName = CurrentPlayerSkillData.Num3SkillName;
+        Managers.Skill.CurrentNum4SKillName = CurrentPlayerSkillData.Num4SkillName;
+    }
     public class AccountData
     {
         public string ID;

@@ -191,7 +191,7 @@ public class GameUI : UI_Scene, IListener
 
 
     }
-
+    #region 스킬 설정 UI 초기화
     private void InitSkillSettingUI()
     {
         GetText((int)Texts.SkillSettingTitle).text = "Skill Setting";
@@ -327,6 +327,7 @@ public class GameUI : UI_Scene, IListener
         SkillNum3PanelExit();
         SkillNum4PanelExit();
     }
+    #endregion
     private void InitPausePanel()
     {
         GetText((int)Texts.PauseText).text = "Pause";

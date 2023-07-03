@@ -44,6 +44,7 @@ public class StatsGroup
 
     public void Init()
     {
+        Debug.Log("이닛");
         StatsList.Add(new StatsValue(Statistic.Level, Managers.DB.CurrentPlayerData.Level));
         StatsList.Add(new StatsValue(Statistic.Exp, Managers.DB.CurrentPlayerData.CurExp));
         StatsList.Add(new StatsValue(Statistic.Life, Managers.Data.PlayerStatusDataDict[Managers.DB.CurrentPlayerData.Level].Life));
@@ -52,12 +53,20 @@ public class StatsGroup
         StatsList.Add(new StatsValue(Statistic.Armor, Managers.Data.PlayerStatusDataDict[Managers.DB.CurrentPlayerData.Level].Armor));
         StatsList.Add(new StatsValue(Statistic.AttackSpeed, 1f));
         StatsList.Add(new StatsValue(Statistic.MoveSpeed, 10f));
-        Debug.Log(Managers.Data.PlayerStatusDataDict[Managers.DB.CurrentPlayerData.Level].Damage);
     }
 
     internal StatsValue Get(Statistic statisticToGet)
     {
         return StatsList[(int)statisticToGet];
+    }
+
+    internal void Set(Statistic statisticToSet, int value)
+    {
+        StatsList[(int)statisticToSet].IntetgerValue = value;
+    }
+    internal void Set(Statistic statisticToSet, float value)
+    {
+        StatsList[(int)statisticToSet].FloatValue = value;
     }
 }
 
@@ -188,17 +197,40 @@ public class PlayerStatus : MonoBehaviour, IDamageable
     {
         return Stats.Get(statisticToGet);
     }
-
+    //외부에서 플레이어 스테이터스 변경이 필요한 경우에 쓸 수 있음
+    //public void SetStats(Statistic statisticToSet, int value)
+    //{
+    //    Stats.Set(statisticToSet, value);
+    //}
+    //public void SetStats(Statistic statisticToSet, float value)
+    //{
+    //    Stats.Set(statisticToSet, value);
+    //}
     public void GainExp(int exp)
     {
         ExpPool.CurrentValue += exp;
         if (ExpPool.CurrentValue >= ExpPool.MaxValue)
         {
-            Stats.StatsList[(int)Statistic.Level].IntetgerValue += 1;
-            Stats.StatsList[(int)Statistic.Exp].IntetgerValue = 0;
-            ExpPool = new ValuePool((Managers.Data.PlayerStatusDataDict[Stats.Get(Statistic.Level).IntetgerValue].RequireExp), Stats.StatsList[(int)Statistic.Exp].IntetgerValue);
-            Managers.Event.PostNotification(Define.EVENT_TYPE.LevelUp, this);
+            LevelUp();
         }
         Managers.Event.PostNotification(Define.EVENT_TYPE.PlayerExpChange, this);
+    }
+
+    private void LevelUp()
+    {
+        Managers.DB.CurrentPlayerData.Level++;
+        Stats.Set(Statistic.Level, Managers.DB.CurrentPlayerData.Level);
+        Stats.Set(Statistic.Life, Managers.Data.PlayerStatusDataDict[Stats.Get(Statistic.Level).IntetgerValue].Life);
+        Stats.Set(Statistic.Mana, Managers.Data.PlayerStatusDataDict[Stats.Get(Statistic.Level).IntetgerValue].Mana);
+        Stats.Set(Statistic.Armor, Managers.Data.PlayerStatusDataDict[Stats.Get(Statistic.Level).IntetgerValue].Armor);
+        Stats.Set(Statistic.Damage, Managers.Data.PlayerStatusDataDict[Stats.Get(Statistic.Level).IntetgerValue].Damage);
+        Stats.Set(Statistic.Exp, 0);
+
+        ExpPool = new ValuePool((Managers.Data.PlayerStatusDataDict[Stats.Get(Statistic.Level).IntetgerValue].RequireExp), Stats.StatsList[(int)Statistic.Exp].IntetgerValue);
+        LifePool = new ValuePool(Stats.Get(Statistic.Life));
+        ManaPool = new ValuePool(Stats.Get(Statistic.Mana));
+        Managers.Event.PostNotification(Define.EVENT_TYPE.PlayerHpChange, this);
+        Managers.Event.PostNotification(Define.EVENT_TYPE.PlayerManaChange, this);
+        Managers.Event.PostNotification(Define.EVENT_TYPE.LevelUp, this);
     }
 }

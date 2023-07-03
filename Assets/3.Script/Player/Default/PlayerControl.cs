@@ -16,7 +16,9 @@ public class PlayerControl : MonoBehaviour, ICommandHandle
 
     private void Start()
     {
+        Debug.Log(string.Format($"스테이터스에서 불러온 이동속도 : {_playerStatus.GetStats(Statistic.MoveSpeed).FloatValue}"));
         _playerAgent.speed = _playerStatus.GetStats(Statistic.MoveSpeed).FloatValue;
+        Debug.Log(string.Format($"등록된 이동속도 : {_playerAgent.speed}"));
     }
     public void SetDestination(Vector3 destinationPosition)
     {

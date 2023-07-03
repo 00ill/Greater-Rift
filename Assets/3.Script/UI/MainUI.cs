@@ -164,6 +164,7 @@ public class MainUI : UI_Scene
                 else
                 {
                     Managers.DB.CurrentPlayerData = null;
+                    Managers.DB.CurrentPlayerSkillData = null;
                     GetText((int)Texts.LoadWarningText).text = "Please Select Exist Data";
                 }
             });
@@ -174,11 +175,13 @@ public class MainUI : UI_Scene
                 {
                     Managers.DB.CurrentDataSlot = "DataSlot2";
                     Managers.DB.CurrentPlayerData = Managers.DB.Slot2Data;
+                    Managers.DB.CurrentPlayerSkillData = Managers.DB.Slot2SkillData;
                     GetText((int)Texts.LoadWarningText).text = "";
                 }
                 else
                 {
-                    Managers.DB.CurrentPlayerData = null;
+                    Managers.DB.CurrentPlayerData = null; 
+                    Managers.DB.CurrentPlayerSkillData = null;
                     GetText((int)Texts.LoadWarningText).text = "Please Select Exist Data";
                 }
 
@@ -190,11 +193,13 @@ public class MainUI : UI_Scene
                 {
                     Managers.DB.CurrentDataSlot = "DataSlot3";
                     Managers.DB.CurrentPlayerData = Managers.DB.Slot3Data;
+                    Managers.DB.CurrentPlayerSkillData = Managers.DB.Slot3SkillData;
                     GetText((int)Texts.LoadWarningText).text = "";
                 }
                 else
                 {
                     Managers.DB.CurrentPlayerData = null;
+                    Managers.DB.CurrentPlayerSkillData = null;
                     GetText((int)Texts.LoadWarningText).text = "Please Select Exist Data";
                 }
 
@@ -329,6 +334,7 @@ public class MainUI : UI_Scene
         }
         else
         {
+            Managers.DB.UpdateSkillData();
             Managers.Scene.LoadScene(Define.Scene.Town);
         }
     }
