@@ -37,9 +37,12 @@ public class InteractInput : MonoBehaviour
             //    InteractableObjectTarget = null;
             //    AttackTarget = null;
             //}
-            if (_playerControlInput.Hit.transform.TryGetComponent(out AttackTarget) && !AttackTarget.IsDead)
+            if (_playerControlInput.Hit.transform.TryGetComponent(out AttackTarget))
             {
-                Managers.Event.PostNotification(Define.EVENT_TYPE.CheckInteractableObject, AttackTarget);
+                if(!AttackTarget.IsDead) 
+                {
+                    Managers.Event.PostNotification(Define.EVENT_TYPE.CheckInteractableObject, AttackTarget);
+                }
             }
             else
             {

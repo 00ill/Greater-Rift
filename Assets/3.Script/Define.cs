@@ -5,7 +5,9 @@ public class Define
         None,
         LoadingScene,
         MainMenu,
-        Town
+        Town,
+        NRDungeon
+
     }
 
     public enum InteractType

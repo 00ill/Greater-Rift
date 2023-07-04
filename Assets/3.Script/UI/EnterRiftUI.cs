@@ -30,6 +30,7 @@ public class EnterRiftUI : UI_Popup
     }
 
     private PlayerControlInput _playerControlInput;
+    private Vector3 _normalRiftPortalPosition = new(-2, 1.5f, 16);
     private void Awake()
     {
         _playerControlInput = FindAnyObjectByType<PlayerControlInput>();
@@ -57,6 +58,10 @@ public class EnterRiftUI : UI_Popup
 
         GetButton((int)Buttons.NormalRift).gameObject.BindEvent((PointerEventData data) =>
         {
+            GameObject go = Managers.Resource.Instantiate("NormalRiftPortal");
+            go.transform.position = _normalRiftPortalPosition;
+            Managers.Game.IsUiPopUp = false;
+            Managers.UI.ClosePopupUI();
             //ÀÏ¹Ý±Õ¿­ ÀÔÀå Æ÷Å» »ý¼º
         });
         GetButton((int)Buttons.GreaterRift).gameObject.BindEvent((PointerEventData data) =>
