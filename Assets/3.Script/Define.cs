@@ -45,7 +45,9 @@ public class Define
         Pause,
         LevelUp,
         SkillInCooldown,
-        NotEnoughMana
+        NotEnoughMana,
+        OpenPortalInTown,
+        PlayerPortalAlreadyOpen
 
     }
 

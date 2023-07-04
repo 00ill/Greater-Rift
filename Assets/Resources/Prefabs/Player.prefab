@@ -13609,7 +13609,7 @@ Transform:
   - {fileID: 6684697525212094601}
   - {fileID: 4133956097018525852}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &4271385595934199737
 CapsuleCollider:
@@ -13868,6 +13868,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 0903a8ac-f047-41e2-b390-086b0850989e
     m_ActionName: Player/Test[/Keyboard/t]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2071095552365460602}
+        m_TargetAssemblyTypeName: PlayerAnimate, Assembly-CSharp
+        m_MethodName: PlayerPotal
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 89d0e1eb-2ca1-496b-8aa5-a53a01728608
+    m_ActionName: Player/PlayerPortal[/Keyboard/p]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

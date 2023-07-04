@@ -98,6 +98,27 @@ public class PlayerAnimate : MonoBehaviour
         }
     }
 
+    public void PlayerPotal(InputAction.CallbackContext callbackContext)
+    {
+        if(callbackContext.performed)
+        {
+            if(!Managers.Game.IsPlayerInRift)
+            {
+                Managers.Event.PostNotification(Define.EVENT_TYPE.OpenPortalInTown, this);
+                return;
+            }
+            if(Managers.Game.isPlayerPortalOpen)
+            {
+                Managers.Event.PostNotification(Define.EVENT_TYPE.PlayerPortalAlreadyOpen, this);
+                return;
+            }
+
+            //GameObject go = Managers.Resource.Instantiate("PlayerPortal");
+            //go.transform.position = transform.position;
+            Managers.Game.isPlayerPortalOpen = true;
+            Managers.Resource.Instantiate("PlayerPortal").transform.position = transform.position + Vector3.up;
+        }
+    }
     private void CheckCooldown(ref float skillCooldownRemain)
     {
         if (skillCooldownRemain > 0)

@@ -30,25 +30,30 @@ public class NormalRiftPortal : MonoBehaviour
     private IEnumerator OpenPortal()
     {
         _openPortal = Managers.Resource.Instantiate("NormalPortalOpen");
-        _openPortal.transform.position = transform.position;
+        _openPortal.transform.SetParent(transform, false);
+        _openPortal.transform.localPosition = Vector3.up;
         yield return _animTime;
         _openPortal.SetActive(false);
         _idlePortal = Managers.Resource.Instantiate("NormalPortalIdle");
-        _idlePortal.transform.position = transform.position;    
+        _idlePortal.transform.SetParent(transform, false);
+        _idlePortal.transform.localPosition = Vector3.up;
     }
 
     private IEnumerator ClosePortal()
     {
-        _idlePortal.SetActive(false);
         _closePortal = Managers.Resource.Instantiate("NormalPortalClose");
-        _closePortal.transform.position = transform.position;
+        _closePortal.transform.SetParent(transform, false);
+        _closePortal.transform.localPosition = Vector3.up;
+        _idlePortal.SetActive(false);
         yield return _animTime;
         _closePortal.SetActive(false);
-        Managers.Resource.Destroy(gameObject);
+        Managers.Scene.LoadScene(Define.Scene.NRDungeon);
     }
 
     private void EntranceDungeon()
     {
-        Managers.Scene.LoadScene(Define.Scene.NRDungeon);
+        Managers.Game.IsPlayerInRift = true;
+        StartCoroutine(ClosePortal());
+        
     }
 }

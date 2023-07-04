@@ -153,6 +153,8 @@ public class GameUI : UI_Scene, IListener
         Managers.Event.AddListener(Define.EVENT_TYPE.LevelUp, this);
         Managers.Event.AddListener(Define.EVENT_TYPE.NotEnoughMana, this);
         Managers.Event.AddListener(Define.EVENT_TYPE.SkillInCooldown, this);
+        Managers.Event.AddListener(Define.EVENT_TYPE.OpenPortalInTown, this);
+        Managers.Event.AddListener(Define.EVENT_TYPE.PlayerPortalAlreadyOpen, this);
 
         PlayerHpChangeEvent(FindObjectOfType<PlayerStatus>().LifePool.CurrentValue, FindObjectOfType<PlayerStatus>().LifePool.MaxValue);
         PlayerManaChangeEvent(FindObjectOfType<PlayerStatus>().ManaPool.CurrentValue, FindObjectOfType<PlayerStatus>().ManaPool.MaxValue);
@@ -662,6 +664,28 @@ public class GameUI : UI_Scene, IListener
             case Define.EVENT_TYPE.NotEnoughMana:
                 {
                     GetText((int)Texts.WarningText).text = "There is not enough mana!";
+                    if (_warningCoroutine != null)
+                    {
+                        StopCoroutine(_warningCoroutine);
+                        _warningCoroutine = null;
+                    }
+                    _warningCoroutine = StartCoroutine(WarningText());
+                    break;
+                }
+            case Define.EVENT_TYPE.OpenPortalInTown:
+                {
+                    GetText((int)Texts.WarningText).text = "Can't Open Portal In Town!";
+                    if (_warningCoroutine != null)
+                    {
+                        StopCoroutine(_warningCoroutine);
+                        _warningCoroutine = null;
+                    }
+                    _warningCoroutine = StartCoroutine(WarningText());
+                    break;
+                }
+            case Define.EVENT_TYPE.PlayerPortalAlreadyOpen:
+                {
+                    GetText((int)Texts.WarningText).text = "Portal is Already Open!";
                     if (_warningCoroutine != null)
                     {
                         StopCoroutine(_warningCoroutine);
