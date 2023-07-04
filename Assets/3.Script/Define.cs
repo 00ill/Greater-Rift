@@ -47,7 +47,8 @@ public class Define
         SkillInCooldown,
         NotEnoughMana,
         OpenPortalInTown,
-        PlayerPortalAlreadyOpen
+        PlayerPortalAlreadyOpen,
+        PlayerDeath
 
     }
 

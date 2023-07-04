@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 public enum Statistic
 {
@@ -168,7 +169,6 @@ public class PlayerStatus : MonoBehaviour, IDamageable
     public void TakeDamage(int damage)
     {
         damage = ApplyDefence(damage);
-        Debug.Log(string.Format($"{damage} 데미지 입음"));
         LifePool.CurrentValue -= damage;
         Managers.Event.PostNotification(Define.EVENT_TYPE.PlayerHpChange, this);
         CheckDeath();
@@ -188,7 +188,8 @@ public class PlayerStatus : MonoBehaviour, IDamageable
     {
         if (LifePool.CurrentValue <= 0)
         {
-            Debug.Log("플레이어 사망");
+            Managers.Event.PostNotification(Define.EVENT_TYPE.PlayerDeath, this);
+            enabled = false;
         }
     }
 

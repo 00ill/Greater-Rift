@@ -35,7 +35,9 @@ public class GameUI : UI_Scene, IListener
         SkillNum3PanelTitle,
         SkillNum3Script,
         SkillNum4PanelTitle,
-        SkillNum4Script
+        SkillNum4Script,
+        DeathText,
+        DeathTownText
 
     }
 
@@ -98,7 +100,8 @@ public class GameUI : UI_Scene, IListener
         SkillNum3Confirm,
         SkillNum3Exit,
         SkillNum4Confirm,
-        SkillNum4Exit
+        SkillNum4Exit,
+        DeathTownButton
     }
 
     enum Objects
@@ -111,7 +114,8 @@ public class GameUI : UI_Scene, IListener
         SkillNum1Panel,
         SkillNum2Panel,
         SkillNum3Panel,
-        SkillNum4Panel
+        SkillNum4Panel,
+        DeathPanel
 
     }
 
@@ -155,6 +159,7 @@ public class GameUI : UI_Scene, IListener
         Managers.Event.AddListener(Define.EVENT_TYPE.SkillInCooldown, this);
         Managers.Event.AddListener(Define.EVENT_TYPE.OpenPortalInTown, this);
         Managers.Event.AddListener(Define.EVENT_TYPE.PlayerPortalAlreadyOpen, this);
+        Managers.Event.AddListener(Define.EVENT_TYPE.PlayerDeath, this);
 
         PlayerHpChangeEvent(FindObjectOfType<PlayerStatus>().LifePool.CurrentValue, FindObjectOfType<PlayerStatus>().LifePool.MaxValue);
         PlayerManaChangeEvent(FindObjectOfType<PlayerStatus>().ManaPool.CurrentValue, FindObjectOfType<PlayerStatus>().ManaPool.MaxValue);
@@ -164,6 +169,7 @@ public class GameUI : UI_Scene, IListener
         InitInformation();
         InitSkillSettingUI();
         InitPausePanel();
+        InitDeathPanel();
     }
 
 
@@ -190,8 +196,6 @@ public class GameUI : UI_Scene, IListener
     {
         GetText((int)Texts.InteractableObjectName).text = "";
         Get<Slider>((int)Sliders.EnemyHpBar).gameObject.SetActive(false);
-
-
     }
     #region 스킬 설정 UI 초기화
     private void InitSkillSettingUI()
@@ -352,6 +356,18 @@ public class GameUI : UI_Scene, IListener
                 GetObject((int)Objects.PausePanel).SetActive(false); Managers.Scene.LoadScene(Define.Scene.MainMenu);
             });
         GetObject((int)Objects.PausePanel).SetActive(false);
+    }
+
+    private void InitDeathPanel()
+    {
+        GetText((int)Texts.DeathText).text = "You Die";
+        GetText((int)Texts.DeathTownText).text = "Return Town";
+        GetObject((int)Objects.DeathPanel).SetActive(false);
+
+        GetButton((int)Buttons.DeathTownButton).gameObject.BindEvent((PointerEventData data) =>
+        {
+            Managers.Scene.LoadScene(Define.Scene.Town);
+        });
     }
 
     private void PlayerHpChangeEvent(float curHp, float maxHp)
@@ -692,6 +708,11 @@ public class GameUI : UI_Scene, IListener
                         _warningCoroutine = null;
                     }
                     _warningCoroutine = StartCoroutine(WarningText());
+                    break;
+                }
+            case Define.EVENT_TYPE.PlayerDeath:
+                {
+                    GetObject((int)Objects.DeathPanel).SetActive(true);
                     break;
                 }
         }

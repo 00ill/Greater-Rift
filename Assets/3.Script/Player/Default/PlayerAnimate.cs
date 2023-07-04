@@ -1,8 +1,9 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
-public class PlayerAnimate : MonoBehaviour
+public class PlayerAnimate : MonoBehaviour,IListener
 {
     private NavMeshAgent _playerAgent;
     private Animator _playerAnimator;
@@ -14,6 +15,10 @@ public class PlayerAnimate : MonoBehaviour
         TryGetComponent(out _playerAnimator);
         TryGetComponent(out _playerStatus);
         TryGetComponent(out _playerControlInput);
+    }
+    private void Start()
+    {
+        Managers.Event.AddListener(Define.EVENT_TYPE.PlayerDeath, this);
     }
     private void Update()
     {
@@ -156,5 +161,19 @@ public class PlayerAnimate : MonoBehaviour
         go.transform.position = transform.position + Vector3.up * 0.5f;
         go.transform.rotation = transform.rotation;
         go.GetComponent<Projectile>().ShootForward();
+    }
+
+    public void OnEvent(Define.EVENT_TYPE Event_Type, Component Sender, object Param = null)
+    {
+        switch (Event_Type) 
+        {
+            case Define.EVENT_TYPE.PlayerDeath:
+                {
+                    _playerControlInput.enabled = false;
+                    _playerAnimator.SetTrigger("Die");
+                    enabled = false;
+                    break;
+                }
+        }
     }
 }
