@@ -86,12 +86,10 @@ namespace Enemy
         }
     }
 
-    public class EnemyStatus : MonoBehaviour, IDamageable
+    public class EnemyStatus : MonoBehaviour
     {
         [SerializeField] private EnemyData _enemyData;
-        private Animator _enemyAnimator;
         public bool IsDead;
-        private NavMeshAgent _enemyAgent;
         public AttributeGroup Attributes;
         public StatsGroup Stats;
         public ValuePool LifePool;
@@ -99,13 +97,8 @@ namespace Enemy
 
 
         //Damage PopUp
-        private static GameObject _damagePopUpText;
         private static Canvas _gameUI;
-        private void Awake()
-        {
-            TryGetComponent(out _enemyAgent);
-            TryGetComponent(out _enemyAnimator);
-        }
+
         private void OnEnable()
         {
             Attributes = new AttributeGroup();
@@ -114,11 +107,9 @@ namespace Enemy
             Stats.Init(_enemyData);
 
             LifePool = new ValuePool(Stats.Get(Statistic.Life));
-            //_gameUI = GameObject.FindObjectOfType<Canvas>();
-            //_damagePopUpText = Managers.Resource.Load<GameObject>("DamagePopUp");
         }
 
-        public void TakeDamage(int damage)
+        public void TakeDamage(int damage, PlayerStatus playerStatus)
         {
             if (!IsDead)
             {
@@ -129,7 +120,7 @@ namespace Enemy
                 go.transform.SetParent(_gameUI.transform, false);
                 go.GetComponent<TextMeshProUGUI>().text = damage.ToString();
                 go.transform.position = Camera.main.WorldToScreenPoint(transform.position + Vector3.up * 2);
-                CheckDeath();
+                CheckDeath(playerStatus);
             }
         }
 
@@ -143,22 +134,15 @@ namespace Enemy
             return damage;
         }
 
-        private void CheckDeath()
+        private void CheckDeath(PlayerStatus playerStatus)
         {
             if (LifePool.CurrentValue <= 0 && !IsDead)
             {
-                Debug.Log("¿¡³Ê¹Ì »ç¸Á");
+                playerStatus.GainExp(2 + playerStatus.GetStats(global::Statistic.Level).IntetgerValue / 10);
                 OnDeath?.Invoke();
             }
         }
 
-        //private void OnDeath()
-        //{
-        //    _enemyAgent.isStopped = true;
-        //    IsDead = true;
-        //    _enemyAnimator.SetTrigger("Death");
-        //    //ÀÓ½Ã Á×À½
-        //}
 
         public StatsValue GetStats(Statistic statisticToGet)
         {

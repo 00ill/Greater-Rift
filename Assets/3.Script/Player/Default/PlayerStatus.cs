@@ -218,6 +218,9 @@ public class PlayerStatus : MonoBehaviour, IDamageable
 
     private void LevelUp()
     {
+        GameObject go = Managers.Resource.Instantiate("LevelUp");
+        go.transform.position = transform.position;
+
         Managers.DB.CurrentPlayerData.Level++;
         Stats.Set(Statistic.Level, Managers.DB.CurrentPlayerData.Level);
         Stats.Set(Statistic.Life, Managers.Data.PlayerStatusDataDict[Stats.Get(Statistic.Level).IntetgerValue].Life);

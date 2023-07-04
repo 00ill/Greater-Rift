@@ -19,7 +19,7 @@ public class ShadowSlash : MonoBehaviour
     {
         if (other.TryGetComponent(out EnemyStatus enemyStatus))
         {
-            enemyStatus.TakeDamage((int)(_playerStatus.GetStats(Statistic.Damage).IntetgerValue * Managers.Skill.GetSkillData(SkillName.ShadowSlash).DamageCoefficient));
+            enemyStatus.TakeDamage((int)(_playerStatus.GetStats(Statistic.Damage).IntetgerValue * Managers.Skill.GetSkillData(SkillName.ShadowSlash).DamageCoefficient), _playerStatus);
             _playerStatus.ManaPool.CurrentValue += _manaRecovery;
             Managers.Event.PostNotification(Define.EVENT_TYPE.PlayerManaChange, _playerStatus);
         }

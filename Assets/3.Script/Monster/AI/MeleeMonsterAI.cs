@@ -41,9 +41,8 @@ public class MeleeMonsterAI : BehaviorTree.Tree
         EnemyAnimator.SetTrigger("Death");
         EnemyAgent.enabled = false;
         this.enabled = false;
-
-
     }
+
     protected override Node SetupTree()
     {
         Node root = new Selector(new List<Node>

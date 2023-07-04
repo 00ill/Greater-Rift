@@ -12,13 +12,14 @@ public class BladeSlash : MonoBehaviour
     }
     private void OnEnable()
     {
+        _playerStatus = FindObjectOfType<PlayerStatus>();
         StartCoroutine(DestroySkill());
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out EnemyStatus enemyStatus))
         {
-            enemyStatus.TakeDamage(10);
+            enemyStatus.TakeDamage(10, _playerStatus);
         }
     }
     private IEnumerator DestroySkill()
