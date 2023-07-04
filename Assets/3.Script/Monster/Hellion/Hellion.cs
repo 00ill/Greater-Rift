@@ -1,4 +1,5 @@
 using BehaviorTree;
+using Data;
 using Enemy;
 using System.Collections.Generic;
 using UnityEngine;
@@ -56,4 +57,7 @@ public class Hellion : BehaviorTree.Tree
         });
         return root;
     }
+
+
+  
 }
