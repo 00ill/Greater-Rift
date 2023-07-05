@@ -13825,7 +13825,19 @@ MonoBehaviour:
     m_ActionId: dd383475-62d5-47df-b806-03be0ad0ea54
     m_ActionName: Player/Ability1[/Keyboard/1]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2071095552365460602}
+        m_TargetAssemblyTypeName: PlayerAnimate, Assembly-CSharp
+        m_MethodName: AbilityNum1
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: b8711034-0fbe-4738-bd8d-21e83c3fe567
     m_ActionName: Player/Ability2[/Keyboard/2]
   - m_PersistentCalls:

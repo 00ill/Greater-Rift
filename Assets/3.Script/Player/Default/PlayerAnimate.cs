@@ -64,11 +64,22 @@ public class PlayerAnimate : MonoBehaviour,IListener
     {
         if (callbackContext.performed)
         {
-            if (Managers.Skill.Num1SkillCooldownRemain <= 0)
+
+            if (Managers.Skill.Num1SkillCooldownRemain > 0f)
             {
-                Managers.Skill.StartNum1Cooldown();
-                _playerAnimator.Play(Managers.Skill.GetSkillData(Managers.Skill.CurrentNum1SKillName).ResourceName);
+                Managers.Event.PostNotification(Define.EVENT_TYPE.SkillInCooldown, this);
+                return;
             }
+            if (_playerStatus.ManaPool.CurrentValue < Managers.Skill.GetSkillData(Managers.Skill.CurrentM2SKillName).ManaCost)
+            {
+                Managers.Event.PostNotification(Define.EVENT_TYPE.NotEnoughMana, this);
+                return;
+            }
+            LookAtTarget();
+            Managers.Skill.StartNum1Cooldown();
+            _playerStatus.ManaPool.CurrentValue -= Managers.Skill.GetSkillData(Managers.Skill.CurrentNum1SKillName).ManaCost;
+            _playerAnimator.Play(Managers.Skill.GetSkillData(Managers.Skill.CurrentNum1SKillName).ResourceName);
+            Managers.Event.PostNotification(Define.EVENT_TYPE.PlayerManaChange, this);
         }
     }
     public void AbilityNum2(InputAction.CallbackContext callbackContext)
@@ -159,9 +170,17 @@ public class PlayerAnimate : MonoBehaviour,IListener
     private void DarkFlare()
     {
         GameObject go = Managers.Resource.Instantiate("DarkFlare");
-        go.transform.position = transform.position + Vector3.up * 0.5f;
-        go.transform.rotation = transform.rotation;
+        go.transform.SetPositionAndRotation(transform.position + Vector3.up * 0.5f, transform.rotation);
         go.GetComponent<Projectile>().ShootForward();
+    }
+
+    private void ShadowCleave()
+    {
+        GameObject col = Managers.Resource.Instantiate("ShadowCleaveCol");
+        col.transform.SetPositionAndRotation(transform.position + Vector3.up * 0.5f, transform.rotation);
+        col.GetComponent<ShadowCleave>().ShootShadowCol();
+        GameObject vfx = Managers.Resource.Instantiate("ShadowCleaveEffect");
+        vfx.transform.SetPositionAndRotation(transform.position + Vector3.up * 0.5f, transform.rotation);
     }
 
     public void OnEvent(Define.EVENT_TYPE Event_Type, Component Sender, object Param = null)

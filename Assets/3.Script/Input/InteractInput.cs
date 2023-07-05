@@ -43,6 +43,10 @@ public class InteractInput : MonoBehaviour
                 {
                     Managers.Event.PostNotification(Define.EVENT_TYPE.CheckInteractableObject, AttackTarget);
                 }
+                else
+                {
+                    AttackTarget = null;
+                }
             }
             else
             {

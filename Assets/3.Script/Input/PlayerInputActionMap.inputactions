@@ -42,7 +42,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Ability1",
+                    "name": "M2Skill",
                     "type": "Button",
                     "id": "dd383475-62d5-47df-b806-03be0ad0ea54",
                     "expectedControlType": "Button",
@@ -51,7 +51,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Ability2",
+                    "name": "Num1Skill",
                     "type": "Button",
                     "id": "b8711034-0fbe-4738-bd8d-21e83c3fe567",
                     "expectedControlType": "Button",
@@ -60,7 +60,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Ability3",
+                    "name": "Num2Skill",
                     "type": "Button",
                     "id": "c96267fe-e8ff-49f6-a1f2-1fb470ba4225",
                     "expectedControlType": "Button",
@@ -69,9 +69,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Ability4",
+                    "name": "Num3Skill",
                     "type": "Button",
                     "id": "9bd2b81d-b909-4df7-94d8-ed093b0ab442",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Num4Skill",
+                    "type": "Button",
+                    "id": "97395b1a-a69c-4715-9c33-e1db2d253cc1",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -157,40 +166,40 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Ability1",
+                    "action": "M2Skill",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "d8efe053-e304-490a-966b-22b0908d2f96",
-                    "path": "<Keyboard>/2",
+                    "path": "<Keyboard>/1",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Ability2",
+                    "action": "Num1Skill",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "a739649c-c068-442b-b4c2-92367e0ed11a",
-                    "path": "<Keyboard>/3",
+                    "path": "<Keyboard>/2",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Ability3",
+                    "action": "Num2Skill",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "a288c7c5-31dc-41d5-94e0-c120433fe1e6",
-                    "path": "<Keyboard>/4",
+                    "path": "<Keyboard>/3",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Ability4",
+                    "action": "Num3Skill",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -224,6 +233,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "PlayerPortal",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4b9b8bc1-0ec1-4f3c-83a9-4722aba1757c",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Num4Skill",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

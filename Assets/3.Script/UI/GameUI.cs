@@ -64,7 +64,7 @@ public class GameUI : UI_Scene, IListener
         SkillSetingM2_BladeSlash,
         SkillSetingM2_DarkFlare,
         //스킬 추가시마다 추가할 것들
-        SkillSettingNum1_Temp1,
+        SkillSettingNum1_ShadowCleave,
         SkillSettingNum1_Temp2,
         SkillSettingNum2_Temp1,
         SkillSettingNum2_Temp2,
@@ -252,12 +252,12 @@ public class GameUI : UI_Scene, IListener
         ///스킬 만들 때마다 바꿀 곳;
 
         //스킬셋 Num1
-        GetImage((int)Images.SkillSettingNum1_Temp1).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
-        GetImage((int)Images.SkillSettingNum1_Temp1).gameObject.BindEvent((PointerEventData data) =>
+        GetImage((int)Images.SkillSettingNum1_ShadowCleave).sprite = Managers.Resource.Load<Sprite>(_skillPath + "ShadowCleave");
+        GetImage((int)Images.SkillSettingNum1_ShadowCleave).gameObject.BindEvent((PointerEventData data) =>
         {
-            GetText((int)Texts.SkillNum1Script).text = FindSkillScript(Images.SkillSettingNum1_Temp1);
+            GetText((int)Texts.SkillNum1Script).text = FindSkillScript(Images.SkillSettingNum1_ShadowCleave);
 
-            Managers.Skill.CurrentSelectSkillName = SkillName.BladeSlash;
+            Managers.Skill.CurrentSelectSkillName = SkillName.ShadowCleave;
         });
         GetImage((int)Images.SkillSettingNum1_Temp2).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
         GetImage((int)Images.SkillSettingNum1_Temp2).gameObject.BindEvent((PointerEventData data) =>
@@ -632,6 +632,7 @@ public class GameUI : UI_Scene, IListener
                 {
                     if (Sender.TryGetComponent(out PlayerStatus playerStatus))
                     {
+                        Debug.Log("마나변경 호출");
                         PlayerManaChangeEvent(playerStatus.ManaPool.CurrentValue, playerStatus.ManaPool.MaxValue);
                     }
                     break;

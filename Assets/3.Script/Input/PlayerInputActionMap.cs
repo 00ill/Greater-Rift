@@ -64,7 +64,7 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Ability1"",
+                    ""name"": ""M2Skill"",
                     ""type"": ""Button"",
                     ""id"": ""dd383475-62d5-47df-b806-03be0ad0ea54"",
                     ""expectedControlType"": ""Button"",
@@ -73,7 +73,7 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Ability2"",
+                    ""name"": ""Num1Skill"",
                     ""type"": ""Button"",
                     ""id"": ""b8711034-0fbe-4738-bd8d-21e83c3fe567"",
                     ""expectedControlType"": ""Button"",
@@ -82,7 +82,7 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Ability3"",
+                    ""name"": ""Num2Skill"",
                     ""type"": ""Button"",
                     ""id"": ""c96267fe-e8ff-49f6-a1f2-1fb470ba4225"",
                     ""expectedControlType"": ""Button"",
@@ -91,9 +91,18 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Ability4"",
+                    ""name"": ""Num3Skill"",
                     ""type"": ""Button"",
                     ""id"": ""9bd2b81d-b909-4df7-94d8-ed093b0ab442"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Num4Skill"",
+                    ""type"": ""Button"",
+                    ""id"": ""97395b1a-a69c-4715-9c33-e1db2d253cc1"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -179,40 +188,40 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Ability1"",
+                    ""action"": ""M2Skill"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
                     ""id"": ""d8efe053-e304-490a-966b-22b0908d2f96"",
-                    ""path"": ""<Keyboard>/2"",
+                    ""path"": ""<Keyboard>/1"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Ability2"",
+                    ""action"": ""Num1Skill"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
                     ""id"": ""a739649c-c068-442b-b4c2-92367e0ed11a"",
-                    ""path"": ""<Keyboard>/3"",
+                    ""path"": ""<Keyboard>/2"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Ability3"",
+                    ""action"": ""Num2Skill"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
                     ""id"": ""a288c7c5-31dc-41d5-94e0-c120433fe1e6"",
-                    ""path"": ""<Keyboard>/4"",
+                    ""path"": ""<Keyboard>/3"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Ability4"",
+                    ""action"": ""Num3Skill"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -248,6 +257,17 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
                     ""action"": ""PlayerPortal"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4b9b8bc1-0ec1-4f3c-83a9-4722aba1757c"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Num4Skill"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -260,10 +280,11 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
         m_Player_LeftMouseButton = m_Player.FindAction("LeftMouseButton", throwIfNotFound: true);
         m_Player_OpenInventory = m_Player.FindAction("OpenInventory", throwIfNotFound: true);
         m_Player_OpenSkillSetPanel = m_Player.FindAction("OpenSkillSetPanel", throwIfNotFound: true);
-        m_Player_Ability1 = m_Player.FindAction("Ability1", throwIfNotFound: true);
-        m_Player_Ability2 = m_Player.FindAction("Ability2", throwIfNotFound: true);
-        m_Player_Ability3 = m_Player.FindAction("Ability3", throwIfNotFound: true);
-        m_Player_Ability4 = m_Player.FindAction("Ability4", throwIfNotFound: true);
+        m_Player_M2Skill = m_Player.FindAction("M2Skill", throwIfNotFound: true);
+        m_Player_Num1Skill = m_Player.FindAction("Num1Skill", throwIfNotFound: true);
+        m_Player_Num2Skill = m_Player.FindAction("Num2Skill", throwIfNotFound: true);
+        m_Player_Num3Skill = m_Player.FindAction("Num3Skill", throwIfNotFound: true);
+        m_Player_Num4Skill = m_Player.FindAction("Num4Skill", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_Test = m_Player.FindAction("Test", throwIfNotFound: true);
         m_Player_PlayerPortal = m_Player.FindAction("PlayerPortal", throwIfNotFound: true);
@@ -332,10 +353,11 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_LeftMouseButton;
     private readonly InputAction m_Player_OpenInventory;
     private readonly InputAction m_Player_OpenSkillSetPanel;
-    private readonly InputAction m_Player_Ability1;
-    private readonly InputAction m_Player_Ability2;
-    private readonly InputAction m_Player_Ability3;
-    private readonly InputAction m_Player_Ability4;
+    private readonly InputAction m_Player_M2Skill;
+    private readonly InputAction m_Player_Num1Skill;
+    private readonly InputAction m_Player_Num2Skill;
+    private readonly InputAction m_Player_Num3Skill;
+    private readonly InputAction m_Player_Num4Skill;
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_Test;
     private readonly InputAction m_Player_PlayerPortal;
@@ -347,10 +369,11 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
         public InputAction @LeftMouseButton => m_Wrapper.m_Player_LeftMouseButton;
         public InputAction @OpenInventory => m_Wrapper.m_Player_OpenInventory;
         public InputAction @OpenSkillSetPanel => m_Wrapper.m_Player_OpenSkillSetPanel;
-        public InputAction @Ability1 => m_Wrapper.m_Player_Ability1;
-        public InputAction @Ability2 => m_Wrapper.m_Player_Ability2;
-        public InputAction @Ability3 => m_Wrapper.m_Player_Ability3;
-        public InputAction @Ability4 => m_Wrapper.m_Player_Ability4;
+        public InputAction @M2Skill => m_Wrapper.m_Player_M2Skill;
+        public InputAction @Num1Skill => m_Wrapper.m_Player_Num1Skill;
+        public InputAction @Num2Skill => m_Wrapper.m_Player_Num2Skill;
+        public InputAction @Num3Skill => m_Wrapper.m_Player_Num3Skill;
+        public InputAction @Num4Skill => m_Wrapper.m_Player_Num4Skill;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputAction @Test => m_Wrapper.m_Player_Test;
         public InputAction @PlayerPortal => m_Wrapper.m_Player_PlayerPortal;
@@ -375,18 +398,21 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
             @OpenSkillSetPanel.started += instance.OnOpenSkillSetPanel;
             @OpenSkillSetPanel.performed += instance.OnOpenSkillSetPanel;
             @OpenSkillSetPanel.canceled += instance.OnOpenSkillSetPanel;
-            @Ability1.started += instance.OnAbility1;
-            @Ability1.performed += instance.OnAbility1;
-            @Ability1.canceled += instance.OnAbility1;
-            @Ability2.started += instance.OnAbility2;
-            @Ability2.performed += instance.OnAbility2;
-            @Ability2.canceled += instance.OnAbility2;
-            @Ability3.started += instance.OnAbility3;
-            @Ability3.performed += instance.OnAbility3;
-            @Ability3.canceled += instance.OnAbility3;
-            @Ability4.started += instance.OnAbility4;
-            @Ability4.performed += instance.OnAbility4;
-            @Ability4.canceled += instance.OnAbility4;
+            @M2Skill.started += instance.OnM2Skill;
+            @M2Skill.performed += instance.OnM2Skill;
+            @M2Skill.canceled += instance.OnM2Skill;
+            @Num1Skill.started += instance.OnNum1Skill;
+            @Num1Skill.performed += instance.OnNum1Skill;
+            @Num1Skill.canceled += instance.OnNum1Skill;
+            @Num2Skill.started += instance.OnNum2Skill;
+            @Num2Skill.performed += instance.OnNum2Skill;
+            @Num2Skill.canceled += instance.OnNum2Skill;
+            @Num3Skill.started += instance.OnNum3Skill;
+            @Num3Skill.performed += instance.OnNum3Skill;
+            @Num3Skill.canceled += instance.OnNum3Skill;
+            @Num4Skill.started += instance.OnNum4Skill;
+            @Num4Skill.performed += instance.OnNum4Skill;
+            @Num4Skill.canceled += instance.OnNum4Skill;
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
@@ -412,18 +438,21 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
             @OpenSkillSetPanel.started -= instance.OnOpenSkillSetPanel;
             @OpenSkillSetPanel.performed -= instance.OnOpenSkillSetPanel;
             @OpenSkillSetPanel.canceled -= instance.OnOpenSkillSetPanel;
-            @Ability1.started -= instance.OnAbility1;
-            @Ability1.performed -= instance.OnAbility1;
-            @Ability1.canceled -= instance.OnAbility1;
-            @Ability2.started -= instance.OnAbility2;
-            @Ability2.performed -= instance.OnAbility2;
-            @Ability2.canceled -= instance.OnAbility2;
-            @Ability3.started -= instance.OnAbility3;
-            @Ability3.performed -= instance.OnAbility3;
-            @Ability3.canceled -= instance.OnAbility3;
-            @Ability4.started -= instance.OnAbility4;
-            @Ability4.performed -= instance.OnAbility4;
-            @Ability4.canceled -= instance.OnAbility4;
+            @M2Skill.started -= instance.OnM2Skill;
+            @M2Skill.performed -= instance.OnM2Skill;
+            @M2Skill.canceled -= instance.OnM2Skill;
+            @Num1Skill.started -= instance.OnNum1Skill;
+            @Num1Skill.performed -= instance.OnNum1Skill;
+            @Num1Skill.canceled -= instance.OnNum1Skill;
+            @Num2Skill.started -= instance.OnNum2Skill;
+            @Num2Skill.performed -= instance.OnNum2Skill;
+            @Num2Skill.canceled -= instance.OnNum2Skill;
+            @Num3Skill.started -= instance.OnNum3Skill;
+            @Num3Skill.performed -= instance.OnNum3Skill;
+            @Num3Skill.canceled -= instance.OnNum3Skill;
+            @Num4Skill.started -= instance.OnNum4Skill;
+            @Num4Skill.performed -= instance.OnNum4Skill;
+            @Num4Skill.canceled -= instance.OnNum4Skill;
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
@@ -456,10 +485,11 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
         void OnLeftMouseButton(InputAction.CallbackContext context);
         void OnOpenInventory(InputAction.CallbackContext context);
         void OnOpenSkillSetPanel(InputAction.CallbackContext context);
-        void OnAbility1(InputAction.CallbackContext context);
-        void OnAbility2(InputAction.CallbackContext context);
-        void OnAbility3(InputAction.CallbackContext context);
-        void OnAbility4(InputAction.CallbackContext context);
+        void OnM2Skill(InputAction.CallbackContext context);
+        void OnNum1Skill(InputAction.CallbackContext context);
+        void OnNum2Skill(InputAction.CallbackContext context);
+        void OnNum3Skill(InputAction.CallbackContext context);
+        void OnNum4Skill(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnTest(InputAction.CallbackContext context);
         void OnPlayerPortal(InputAction.CallbackContext context);

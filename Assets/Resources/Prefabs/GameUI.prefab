@@ -3226,7 +3226,7 @@ GameObject:
   - component: {fileID: 5085403293452375397}
   - component: {fileID: 7572114725440066630}
   m_Layer: 5
-  m_Name: SkillSettingNum1_Temp1
+  m_Name: SkillSettingNum1_ShadowCleave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
