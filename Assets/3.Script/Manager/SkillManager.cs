@@ -52,7 +52,7 @@ public class SkillGroup
     public void InitSkillList()
     {
         SkillList.Add(new SkillData(SkillName.None, SkillType.M1Skill, 0f, 0, 1, "None", 0f));
-        SkillList.Add(new SkillData(SkillName.ShadowSlash, SkillType.M1Skill, 1f, 0, 1, "Cutting", 1.2f));
+        SkillList.Add(new SkillData(SkillName.ShadowSlash, SkillType.M1Skill, 0.5f, 0, 1, "ShadowSlash", 1.2f));
         SkillList.Add(new SkillData(SkillName.Kick, SkillType.M1Skill, 1f, 0, 5, "Kick", 1.2f));
         SkillList.Add(new SkillData(SkillName.BladeSlash, SkillType.M2Skill, 5f, 30, 2, "BladeSlash", 1.5f));
         SkillList.Add(new SkillData(SkillName.DarkFlare, SkillType.M2Skill, 3f, 10, 4, "DarkFlare", 1.2f));
@@ -70,7 +70,7 @@ public class SkillManager
     public SkillType CurrentChangeSkillType;
     public SkillName CurrentSelectSkillName;
     public SkillGroup Skills = new();
-    public SkillName CurrentM1SKillName;
+    public SkillName CurrentM1SKillName = SkillName.ShadowSlash;
     public SkillName CurrentM2SKillName;
     public SkillName CurrentNum1SKillName;
     public SkillName CurrentNum2SKillName;
@@ -91,6 +91,7 @@ public class SkillManager
     public void StartM1Cooldown()
     {
         M1SkillCooldownRemain = Skills.GetSkillData(CurrentM1SKillName).Cooldown;
+        
     }
     public void StartM2Cooldown()
     {

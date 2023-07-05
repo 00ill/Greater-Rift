@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Hellion
   m_EditorClassIdentifier: 
   Name: Hellion
-  Life: 100
-  Damage: 5
+  Life: 500
+  Damage: 15
   Armor: 5
   DetectionRange: 20
   AttackRange: 3

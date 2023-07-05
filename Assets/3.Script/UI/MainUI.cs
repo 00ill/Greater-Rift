@@ -312,7 +312,6 @@ public class MainUI : UI_Scene
     {
         if (Get<TMP_InputField>((int)InputFields.NameInput).text != string.Empty)
         {
-            Debug.Log(string.Format($"입력한 이름  {GetText((int)Texts.NameInputText).text}"));
             Managers.DB.CreatePlayerData(GetText((int)Texts.NameInputText).text);
         }
         else

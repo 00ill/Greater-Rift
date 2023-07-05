@@ -21,6 +21,11 @@ public class PlayerAttackHandler : MonoBehaviour, ICommandHandle
         TryGetComponent(out _playerControlInput);
         TryGetComponent(out _playerAgent);
     }
+
+    private void Update()
+    {
+        CheckCooldown(ref Managers.Skill.M1SkillCooldownRemain);
+    }
     private void LookAtTarget()
     {
         _playerAgent.updateRotation = false;
@@ -35,8 +40,9 @@ public class PlayerAttackHandler : MonoBehaviour, ICommandHandle
 
         if (distance < _normalAttackRange)
         {
-            if (!_playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("NormalAttack"))
+            if (Managers.Skill.M1SkillCooldownRemain <= 0)
             {
+                Managers.Skill.StartM1Cooldown();
                 LookAtTarget();
                 _playerAnimator.SetTrigger("NormalAttack");
                 //DealDamage(command);
@@ -70,6 +76,17 @@ public class PlayerAttackHandler : MonoBehaviour, ICommandHandle
         go.transform.SetPositionAndRotation(transform.position + transform.forward + transform.up * 0.5f, transform.rotation);
         //go.transform.position = transform.position + transform.forward;
         //go.transform.rotation = goDirection;
+    }
 
+    private void CheckCooldown(ref float skillCooldownRemain)
+    {
+        if (skillCooldownRemain > 0)
+        {
+            skillCooldownRemain -= Time.deltaTime;
+        }
+        else
+        {
+            skillCooldownRemain = 0f;
+        }
     }
 }

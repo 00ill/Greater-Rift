@@ -1,22 +1,26 @@
 using BehaviorTree;
-using Data;
 using Enemy;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(EnemyStatus))]
 [RequireComponent(typeof(NavMeshAgent))]
-public class Hellion : BehaviorTree.Tree
+public class RangeMonsterAI : BehaviorTree.Tree
 {
     [HideInInspector] public EnemyStatus EnemyStatus;
     [HideInInspector] public NavMeshAgent EnemyAgent;
     [HideInInspector] public Animator EnemyAnimator;
+
+    private PlayerStatus _playerStatus;
+
     private void Awake()
     {
         TryGetComponent(out EnemyStatus);
         TryGetComponent(out EnemyAgent);
         TryGetComponent(out EnemyAnimator);
+        _playerStatus = FindObjectOfType<PlayerStatus>();
     }
     protected override void Start()
     {
@@ -38,16 +42,15 @@ public class Hellion : BehaviorTree.Tree
         EnemyAnimator.SetTrigger("Death");
         EnemyAgent.enabled = false;
         this.enabled = false;
-
-
     }
+
     protected override Node SetupTree()
     {
         Node root = new Selector(new List<Node>
         { new BehaviorTree.Sequence(new List<Node>
             {
                 new CheckPlayerInAttackRange(transform),
-                new TaskAttack(transform)
+                new TaskCast(transform)
             }),
             new BehaviorTree.Sequence(new List<Node>
             {
@@ -59,5 +62,14 @@ public class Hellion : BehaviorTree.Tree
     }
 
 
-  
+    private void AttackAnimationEvent()
+    {
+        GameObject projectile = Managers.Resource.Instantiate($"{transform.name}_Projectile");
+        projectile.transform.position = transform.position + Vector3.up * 0.5f;
+        Vector3 shootDirection = _playerStatus.transform.position - transform.position;
+        projectile.transform.rotation = Quaternion.LookRotation(shootDirection.normalized, Vector3.up);
+        //projectile.transform.SetParent(transform, true);
+        projectile.GetComponent<Projectile>().ShootForward();
+        //projectile.GetOrAddComponent<Projectile>().ShootForward();
+    }
 }

@@ -1,11 +1,11 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Rigidbody))]
 public class Projectile : MonoBehaviour
 {
     protected PlayerStatus _playerStatus;
     protected Rigidbody _projectileRigidbody;
-    //protected Entity _entity;
     protected float _projectileSpeed;
     protected float _damage;
     protected float _damageCoefficient;
@@ -21,9 +21,6 @@ public class Projectile : MonoBehaviour
         //_damage = _playerStatus.Damage;
     }
 
-    /// <summary>
-    /// 자식 클래스에서 투사체 풀 이름 지정해줘야함
-    /// </summary>
     protected virtual void InitializeProjectile()
     {
         TryGetComponent(out _projectileRigidbody);

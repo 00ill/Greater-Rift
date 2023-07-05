@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -57,6 +58,7 @@ public class GameUI : UI_Scene, IListener
         SkillNum3Cooldown,
         SkillNum4Cooldown,
         SkillM2Cooldown,
+        SkillM1Cooldown,
         SkillSetingM1_Cutting,
         SkillSetingM1_Kick,
         SkillSetingM2_BladeSlash,
@@ -101,7 +103,8 @@ public class GameUI : UI_Scene, IListener
         SkillNum3Exit,
         SkillNum4Confirm,
         SkillNum4Exit,
-        DeathTownButton
+        DeathTownButton,
+        TutorialConfirm
     }
 
     enum Objects
@@ -115,7 +118,8 @@ public class GameUI : UI_Scene, IListener
         SkillNum2Panel,
         SkillNum3Panel,
         SkillNum4Panel,
-        DeathPanel
+        DeathPanel,
+        TutorialPanel
 
     }
 
@@ -170,9 +174,8 @@ public class GameUI : UI_Scene, IListener
         InitSkillSettingUI();
         InitPausePanel();
         InitDeathPanel();
+        InitTutorialPanel();
     }
-
-
 
 
     private void InitPlayerUI()
@@ -221,7 +224,7 @@ public class GameUI : UI_Scene, IListener
         GetText((int)Texts.SkillNum4Script).text = "";
 
         //½ºÅ³¼Â M1
-        GetImage((int)Images.SkillSetingM1_Cutting).sprite = Managers.Resource.Load<Sprite>(_skillPath + "Cutting");
+        GetImage((int)Images.SkillSetingM1_Cutting).sprite = Managers.Resource.Load<Sprite>(_skillPath + "ShadowSlash");
         GetImage((int)Images.SkillSetingM1_Cutting).gameObject.BindEvent((PointerEventData data) =>
         {
             GetText((int)Texts.SkillM1Script).text = FindSkillScript(Images.SkillSetingM1_Cutting);
@@ -370,6 +373,22 @@ public class GameUI : UI_Scene, IListener
         });
     }
 
+    private void InitTutorialPanel()
+    {
+        if(FindObjectOfType<PlayerStatus>().GetStats(Statistic.Level).IntetgerValue > 1)
+        {
+            GetObject((int)Objects.TutorialPanel).SetActive(false);
+        }
+        else
+        {
+            Managers.Game.IsUiPopUp = true;
+        }
+        GetButton((int)Buttons.TutorialConfirm).gameObject.BindEvent((PointerEventData data) =>
+        {
+            GetObject((int)Objects.TutorialPanel).SetActive(false);
+            Managers.Game.IsUiPopUp = false;
+        });
+    }
     private void PlayerHpChangeEvent(float curHp, float maxHp)
     {
         GetImage((int)Images.HpFluid).material.SetFloat("_FillLevel", Mathf.Clamp(curHp / maxHp, 0, 1));
@@ -586,8 +605,8 @@ public class GameUI : UI_Scene, IListener
         GetImage((int)Images.SkillNum2Cooldown).fillAmount = Managers.Skill.Num2SkillCooldownRemain / Managers.Skill.GetSkillData(Managers.Skill.CurrentNum2SKillName).Cooldown;
         GetImage((int)Images.SkillNum3Cooldown).fillAmount = Managers.Skill.Num3SkillCooldownRemain / Managers.Skill.GetSkillData(Managers.Skill.CurrentNum3SKillName).Cooldown;
         GetImage((int)Images.SkillNum4Cooldown).fillAmount = Managers.Skill.Num4SkillCooldownRemain / Managers.Skill.GetSkillData(Managers.Skill.CurrentNum4SKillName).Cooldown;
+        GetImage((int)Images.SkillM1Cooldown).fillAmount = Managers.Skill.M1SkillCooldownRemain / Managers.Skill.GetSkillData(Managers.Skill.CurrentM1SKillName).Cooldown;
         GetImage((int)Images.SkillM2Cooldown).fillAmount = Managers.Skill.M2SkillCooldownRemain / Managers.Skill.GetSkillData(Managers.Skill.CurrentM2SKillName).Cooldown;
-
     }
 
     private IEnumerator WarningText()

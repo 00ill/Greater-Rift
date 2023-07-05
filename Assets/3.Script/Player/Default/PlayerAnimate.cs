@@ -24,6 +24,8 @@ public class PlayerAnimate : MonoBehaviour,IListener
     {
         _playerAnimator.SetFloat("Run", _playerAgent.velocity.magnitude);
         CheckAllCooldown();
+        //Debug.Log(string.Format($"1¹ø½ºÅ³ ÄðÅ¸ÀÓ : {Managers.Skill.M1SkillCooldownRemain} 2¹ø ½ºÅ³ Äð : {Managers.Skill.M2SkillCooldownRemain}"));
+        //Debug.Log(string.Format($"1¹ø ¿ø·¡ ÄðÅ½ {Managers.Skill.GetSkillData(Managers.Skill.CurrentM1SKillName).Cooldown}"));
     }
 
     private void LookAtTarget()
@@ -138,7 +140,6 @@ public class PlayerAnimate : MonoBehaviour,IListener
 
     private void CheckAllCooldown()
     {
-        CheckCooldown(ref Managers.Skill.M1SkillCooldownRemain);
         CheckCooldown(ref Managers.Skill.M2SkillCooldownRemain);
         CheckCooldown(ref Managers.Skill.Num1SkillCooldownRemain);
         CheckCooldown(ref Managers.Skill.Num2SkillCooldownRemain);
