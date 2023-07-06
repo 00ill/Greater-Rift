@@ -13789,7 +13789,19 @@ MonoBehaviour:
     m_ActionId: 30f7d773-96db-4526-b67e-21903013dc12
     m_ActionName: Player/LeftMouseButton[/Mouse/leftButton]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7430216821271873837}
+        m_TargetAssemblyTypeName: PlayerControlInput, Assembly-CSharp
+        m_MethodName: OpenInventoryUI
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: a1e675ae-0b25-4103-b463-984e90560166
     m_ActionName: Player/OpenInventory[/Keyboard/i]
   - m_PersistentCalls:
@@ -13896,6 +13908,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 89d0e1eb-2ca1-496b-8aa5-a53a01728608
     m_ActionName: Player/PlayerPortal[/Keyboard/p]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 97395b1a-a69c-4715-9c33-e1db2d253cc1
+    m_ActionName: Player/Num4Skill[/Keyboard/4]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

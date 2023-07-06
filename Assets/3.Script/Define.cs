@@ -48,7 +48,9 @@ public class Define
         NotEnoughMana,
         OpenPortalInTown,
         PlayerPortalAlreadyOpen,
-        PlayerDeath
+        PlayerDeath,
+        FullInventory,
+        GetItem
 
     }
 

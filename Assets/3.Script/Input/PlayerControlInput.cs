@@ -90,6 +90,15 @@ public class PlayerControlInput : MonoBehaviour
         }
     }
 
+    public void OpenInventoryUI(InputAction.CallbackContext callbackContext)
+    {
+        if(callbackContext.performed)
+        {
+            Managers.Game.IsUiPopUp = true;
+            Managers.UI.ShowPopupUI<UI_Popup>("InventoryUI");
+        }
+    }
+
     public void Pause(InputAction.CallbackContext callbackContext)
     {
         if (callbackContext.performed)

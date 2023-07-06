@@ -93,7 +93,7 @@ namespace Enemy
         public StatsGroup Stats;
         public ValuePool LifePool;
         public Action OnDeath;
-
+        private PlayerStatus _playerStatus;
 
         //Damage PopUp
         private static Canvas _gameUI;
@@ -106,12 +106,15 @@ namespace Enemy
             Stats.Init(_enemyData);
 
             LifePool = new ValuePool(Stats.Get(Statistic.Life));
+            OnDeath -= CheckItemSpawn; 
+            OnDeath += CheckItemSpawn;
         }
 
         public void TakeDamage(int damage, PlayerStatus playerStatus)
         {
             if (!IsDead)
             {
+                _playerStatus = playerStatus;
                 damage = ApplyDefence(damage);
                 LifePool.CurrentValue -= damage;
                 GameObject go = Managers.Resource.Instantiate("DamagePopUp");
@@ -137,7 +140,7 @@ namespace Enemy
         {
             if (LifePool.CurrentValue <= 0 && !IsDead)
             {
-                playerStatus.GainExp(2 + playerStatus.GetStats(global::Statistic.Level).IntetgerValue / 10);
+                playerStatus.GainExp(2 + playerStatus.GetStats(global::Statistic.Level).IntetgerValue / 5);
                 OnDeath?.Invoke();
             }
         }
@@ -147,6 +150,20 @@ namespace Enemy
         {
             return Stats.Get(statisticToGet);
         }
-    }
 
+
+        private void CheckItemSpawn()
+        {
+            int itemDropProb = 100;
+            if(Util.Probability(itemDropProb))
+            {
+                Item item = Managers.Item.GenerateItem(_playerStatus.GetStats(global::Statistic.Level).IntetgerValue);
+                Debug.Log(string.Format($"생성한 아이템 체력 : {item.Life}"));
+                GameObject itemBox = Managers.Resource.Instantiate("ItemBox");
+                itemBox.transform.position = transform.position;
+                itemBox.GetComponent<ItemBox>().ItemData = item;
+                Debug.Log(string.Format($"데이터 넣은거 체력 : {itemBox.GetComponent<ItemBox>().ItemData.Life}"));
+            }
+        }
+    }
 }

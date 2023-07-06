@@ -163,6 +163,7 @@ public class GameUI : UI_Scene, IListener
         Managers.Event.AddListener(Define.EVENT_TYPE.OpenPortalInTown, this);
         Managers.Event.AddListener(Define.EVENT_TYPE.PlayerPortalAlreadyOpen, this);
         Managers.Event.AddListener(Define.EVENT_TYPE.PlayerDeath, this);
+        Managers.Event.AddListener(Define.EVENT_TYPE.FullInventory, this);
 
         PlayerHpChangeEvent(FindObjectOfType<PlayerStatus>().LifePool.CurrentValue, FindObjectOfType<PlayerStatus>().LifePool.MaxValue);
         PlayerManaChangeEvent(FindObjectOfType<PlayerStatus>().ManaPool.CurrentValue, FindObjectOfType<PlayerStatus>().ManaPool.MaxValue);
@@ -732,6 +733,17 @@ public class GameUI : UI_Scene, IListener
             case Define.EVENT_TYPE.PlayerDeath:
                 {
                     GetObject((int)Objects.DeathPanel).SetActive(true);
+                    break;
+                }
+            case Define.EVENT_TYPE.FullInventory:
+                {
+                    GetText((int)Texts.WarningText).text = "Inventory is Full!";
+                    if (_warningCoroutine != null)
+                    {
+                        StopCoroutine(_warningCoroutine);
+                        _warningCoroutine = null;
+                    }
+                    _warningCoroutine = StartCoroutine(WarningText());
                     break;
                 }
         }

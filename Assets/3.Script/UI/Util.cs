@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Util
 {
@@ -52,9 +53,12 @@ public class Util
 
     public static bool Probability(int prob)
     {
-        return prob > Random.Range(1, 101) ? true : false;
+        return prob > Random.Range(1, 101);
     }
 
-
+    public static void PrintText(string text)
+    {
+        Debug.Log(string.Format(text));
+    }
 
 }

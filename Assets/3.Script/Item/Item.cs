@@ -3,6 +3,7 @@ using UnityEngine;
 
 public enum ItemType
 {
+    Null,
     Weapon,
     Helms,
     Cloaks,
