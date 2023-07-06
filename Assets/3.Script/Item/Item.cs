@@ -7,8 +7,8 @@ public enum ItemType
 {
     Weapon,
     Helms,
-    Cloak,
-    Glove,
+    Cloaks,
+    Gloves,
     Pants,
     Boots
 }
@@ -30,6 +30,7 @@ public class Item : MonoBehaviour
     public float CooldownReduction;
 
     //리소스 경로를 아이템타입 스트링+ 랜덤 숫자
+    private readonly string _itemPath = "Images/Item/";
     public int SpriteNum;
     public string SpritePath;
 
@@ -47,6 +48,6 @@ public class Item : MonoBehaviour
         MoveSpeed = moveSpeed;
         CooldownReduction = cooldownReduction;
         SpriteNum = spriteNum;
-        SpritePath = Enum.GetName(typeof(ItemType), Type) + SpriteNum.ToString();
+        SpritePath = _itemPath + Enum.GetName(typeof(ItemType), Type) + SpriteNum.ToString();
     }
 }
