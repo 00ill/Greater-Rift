@@ -1,3 +1,4 @@
+using Data;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -104,6 +105,7 @@ public class PlayerControlInput : MonoBehaviour
         {
             Debug.Log("테스트 버튼");
             FindObjectOfType<PlayerStatus>().GainExp(1);
+
         }
     }
 }

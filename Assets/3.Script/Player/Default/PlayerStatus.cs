@@ -45,6 +45,10 @@ public class StatsGroup
 
     public void Init()
     {
+        //int값
+        //레벨, 현재 경험치, 체력, 마나, 데미지, 방어
+        //float 값
+        //공격속도, 이동속도
         StatsList.Add(new StatsValue(Statistic.Level, Managers.DB.CurrentPlayerData.Level));
         StatsList.Add(new StatsValue(Statistic.Exp, Managers.DB.CurrentPlayerData.CurExp));
         StatsList.Add(new StatsValue(Statistic.Life, Managers.Data.PlayerStatusDataDict[Managers.DB.CurrentPlayerData.Level].Life));

@@ -14,6 +14,7 @@ public class Managers : MonoBehaviour
     SkillManager _skill = new SkillManager();
     DataManager _data = new DataManager();
     DBManager _db = new DBManager();
+    ItemManager _item = new ItemManager();
     public static GameManager Game { get { return Instance._game; } }
     public static ResourceManager Resource { get { return Instance._resource; } }
     public static SceneManagerEx Scene { get { return Instance._scene; } }
@@ -23,6 +24,7 @@ public class Managers : MonoBehaviour
     public static SkillManager Skill { get { return Instance._skill; } }
     public static DataManager Data { get { return Instance._data; } }
     public static DBManager DB { get { return Instance._db; } }
+    public static ItemManager Item { get { return Instance._item; } }
     void Start()
     {
         Init();

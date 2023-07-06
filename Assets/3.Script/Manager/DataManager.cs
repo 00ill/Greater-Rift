@@ -9,10 +9,12 @@ public interface ILoader<Key, Value>
 public class DataManager
 {
     public Dictionary<int, Data.PlayerStatus> PlayerStatusDataDict { get; private set; } = new Dictionary<int, Data.PlayerStatus>();
+    public Dictionary<int, Data.ItemStatus> ItemStatusDataDict { get; private set; } = new Dictionary<int, Data.ItemStatus>();
 
     public void Init()
     {
         PlayerStatusDataDict = LoadJson<Data.PlayerStatusLoader, int, Data.PlayerStatus>("PlayerStatusData").MakeDict();
+        ItemStatusDataDict = LoadJson<Data.ItemStatusLoader, int, Data.ItemStatus>("ItemStatusData").MakeDict();
     }
 
 

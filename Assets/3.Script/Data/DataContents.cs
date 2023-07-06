@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Data
 {
@@ -47,6 +48,37 @@ namespace Data
             foreach (PlayerStatus data in PlayerStatusData)
             {
                 dict.Add(data.Level, data);
+            }
+            return dict;
+        }
+    }
+    [Serializable]
+    public class ItemStatus
+    {
+        public int ItemLevel;
+        public int LifeMin;
+        public int LifeMax;
+        public int ManaMin;
+        public int ManaMax;
+        public int DamageMin;
+        public int DamageMax;
+        public int ArmorMin;
+        public int ArmorMax;
+        public float MoveSpeedMin;
+        public float MoveSpeedMax;
+        public float CooldownReductionMin;
+        public float CooldownReductionMax;
+    }
+    [Serializable]
+    public class ItemStatusLoader : ILoader<int, Data.ItemStatus> 
+    {
+        public List<ItemStatus> ItemStatusData = new();
+        public Dictionary<int, ItemStatus> MakeDict()
+        {
+            Dictionary<int, ItemStatus> dict = new();
+            foreach(ItemStatus data in ItemStatusData)
+            {
+                dict.Add(data.ItemLevel, data);
             }
             return dict;
         }
