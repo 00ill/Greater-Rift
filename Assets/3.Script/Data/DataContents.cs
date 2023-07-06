@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace Data
 {
@@ -70,13 +69,13 @@ namespace Data
         public float CooldownReductionMax;
     }
     [Serializable]
-    public class ItemStatusLoader : ILoader<int, Data.ItemStatus> 
+    public class ItemStatusLoader : ILoader<int, Data.ItemStatus>
     {
         public List<ItemStatus> ItemStatusData = new();
         public Dictionary<int, ItemStatus> MakeDict()
         {
             Dictionary<int, ItemStatus> dict = new();
-            foreach(ItemStatus data in ItemStatusData)
+            foreach (ItemStatus data in ItemStatusData)
             {
                 dict.Add(data.ItemLevel, data);
             }

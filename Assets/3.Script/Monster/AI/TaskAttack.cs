@@ -1,9 +1,7 @@
 using BehaviorTree;
 using Enemy;
-using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityStandardAssets.Cameras;
 
 public class TaskAttack : BehaviorTree.Node
 {
@@ -43,7 +41,7 @@ public class TaskAttack : BehaviorTree.Node
                 _attackCooldownRemain -= Time.deltaTime;
             }
         }
-         
+
         state = NodeState.Running;
         return state;
     }

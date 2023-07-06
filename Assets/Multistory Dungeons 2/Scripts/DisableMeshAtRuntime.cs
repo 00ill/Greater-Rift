@@ -1,14 +1,16 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-namespace manastation.multistorydungeons{
+namespace manastation.multistorydungeons
+{
 
-public class DisableMeshAtRuntime : MonoBehaviour {
+    public class DisableMeshAtRuntime : MonoBehaviour
+    {
 
-	// Use this for initialization
-	void Start () {
-	GetComponent<Renderer>().enabled = false;
-	}
-	
-}
+        // Use this for initialization
+        void Start()
+        {
+            GetComponent<Renderer>().enabled = false;
+        }
+
+    }
 }

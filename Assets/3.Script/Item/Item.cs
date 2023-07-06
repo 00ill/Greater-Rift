@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum ItemType
@@ -37,7 +35,7 @@ public class Item : MonoBehaviour
     /// <summary>
     /// 입력 인자는 아이템 타입, 체력, 마나, 데미지, 방어, 이동속도, 쿨다운 감소, 리소스 순
     /// </summary>
-    public Item(ItemType type,int level, int life, int mana, int damage, int armor, float moveSpeed, float cooldownReduction, int spriteNum)
+    public Item(ItemType type, int level, int life, int mana, int damage, int armor, float moveSpeed, float cooldownReduction, int spriteNum)
     {
         Type = type;
         Level = level;

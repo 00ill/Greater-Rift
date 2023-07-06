@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 [RequireComponent(typeof(InteractableObject))]
 public class PlayerPortal : MonoBehaviour
@@ -12,7 +11,7 @@ public class PlayerPortal : MonoBehaviour
 
     private void Awake()
     {
-        TryGetComponent(out  _interactableObject);
+        TryGetComponent(out _interactableObject);
     }
     private void OnEnable()
     {
@@ -24,7 +23,7 @@ public class PlayerPortal : MonoBehaviour
     }
     private IEnumerator OpenPortal()
     {
-        
+
         _openPortal = Managers.Resource.Instantiate("PlayerPortalOpen");
         _openPortal.transform.SetParent(transform, false);
         _openPortal.transform.localPosition = Vector3.up;
@@ -51,6 +50,6 @@ public class PlayerPortal : MonoBehaviour
     private void ExitDungeon()
     {
         Managers.Game.IsPlayerInRift = false;
-        StartCoroutine(ClosePortal());  
+        StartCoroutine(ClosePortal());
     }
 }

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(InteractableObject))]
@@ -15,7 +14,7 @@ public class NormalRiftPortal : MonoBehaviour
 
     private void Awake()
     {
-        TryGetComponent(out  _interactableObject);
+        TryGetComponent(out _interactableObject);
     }
     private void OnEnable()
     {
@@ -54,6 +53,6 @@ public class NormalRiftPortal : MonoBehaviour
     {
         Managers.Game.IsPlayerInRift = true;
         StartCoroutine(ClosePortal());
-        
+
     }
 }

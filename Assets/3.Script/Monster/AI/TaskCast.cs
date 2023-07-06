@@ -1,10 +1,7 @@
 using BehaviorTree;
 using Enemy;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityStandardAssets.Cameras;
 
 public class TaskCast : BehaviorTree.Node
 {
@@ -29,7 +26,7 @@ public class TaskCast : BehaviorTree.Node
     {
         Transform target = (Transform)GetData("target");
         target.TryGetComponent(out _playerStatus);
-        if(!_enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Cast"))
+        if (!_enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Cast"))
         {
             if (_attackCooldownRemain <= 0f)
             {

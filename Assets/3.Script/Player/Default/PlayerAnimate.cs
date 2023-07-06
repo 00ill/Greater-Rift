@@ -1,9 +1,8 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
-public class PlayerAnimate : MonoBehaviour,IListener
+public class PlayerAnimate : MonoBehaviour, IListener
 {
     private NavMeshAgent _playerAgent;
     private Animator _playerAnimator;
@@ -116,14 +115,14 @@ public class PlayerAnimate : MonoBehaviour,IListener
 
     public void PlayerPotal(InputAction.CallbackContext callbackContext)
     {
-        if(callbackContext.performed)
+        if (callbackContext.performed)
         {
-            if(!Managers.Game.IsPlayerInRift)
+            if (!Managers.Game.IsPlayerInRift)
             {
                 Managers.Event.PostNotification(Define.EVENT_TYPE.OpenPortalInTown, this);
                 return;
             }
-            if(Managers.Game.isPlayerPortalOpen)
+            if (Managers.Game.isPlayerPortalOpen)
             {
                 Managers.Event.PostNotification(Define.EVENT_TYPE.PlayerPortalAlreadyOpen, this);
                 return;
@@ -183,7 +182,7 @@ public class PlayerAnimate : MonoBehaviour,IListener
 
     public void OnEvent(Define.EVENT_TYPE Event_Type, Component Sender, object Param = null)
     {
-        switch (Event_Type) 
+        switch (Event_Type)
         {
             case Define.EVENT_TYPE.PlayerDeath:
                 {

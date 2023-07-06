@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -375,7 +374,7 @@ public class GameUI : UI_Scene, IListener
 
     private void InitTutorialPanel()
     {
-        if(FindObjectOfType<PlayerStatus>().GetStats(Statistic.Level).IntetgerValue > 1)
+        if (FindObjectOfType<PlayerStatus>().GetStats(Statistic.Level).IntetgerValue > 1)
         {
             GetObject((int)Objects.TutorialPanel).SetActive(false);
         }

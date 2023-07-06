@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using DG.Tweening;
 using Enemy;
+using System.Collections;
+using UnityEngine;
 
 public class ShadowCleave : MonoBehaviour
 {
@@ -27,7 +26,7 @@ public class ShadowCleave : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.TryGetComponent(out EnemyStatus enemyStatus))
+        if (other.TryGetComponent(out EnemyStatus enemyStatus))
         {
             enemyStatus.TakeDamage((int)(_playerStatus.GetStats(Statistic.Damage).IntetgerValue * Managers.Skill.GetSkillData(SkillName.ShadowCleave).DamageCoefficient), _playerStatus);
         }

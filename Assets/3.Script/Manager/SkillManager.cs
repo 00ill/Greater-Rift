@@ -95,7 +95,7 @@ public class SkillManager
     public void StartM1Cooldown()
     {
         M1SkillCooldownRemain = Skills.GetSkillData(CurrentM1SKillName).Cooldown;
-        
+
     }
     public void StartM2Cooldown()
     {

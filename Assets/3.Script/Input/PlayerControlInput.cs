@@ -1,4 +1,3 @@
-using Data;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -48,7 +47,7 @@ public class PlayerControlInput : MonoBehaviour
     {
         if (callbackContext.performed)
         {
-            if(!Managers.Game.IsUiPopUp)
+            if (!Managers.Game.IsUiPopUp)
             {
                 if (_interactInput.AttackCheck())
                 {

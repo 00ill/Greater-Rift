@@ -39,7 +39,7 @@ public class InteractInput : MonoBehaviour
             //}
             if (_playerControlInput.Hit.transform.TryGetComponent(out AttackTarget))
             {
-                if(!AttackTarget.IsDead) 
+                if (!AttackTarget.IsDead)
                 {
                     Managers.Event.PostNotification(Define.EVENT_TYPE.CheckInteractableObject, AttackTarget);
                 }
