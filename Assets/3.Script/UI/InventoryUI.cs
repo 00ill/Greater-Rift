@@ -1,12 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using System;
-using Unity.VisualScripting;
-using System.Drawing;
 
 public class InventoryUI : UI_Popup, IListener
 {
@@ -185,7 +181,7 @@ public class InventoryUI : UI_Popup, IListener
                 GetImage((int)(Images)temp).transform.SetParent(_previousParent);
                 GetImage((int)Images.SelectedItem).gameObject.SetActive(false);
 
-                if(Managers.Inventory.PointedItemIndex >= (int)EquipmentIndex.HelmIndex)
+                if (Managers.Inventory.PointedItemIndex >= (int)EquipmentIndex.HelmIndex)
                 {
                     Managers.Inventory.EquipItem();
                     UpdateEquipment();
@@ -207,7 +203,7 @@ public class InventoryUI : UI_Popup, IListener
 
     private void BindEquipmentItem()
     {
-        for(int i = (int)Images.HelmImage; i <=(int)Images.GlovesImage; i++)
+        for (int i = (int)Images.HelmImage; i <= (int)Images.GlovesImage; i++)
         {
             int temp = i;
             GetImage((int)(Images)i - Managers.Inventory.IndexInterval).gameObject.BindEvent((PointerEventData data) =>
@@ -264,11 +260,11 @@ public class InventoryUI : UI_Popup, IListener
                 GetImage((int)(Images)temp - Managers.Inventory.IndexInterval).transform.SetParent(_previousParent);
                 GetImage((int)Images.SelectedItem).gameObject.SetActive(false);
 
-                if(Managers.Inventory.PointedItemIndex < 0)
+                if (Managers.Inventory.PointedItemIndex < 0)
                 {
                     return;
                 }
-                if(Managers.Inventory.PointedItemIndex >=101)
+                if (Managers.Inventory.PointedItemIndex >= 101)
                 {
                     return;
                 }
@@ -300,7 +296,7 @@ public class InventoryUI : UI_Popup, IListener
 
     private void UpdateEquipment()
     {
-        for(int i = (int)Images.HelmImage; i <= (int)Images.GlovesImage; i++)
+        for (int i = (int)Images.HelmImage; i <= (int)Images.GlovesImage; i++)
         {
             int temp = i;
             if (Managers.Inventory.Equipment[temp].Type != ItemType.Null)
@@ -342,7 +338,7 @@ public class InventoryUI : UI_Popup, IListener
                             break;
                         }
                 }
-                
+
             }
         }
     }

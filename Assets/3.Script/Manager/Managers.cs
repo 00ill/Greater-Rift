@@ -26,7 +26,7 @@ public class Managers : MonoBehaviour
     public static DataManager Data { get { return Instance._data; } }
     public static DBManager DB { get { return Instance._db; } }
     public static ItemManager Item { get { return Instance._item; } }
-    public static InventoryManager Inventory { get {  return Instance._inventory; } }
+    public static InventoryManager Inventory { get { return Instance._inventory; } }
     void Start()
     {
         Init();

@@ -92,7 +92,7 @@ public class PlayerControlInput : MonoBehaviour
 
     public void OpenInventoryUI(InputAction.CallbackContext callbackContext)
     {
-        if(callbackContext.performed)
+        if (callbackContext.performed)
         {
             Managers.Game.IsUiPopUp = true;
             Managers.UI.ShowPopupUI<UI_Popup>("InventoryUI");

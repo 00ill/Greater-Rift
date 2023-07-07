@@ -102,10 +102,10 @@ namespace Enemy
         {
             Stats = new StatsGroup();
             Stats.Init(_enemyData);
-            TryGetComponent(out  _enemyCollider);
+            TryGetComponent(out _enemyCollider);
 
             LifePool = new ValuePool(Stats.Get(Statistic.Life));
-            OnDeath -= CheckItemSpawn; 
+            OnDeath -= CheckItemSpawn;
             OnDeath += CheckItemSpawn;
         }
 
@@ -155,7 +155,7 @@ namespace Enemy
         {
             _enemyCollider.enabled = false;
             int itemDropProb = 100;
-            if(Util.Probability(itemDropProb))
+            if (Util.Probability(itemDropProb))
             {
                 Item item = Managers.Item.GenerateItem(_playerStatus.GetStats(global::Statistic.Level).IntetgerValue);
                 GameObject itemBox = Managers.Resource.Instantiate("ItemBox");

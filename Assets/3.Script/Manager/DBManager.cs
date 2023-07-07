@@ -2,7 +2,6 @@ using Firebase;
 using Firebase.Database;
 using System;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class DBManager
@@ -25,11 +24,9 @@ public class DBManager
     public PlayerSkillData Slot1SkillData = new();
     public PlayerSkillData Slot2SkillData = new();
     public PlayerSkillData Slot3SkillData = new();
-    public Dictionary<int, Item> CurrentInventoryData = new();
     public Dictionary<int, Item> Slot1InventoryData = new();
     public Dictionary<int, Item> Slot2InventoryData = new();
     public Dictionary<int, Item> Slot3InventoryData = new();
-    public Dictionary<int, Item> CurrentEquipmentData = new();
     public Dictionary<int, Item> Slot1EquipmantData = new();
     public Dictionary<int, Item> Slot2EquipmantData = new();
     public Dictionary<int, Item> Slot3EquipmantData = new();
@@ -358,29 +355,17 @@ public class DBManager
         {
             Item temp = new(ItemType.Null, 0, 0, 0, 0, 0, 0, 0, 0);
             Item item = temp;
-            Debug.Log("어디냐1");
             item.Type = (ItemType)int.Parse(snapshot.Child(dataSlot).Child("Equipment").Child("EquipSlot" + i.ToString()).Child("Type").Value.ToString());
-            Debug.Log("어디냐2");
             item.Level = int.Parse(snapshot.Child(dataSlot).Child("Equipment").Child("EquipSlot" + i.ToString()).Child("Level").Value.ToString());
-            Debug.Log("어디냐3");
             item.Life = int.Parse(snapshot.Child(dataSlot).Child("Equipment").Child("EquipSlot" + i.ToString()).Child("Life").Value.ToString());
-            Debug.Log("어디냐4");
             item.Mana = int.Parse(snapshot.Child(dataSlot).Child("Equipment").Child("EquipSlot" + i.ToString()).Child("Mana").Value.ToString());
-            Debug.Log("어디냐5");
             item.Damage = int.Parse(snapshot.Child(dataSlot).Child("Equipment").Child("EquipSlot" + i.ToString()).Child("Damage").Value.ToString());
-            Debug.Log("어디냐6");
             item.Armor = int.Parse(snapshot.Child(dataSlot).Child("Equipment").Child("EquipSlot" + i.ToString()).Child("Armor").Value.ToString());
-            Debug.Log("어디냐7");
             item.MoveSpeed = float.Parse(snapshot.Child(dataSlot).Child("Equipment").Child("EquipSlot" + i.ToString()).Child("MoveSpeed").Value.ToString());
-            Debug.Log("어디냐8");
             item.CooldownReduction = float.Parse(snapshot.Child(dataSlot).Child("Equipment").Child("EquipSlot" + i.ToString()).Child("CooldownReduction").Value.ToString());
-            Debug.Log("어디냐9");
             item.SpriteNum = int.Parse(snapshot.Child(dataSlot).Child("Equipment").Child("EquipSlot" + i.ToString()).Child("SpriteNum").Value.ToString());
-            Debug.Log("어디냐10");
             item.SpritePath = snapshot.Child(dataSlot).Child("Equipment").Child("EquipSlot" + i.ToString()).Child("SpritePath").Value.ToString();
-            Debug.Log("어디냐11");
             equipmentData.Add(i, item);
-            Debug.Log("어디냐12");
         }
     }
 
