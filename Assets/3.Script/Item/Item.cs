@@ -5,7 +5,7 @@ public enum ItemType
 {
     Null,
     Weapon,
-    Helms,
+    Helm,
     Cloaks,
     Gloves,
     Pants,

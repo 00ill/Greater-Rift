@@ -11,7 +11,7 @@ public class ItemManager
         int armor = UnityEngine.Random.Range(Managers.Data.ItemStatusDataDict[level].ArmorMin, Managers.Data.ItemStatusDataDict[level].ArmorMax);
         float moveSpeed = Mathf.Floor(UnityEngine.Random.Range(Managers.Data.ItemStatusDataDict[level].MoveSpeedMin, Managers.Data.ItemStatusDataDict[level].MoveSpeedMax) * 10) / 10;
         float cooldownReduction = Mathf.Floor(UnityEngine.Random.Range(Managers.Data.ItemStatusDataDict[level].CooldownReductionMin, Managers.Data.ItemStatusDataDict[level].CooldownReductionMax) * 10) / 10;
-        int spriteNum = UnityEngine.Random.Range(0, 10);
+        int spriteNum = UnityEngine.Random.Range(1, 9);
         Item item = new((ItemType)type, level, life, mana, damage, armor, moveSpeed, cooldownReduction, spriteNum);
         return item;
     }
