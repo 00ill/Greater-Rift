@@ -632,7 +632,6 @@ public class GameUI : UI_Scene, IListener
                 {
                     if (Sender.TryGetComponent(out PlayerStatus playerStatus))
                     {
-                        Debug.Log("마나변경 호출");
                         PlayerManaChangeEvent(playerStatus.ManaPool.CurrentValue, playerStatus.ManaPool.MaxValue);
                     }
                     break;

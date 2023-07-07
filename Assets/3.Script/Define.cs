@@ -50,7 +50,8 @@ public class Define
         PlayerPortalAlreadyOpen,
         PlayerDeath,
         FullInventory,
-        GetItem
+        GetItem,
+        ChangeStatus
 
     }
 

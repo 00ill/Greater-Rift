@@ -81,7 +81,7 @@ public class InventoryUI : UI_Popup, IListener
 
     private PlayerControlInput _playerControlInput;
     private Transform _previousParent;
-    private Transform _previousTransform;
+
     private void Awake()
     {
         _playerControlInput = FindAnyObjectByType<PlayerControlInput>();
@@ -131,7 +131,6 @@ public class InventoryUI : UI_Popup, IListener
 
             GetImage((int)(Images)i).gameObject.BindEvent((PointerEventData data) =>
             {
-                //디테일 텍스트 변경
                 GetText((int)Texts.ItemType).text = string.Format($"Item Type : " + Enum.GetName(typeof(ItemType), Managers.Inventory.Inventory[temp].Type));
                 GetText((int)Texts.ItemLevel).text = string.Format($"Item Level : {Managers.Inventory.Inventory[temp].Level}");
                 GetText((int)Texts.ItemLife).text = string.Format($"Life : +{Managers.Inventory.Inventory[temp].Life}");
@@ -140,22 +139,19 @@ public class InventoryUI : UI_Popup, IListener
                 GetText((int)Texts.ItemArmor).text = string.Format($"Armor : +{Managers.Inventory.Inventory[temp].Armor}");
                 GetText((int)Texts.ItemMoveSpeed).text = string.Format($"MoveSpeed : +{Managers.Inventory.Inventory[temp].MoveSpeed}");
                 GetText((int)Texts.ItemCooldownReduction).text = string.Format($"CooldownReduction : -{Managers.Inventory.Inventory[temp].CooldownReduction}");
-                //세부정보창 활성화
+
                 if (Managers.Inventory.Inventory[temp].Type != ItemType.Null)
                 {
                     GetObject((int)Objects.ItemDetail).SetActive(true);
                 }
-                //현재 가리키고 있는 아이템 저장
+
                 Managers.Inventory.PointedItemIndex = temp;
-                //선택한 이미지 불투명화
                 GetImage((int)(Images)temp).color = new UnityEngine.Color(255, 255, 255, 120);
             }, Define.UIEvent.PointerEnter);
 
             GetImage((int)(Images)i).gameObject.BindEvent((PointerEventData data) =>
             {
-                //세부정보창 비활성화
                 GetObject((int)Objects.ItemDetail).SetActive(false);
-                //색 되돌리기
                 GetImage((int)(Images)temp).color = new UnityEngine.Color(255, 255, 255, 255);
                 Managers.Inventory.PointedItemIndex = -1;
             }, Define.UIEvent.PointerExit);
@@ -235,28 +231,55 @@ public class InventoryUI : UI_Popup, IListener
 
             GetImage((int)(Images)i - Managers.Inventory.IndexInterval).gameObject.BindEvent((PointerEventData data) =>
             {
-                //세부정보창 비활성화
                 GetObject((int)Objects.ItemDetail).SetActive(false);
-                //색 되돌리기
                 GetImage((int)(Images)temp - Managers.Inventory.IndexInterval).color = new UnityEngine.Color(255, 255, 255, 255);
                 Managers.Inventory.PointedItemIndex = -1;
             }, Define.UIEvent.PointerExit);
 
             GetImage((int)(Images)i - Managers.Inventory.IndexInterval).gameObject.BindEvent((PointerEventData data) =>
             {
-                if (Managers.Inventory.Inventory[temp].Type != ItemType.Null)
+                if (Managers.Inventory.Equipment[temp].Type != ItemType.Null)
                 {
                     Managers.Inventory.SelectedItemIndex = temp;
-                    _previousParent = GetImage((int)(Images)temp).transform.parent;
-                    GetImage((int)(Images)temp).transform.SetParent(GetObject((int)Objects.TopCanvas).transform);
+                    _previousParent = GetImage((int)(Images)temp - Managers.Inventory.IndexInterval).transform.parent;
+                    GetImage((int)(Images)temp - Managers.Inventory.IndexInterval).transform.SetParent(GetObject((int)Objects.TopCanvas).transform);
                     GetObject((int)Objects.TopCanvas).GetComponent<CanvasGroup>().blocksRaycasts = false;
 
-                    GetImage((int)Images.SelectedItem).sprite = Managers.Resource.Load<Sprite>(Managers.Inventory.Inventory[temp].SpritePath);
+                    GetImage((int)Images.SelectedItem).sprite = Managers.Resource.Load<Sprite>(Managers.Inventory.Equipment[temp].SpritePath);
                     GetImage((int)Images.SelectedItem).transform.position = _playerControlInput.MouseInputPosition;
                     GetImage((int)Images.SelectedItem).gameObject.SetActive(true);
                 }
-
             }, Define.UIEvent.OnBeginDrag);
+
+            GetImage((int)(Images)i - Managers.Inventory.IndexInterval).gameObject.BindEvent((PointerEventData data) =>
+            {
+                if (Managers.Inventory.Equipment[temp].Type != ItemType.Null)
+                {
+                    GetImage((int)Images.SelectedItem).transform.position = _playerControlInput.MouseInputPosition;
+                }
+            }, Define.UIEvent.OnDrag);
+
+            GetImage((int)(Images)i - Managers.Inventory.IndexInterval).gameObject.BindEvent((PointerEventData data) =>
+            {
+                GetImage((int)(Images)temp - Managers.Inventory.IndexInterval).transform.SetParent(_previousParent);
+                GetImage((int)Images.SelectedItem).gameObject.SetActive(false);
+
+                if(Managers.Inventory.PointedItemIndex < 0)
+                {
+                    return;
+                }
+                if(Managers.Inventory.PointedItemIndex >=101)
+                {
+                    return;
+                }
+                if (Managers.Inventory.Inventory[Managers.Inventory.PointedItemIndex].Type == ItemType.Null)
+                {
+                    Managers.Inventory.Disarm();
+                    UpdateEquipment();
+                    UpdateInventory();
+                }
+
+            }, Define.UIEvent.OnEndDrag);
         }
     }
 
@@ -267,7 +290,6 @@ public class InventoryUI : UI_Popup, IListener
             if (Managers.Inventory.Inventory[i].Type != ItemType.Null)
             {
                 GetImage((int)(Images)i).sprite = Managers.Resource.Load<Sprite>(Managers.Inventory.Inventory[i].SpritePath);
-                Debug.Log($"{Managers.Inventory.Inventory[i].SpritePath}");
             }
             else
             {
@@ -278,7 +300,7 @@ public class InventoryUI : UI_Popup, IListener
 
     private void UpdateEquipment()
     {
-        for(int i = (int)Images.HelmImage; i < (int)Images.GlovesImage; i++)
+        for(int i = (int)Images.HelmImage; i <= (int)Images.GlovesImage; i++)
         {
             int temp = i;
             if (Managers.Inventory.Equipment[temp].Type != ItemType.Null)
@@ -324,6 +346,7 @@ public class InventoryUI : UI_Popup, IListener
             }
         }
     }
+
     public void OnEvent(Define.EVENT_TYPE Event_Type, Component Sender, object Param = null)
     {
         switch (Event_Type)

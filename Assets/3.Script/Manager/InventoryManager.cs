@@ -33,6 +33,8 @@ public class InventoryManager
     public Dictionary<int, Item> Equipment = new();
     public int IndexInterval = 63;
 
+    public Item ItemTotal;
+
     /// <summary>
     /// 여기 DB 연동하면 저장된 아이템 불러오는 걸로 바꿔야함
     /// </summary>
@@ -40,6 +42,7 @@ public class InventoryManager
     {
         ItemCount = 0;
         ItemCountMax = 35;
+        ItemTotal = new(ItemType.Null, 0, 0, 0, 0, 0, 0, 0, 0);
         Item NullItem = new(ItemType.Null, 0, 0, 0, 0, 0, 0, 0, 0);
         for (int i = 0; i < ItemCountMax; i++)
         {
@@ -49,15 +52,20 @@ public class InventoryManager
         {
             Equipment.Add(i, NullItem);
         }
-
-
+        CalcItemTotal();
     }
 
+    /// <summary>
+    /// 인벤토리 창안에서 서로 바꾸는 메서드
+    /// </summary>
     public void ChangeItem()
     {
         (Inventory[PointedItemIndex], Inventory[SelectedItemIndex]) = (Inventory[SelectedItemIndex], Inventory[PointedItemIndex]);
     }
 
+    /// <summary>
+    /// 아이템 장착 메서드
+    /// </summary>
     public void EquipItem()
     {
         switch (PointedItemIndex)
@@ -67,6 +75,7 @@ public class InventoryManager
                     if (Inventory[SelectedItemIndex].Type == ItemType.Helm)
                     {
                         (Equipment[PointedItemIndex], Inventory[SelectedItemIndex]) = (Inventory[SelectedItemIndex], Equipment[PointedItemIndex]);
+                        ItemCount--;
                     }
                     break;
                 }
@@ -75,6 +84,7 @@ public class InventoryManager
                     if (Inventory[SelectedItemIndex].Type == ItemType.Cloaks)
                     {
                         (Equipment[PointedItemIndex], Inventory[SelectedItemIndex]) = (Inventory[SelectedItemIndex], Equipment[PointedItemIndex]);
+                        ItemCount--;
                     }
                     break;
                 }
@@ -83,6 +93,7 @@ public class InventoryManager
                     if (Inventory[SelectedItemIndex].Type == ItemType.Pants)
                     {
                         (Equipment[PointedItemIndex], Inventory[SelectedItemIndex]) = (Inventory[SelectedItemIndex], Equipment[PointedItemIndex]);
+                        ItemCount--;
                     }
                     break;
                 }
@@ -91,6 +102,7 @@ public class InventoryManager
                     if (Inventory[SelectedItemIndex].Type == ItemType.Boots)
                     {
                         (Equipment[PointedItemIndex], Inventory[SelectedItemIndex]) = (Inventory[SelectedItemIndex], Equipment[PointedItemIndex]);
+                        ItemCount--;
                     }
                     break;
                 }
@@ -99,6 +111,7 @@ public class InventoryManager
                     if (Inventory[SelectedItemIndex].Type == ItemType.Weapon)
                     {
                         (Equipment[PointedItemIndex], Inventory[SelectedItemIndex]) = (Inventory[SelectedItemIndex], Equipment[PointedItemIndex]);
+                        ItemCount--;
                     }
                     break;
                 }
@@ -107,9 +120,39 @@ public class InventoryManager
                     if (Inventory[SelectedItemIndex].Type == ItemType.Gloves)
                     {
                         (Equipment[PointedItemIndex], Inventory[SelectedItemIndex]) = (Inventory[SelectedItemIndex], Equipment[PointedItemIndex]);
+                        ItemCount--;
                     }
                     break;
                 }
+        }
+        CalcItemTotal();
+        Managers.Event.PostNotification(Define.EVENT_TYPE.ChangeStatus, null);
+    }
+
+    /// <summary>
+    /// 아이템 해제 메서드
+    /// </summary>
+    public void Disarm()
+    {
+        (Equipment[SelectedItemIndex], Inventory[PointedItemIndex]) = (Inventory[PointedItemIndex], Equipment[SelectedItemIndex]);
+        ItemCount++;
+        CalcItemTotal();
+        Managers.Event.PostNotification(Define.EVENT_TYPE.ChangeStatus, null);
+    }
+
+    public void CalcItemTotal()
+    {
+        Item newItem = new(ItemType.Null, 0, 0, 0, 0, 0, 0, 0, 0);
+        ItemTotal = newItem;
+        for (int i = (int)EquipmentIndex.HelmIndex; i <= (int)EquipmentIndex.GlovesIndex; i++)
+        {
+            int temp = i;
+            ItemTotal.Life += Equipment[temp].Life;
+            ItemTotal.Mana += Equipment[temp].Mana;
+            ItemTotal.Damage += Equipment[temp].Damage;
+            ItemTotal.Armor += Equipment[temp].Armor;
+            ItemTotal.MoveSpeed += Equipment[temp].MoveSpeed;
+            ItemTotal.CooldownReduction += Equipment[temp].CooldownReduction;
         }
     }
 }

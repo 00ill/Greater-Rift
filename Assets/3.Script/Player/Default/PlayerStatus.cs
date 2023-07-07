@@ -10,7 +10,6 @@ public enum Statistic
     Mana,
     Damage,
     Armor,
-    AttackSpeed,
     MoveSpeed
 }
 
@@ -42,22 +41,49 @@ public class StatsGroup
         StatsList = new List<StatsValue>();
     }
 
-    public void Init()
+    public void InitLevel()
     {
-        //int값
-        //레벨, 현재 경험치, 체력, 마나, 데미지, 방어
-        //float 값
-        //공격속도, 이동속도
         StatsList.Add(new StatsValue(Statistic.Level, Managers.DB.CurrentPlayerData.Level));
         StatsList.Add(new StatsValue(Statistic.Exp, Managers.DB.CurrentPlayerData.CurExp));
         StatsList.Add(new StatsValue(Statistic.Life, Managers.Data.PlayerStatusDataDict[Managers.DB.CurrentPlayerData.Level].Life));
         StatsList.Add(new StatsValue(Statistic.Mana, Managers.Data.PlayerStatusDataDict[Managers.DB.CurrentPlayerData.Level].Mana));
         StatsList.Add(new StatsValue(Statistic.Damage, Managers.Data.PlayerStatusDataDict[Managers.DB.CurrentPlayerData.Level].Damage));
         StatsList.Add(new StatsValue(Statistic.Armor, Managers.Data.PlayerStatusDataDict[Managers.DB.CurrentPlayerData.Level].Armor));
-        StatsList.Add(new StatsValue(Statistic.AttackSpeed, 1f));
         StatsList.Add(new StatsValue(Statistic.MoveSpeed, 10f));
     }
 
+    public void InitItemStatus()
+    {
+        StatsList.Add(new StatsValue(Statistic.Level, 0));
+        StatsList.Add(new StatsValue(Statistic.Exp, 0));
+        StatsList.Add(new StatsValue(Statistic.Life, Managers.Inventory.ItemTotal.Life));
+        StatsList.Add(new StatsValue(Statistic.Mana, Managers.Inventory.ItemTotal.Mana));
+        StatsList.Add(new StatsValue(Statistic.Damage, Managers.Inventory.ItemTotal.Damage));
+        StatsList.Add(new StatsValue(Statistic.Armor, Managers.Inventory.ItemTotal.Armor));
+        StatsList.Add(new StatsValue(Statistic.MoveSpeed, Managers.Inventory.ItemTotal.MoveSpeed));
+    }
+
+    public void UpdateItemStatus()
+    {
+        Set(Statistic.Level, 0);
+        Set(Statistic.Exp, 0);
+        Set(Statistic.Life, Managers.Inventory.ItemTotal.Life);
+        Set(Statistic.Mana, Managers.Inventory.ItemTotal.Mana);
+        Set(Statistic.Damage, Managers.Inventory.ItemTotal.Damage);
+        Set(Statistic.Armor, Managers.Inventory.ItemTotal.Armor);
+        Set(Statistic.MoveSpeed, Managers.Inventory.ItemTotal.MoveSpeed);
+    }
+
+    public void Init()
+    {
+        StatsList.Add(new StatsValue(Statistic.Level, 0));
+        StatsList.Add(new StatsValue(Statistic.Exp, 0));
+        StatsList.Add(new StatsValue(Statistic.Life, 0));
+        StatsList.Add(new StatsValue(Statistic.Mana, 0));
+        StatsList.Add(new StatsValue(Statistic.Damage, 0));
+        StatsList.Add(new StatsValue(Statistic.Armor, 0));
+        StatsList.Add(new StatsValue(Statistic.MoveSpeed, 0));
+    }
     internal StatsValue Get(Statistic statisticToGet)
     {
         return StatsList[(int)statisticToGet];
@@ -70,43 +96,6 @@ public class StatsGroup
     internal void Set(Statistic statisticToSet, float value)
     {
         StatsList[(int)statisticToSet].FloatValue = value;
-    }
-}
-
-public enum Attribute
-{
-    Strength,
-    Dexterity,
-    Intelligence
-}
-
-[Serializable]
-public class AttributeValue
-{
-    public Attribute AttributeType;
-    public int value;
-    public AttributeValue(Attribute attributeType, int value = 0)
-    {
-        AttributeType = attributeType;
-        this.value = value;
-    }
-}
-
-[Serializable]
-public class AttributeGroup
-{
-    public List<AttributeValue> AttributesValueList;
-
-    public AttributeGroup()
-    {
-        AttributesValueList = new List<AttributeValue>();
-    }
-
-    public void Init()
-    {
-        AttributesValueList.Add(new AttributeValue(Attribute.Strength));
-        AttributesValueList.Add(new AttributeValue(Attribute.Dexterity));
-        AttributesValueList.Add(new AttributeValue(Attribute.Intelligence));
     }
 }
 
@@ -124,50 +113,33 @@ public class ValuePool
     public ValuePool(int maxValue, int cuttentValue)
     {
         this.MaxValue = maxValue;
-        this.CurrentValue = cuttentValue;
+        this.CurrentValue = Mathf.Clamp(cuttentValue, 0, maxValue);
     }
 }
 
-public class PlayerStatus : MonoBehaviour, IDamageable
+public class PlayerStatus : MonoBehaviour, IDamageable, IListener
 {
-    public AttributeGroup Attributes;
     public StatsGroup Stats;
     public ValuePool LifePool;
     public ValuePool ManaPool;
     public ValuePool ExpPool;
 
-    //private void Awake()
-    //{
-    //    Attributes = new AttributeGroup();
-    //    Attributes.Init();
-    //    Stats = new StatsGroup();
-    //    Stats.Init();
-
-    //    LifePool = new ValuePool(Stats.Get(Statistic.Life));
-    //    ManaPool = new ValuePool(Stats.Get(Statistic.Mana));
-    //}
+    public StatsGroup LevelStatus;
+    public StatsGroup ItemStatus;
 
     private void OnEnable()
     {
-        Attributes = new AttributeGroup();
-        Attributes.Init();
         Stats = new StatsGroup();
+        LevelStatus = new StatsGroup();
+        ItemStatus = new StatsGroup();
+
         Stats.Init();
+        LevelStatus.InitLevel();
+        ItemStatus.InitItemStatus();
+        UpdateStatus(true);
 
-        LifePool = new ValuePool(Stats.Get(Statistic.Life));
-        ManaPool = new ValuePool(Stats.Get(Statistic.Mana));
-        ExpPool = new ValuePool((Managers.Data.PlayerStatusDataDict[Stats.Get(Statistic.Level).IntetgerValue].RequireExp), Stats.Get(Statistic.Exp).IntetgerValue);
+        Managers.Event.AddListener(Define.EVENT_TYPE.ChangeStatus, this);
     }
-    //private void Start()
-    //{
-    //    Attributes = new AttributeGroup();
-    //    Attributes.Init();
-    //    Stats = new StatsGroup();
-    //    Stats.Init();
-
-    //    LifePool = new ValuePool(Stats.Get(Statistic.Life));
-    //    ManaPool = new ValuePool(Stats.Get(Statistic.Mana));
-    //}
 
     public void TakeDamage(int damage)
     {
@@ -226,18 +198,53 @@ public class PlayerStatus : MonoBehaviour, IDamageable
         go.transform.position = transform.position;
 
         Managers.DB.CurrentPlayerData.Level++;
-        Stats.Set(Statistic.Level, Managers.DB.CurrentPlayerData.Level);
-        Stats.Set(Statistic.Life, Managers.Data.PlayerStatusDataDict[Stats.Get(Statistic.Level).IntetgerValue].Life);
-        Stats.Set(Statistic.Mana, Managers.Data.PlayerStatusDataDict[Stats.Get(Statistic.Level).IntetgerValue].Mana);
-        Stats.Set(Statistic.Armor, Managers.Data.PlayerStatusDataDict[Stats.Get(Statistic.Level).IntetgerValue].Armor);
-        Stats.Set(Statistic.Damage, Managers.Data.PlayerStatusDataDict[Stats.Get(Statistic.Level).IntetgerValue].Damage);
-        Stats.Set(Statistic.Exp, 0);
+        LevelStatus.Set(Statistic.Level, Managers.DB.CurrentPlayerData.Level);
+        LevelStatus.Set(Statistic.Life, Managers.Data.PlayerStatusDataDict[LevelStatus.Get(Statistic.Level).IntetgerValue].Life);
+        LevelStatus.Set(Statistic.Mana, Managers.Data.PlayerStatusDataDict[LevelStatus.Get(Statistic.Level).IntetgerValue].Mana);
+        LevelStatus.Set(Statistic.Armor, Managers.Data.PlayerStatusDataDict[LevelStatus.Get(Statistic.Level).IntetgerValue].Armor);
+        LevelStatus.Set(Statistic.Damage, Managers.Data.PlayerStatusDataDict[LevelStatus.Get(Statistic.Level).IntetgerValue].Damage);
+        LevelStatus.Set(Statistic.Exp, 0);
+
+        UpdateStatus(true);
+    }
+
+    private void UpdateStatus(bool isLevelUp)
+    {
+        ItemStatus.UpdateItemStatus();
+        SetStats(Statistic.Level, LevelStatus.Get(Statistic.Level).IntetgerValue);
+        SetStats(Statistic.Exp, LevelStatus.Get(Statistic.Exp).IntetgerValue);
+        SetStats(Statistic.Life, LevelStatus.Get(Statistic.Life).IntetgerValue + ItemStatus.Get(Statistic.Life).IntetgerValue);
+        SetStats(Statistic.Mana, LevelStatus.Get(Statistic.Mana).IntetgerValue + ItemStatus.Get(Statistic.Mana).IntetgerValue);
+        SetStats(Statistic.Damage, LevelStatus.Get(Statistic.Damage).IntetgerValue + ItemStatus.Get(Statistic.Damage).IntetgerValue);
+        SetStats(Statistic.Armor, LevelStatus.Get(Statistic.Armor).IntetgerValue + ItemStatus.Get(Statistic.Armor).IntetgerValue);
+        SetStats(Statistic.MoveSpeed, LevelStatus.Get(Statistic.MoveSpeed).FloatValue + ItemStatus.Get(Statistic.MoveSpeed).FloatValue);
+
 
         ExpPool = new ValuePool((Managers.Data.PlayerStatusDataDict[Stats.Get(Statistic.Level).IntetgerValue].RequireExp), Stats.StatsList[(int)Statistic.Exp].IntetgerValue);
-        LifePool = new ValuePool(Stats.Get(Statistic.Life));
-        ManaPool = new ValuePool(Stats.Get(Statistic.Mana));
+        if (isLevelUp)
+        {
+            LifePool = new ValuePool(Stats.Get(Statistic.Life));
+            ManaPool = new ValuePool(Stats.Get(Statistic.Mana));
+        }
+        else
+        {
+            LifePool = new ValuePool(Stats.Get(Statistic.Life).IntetgerValue, LifePool.CurrentValue);
+            ManaPool = new ValuePool(Stats.Get(Statistic.Mana).IntetgerValue, ManaPool.CurrentValue);
+        }
         Managers.Event.PostNotification(Define.EVENT_TYPE.PlayerHpChange, this);
         Managers.Event.PostNotification(Define.EVENT_TYPE.PlayerManaChange, this);
         Managers.Event.PostNotification(Define.EVENT_TYPE.LevelUp, this);
+    }
+
+    public void OnEvent(Define.EVENT_TYPE Event_Type, Component Sender, object Param = null)
+    {
+        switch (Event_Type)
+        {
+            case Define.EVENT_TYPE.ChangeStatus:
+                {
+                    UpdateStatus(false);
+                    break;
+                }
+        }
     }
 }

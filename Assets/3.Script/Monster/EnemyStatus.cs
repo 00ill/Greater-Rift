@@ -89,21 +89,20 @@ namespace Enemy
     {
         [SerializeField] private EnemyData _enemyData;
         public bool IsDead;
-        public AttributeGroup Attributes;
         public StatsGroup Stats;
         public ValuePool LifePool;
         public Action OnDeath;
         private PlayerStatus _playerStatus;
+        private Collider _enemyCollider;
 
         //Damage PopUp
         private static Canvas _gameUI;
 
         private void OnEnable()
         {
-            Attributes = new AttributeGroup();
-            Attributes.Init();
             Stats = new StatsGroup();
             Stats.Init(_enemyData);
+            TryGetComponent(out  _enemyCollider);
 
             LifePool = new ValuePool(Stats.Get(Statistic.Life));
             OnDeath -= CheckItemSpawn; 
@@ -154,15 +153,14 @@ namespace Enemy
 
         private void CheckItemSpawn()
         {
+            _enemyCollider.enabled = false;
             int itemDropProb = 100;
             if(Util.Probability(itemDropProb))
             {
                 Item item = Managers.Item.GenerateItem(_playerStatus.GetStats(global::Statistic.Level).IntetgerValue);
-                Debug.Log(string.Format($"생성한 아이템 체력 : {item.Life}"));
                 GameObject itemBox = Managers.Resource.Instantiate("ItemBox");
                 itemBox.transform.position = transform.position;
                 itemBox.GetComponent<ItemBox>().ItemData = item;
-                Debug.Log(string.Format($"데이터 넣은거 체력 : {itemBox.GetComponent<ItemBox>().ItemData.Life}"));
             }
         }
     }
