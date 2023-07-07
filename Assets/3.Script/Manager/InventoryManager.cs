@@ -47,12 +47,15 @@ public class InventoryManager
         for (int i = 0; i < ItemCountMax; i++)
         {
             Inventory.Add(i, NullItem);
+            //Inventory = Managers.DB.CurrentInventoryData;
+            //Inventory.Add(i, Managers.DB.CurrentInventoryData[i]);
         }
         for (int i = HelmIndex; i <= GlovesIndex; i++)
         {
             Equipment.Add(i, NullItem);
         }
         CalcItemTotal();
+
     }
 
     /// <summary>

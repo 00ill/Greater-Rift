@@ -159,6 +159,8 @@ public class MainUI : UI_Scene
                     Managers.DB.CurrentDataSlot = "DataSlot1";
                     Managers.DB.CurrentPlayerData = Managers.DB.Slot1Data;
                     Managers.DB.CurrentPlayerSkillData = Managers.DB.Slot1SkillData;
+                    //Managers.DB.CurrentInventoryData = Managers.DB.Slot1InventoryData;
+                    Managers.Inventory.Inventory = Managers.DB.Slot1InventoryData;
                     GetText((int)Texts.LoadWarningText).text = "";
                 }
                 else
@@ -176,6 +178,9 @@ public class MainUI : UI_Scene
                     Managers.DB.CurrentDataSlot = "DataSlot2";
                     Managers.DB.CurrentPlayerData = Managers.DB.Slot2Data;
                     Managers.DB.CurrentPlayerSkillData = Managers.DB.Slot2SkillData;
+                    //Managers.DB.CurrentInventoryData = Managers.DB.Slot2InventoryData;
+                    Managers.Inventory.Inventory = Managers.DB.Slot2InventoryData;
+
                     GetText((int)Texts.LoadWarningText).text = "";
                 }
                 else
@@ -194,6 +199,9 @@ public class MainUI : UI_Scene
                     Managers.DB.CurrentDataSlot = "DataSlot3";
                     Managers.DB.CurrentPlayerData = Managers.DB.Slot3Data;
                     Managers.DB.CurrentPlayerSkillData = Managers.DB.Slot3SkillData;
+                    Managers.Inventory.Inventory = Managers.DB.Slot3InventoryData;
+                    //Managers.DB.CurrentInventoryData = Managers.DB.Slot3InventoryData;
+
                     GetText((int)Texts.LoadWarningText).text = "";
                 }
                 else

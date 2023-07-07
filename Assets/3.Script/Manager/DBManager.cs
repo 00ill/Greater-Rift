@@ -24,6 +24,12 @@ public class DBManager
     public PlayerSkillData Slot1SkillData = new();
     public PlayerSkillData Slot2SkillData = new();
     public PlayerSkillData Slot3SkillData = new();
+    public Dictionary<int, Item> CurrentInventoryData = new();
+    public Dictionary<int, Item> Slot1InventoryData = new();
+    public Dictionary<int, Item> Slot2InventoryData = new();
+    public Dictionary<int, Item> Slot3InventoryData = new();
+
+
     public void Init()
     {
         FirebaseApp.DefaultInstance.Options.DatabaseUrl = new Uri(DBurl);
@@ -91,19 +97,24 @@ public class DBManager
                 {
                     if (snapshot.Child("Password").Value.ToString() == password)
                     {
+                        Debug.Log("로그인");
                         CurrecntUserID = id;
                         if (snapshot.HasChild(_dataSlot1))
                         {
-                            LoadData(Slot1Data, Slot1SkillData, snapshot, _dataSlot1);
+                            Debug.Log("데이터1");
+                            LoadData(Slot1Data, Slot1SkillData, Slot1InventoryData,snapshot, _dataSlot1);
                         }
                         if (snapshot.HasChild(_dataSlot2))
                         {
-                            LoadData(Slot2Data, Slot2SkillData, snapshot, _dataSlot2);
+                            Debug.Log("데이터2");
+
+                            LoadData(Slot2Data, Slot2SkillData, Slot2InventoryData, snapshot, _dataSlot2);
                         }
                         if (snapshot.HasChild(_dataSlot3))
                         {
-                            LoadData(Slot3Data, Slot3SkillData, snapshot, _dataSlot3);
+                            LoadData(Slot3Data, Slot3SkillData, Slot3InventoryData, snapshot, _dataSlot3);
                         }
+                        Debug.Log("성공직전");
 
                         Managers.Event.DBEvent?.Invoke(Define.DB_Event.SuccessLogin);
                     }
@@ -138,16 +149,30 @@ public class DBManager
                 string playerDataJson = JsonUtility.ToJson(playerData);
                 PlayerSkillData playerSkillData = new();
                 string playerSkillDataJson = JsonUtility.ToJson(playerSkillData);
-                Managers.Skill.CurrentM1SKillName = playerSkillData.M1SkillName;
-                Managers.Skill.CurrentM2SKillName = playerSkillData.M2SkillName;
-                Managers.Skill.CurrentNum1SKillName = playerSkillData.Num1SkillName;
-                Managers.Skill.CurrentNum2SKillName = playerSkillData.Num2SkillName;
-                Managers.Skill.CurrentNum3SKillName = playerSkillData.Num3SkillName;
-                Managers.Skill.CurrentNum4SKillName = playerSkillData.Num4SkillName;
+
+                // 새로운 스킬 만들고 스킬매니저에 전달해주는 건데 이게 왜 여기있을까
+                // 로드데이터가 실행이 안되서 여기에 할당한 번 해준거 같음
+                // 일단 없어도 문제 없음
+                //Managers.Skill.CurrentM1SKillName = playerSkillData.M1SkillName;
+                //Managers.Skill.CurrentM2SKillName = playerSkillData.M2SkillName;
+                //Managers.Skill.CurrentNum1SKillName = playerSkillData.Num1SkillName;
+                //Managers.Skill.CurrentNum2SKillName = playerSkillData.Num2SkillName;
+                //Managers.Skill.CurrentNum3SKillName = playerSkillData.Num3SkillName;
+                //Managers.Skill.CurrentNum4SKillName = playerSkillData.Num4SkillName;
+
+                // 장비창에 관해서는 인벤토리 매니저에서 초기화를 해주기 때문에 할당해줄 필요는 없음, 생성할때 기본 틀만 만들어 놓으면 될듯
+
+
                 if (!snapshot.HasChild(_dataSlot1))
                 {
                     reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot1).SetRawJsonValueAsync(playerDataJson);
                     reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot1).Child("SkillSet").SetRawJsonValueAsync(playerSkillDataJson);
+                    for(int i = 0; i <Managers.Inventory.Inventory.Count; i++)
+                    {
+                        Item NullItem = new(ItemType.Null, 0, 0, 0, 0, 0, 0, 0, 0);
+                        string itemDataJson = JsonUtility.ToJson(NullItem);
+                        reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot1).Child("Inventory").Child("ItemSlot"+ i.ToString()).SetRawJsonValueAsync(itemDataJson);
+                    }
                     CurrentDataSlot = _dataSlot1;
                     Slot1Data.Name = name;
                     Managers.DB.CurrentPlayerData = Managers.DB.Slot1Data;
@@ -158,6 +183,12 @@ public class DBManager
                 {
                     reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot2).SetRawJsonValueAsync(playerDataJson);
                     reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot2).Child("SkillSet").SetRawJsonValueAsync(playerSkillDataJson);
+                    for (int i = 0; i < Managers.Inventory.Inventory.Count; i++)
+                    {
+                        Item NullItem = new(ItemType.Null, 0, 0, 0, 0, 0, 0, 0, 0);
+                        string itemDataJson = JsonUtility.ToJson(NullItem);
+                        reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot1).Child("Inventory").Child("ItemSlot" + i.ToString()).SetRawJsonValueAsync(itemDataJson);
+                    }
                     CurrentDataSlot = _dataSlot2;
                     Slot2Data.Name = name;
                     Managers.DB.CurrentPlayerData = Managers.DB.Slot2Data;
@@ -168,6 +199,12 @@ public class DBManager
                 {
                     reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot3).SetRawJsonValueAsync(playerDataJson);
                     reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot3).Child("SkillSet").SetRawJsonValueAsync(playerSkillDataJson);
+                    for (int i = 0; i < Managers.Inventory.Inventory.Count; i++)
+                    {
+                        Item NullItem = new(ItemType.Null, 0, 0, 0, 0, 0, 0, 0, 0);
+                        string itemDataJson = JsonUtility.ToJson(NullItem);
+                        reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot1).Child("Inventory").Child("ItemSlot" + i.ToString()).SetRawJsonValueAsync(itemDataJson);
+                    }
                     CurrentDataSlot = _dataSlot3;
                     Slot3Data.Name = name;
                     Managers.DB.CurrentPlayerData = Managers.DB.Slot3Data;
@@ -200,6 +237,13 @@ public class DBManager
                     Managers.Skill.CurrentNum1SKillName, Managers.Skill.CurrentNum2SKillName, Managers.Skill.CurrentNum3SKillName, Managers.Skill.CurrentNum4SKillName);
                 string playerSkillDataJson = JsonUtility.ToJson(playerSkillData);
                 reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(CurrentDataSlot).Child("SkillSet").SetRawJsonValueAsync(playerSkillDataJson);
+
+                for (int i = 0; i < Managers.Inventory.Inventory.Count; i++)
+                {
+                    string itemDataJson = JsonUtility.ToJson(Managers.Inventory.Inventory[i]);
+                    reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot1).Child("Inventory").Child("ItemSlot" + i.ToString()).SetRawJsonValueAsync(itemDataJson);
+                }
+
             }
         });
 
@@ -257,8 +301,9 @@ public class DBManager
         });
     }
 
-    private void LoadData(PlayerData playerData, PlayerSkillData playerSkillData, DataSnapshot snapshot, string dataSlot)
+    private void LoadData(PlayerData playerData, PlayerSkillData playerSkillData, Dictionary<int, Item> inventoryData, DataSnapshot snapshot, string dataSlot)
     {
+        inventoryData.Clear();
         playerData.Name = snapshot.Child(dataSlot).Child("Name").Value.ToString();
         playerData.Level = int.Parse(snapshot.Child(dataSlot).Child("Level").Value.ToString());
         playerData.CurExp = int.Parse(snapshot.Child(dataSlot).Child("CurExp").Value.ToString());
@@ -268,6 +313,41 @@ public class DBManager
         playerSkillData.Num2SkillName = (SkillName)int.Parse(snapshot.Child(dataSlot).Child("SkillSet").Child("Num2SkillName").Value.ToString());
         playerSkillData.Num3SkillName = (SkillName)int.Parse(snapshot.Child(dataSlot).Child("SkillSet").Child("Num3SkillName").Value.ToString());
         playerSkillData.Num4SkillName = (SkillName)int.Parse(snapshot.Child(dataSlot).Child("SkillSet").Child("Num4SkillName").Value.ToString());
+        Debug.Log("어디서멈추냐1");
+        for (int i = 0; i < 35; i++)
+        {
+            Debug.Log("어디서멈추냐2");
+
+            Item temp = new(ItemType.Null, 0, 0, 0, 0, 0, 0, 0, 0);
+            Item item = temp;
+            Debug.Log("어디서멈추냐3");
+
+            item.Type = (ItemType)int.Parse(snapshot.Child(dataSlot).Child("Inventory").Child("ItemSlot" + i.ToString()).Child("Type").Value.ToString());
+            Debug.Log("어디서멈추냐4");
+
+            item.Level = int.Parse(snapshot.Child(dataSlot).Child("Inventory").Child("ItemSlot" + i.ToString()).Child("Level").Value.ToString());
+            Debug.Log("어디서멈추냐5");
+
+            item.Life = int.Parse(snapshot.Child(dataSlot).Child("Inventory").Child("ItemSlot" + i.ToString()).Child("Life").Value.ToString());
+            Debug.Log("어디서멈추냐6");
+            item.Mana = int.Parse(snapshot.Child(dataSlot).Child("Inventory").Child("ItemSlot" + i.ToString()).Child("Mana").Value.ToString());
+            Debug.Log("어디서멈추냐7");
+            item.Damage = int.Parse(snapshot.Child(dataSlot).Child("Inventory").Child("ItemSlot" + i.ToString()).Child("Damage").Value.ToString());
+            Debug.Log("어디서멈추냐8");
+            item.Armor = int.Parse(snapshot.Child(dataSlot).Child("Inventory").Child("ItemSlot" + i.ToString()).Child("Armor").Value.ToString());
+            Debug.Log("어디서멈추냐9");
+            item.MoveSpeed = float.Parse(snapshot.Child(dataSlot).Child("Inventory").Child("ItemSlot" + i.ToString()).Child("MoveSpeed").Value.ToString());
+            Debug.Log("어디서멈추냐10");
+            item.CooldownReduction = float.Parse(snapshot.Child(dataSlot).Child("Inventory").Child("ItemSlot" + i.ToString()).Child("CooldownReduction").Value.ToString());
+            Debug.Log("어디서멈추냐11");
+            item.SpriteNum = int.Parse(snapshot.Child(dataSlot).Child("Inventory").Child("ItemSlot" + i.ToString()).Child("SpriteNum").Value.ToString());
+            Debug.Log("어디서멈추냐12");
+            item.SpritePath = snapshot.Child(dataSlot).Child("Inventory").Child("ItemSlot" + i.ToString()).Child("SpritePath").Value.ToString();
+            Debug.Log("어디서멈추냐13");
+
+            inventoryData.Add(i, item);
+            Debug.Log("어디서멈추냐14");
+        }
     }
 
     public void UpdateSkillData()

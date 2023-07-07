@@ -192,7 +192,7 @@ public class PlayerStatus : MonoBehaviour, IDamageable, IListener
         Managers.Event.PostNotification(Define.EVENT_TYPE.PlayerExpChange, this);
     }
 
-    private void LevelUp()
+    public void LevelUp()
     {
         GameObject go = Managers.Resource.Instantiate("LevelUp");
         go.transform.position = transform.position;

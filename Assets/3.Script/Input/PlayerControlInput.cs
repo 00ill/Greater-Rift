@@ -112,7 +112,7 @@ public class PlayerControlInput : MonoBehaviour
         if (callbackContext.performed)
         {
             Debug.Log("테스트 버튼");
-            FindObjectOfType<PlayerStatus>().GainExp(1);
+            FindObjectOfType<PlayerStatus>().LevelUp();
 
         }
     }
