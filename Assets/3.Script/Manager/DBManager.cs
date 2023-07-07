@@ -2,6 +2,7 @@ using Firebase;
 using Firebase.Database;
 using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class DBManager
@@ -28,7 +29,10 @@ public class DBManager
     public Dictionary<int, Item> Slot1InventoryData = new();
     public Dictionary<int, Item> Slot2InventoryData = new();
     public Dictionary<int, Item> Slot3InventoryData = new();
-
+    public Dictionary<int, Item> CurrentEquipmentData = new();
+    public Dictionary<int, Item> Slot1EquipmantData = new();
+    public Dictionary<int, Item> Slot2EquipmantData = new();
+    public Dictionary<int, Item> Slot3EquipmantData = new();
 
     public void Init()
     {
@@ -97,24 +101,19 @@ public class DBManager
                 {
                     if (snapshot.Child("Password").Value.ToString() == password)
                     {
-                        Debug.Log("로그인");
                         CurrecntUserID = id;
                         if (snapshot.HasChild(_dataSlot1))
                         {
-                            Debug.Log("데이터1");
-                            LoadData(Slot1Data, Slot1SkillData, Slot1InventoryData,snapshot, _dataSlot1);
+                            LoadData(Slot1Data, Slot1SkillData, Slot1InventoryData, Slot1EquipmantData, snapshot, _dataSlot1);
                         }
                         if (snapshot.HasChild(_dataSlot2))
                         {
-                            Debug.Log("데이터2");
-
-                            LoadData(Slot2Data, Slot2SkillData, Slot2InventoryData, snapshot, _dataSlot2);
+                            LoadData(Slot2Data, Slot2SkillData, Slot2InventoryData, Slot2EquipmantData, snapshot, _dataSlot2);
                         }
                         if (snapshot.HasChild(_dataSlot3))
                         {
-                            LoadData(Slot3Data, Slot3SkillData, Slot3InventoryData, snapshot, _dataSlot3);
+                            LoadData(Slot3Data, Slot3SkillData, Slot3InventoryData, Slot3EquipmantData, snapshot, _dataSlot3);
                         }
-                        Debug.Log("성공직전");
 
                         Managers.Event.DBEvent?.Invoke(Define.DB_Event.SuccessLogin);
                     }
@@ -167,11 +166,17 @@ public class DBManager
                 {
                     reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot1).SetRawJsonValueAsync(playerDataJson);
                     reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot1).Child("SkillSet").SetRawJsonValueAsync(playerSkillDataJson);
-                    for(int i = 0; i <Managers.Inventory.Inventory.Count; i++)
+                    for (int i = 0; i < Managers.Inventory.Inventory.Count; i++)
                     {
                         Item NullItem = new(ItemType.Null, 0, 0, 0, 0, 0, 0, 0, 0);
                         string itemDataJson = JsonUtility.ToJson(NullItem);
-                        reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot1).Child("Inventory").Child("ItemSlot"+ i.ToString()).SetRawJsonValueAsync(itemDataJson);
+                        reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot1).Child("Inventory").Child("ItemSlot" + i.ToString()).SetRawJsonValueAsync(itemDataJson);
+                    }
+                    for (int i = (int)EquipmentIndex.HelmIndex; i <= (int)EquipmentIndex.GlovesIndex; i++)
+                    {
+                        Item NullItem = new(ItemType.Null, 0, 0, 0, 0, 0, 0, 0, 0);
+                        string itemDataJson = JsonUtility.ToJson(NullItem);
+                        reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot1).Child("Equipment").Child("EquipSlot" + i.ToString()).SetRawJsonValueAsync(itemDataJson);
                     }
                     CurrentDataSlot = _dataSlot1;
                     Slot1Data.Name = name;
@@ -189,6 +194,12 @@ public class DBManager
                         string itemDataJson = JsonUtility.ToJson(NullItem);
                         reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot1).Child("Inventory").Child("ItemSlot" + i.ToString()).SetRawJsonValueAsync(itemDataJson);
                     }
+                    for (int i = (int)EquipmentIndex.HelmIndex; i <= (int)EquipmentIndex.GlovesIndex; i++)
+                    {
+                        Item NullItem = new(ItemType.Null, 0, 0, 0, 0, 0, 0, 0, 0);
+                        string itemDataJson = JsonUtility.ToJson(NullItem);
+                        reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot1).Child("Equipment").Child("EquipSlot" + i.ToString()).SetRawJsonValueAsync(itemDataJson);
+                    }
                     CurrentDataSlot = _dataSlot2;
                     Slot2Data.Name = name;
                     Managers.DB.CurrentPlayerData = Managers.DB.Slot2Data;
@@ -204,6 +215,12 @@ public class DBManager
                         Item NullItem = new(ItemType.Null, 0, 0, 0, 0, 0, 0, 0, 0);
                         string itemDataJson = JsonUtility.ToJson(NullItem);
                         reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot1).Child("Inventory").Child("ItemSlot" + i.ToString()).SetRawJsonValueAsync(itemDataJson);
+                    }
+                    for (int i = (int)EquipmentIndex.HelmIndex; i <= (int)EquipmentIndex.GlovesIndex; i++)
+                    {
+                        Item NullItem = new(ItemType.Null, 0, 0, 0, 0, 0, 0, 0, 0);
+                        string itemDataJson = JsonUtility.ToJson(NullItem);
+                        reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot1).Child("Equipment").Child("EquipSlot" + i.ToString()).SetRawJsonValueAsync(itemDataJson);
                     }
                     CurrentDataSlot = _dataSlot3;
                     Slot3Data.Name = name;
@@ -243,6 +260,12 @@ public class DBManager
                     string itemDataJson = JsonUtility.ToJson(Managers.Inventory.Inventory[i]);
                     reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot1).Child("Inventory").Child("ItemSlot" + i.ToString()).SetRawJsonValueAsync(itemDataJson);
                 }
+                for (int i = (int)EquipmentIndex.HelmIndex; i <= (int)EquipmentIndex.GlovesIndex; i++)
+                {
+                    string itemDataJson = JsonUtility.ToJson(Managers.Inventory.Equipment[i]);
+                    reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot1).Child("Equipment").Child("EquipSlot" + i.ToString()).SetRawJsonValueAsync(itemDataJson);
+                }
+
 
             }
         });
@@ -301,9 +324,10 @@ public class DBManager
         });
     }
 
-    private void LoadData(PlayerData playerData, PlayerSkillData playerSkillData, Dictionary<int, Item> inventoryData, DataSnapshot snapshot, string dataSlot)
+    private void LoadData(PlayerData playerData, PlayerSkillData playerSkillData, Dictionary<int, Item> inventoryData, Dictionary<int, Item> equipmentData, DataSnapshot snapshot, string dataSlot)
     {
         inventoryData.Clear();
+        equipmentData.Clear();
         playerData.Name = snapshot.Child(dataSlot).Child("Name").Value.ToString();
         playerData.Level = int.Parse(snapshot.Child(dataSlot).Child("Level").Value.ToString());
         playerData.CurExp = int.Parse(snapshot.Child(dataSlot).Child("CurExp").Value.ToString());
@@ -313,40 +337,50 @@ public class DBManager
         playerSkillData.Num2SkillName = (SkillName)int.Parse(snapshot.Child(dataSlot).Child("SkillSet").Child("Num2SkillName").Value.ToString());
         playerSkillData.Num3SkillName = (SkillName)int.Parse(snapshot.Child(dataSlot).Child("SkillSet").Child("Num3SkillName").Value.ToString());
         playerSkillData.Num4SkillName = (SkillName)int.Parse(snapshot.Child(dataSlot).Child("SkillSet").Child("Num4SkillName").Value.ToString());
-        Debug.Log("어디서멈추냐1");
+
         for (int i = 0; i < 35; i++)
         {
-            Debug.Log("어디서멈추냐2");
-
             Item temp = new(ItemType.Null, 0, 0, 0, 0, 0, 0, 0, 0);
             Item item = temp;
-            Debug.Log("어디서멈추냐3");
-
             item.Type = (ItemType)int.Parse(snapshot.Child(dataSlot).Child("Inventory").Child("ItemSlot" + i.ToString()).Child("Type").Value.ToString());
-            Debug.Log("어디서멈추냐4");
-
             item.Level = int.Parse(snapshot.Child(dataSlot).Child("Inventory").Child("ItemSlot" + i.ToString()).Child("Level").Value.ToString());
-            Debug.Log("어디서멈추냐5");
-
             item.Life = int.Parse(snapshot.Child(dataSlot).Child("Inventory").Child("ItemSlot" + i.ToString()).Child("Life").Value.ToString());
-            Debug.Log("어디서멈추냐6");
             item.Mana = int.Parse(snapshot.Child(dataSlot).Child("Inventory").Child("ItemSlot" + i.ToString()).Child("Mana").Value.ToString());
-            Debug.Log("어디서멈추냐7");
             item.Damage = int.Parse(snapshot.Child(dataSlot).Child("Inventory").Child("ItemSlot" + i.ToString()).Child("Damage").Value.ToString());
-            Debug.Log("어디서멈추냐8");
             item.Armor = int.Parse(snapshot.Child(dataSlot).Child("Inventory").Child("ItemSlot" + i.ToString()).Child("Armor").Value.ToString());
-            Debug.Log("어디서멈추냐9");
             item.MoveSpeed = float.Parse(snapshot.Child(dataSlot).Child("Inventory").Child("ItemSlot" + i.ToString()).Child("MoveSpeed").Value.ToString());
-            Debug.Log("어디서멈추냐10");
             item.CooldownReduction = float.Parse(snapshot.Child(dataSlot).Child("Inventory").Child("ItemSlot" + i.ToString()).Child("CooldownReduction").Value.ToString());
-            Debug.Log("어디서멈추냐11");
             item.SpriteNum = int.Parse(snapshot.Child(dataSlot).Child("Inventory").Child("ItemSlot" + i.ToString()).Child("SpriteNum").Value.ToString());
-            Debug.Log("어디서멈추냐12");
             item.SpritePath = snapshot.Child(dataSlot).Child("Inventory").Child("ItemSlot" + i.ToString()).Child("SpritePath").Value.ToString();
-            Debug.Log("어디서멈추냐13");
-
             inventoryData.Add(i, item);
-            Debug.Log("어디서멈추냐14");
+        }
+        for (int i = 101; i <= 106; i++)
+        {
+            Item temp = new(ItemType.Null, 0, 0, 0, 0, 0, 0, 0, 0);
+            Item item = temp;
+            Debug.Log("어디냐1");
+            item.Type = (ItemType)int.Parse(snapshot.Child(dataSlot).Child("Equipment").Child("EquipSlot" + i.ToString()).Child("Type").Value.ToString());
+            Debug.Log("어디냐2");
+            item.Level = int.Parse(snapshot.Child(dataSlot).Child("Equipment").Child("EquipSlot" + i.ToString()).Child("Level").Value.ToString());
+            Debug.Log("어디냐3");
+            item.Life = int.Parse(snapshot.Child(dataSlot).Child("Equipment").Child("EquipSlot" + i.ToString()).Child("Life").Value.ToString());
+            Debug.Log("어디냐4");
+            item.Mana = int.Parse(snapshot.Child(dataSlot).Child("Equipment").Child("EquipSlot" + i.ToString()).Child("Mana").Value.ToString());
+            Debug.Log("어디냐5");
+            item.Damage = int.Parse(snapshot.Child(dataSlot).Child("Equipment").Child("EquipSlot" + i.ToString()).Child("Damage").Value.ToString());
+            Debug.Log("어디냐6");
+            item.Armor = int.Parse(snapshot.Child(dataSlot).Child("Equipment").Child("EquipSlot" + i.ToString()).Child("Armor").Value.ToString());
+            Debug.Log("어디냐7");
+            item.MoveSpeed = float.Parse(snapshot.Child(dataSlot).Child("Equipment").Child("EquipSlot" + i.ToString()).Child("MoveSpeed").Value.ToString());
+            Debug.Log("어디냐8");
+            item.CooldownReduction = float.Parse(snapshot.Child(dataSlot).Child("Equipment").Child("EquipSlot" + i.ToString()).Child("CooldownReduction").Value.ToString());
+            Debug.Log("어디냐9");
+            item.SpriteNum = int.Parse(snapshot.Child(dataSlot).Child("Equipment").Child("EquipSlot" + i.ToString()).Child("SpriteNum").Value.ToString());
+            Debug.Log("어디냐10");
+            item.SpritePath = snapshot.Child(dataSlot).Child("Equipment").Child("EquipSlot" + i.ToString()).Child("SpritePath").Value.ToString();
+            Debug.Log("어디냐11");
+            equipmentData.Add(i, item);
+            Debug.Log("어디냐12");
         }
     }
 

@@ -161,6 +161,7 @@ public class MainUI : UI_Scene
                     Managers.DB.CurrentPlayerSkillData = Managers.DB.Slot1SkillData;
                     //Managers.DB.CurrentInventoryData = Managers.DB.Slot1InventoryData;
                     Managers.Inventory.Inventory = Managers.DB.Slot1InventoryData;
+                    Managers.Inventory.Equipment = Managers.DB.Slot1EquipmantData;
                     GetText((int)Texts.LoadWarningText).text = "";
                 }
                 else
@@ -180,6 +181,7 @@ public class MainUI : UI_Scene
                     Managers.DB.CurrentPlayerSkillData = Managers.DB.Slot2SkillData;
                     //Managers.DB.CurrentInventoryData = Managers.DB.Slot2InventoryData;
                     Managers.Inventory.Inventory = Managers.DB.Slot2InventoryData;
+                    Managers.Inventory.Equipment = Managers.DB.Slot2EquipmantData;
 
                     GetText((int)Texts.LoadWarningText).text = "";
                 }
@@ -200,6 +202,7 @@ public class MainUI : UI_Scene
                     Managers.DB.CurrentPlayerData = Managers.DB.Slot3Data;
                     Managers.DB.CurrentPlayerSkillData = Managers.DB.Slot3SkillData;
                     Managers.Inventory.Inventory = Managers.DB.Slot3InventoryData;
+                    Managers.Inventory.Equipment = Managers.DB.Slot3EquipmantData;
                     //Managers.DB.CurrentInventoryData = Managers.DB.Slot3InventoryData;
 
                     GetText((int)Texts.LoadWarningText).text = "";
