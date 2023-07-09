@@ -82,15 +82,12 @@ public class InventoryUI : UI_Popup, IListener
     {
         _playerControlInput = FindAnyObjectByType<PlayerControlInput>();
     }
-    private void OnEnable()
-    {
-        UpdateInventory();
-        UpdateEquipment();
-    }
 
     private void Start()
     {
-        Init();
+        Init(); 
+        UpdateInventory();
+        UpdateEquipment();
     }
 
     private void Update()
