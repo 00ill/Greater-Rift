@@ -7,7 +7,8 @@ public enum SkillName
     Kick,
     BladeSlash,
     DarkFlare,
-    ShadowCleave
+    ShadowCleave,
+    BloodFlood
 }
 
 public enum SkillType
@@ -60,6 +61,7 @@ public class SkillGroup
         SkillList.Add(new SkillData(SkillName.BladeSlash, SkillType.M2Skill, 5f, 30, 2, "BladeSlash", 1.5f));
         SkillList.Add(new SkillData(SkillName.DarkFlare, SkillType.M2Skill, 3f, 10, 4, "DarkFlare", 1.2f));
         SkillList.Add(new SkillData(SkillName.ShadowCleave, SkillType.SkillSet1, 5f, 15, 4, "ShadowCleave", 2f));
+        SkillList.Add(new SkillData(SkillName.BloodFlood, SkillType.SkillSet4, 5f, 200, 30, "BloodFlood", 5f));
     }
 
     public SkillData GetSkillData(SkillName skillName)

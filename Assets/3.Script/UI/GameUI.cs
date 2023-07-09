@@ -69,7 +69,7 @@ public class GameUI : UI_Scene, IListener
         SkillSettingNum2_Temp2,
         SkillSettingNum3_Temp1,
         SkillSettingNum3_Temp2,
-        SkillSettingNum4_Temp1,
+        SkillSettingNum4_BloodFlood,
         SkillSettingNum4_Temp2,
 
     }
@@ -294,12 +294,12 @@ public class GameUI : UI_Scene, IListener
             Managers.Skill.CurrentSelectSkillName = SkillName.DarkFlare;
         });
         //½ºÅ³¼Â Num4
-        GetImage((int)Images.SkillSettingNum4_Temp1).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
-        GetImage((int)Images.SkillSettingNum4_Temp1).gameObject.BindEvent((PointerEventData data) =>
+        GetImage((int)Images.SkillSettingNum4_BloodFlood).sprite = Managers.Resource.Load<Sprite>(_skillPath + "BloodFlood");
+        GetImage((int)Images.SkillSettingNum4_BloodFlood).gameObject.BindEvent((PointerEventData data) =>
         {
-            GetText((int)Texts.SkillNum4Script).text = FindSkillScript(Images.SkillSettingNum4_Temp1);
+            GetText((int)Texts.SkillNum4Script).text = FindSkillScript(Images.SkillSettingNum4_BloodFlood);
 
-            Managers.Skill.CurrentSelectSkillName = SkillName.BladeSlash;
+            Managers.Skill.CurrentSelectSkillName = SkillName.BloodFlood;
         });
         GetImage((int)Images.SkillSettingNum4_Temp2).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
         GetImage((int)Images.SkillSettingNum4_Temp2).gameObject.BindEvent((PointerEventData data) =>

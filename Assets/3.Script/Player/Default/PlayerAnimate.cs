@@ -67,7 +67,7 @@ public class PlayerAnimate : MonoBehaviour, IListener
                 Managers.Event.PostNotification(Define.EVENT_TYPE.SkillInCooldown, this);
                 return;
             }
-            if (_playerStatus.ManaPool.CurrentValue < Managers.Skill.GetSkillData(Managers.Skill.CurrentM2SKillName).ManaCost)
+            if (_playerStatus.ManaPool.CurrentValue < Managers.Skill.GetSkillData(Managers.Skill.CurrentNum1SKillName).ManaCost)
             {
                 Managers.Event.PostNotification(Define.EVENT_TYPE.NotEnoughMana, this);
                 return;
@@ -105,11 +105,22 @@ public class PlayerAnimate : MonoBehaviour, IListener
     {
         if (callbackContext.performed)
         {
-            if (Managers.Skill.Num4SkillCooldownRemain <= 0)
+            if (Managers.Skill.Num4SkillCooldownRemain > 0f)
             {
-                Managers.Skill.StartNum4Cooldown();
-                _playerAnimator.Play(Managers.Skill.GetSkillData(Managers.Skill.CurrentNum4SKillName).ResourceName);
+                Managers.Event.PostNotification(Define.EVENT_TYPE.SkillInCooldown, this);
+                return;
             }
+            if (_playerStatus.ManaPool.CurrentValue < Managers.Skill.GetSkillData(Managers.Skill.CurrentNum4SKillName).ManaCost)
+            {
+                Managers.Event.PostNotification(Define.EVENT_TYPE.NotEnoughMana, this);
+                return;
+            }
+            LookAtTarget();
+            Managers.Skill.StartNum4Cooldown();
+            _playerStatus.ManaPool.CurrentValue -= Managers.Skill.GetSkillData(Managers.Skill.CurrentNum4SKillName).ManaCost;
+            _playerAnimator.Play(Managers.Skill.GetSkillData(Managers.Skill.CurrentNum4SKillName).ResourceName);
+            Debug.Log("บํวม");
+            Managers.Event.PostNotification(Define.EVENT_TYPE.PlayerManaChange, this);
         }
     }
 
@@ -178,6 +189,12 @@ public class PlayerAnimate : MonoBehaviour, IListener
         col.GetComponent<ShadowCleave>().ShootShadowCol();
         GameObject vfx = Managers.Resource.Instantiate("ShadowCleaveEffect");
         vfx.transform.SetPositionAndRotation(transform.position + Vector3.up * 0.5f, transform.rotation);
+    }
+
+    private void BloodFlood()
+    {
+        GameObject bloodFlood = Managers.Resource.Instantiate("BloodFlood");
+        bloodFlood.transform.position = transform.position + Vector3.up *0.5f;
     }
 
     public void OnEvent(Define.EVENT_TYPE Event_Type, Component Sender, object Param = null)

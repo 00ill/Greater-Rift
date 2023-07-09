@@ -1597,7 +1597,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8239278854550734758}
   m_Layer: 5
-  m_Name: SkillNum4_Temp1
+  m_Name: SkillNum4_BloodFlood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8490,7 +8490,7 @@ GameObject:
   - component: {fileID: 4594283680576197525}
   - component: {fileID: 3582560080219202949}
   m_Layer: 5
-  m_Name: SkillSettingNum4_Temp1
+  m_Name: SkillSettingNum4_BloodFlood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
