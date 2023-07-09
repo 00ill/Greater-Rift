@@ -39,14 +39,14 @@ public class PlayerControl : MonoBehaviour, ICommandHandle
 
     public void UpdateSpeed()
     {
-        if(_playerStatus != null)
+        if (_playerStatus != null)
         {
             _playerAgent.speed = _playerStatus.GetStats(Statistic.MoveSpeed).FloatValue;
         }
-        else if(TryGetComponent(out _playerStatus))
+        else if (TryGetComponent(out _playerStatus))
         {
             _playerAgent.speed = _playerStatus.GetStats(Statistic.MoveSpeed).FloatValue;
         }
-        
+
     }
 }

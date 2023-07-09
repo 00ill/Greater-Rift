@@ -5,7 +5,7 @@ using UnityEngine;
 public class BladeSlash : MonoBehaviour
 {
     private PlayerStatus _playerStatus;
-    
+
     private void OnEnable()
     {
         _playerStatus = FindObjectOfType<PlayerStatus>();

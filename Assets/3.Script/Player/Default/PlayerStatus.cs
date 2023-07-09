@@ -131,7 +131,7 @@ public class PlayerStatus : MonoBehaviour, IDamageable, IListener
 
     private void Awake()
     {
-        TryGetComponent(out  _playerControl);
+        TryGetComponent(out _playerControl);
     }
     private void OnEnable()
     {
@@ -228,12 +228,12 @@ public class PlayerStatus : MonoBehaviour, IDamageable, IListener
         {
             _playerControl.UpdateSpeed();
         }
-        else if(TryGetComponent(out _playerControl))
+        else if (TryGetComponent(out _playerControl))
         {
             _playerControl.UpdateSpeed();
         }
 
-        
+
 
 
         ExpPool = new ValuePool((Managers.Data.PlayerStatusDataDict[Stats.Get(Statistic.Level).IntetgerValue].RequireExp), Stats.StatsList[(int)Statistic.Exp].IntetgerValue);

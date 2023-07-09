@@ -85,7 +85,7 @@ public class InventoryUI : UI_Popup, IListener
 
     private void Start()
     {
-        Init(); 
+        Init();
         UpdateInventory();
         UpdateEquipment();
     }
