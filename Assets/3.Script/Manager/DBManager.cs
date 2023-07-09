@@ -146,17 +146,28 @@ public class DBManager
                 PlayerSkillData playerSkillData = new();
                 string playerSkillDataJson = JsonUtility.ToJson(playerSkillData);
 
-                // 새로운 스킬 만들고 스킬매니저에 전달해주는 건데 이게 왜 여기있을까
-                // 로드데이터가 실행이 안되서 여기에 할당한 번 해준거 같음
-                // 일단 없어도 문제 없음
-                //Managers.Skill.CurrentM1SKillName = playerSkillData.M1SkillName;
-                //Managers.Skill.CurrentM2SKillName = playerSkillData.M2SkillName;
-                //Managers.Skill.CurrentNum1SKillName = playerSkillData.Num1SkillName;
-                //Managers.Skill.CurrentNum2SKillName = playerSkillData.Num2SkillName;
-                //Managers.Skill.CurrentNum3SKillName = playerSkillData.Num3SkillName;
-                //Managers.Skill.CurrentNum4SKillName = playerSkillData.Num4SkillName;
+                //새로운 스킬데이터와 인벤토리, 장착들을 할당해 줘야함
 
-                // 장비창에 관해서는 인벤토리 매니저에서 초기화를 해주기 때문에 할당해줄 필요는 없음, 생성할때 기본 틀만 만들어 놓으면 될듯
+                Managers.Skill.CurrentM1SKillName = playerSkillData.M1SkillName;
+                Managers.Skill.CurrentM2SKillName = playerSkillData.M2SkillName;
+                Managers.Skill.CurrentNum1SKillName = playerSkillData.Num1SkillName;
+                Managers.Skill.CurrentNum2SKillName = playerSkillData.Num2SkillName;
+                Managers.Skill.CurrentNum4SKillName = playerSkillData.Num4SkillName;
+                Managers.Skill.CurrentNum3SKillName = playerSkillData.Num3SkillName;
+
+                Managers.Inventory.Inventory.Clear();
+                Managers.Inventory.Equipment.Clear();
+
+                Item NullItemForInit = new(ItemType.Null, 0, 0, 0, 0, 0, 0, 0, 0);
+
+                for (int i = 0; i < Managers.Inventory.ItemCountMax; i++)
+                {
+                    Managers.Inventory.Inventory.Add(i, NullItemForInit);
+                }
+                for (int i = Managers.Inventory.HelmIndex; i <= Managers.Inventory.GlovesIndex; i++)
+                {
+                    Managers.Inventory.Equipment.Add(i, NullItemForInit);
+                }
 
 
                 if (!snapshot.HasChild(_dataSlot1))
@@ -189,13 +200,13 @@ public class DBManager
                     {
                         Item NullItem = new(ItemType.Null, 0, 0, 0, 0, 0, 0, 0, 0);
                         string itemDataJson = JsonUtility.ToJson(NullItem);
-                        reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot1).Child("Inventory").Child("ItemSlot" + i.ToString()).SetRawJsonValueAsync(itemDataJson);
+                        reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot2).Child("Inventory").Child("ItemSlot" + i.ToString()).SetRawJsonValueAsync(itemDataJson);
                     }
                     for (int i = (int)EquipmentIndex.HelmIndex; i <= (int)EquipmentIndex.GlovesIndex; i++)
                     {
                         Item NullItem = new(ItemType.Null, 0, 0, 0, 0, 0, 0, 0, 0);
                         string itemDataJson = JsonUtility.ToJson(NullItem);
-                        reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot1).Child("Equipment").Child("EquipSlot" + i.ToString()).SetRawJsonValueAsync(itemDataJson);
+                        reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot2).Child("Equipment").Child("EquipSlot" + i.ToString()).SetRawJsonValueAsync(itemDataJson);
                     }
                     CurrentDataSlot = _dataSlot2;
                     Slot2Data.Name = name;
@@ -209,15 +220,16 @@ public class DBManager
                     reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot3).Child("SkillSet").SetRawJsonValueAsync(playerSkillDataJson);
                     for (int i = 0; i < Managers.Inventory.Inventory.Count; i++)
                     {
+                        Debug.Log("슬롯2 인벤");
                         Item NullItem = new(ItemType.Null, 0, 0, 0, 0, 0, 0, 0, 0);
                         string itemDataJson = JsonUtility.ToJson(NullItem);
-                        reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot1).Child("Inventory").Child("ItemSlot" + i.ToString()).SetRawJsonValueAsync(itemDataJson);
+                        reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot3).Child("Inventory").Child("ItemSlot" + i.ToString()).SetRawJsonValueAsync(itemDataJson);
                     }
                     for (int i = (int)EquipmentIndex.HelmIndex; i <= (int)EquipmentIndex.GlovesIndex; i++)
                     {
                         Item NullItem = new(ItemType.Null, 0, 0, 0, 0, 0, 0, 0, 0);
                         string itemDataJson = JsonUtility.ToJson(NullItem);
-                        reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot1).Child("Equipment").Child("EquipSlot" + i.ToString()).SetRawJsonValueAsync(itemDataJson);
+                        reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot3).Child("Equipment").Child("EquipSlot" + i.ToString()).SetRawJsonValueAsync(itemDataJson);
                     }
                     CurrentDataSlot = _dataSlot3;
                     Slot3Data.Name = name;
@@ -255,12 +267,12 @@ public class DBManager
                 for (int i = 0; i < Managers.Inventory.Inventory.Count; i++)
                 {
                     string itemDataJson = JsonUtility.ToJson(Managers.Inventory.Inventory[i]);
-                    reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot1).Child("Inventory").Child("ItemSlot" + i.ToString()).SetRawJsonValueAsync(itemDataJson);
+                    reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(CurrentDataSlot).Child("Inventory").Child("ItemSlot" + i.ToString()).SetRawJsonValueAsync(itemDataJson);
                 }
                 for (int i = (int)EquipmentIndex.HelmIndex; i <= (int)EquipmentIndex.GlovesIndex; i++)
                 {
                     string itemDataJson = JsonUtility.ToJson(Managers.Inventory.Equipment[i]);
-                    reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot1).Child("Equipment").Child("EquipSlot" + i.ToString()).SetRawJsonValueAsync(itemDataJson);
+                    reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(CurrentDataSlot).Child("Equipment").Child("EquipSlot" + i.ToString()).SetRawJsonValueAsync(itemDataJson);
                 }
 
 

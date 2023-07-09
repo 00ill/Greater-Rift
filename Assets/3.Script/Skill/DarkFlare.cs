@@ -80,7 +80,7 @@ public class DarkFlare : Projectile
             {
                 if (_enemyStatuses[i] != null)
                 {
-                    _enemyStatuses[i].TakeDamage(10, _playerStatus);
+                    _enemyStatuses[i].TakeDamage((int)(_playerStatus.GetStats(Statistic.Damage).IntetgerValue * Managers.Skill.GetSkillData(SkillName.DarkFlare).DamageCoefficient), _playerStatus);
                 }
             }
             yield return _damageTick;

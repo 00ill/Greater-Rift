@@ -94,28 +94,27 @@ public class SkillManager
 
     public void StartM1Cooldown()
     {
-        M1SkillCooldownRemain = Skills.GetSkillData(CurrentM1SKillName).Cooldown;
-
+        M1SkillCooldownRemain = Skills.GetSkillData(CurrentM1SKillName).Cooldown - Managers.Inventory.ItemTotal.CooldownReduction;
     }
     public void StartM2Cooldown()
     {
-        M2SkillCooldownRemain = Skills.GetSkillData(CurrentM2SKillName).Cooldown;
+        M2SkillCooldownRemain = Skills.GetSkillData(CurrentM2SKillName).Cooldown - Managers.Inventory.ItemTotal.CooldownReduction;
     }
     public void StartNum1Cooldown()
     {
-        Num1SkillCooldownRemain = Skills.GetSkillData(CurrentNum1SKillName).Cooldown;
+        Num1SkillCooldownRemain = Skills.GetSkillData(CurrentNum1SKillName).Cooldown - Managers.Inventory.ItemTotal.CooldownReduction;
     }
     public void StartNum2Cooldown()
     {
-        Num2SkillCooldownRemain = Skills.GetSkillData(CurrentNum2SKillName).Cooldown;
+        Num2SkillCooldownRemain = Skills.GetSkillData(CurrentNum2SKillName).Cooldown - Managers.Inventory.ItemTotal.CooldownReduction;
     }
     public void StartNum3Cooldown()
     {
-        Num3SkillCooldownRemain = Skills.GetSkillData(CurrentNum3SKillName).Cooldown;
+        Num3SkillCooldownRemain = Skills.GetSkillData(CurrentNum3SKillName).Cooldown - Managers.Inventory.ItemTotal.CooldownReduction;
     }
     public void StartNum4Cooldown()
     {
-        Num4SkillCooldownRemain = Skills.GetSkillData(CurrentNum4SKillName).Cooldown;
+        Num4SkillCooldownRemain = Skills.GetSkillData(CurrentNum4SKillName).Cooldown - Managers.Inventory.ItemTotal.CooldownReduction;
     }
 
     public void ResetSkillCooldown()

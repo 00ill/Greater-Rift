@@ -5,11 +5,7 @@ using UnityEngine;
 public class BladeSlash : MonoBehaviour
 {
     private PlayerStatus _playerStatus;
-
-    private void Awake()
-    {
-
-    }
+    
     private void OnEnable()
     {
         _playerStatus = FindObjectOfType<PlayerStatus>();
@@ -19,7 +15,7 @@ public class BladeSlash : MonoBehaviour
     {
         if (other.TryGetComponent(out EnemyStatus enemyStatus))
         {
-            enemyStatus.TakeDamage(10, _playerStatus);
+            enemyStatus.TakeDamage((int)(_playerStatus.GetStats(Statistic.Damage).IntetgerValue * Managers.Skill.GetSkillData(SkillName.BladeSlash).DamageCoefficient), _playerStatus);
         }
     }
     private IEnumerator DestroySkill()
