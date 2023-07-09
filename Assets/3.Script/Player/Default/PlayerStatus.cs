@@ -126,6 +126,13 @@ public class PlayerStatus : MonoBehaviour, IDamageable, IListener
     public StatsGroup LevelStatus;
     public StatsGroup ItemStatus;
 
+    // 플레이이 이동속도 변경위한 변수
+    private PlayerControl _playerControl;
+
+    private void Awake()
+    {
+        TryGetComponent(out  _playerControl);
+    }
     private void OnEnable()
     {
         Stats = new StatsGroup();
@@ -217,6 +224,16 @@ public class PlayerStatus : MonoBehaviour, IDamageable, IListener
         SetStats(Statistic.Damage, LevelStatus.Get(Statistic.Damage).IntetgerValue + ItemStatus.Get(Statistic.Damage).IntetgerValue);
         SetStats(Statistic.Armor, LevelStatus.Get(Statistic.Armor).IntetgerValue + ItemStatus.Get(Statistic.Armor).IntetgerValue);
         SetStats(Statistic.MoveSpeed, LevelStatus.Get(Statistic.MoveSpeed).FloatValue + ItemStatus.Get(Statistic.MoveSpeed).FloatValue);
+        if (_playerControl != null)
+        {
+            _playerControl.UpdateSpeed();
+        }
+        else if(TryGetComponent(out _playerControl))
+        {
+            _playerControl.UpdateSpeed();
+        }
+
+        
 
 
         ExpPool = new ValuePool((Managers.Data.PlayerStatusDataDict[Stats.Get(Statistic.Level).IntetgerValue].RequireExp), Stats.StatsList[(int)Statistic.Exp].IntetgerValue);

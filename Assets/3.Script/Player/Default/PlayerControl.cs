@@ -16,7 +16,7 @@ public class PlayerControl : MonoBehaviour, ICommandHandle
 
     private void Start()
     {
-        _playerAgent.speed = _playerStatus.GetStats(Statistic.MoveSpeed).FloatValue;
+        UpdateSpeed();
     }
     public void SetDestination(Vector3 destinationPosition)
     {
@@ -35,5 +35,18 @@ public class PlayerControl : MonoBehaviour, ICommandHandle
         GameObject marker = Managers.Resource.Instantiate("Marker");
         marker.transform.position = _playerAgent.destination + Vector3.up * 0.5f;
         command.isComplete = true;
+    }
+
+    public void UpdateSpeed()
+    {
+        if(_playerStatus != null)
+        {
+            _playerAgent.speed = _playerStatus.GetStats(Statistic.MoveSpeed).FloatValue;
+        }
+        else if(TryGetComponent(out _playerStatus))
+        {
+            _playerAgent.speed = _playerStatus.GetStats(Statistic.MoveSpeed).FloatValue;
+        }
+        
     }
 }
