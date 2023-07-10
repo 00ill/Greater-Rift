@@ -51,7 +51,9 @@ public class Define
         PlayerDeath,
         FullInventory,
         GetItem,
-        ChangeStatus
+        ChangeStatus,
+        CountEnemyDeath,
+        GuardianHpChange
 
     }
 

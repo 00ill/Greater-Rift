@@ -55,8 +55,8 @@ public class TaskAttack : BehaviorTree.Node
         _enemyAgent.updateRotation = true;
     }
 
-    public void AttackAnimationEvent()
-    {
-        _playerStatus.TakeDamage(_enemyStatus.GetStats(Enemy.Statistic.Damage).IntegerValue);
-    }
+    //public void AttackAnimationEvent()
+    //{
+    //    _playerStatus.TakeDamage(_enemyStatus.GetStats(Enemy.Statistic.Damage).IntegerValue);
+    //}
 }

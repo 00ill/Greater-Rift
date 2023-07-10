@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public enum Statistic
 {
@@ -127,11 +128,12 @@ public class PlayerStatus : MonoBehaviour, IDamageable, IListener
     public StatsGroup ItemStatus;
 
     // 플레이이 이동속도 변경위한 변수
-    private PlayerControl _playerControl;
+    private NavMeshAgent _playerAgent;
+
 
     private void Awake()
     {
-        TryGetComponent(out _playerControl);
+        TryGetComponent(out _playerAgent);
     }
     private void OnEnable()
     {
@@ -216,6 +218,7 @@ public class PlayerStatus : MonoBehaviour, IDamageable, IListener
 
     private void UpdateStatus(bool isLevelUp)
     {
+        Managers.Inventory.CalcItemTotal();
         ItemStatus.UpdateItemStatus();
         SetStats(Statistic.Level, LevelStatus.Get(Statistic.Level).IntetgerValue);
         SetStats(Statistic.Exp, LevelStatus.Get(Statistic.Exp).IntetgerValue);
@@ -224,17 +227,7 @@ public class PlayerStatus : MonoBehaviour, IDamageable, IListener
         SetStats(Statistic.Damage, LevelStatus.Get(Statistic.Damage).IntetgerValue + ItemStatus.Get(Statistic.Damage).IntetgerValue);
         SetStats(Statistic.Armor, LevelStatus.Get(Statistic.Armor).IntetgerValue + ItemStatus.Get(Statistic.Armor).IntetgerValue);
         SetStats(Statistic.MoveSpeed, LevelStatus.Get(Statistic.MoveSpeed).FloatValue + ItemStatus.Get(Statistic.MoveSpeed).FloatValue);
-        if (_playerControl != null)
-        {
-            _playerControl.UpdateSpeed();
-        }
-        else if (TryGetComponent(out _playerControl))
-        {
-            _playerControl.UpdateSpeed();
-        }
-
-
-
+        _playerAgent.speed = GetStats(Statistic.MoveSpeed).FloatValue;
 
         ExpPool = new ValuePool((Managers.Data.PlayerStatusDataDict[Stats.Get(Statistic.Level).IntetgerValue].RequireExp), Stats.StatsList[(int)Statistic.Exp].IntetgerValue);
         if (isLevelUp)
@@ -247,6 +240,7 @@ public class PlayerStatus : MonoBehaviour, IDamageable, IListener
             LifePool = new ValuePool(Stats.Get(Statistic.Life).IntetgerValue, LifePool.CurrentValue);
             ManaPool = new ValuePool(Stats.Get(Statistic.Mana).IntetgerValue, ManaPool.CurrentValue);
         }
+
         Managers.Event.PostNotification(Define.EVENT_TYPE.PlayerHpChange, this);
         Managers.Event.PostNotification(Define.EVENT_TYPE.PlayerManaChange, this);
         Managers.Event.PostNotification(Define.EVENT_TYPE.LevelUp, this);

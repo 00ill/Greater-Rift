@@ -18,6 +18,7 @@ public class NormalRiftPortal : MonoBehaviour
     }
     private void OnEnable()
     {
+        _interactableObject.enabled = true;
         StartCoroutine(OpenPortal());
     }
 
@@ -51,8 +52,13 @@ public class NormalRiftPortal : MonoBehaviour
 
     private void EntranceDungeon()
     {
+        _interactableObject.enabled = false;
         Managers.Game.IsPlayerInRift = true;
         StartCoroutine(ClosePortal());
+    }
 
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
     }
 }

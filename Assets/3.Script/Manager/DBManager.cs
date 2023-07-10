@@ -220,7 +220,6 @@ public class DBManager
                     reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot3).Child("SkillSet").SetRawJsonValueAsync(playerSkillDataJson);
                     for (int i = 0; i < Managers.Inventory.Inventory.Count; i++)
                     {
-                        Debug.Log("½½·Ô2 ÀÎº¥");
                         Item NullItem = new(ItemType.Null, 0, 0, 0, 0, 0, 0, 0, 0);
                         string itemDataJson = JsonUtility.ToJson(NullItem);
                         reference.Child("Account").Child("ID").Child(CurrecntUserID).Child(_dataSlot3).Child("Inventory").Child("ItemSlot" + i.ToString()).SetRawJsonValueAsync(itemDataJson);

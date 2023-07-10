@@ -119,7 +119,6 @@ public class PlayerAnimate : MonoBehaviour, IListener
             Managers.Skill.StartNum4Cooldown();
             _playerStatus.ManaPool.CurrentValue -= Managers.Skill.GetSkillData(Managers.Skill.CurrentNum4SKillName).ManaCost;
             _playerAnimator.Play(Managers.Skill.GetSkillData(Managers.Skill.CurrentNum4SKillName).ResourceName);
-            Debug.Log("บํวม");
             Managers.Event.PostNotification(Define.EVENT_TYPE.PlayerManaChange, this);
         }
     }

@@ -14,10 +14,6 @@ public class PlayerControl : MonoBehaviour, ICommandHandle
         TryGetComponent(out _playerStatus);
     }
 
-    private void Start()
-    {
-        UpdateSpeed();
-    }
     public void SetDestination(Vector3 destinationPosition)
     {
         _playerAgent.isStopped = false;

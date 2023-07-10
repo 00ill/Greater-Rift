@@ -122,12 +122,13 @@ public class GameUI : UI_Scene, IListener
 
     }
 
-
+    private Canvas _canvas;
     private readonly string _skillPath = "Images/Skill/";
     private readonly WaitForSeconds _warningTime = new(1);
     private Coroutine _warningCoroutine = null;
     private void Awake()
     {
+        TryGetComponent(out _canvas);
         _playerControlInput = FindAnyObjectByType<PlayerControlInput>();
     }
 
@@ -135,6 +136,10 @@ public class GameUI : UI_Scene, IListener
     {
         Init();
         Cursor.visible = false;
+        if (Managers.Game.IsPlayerInRift)
+        {
+            Managers.UI.ShowPopupUI<UI_Popup>("NormalRiftUI");
+        }
     }
 
     private void Update()
@@ -345,18 +350,21 @@ public class GameUI : UI_Scene, IListener
 
         GetButton((int)Buttons.Continue).gameObject.BindEvent((PointerEventData data) =>
             {
+                _canvas.sortingOrder = 0;
                 Time.timeScale = 1.0f;
                 GetObject((int)Objects.PausePanel).SetActive(false);
             });
         GetButton((int)Buttons.SaveAndQuit).gameObject.BindEvent((PointerEventData data) =>
             {
+                _canvas.sortingOrder = 0;
                 Time.timeScale = 1.0f;
                 Managers.DB.SaveData(new DBManager.PlayerData(Managers.DB.CurrentPlayerData.Name,
                     FindObjectOfType<PlayerStatus>().GetStats(Statistic.Level).IntetgerValue,
                     FindObjectOfType<PlayerStatus>().ExpPool.CurrentValue));
                 Managers.DB.ResetLoadData();
                 Managers.Skill.ResetSkillCooldown();
-                GetObject((int)Objects.PausePanel).SetActive(false); Managers.Scene.LoadScene(Define.Scene.MainMenu);
+                GetObject((int)Objects.PausePanel).SetActive(false);
+                Managers.Scene.LoadScene(Define.Scene.MainMenu);
             });
         GetObject((int)Objects.PausePanel).SetActive(false);
     }
@@ -369,6 +377,7 @@ public class GameUI : UI_Scene, IListener
 
         GetButton((int)Buttons.DeathTownButton).gameObject.BindEvent((PointerEventData data) =>
         {
+            _canvas.sortingOrder = 0;
             Managers.Scene.LoadScene(Define.Scene.Town);
         });
     }
@@ -381,10 +390,12 @@ public class GameUI : UI_Scene, IListener
         }
         else
         {
+            _canvas.sortingOrder = 99;
             Managers.Game.IsUiPopUp = true;
         }
         GetButton((int)Buttons.TutorialConfirm).gameObject.BindEvent((PointerEventData data) =>
         {
+            _canvas.sortingOrder = 0;
             GetObject((int)Objects.TutorialPanel).SetActive(false);
             Managers.Game.IsUiPopUp = false;
         });
@@ -648,18 +659,22 @@ public class GameUI : UI_Scene, IListener
                 {
                     if (Sender != null)
                     {
-                        if (Sender.TryGetComponent(out Enemy.EnemyStatus enemyStatus) && !enemyStatus.IsDead)
+                        if (!Managers.Game.isGuardianSpawn)
                         {
-                            //몬스터이고 죽지 않았다면
-                            GetText((int)Texts.InteractableObjectName).text = enemyStatus.GetStats(Enemy.Statistic.Name).strValue;
-                            Get<Slider>((int)Sliders.EnemyHpBar).gameObject.SetActive(true);
-                            Get<Slider>((int)Sliders.EnemyHpBar).value = enemyStatus.LifePool.CurrentValue / (float)enemyStatus.LifePool.MaxValue;
-                        }
-                        else if (Sender.TryGetComponent(out InteractableObject interactableObject))
-                        {
-                            //상호작용이 가능하다면
-                            GetText((int)Texts.InteractableObjectName).text = interactableObject.ObjectName;
-                            Get<Slider>((int)Sliders.EnemyHpBar).gameObject.SetActive(false);
+                            if (Sender.TryGetComponent(out Enemy.EnemyStatus enemyStatus) && !enemyStatus.IsDead)
+                            {
+                                //몬스터이고 죽지 않았다면
+                                GetText((int)Texts.InteractableObjectName).text = enemyStatus.GetStats(Enemy.Statistic.Name).strValue;
+                                Get<Slider>((int)Sliders.EnemyHpBar).gameObject.SetActive(true);
+                                Get<Slider>((int)Sliders.EnemyHpBar).value = enemyStatus.LifePool.CurrentValue / (float)enemyStatus.LifePool.MaxValue;
+                            }
+                            else if (Sender.TryGetComponent(out InteractableObject interactableObject))
+                            {
+                                //상호작용이 가능하다면
+                                GetText((int)Texts.InteractableObjectName).text = interactableObject.ObjectName;
+                                Get<Slider>((int)Sliders.EnemyHpBar).gameObject.SetActive(false);
+                            }
+
                         }
                     }
                     else
@@ -676,6 +691,7 @@ public class GameUI : UI_Scene, IListener
                 }
             case Define.EVENT_TYPE.Pause:
                 {
+                    _canvas.sortingOrder = 99;
                     GetObject((int)Objects.PausePanel).SetActive(true);
                     Time.timeScale = 0f;
                     break;
@@ -731,6 +747,7 @@ public class GameUI : UI_Scene, IListener
                 }
             case Define.EVENT_TYPE.PlayerDeath:
                 {
+                    _canvas.sortingOrder = 99;
                     GetObject((int)Objects.DeathPanel).SetActive(true);
                     break;
                 }

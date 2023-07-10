@@ -49,6 +49,8 @@ public class PlayerPortal : MonoBehaviour
 
     private void ExitDungeon()
     {
+        Managers.Game.isGuardianSpawn = false;
+        Managers.Game.NormalRiftClearMonsterNum = 50;
         Managers.Game.IsPlayerInRift = false;
         StartCoroutine(ClosePortal());
     }

@@ -10,7 +10,6 @@ public enum EquipmentIndex
     GlovesIndex
 }
 
-
 public class InventoryManager
 {
     public int ItemCount;
@@ -45,8 +44,6 @@ public class InventoryManager
         for (int i = 0; i < ItemCountMax; i++)
         {
             Inventory.Add(i, NullItem);
-            //Inventory = Managers.DB.CurrentInventoryData;
-            //Inventory.Add(i, Managers.DB.CurrentInventoryData[i]);
         }
         for (int i = HelmIndex; i <= GlovesIndex; i++)
         {
@@ -126,7 +123,6 @@ public class InventoryManager
                     break;
                 }
         }
-        CalcItemTotal();
         Managers.Event.PostNotification(Define.EVENT_TYPE.ChangeStatus, null);
     }
 
@@ -137,7 +133,6 @@ public class InventoryManager
     {
         (Equipment[SelectedItemIndex], Inventory[PointedItemIndex]) = (Inventory[PointedItemIndex], Equipment[SelectedItemIndex]);
         ItemCount++;
-        CalcItemTotal();
         Managers.Event.PostNotification(Define.EVENT_TYPE.ChangeStatus, null);
     }
 

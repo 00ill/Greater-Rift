@@ -16,7 +16,6 @@ public class FlyingEyeProjectile : Projectile
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log(" 투사체와 충돌");
             _playerStatus.TakeDamage(_enemyStatus.GetStats(Enemy.Statistic.Damage).IntegerValue);
             Managers.Resource.Destroy(gameObject);
         }

@@ -98,7 +98,7 @@ namespace Enemy
         //Damage PopUp
         private static Canvas _gameUI;
 
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
             Stats = new StatsGroup();
             Stats.Init(_enemyData);
@@ -109,7 +109,7 @@ namespace Enemy
             OnDeath += CheckItemSpawn;
         }
 
-        public void TakeDamage(int damage, PlayerStatus playerStatus)
+        public virtual void TakeDamage(int damage, PlayerStatus playerStatus)
         {
             if (!IsDead)
             {
@@ -139,6 +139,7 @@ namespace Enemy
         {
             if (LifePool.CurrentValue <= 0 && !IsDead)
             {
+                Managers.Event.PostNotification(Define.EVENT_TYPE.CountEnemyDeath, this);
                 playerStatus.GainExp(2 + playerStatus.GetStats(global::Statistic.Level).IntetgerValue / 5);
                 OnDeath?.Invoke();
             }
