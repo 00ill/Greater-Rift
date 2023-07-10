@@ -151,10 +151,10 @@ namespace Enemy
         private void CheckItemSpawn()
         {
             _enemyCollider.enabled = false;
-            int itemDropProb = 100;
+            int itemDropProb = 30;
             if (Util.Probability(itemDropProb))
             {
-                Item item = Managers.Item.GenerateItem(_playerStatus.GetStats(global::Statistic.Level).IntetgerValue);
+                Item item = Managers.Item.GenerateItem(_playerStatus.GetStats(global::Statistic.Level).IntetgerValue,transform);
                 GameObject itemBox = Managers.Resource.Instantiate("ItemBox");
                 itemBox.transform.position = transform.position;
                 itemBox.GetComponent<ItemBox>().ItemData = item;
