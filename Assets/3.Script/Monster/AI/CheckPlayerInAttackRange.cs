@@ -29,7 +29,6 @@ public class CheckPlayerInAttackRange : BehaviorTree.Node
         Transform target = (Transform)t;
         if (Vector3.Distance(_enemyTransform.position, target.position) <= _enemyStatus.GetStats(Enemy.Statistic.AttackRange).IntegerValue)
         {
-            Debug.Log("평타 사거리안에있음");
             if(_enemyAgent.enabled)
             {
                 _enemyAgent.avoidancePriority = 49;

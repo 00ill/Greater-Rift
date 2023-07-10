@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Medusa
   m_EditorClassIdentifier: 
   Name: Medusa
-  Life: 1000
-  Damage: 20
+  Life: 200
+  Damage: 10
   Armor: 1
   DetectionRange: 20
   AttackRange: 4

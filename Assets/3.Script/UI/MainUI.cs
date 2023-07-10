@@ -277,6 +277,7 @@ public class MainUI : UI_Scene
             GetText((int)Texts.SignUpWarningText).text = "Please enter your Password.";
             return;
         }
+        Managers.Game.PlayerLevel = 1;
         Managers.DB.CreateAccount(id, password);
     }
 
@@ -342,6 +343,7 @@ public class MainUI : UI_Scene
         }
         else
         {
+            Managers.Game.PlayerLevel = Managers.DB.CurrentPlayerData.Level;
             GetText((int)Texts.LoadWarningText).text = "<color=white>Starting....</color>";
             Managers.DB.UpdateSkillData();
             Managers.Scene.LoadScene(Define.Scene.Town);

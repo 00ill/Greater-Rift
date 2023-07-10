@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: FlyingEye
   m_EditorClassIdentifier: 
   Name: FlyingEye
-  Life: 400
-  Damage: 50
+  Life: 100
+  Damage: 20
   Armor: 0
   DetectionRange: 30
-  AttackRange: 15
+  AttackRange: 12
   AttackCooldown: 2
   MoveSpeed: 5

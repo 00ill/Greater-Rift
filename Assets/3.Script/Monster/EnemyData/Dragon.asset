@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Dragon
   m_EditorClassIdentifier: 
   Name: Dragon
-  Life: 100000
-  Damage: 200
-  Armor: 30
+  Life: 3000
+  Damage: 40
+  Armor: 10
   DetectionRange: 30
   AttackRange: 4
   AttackCooldown: 1

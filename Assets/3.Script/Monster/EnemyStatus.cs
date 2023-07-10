@@ -50,22 +50,18 @@ namespace Enemy
 
         public void Init(EnemyData enemyData)
         {
+            //PlayerStatus playerStatus = GameObject.FindObjectOfType<PlayerStatus>();
+            //float AscentCoefficient = playerStatus.GetStats(global::Statistic.Level).IntetgerValue * 0.7f;
+
             StatsList.Add(new StatsValue(Statistic.Name, enemyData.Name));
-            StatsList.Add(new StatsValue(Statistic.Life, enemyData.Life));
-            StatsList.Add(new StatsValue(Statistic.Damage, enemyData.Damage));
-            StatsList.Add(new StatsValue(Statistic.Armor, enemyData.Armor));
+            StatsList.Add(new StatsValue(Statistic.Life, enemyData.Life * Managers.Game.PlayerLevel));
+            StatsList.Add(new StatsValue(Statistic.Damage, enemyData.Damage * Managers.Game.PlayerLevel ));
+            StatsList.Add(new StatsValue(Statistic.Armor, enemyData.Armor * Managers.Game.PlayerLevel));
             StatsList.Add(new StatsValue(Statistic.MoveSpeed, enemyData.MoveSpeed));
             StatsList.Add(new StatsValue(Statistic.FovRange, enemyData.DetectionRange));
             StatsList.Add(new StatsValue(Statistic.AttackRange, enemyData.AttackRange));
             StatsList.Add(new StatsValue(Statistic.AttackCooldown, enemyData.AttackCooldown));
-            //StatsList.Add(new StatsValue(Statistic.Name, "Hellion"));
-            //StatsList.Add(new StatsValue(Statistic.Life, 20));
-            //StatsList.Add(new StatsValue(Statistic.Damage, 3));
-            //StatsList.Add(new StatsValue(Statistic.Armor, 5));
-            //StatsList.Add(new StatsValue(Statistic.MoveSpeed, 6));
-            //StatsList.Add(new StatsValue(Statistic.FovRange, 20));
-            //StatsList.Add(new StatsValue(Statistic.AttackRange, 2.4f));
-            //StatsList.Add(new StatsValue(Statistic.AttackCooldown, 3f));
+            
         }
 
         internal StatsValue Get(Statistic statisticToGet)

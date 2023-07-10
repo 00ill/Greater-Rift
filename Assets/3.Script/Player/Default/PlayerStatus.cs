@@ -134,6 +134,7 @@ public class PlayerStatus : MonoBehaviour, IDamageable, IListener
     private void Awake()
     {
         TryGetComponent(out _playerAgent);
+
     }
     private void OnEnable()
     {
@@ -221,6 +222,7 @@ public class PlayerStatus : MonoBehaviour, IDamageable, IListener
         Managers.Inventory.CalcItemTotal();
         ItemStatus.UpdateItemStatus();
         SetStats(Statistic.Level, LevelStatus.Get(Statistic.Level).IntetgerValue);
+        Managers.Game.PlayerLevel = LevelStatus.Get(Statistic.Level).IntetgerValue;
         SetStats(Statistic.Exp, LevelStatus.Get(Statistic.Exp).IntetgerValue);
         SetStats(Statistic.Life, LevelStatus.Get(Statistic.Life).IntetgerValue + ItemStatus.Get(Statistic.Life).IntetgerValue);
         SetStats(Statistic.Mana, LevelStatus.Get(Statistic.Mana).IntetgerValue + ItemStatus.Get(Statistic.Mana).IntetgerValue);

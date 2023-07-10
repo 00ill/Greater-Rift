@@ -37,7 +37,6 @@ public class RangeMonsterAI : BehaviorTree.Tree
 
     private void OnDeath()
     {
-        Managers.Game.NormalRiftClearMonsterNum--;
         EnemyStatus.IsDead = true;
         EnemyAnimator.SetTrigger("Death");
         EnemyAgent.enabled = false;
