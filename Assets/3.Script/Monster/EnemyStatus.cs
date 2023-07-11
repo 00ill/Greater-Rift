@@ -50,8 +50,6 @@ namespace Enemy
 
         public void Init(EnemyData enemyData)
         {
-            //PlayerStatus playerStatus = GameObject.FindObjectOfType<PlayerStatus>();
-            //float AscentCoefficient = playerStatus.GetStats(global::Statistic.Level).IntetgerValue * 0.7f;
 
             StatsList.Add(new StatsValue(Statistic.Name, enemyData.Name));
             StatsList.Add(new StatsValue(Statistic.Life, enemyData.Life * Managers.Game.PlayerLevel));
@@ -89,7 +87,7 @@ namespace Enemy
         public ValuePool LifePool;
         public Action OnDeath;
         private PlayerStatus _playerStatus;
-        private Collider _enemyCollider;
+        protected Collider _enemyCollider;
 
         //Damage PopUp
         private static Canvas _gameUI;
@@ -148,13 +146,13 @@ namespace Enemy
         }
 
 
-        private void CheckItemSpawn()
+        protected void CheckItemSpawn()
         {
             _enemyCollider.enabled = false;
             int itemDropProb = 30;
             if (Util.Probability(itemDropProb))
             {
-                Managers.Item.GenerateItem(_playerStatus.GetStats(global::Statistic.Level).IntetgerValue,transform);
+                Managers.Item.GenerateItem(_playerStatus.GetStats(global::Statistic.Level).IntetgerValue,transform.position);
             }
         }
     }

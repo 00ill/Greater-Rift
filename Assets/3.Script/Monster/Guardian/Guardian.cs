@@ -1,3 +1,4 @@
+using Data;
 using Enemy;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,6 +13,9 @@ public class Guardian : EnemyStatus
         base.OnEnable();
         OnDeath -= OnGuardianDeath;
         OnDeath += OnGuardianDeath;
+        OnDeath -= CheckItemSpawn;
+        OnDeath -= GuardianCheckItemSpawn;
+        OnDeath += GuardianCheckItemSpawn;
     }
     public override void TakeDamage(int damage, PlayerStatus playerStatus)
     {
@@ -22,5 +26,31 @@ public class Guardian : EnemyStatus
     private void OnGuardianDeath()
     {
         Managers.Game.isGuardianSpawn = false;
+    }
+
+    private void GuardianCheckItemSpawn()
+    {
+        _enemyCollider.enabled = false;
+        int itemDropProb = 30;
+        if (Util.Probability(itemDropProb))
+        {
+            Managers.Item.GenerateItem(Managers.Game.PlayerLevel, transform.position);
+        }
+        if (Util.Probability(itemDropProb))
+        {
+            Managers.Item.GenerateItem(Managers.Game.PlayerLevel, transform.position + Vector3.forward);
+        }
+        if (Util.Probability(itemDropProb))
+        {
+            Managers.Item.GenerateItem(Managers.Game.PlayerLevel, transform.position + Vector3.back);
+        }
+        if (Util.Probability(itemDropProb))
+        {
+            Managers.Item.GenerateItem(Managers.Game.PlayerLevel, transform.position + Vector3.left);
+        }
+        if (Util.Probability(itemDropProb))
+        {
+            Managers.Item.GenerateItem(Managers.Game.PlayerLevel, transform.position + Vector3.right);
+        }
     }
 }

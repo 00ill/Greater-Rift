@@ -7,7 +7,7 @@ public class ItemManager
     public int MagicProb = 30;
     public int GradeCoefficient;
     public string ItemBox;
-    public void GenerateItem(int level, Transform transform)
+    public void GenerateItem(int level, Vector3 position)
     {
         ItemBox = CheckItemGrade();
         int type = UnityEngine.Random.Range(1, 7);
@@ -22,7 +22,7 @@ public class ItemManager
 
 
         GameObject itemBox = Managers.Resource.Instantiate(ItemBox);
-        itemBox.transform.position = transform.position;
+        itemBox.transform.position = position;
         itemBox.GetComponent<ItemBox>().ItemData = item;
     }
     
