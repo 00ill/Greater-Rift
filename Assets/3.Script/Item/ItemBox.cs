@@ -8,7 +8,7 @@ public class ItemBox : MonoBehaviour
 {
 
     private InteractableObject _interactableObject;
-    public Item ItemData;
+    [HideInInspector] public Item ItemData;
 
     private void Awake()
     {
@@ -33,7 +33,6 @@ public class ItemBox : MonoBehaviour
         {
             if (Managers.Inventory.Inventory[i].Type == ItemType.Null)
             {
-                Debug.Log("아이템 딕셔너리에 집어넣기");
                 Managers.Inventory.Inventory[i] = ItemData;
                 break;
             }

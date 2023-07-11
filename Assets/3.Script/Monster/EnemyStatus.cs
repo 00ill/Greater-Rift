@@ -154,10 +154,7 @@ namespace Enemy
             int itemDropProb = 30;
             if (Util.Probability(itemDropProb))
             {
-                Item item = Managers.Item.GenerateItem(_playerStatus.GetStats(global::Statistic.Level).IntetgerValue,transform);
-                GameObject itemBox = Managers.Resource.Instantiate("ItemBox");
-                itemBox.transform.position = transform.position;
-                itemBox.GetComponent<ItemBox>().ItemData = item;
+                Managers.Item.GenerateItem(_playerStatus.GetStats(global::Statistic.Level).IntetgerValue,transform);
             }
         }
     }

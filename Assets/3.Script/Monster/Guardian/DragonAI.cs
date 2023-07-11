@@ -73,7 +73,6 @@ public class DragonAI : BehaviorTree.Tree
 
     private void BreathStop()
     {
-        Debug.Log("여기 들어오나");
         EnemyAgent.enabled = true;
         _isAttacking = false ;
     }
