@@ -10,6 +10,12 @@ public class Define
 
     }
 
+    public enum Sound
+    {
+        Bgm,
+        Effect,
+        MaxCount
+    }
     public enum InteractType
     {
         Dungeon,
@@ -78,4 +84,6 @@ public class Define
         Num3Skill,
         Num4Skill
     }
+
+
 }

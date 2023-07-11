@@ -98,6 +98,7 @@ public class MainUI : UI_Scene
 
         Managers.Event.DBEvent -= DB_Event;
         Managers.Event.DBEvent += DB_Event;
+        Managers.Sound.Play("MainBGM", Define.Sound.Bgm);
     }
     private void Start()
     {

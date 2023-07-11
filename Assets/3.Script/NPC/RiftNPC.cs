@@ -11,6 +11,7 @@ public class RiftNPC : MonoBehaviour
     private void Start()
     {
         _interactableObject.AddInteract(ShowDialogUI);
+        Managers.Sound.Play("TownBGM", Define.Sound.Bgm);
     }
 
     private void ShowDialogUI()
