@@ -284,7 +284,7 @@ public class GameUI : UI_Scene, IListener
             GetText((int)Texts.SkillNum2Script).text = FindSkillScript(Images.SkillSettingNum2_ShadowRain);
             Managers.Skill.CurrentSelectSkillName = SkillName.ShadowRain;
         });
-        GetImage((int)Images.SkillSettingNum2_ShadowImpulse).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
+        GetImage((int)Images.SkillSettingNum2_ShadowImpulse).sprite = Managers.Resource.Load<Sprite>(_skillPath + "ShadowImpulse");
         GetImage((int)Images.SkillSettingNum2_ShadowImpulse).gameObject.BindEvent((PointerEventData data) =>
         {
             Managers.Sound.Play("ButtonClick");
@@ -390,6 +390,7 @@ public class GameUI : UI_Scene, IListener
         {
             Managers.Sound.Play("ButtonClick");
             _canvas.sortingOrder = 0;
+            Managers.Game.IsPlayerInRift = false;
             Managers.Event.PostNotification(Define.EVENT_TYPE.TurnBackTown, this);
             Managers.Scene.LoadScene(Define.Scene.Town);
         });
@@ -462,7 +463,7 @@ public class GameUI : UI_Scene, IListener
                 }
             case Images.SkillSettingNum2_ShadowImpulse:
                 {
-                    return "360% damage to the enemy in a straight line.";
+                    return "500% damage to the enemy in Area";
                 }
             case Images.SkillSettingNum3_Karma:
                 {
@@ -474,11 +475,11 @@ public class GameUI : UI_Scene, IListener
                 }
             case Images.SkillSettingNum4_BloodFlood:
                 {
-                    return "Spread attacks that cause 500% damage.";
+                    return "Spread attacks that cause 1000% damage.";
                 }
             case Images.SkillSettingNum4_ExposeOfDarkness:
                 {
-                    return "Spread attacks in large Area that cause 300% damage.";
+                    return "Spread attacks in large Area that cause 500% damage.";
                 } 
         }
 
@@ -547,7 +548,7 @@ public class GameUI : UI_Scene, IListener
             GetImage((int)Images.SkillNum1).sprite = Managers.Resource.Load<Sprite>(_skillPath
                 + Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentSelectSkillName).ResourceName);
             Managers.Skill.CurrentNum1SKillName = Managers.Skill.CurrentSelectSkillName;
-            GetObject((int)Objects.SkillM1Panel).SetActive(false);
+            GetObject((int)Objects.SkillNum1Panel).SetActive(false);
         }
     }
     private void SkillNum1PanelExit()

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 73484632851902737}
   - component: {fileID: 8195641620536145554}
   - component: {fileID: 9129404059364123947}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Effect_27_ShockWave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4909,7 +4909,7 @@ GameObject:
   - component: {fileID: 8700531049692214953}
   - component: {fileID: 3833832798487191413}
   - component: {fileID: 5070177366509551515}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Effect_27_ParticleSide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9807,7 +9807,7 @@ GameObject:
   - component: {fileID: 3863048729540013149}
   - component: {fileID: 6078035993029477249}
   - component: {fileID: 3310530467618701957}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Effect_27_Distort
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14703,7 +14703,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9033505386117189137}
-  m_Layer: 0
+  - component: {fileID: 5612357232273742211}
+  - component: {fileID: 5214203674263954142}
+  - component: {fileID: 5753311561460411734}
+  m_Layer: 8
   m_Name: ExposeOfDarkness
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14728,3 +14731,63 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5612357232273742211
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8280883842371298801}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 100, y: 50, z: 100}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &5214203674263954142
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8280883842371298801}
+  serializedVersion: 4
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &5753311561460411734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8280883842371298801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56b50c4d7180d5c41a5d6bb531330317, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -53,6 +53,7 @@ public class PlayerPortal : MonoBehaviour
         Managers.Game.isGuardianSpawn = false;
         Managers.Game.NormalRiftClearMonsterNum = 50;
         Managers.Game.IsPlayerInRift = false;
+        
         StartCoroutine(ClosePortal());
     }
 }
