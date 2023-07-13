@@ -463,7 +463,7 @@ public class GameUI : UI_Scene, IListener
                 }
             case Images.SkillSettingNum2_ShadowImpulse:
                 {
-                    return "500% damage to the enemy in Area";
+                    return "360% damage to the enemy in Area";
                 }
             case Images.SkillSettingNum3_Karma:
                 {
@@ -475,11 +475,11 @@ public class GameUI : UI_Scene, IListener
                 }
             case Images.SkillSettingNum4_BloodFlood:
                 {
-                    return "Spread attacks that cause 1000% damage.";
+                    return "Spread attacks that cause 400% damage.";
                 }
             case Images.SkillSettingNum4_ExposeOfDarkness:
                 {
-                    return "Spread attacks in large Area that cause 500% damage.";
+                    return "Spread attacks in large Area that cause 180% damage.";
                 } 
         }
 
