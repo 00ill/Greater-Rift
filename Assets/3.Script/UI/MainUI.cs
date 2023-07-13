@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class MainUI : UI_Scene
@@ -30,6 +31,7 @@ public class MainUI : UI_Scene
     }
     enum Images
     {
+        Cursor
     }
     enum Texts
     {
@@ -100,8 +102,10 @@ public class MainUI : UI_Scene
         Managers.Event.DBEvent += DB_Event;
         Managers.Sound.Play("MainBGM", Define.Sound.Bgm);
     }
+    private Vector3 _mousePos;
     private void Start()
     {
+        Cursor.visible = false;
         Init();
     }
     private void Update()
@@ -110,7 +114,14 @@ public class MainUI : UI_Scene
         {
             StartCoroutine(ProcessActionQueue());
         }
+        GetImage((int)Images.Cursor).transform.position = _mousePos + new Vector3(13.3f, -31f, 0);
     }
+
+    public void UpdateMousePos(InputAction.CallbackContext callbackContext)
+    {
+        _mousePos = callbackContext.ReadValue<Vector2>();
+    }
+
 
     private void InitMenuPanel()
     {
@@ -154,6 +165,7 @@ public class MainUI : UI_Scene
 
         GetObject((int)GameObjects.FirstData).BindEvent((PointerEventData data) =>
             {
+                Managers.Sound.Play("ButtonClick");
                 HighlightData(GameObjects.FirstData);
                 if (GetText((int)Texts.FirstDataName).text != "No Data")
                 {
@@ -173,6 +185,7 @@ public class MainUI : UI_Scene
             });
         GetObject((int)GameObjects.SecondData).BindEvent((PointerEventData data) =>
             {
+                Managers.Sound.Play("ButtonClick");
                 HighlightData(GameObjects.SecondData);
                 if (GetText((int)Texts.SecondDataName).text != "No Data")
                 {
@@ -194,6 +207,7 @@ public class MainUI : UI_Scene
             });
         GetObject((int)GameObjects.ThirdData).BindEvent((PointerEventData data) =>
             {
+                Managers.Sound.Play("ButtonClick");
                 HighlightData(GameObjects.ThirdData);
                 if (GetText((int)Texts.ThirdDataName).text != "No Data")
                 {
@@ -214,9 +228,9 @@ public class MainUI : UI_Scene
 
             });
 
-        GetButton((int)Buttons.FirstDataDelete).gameObject.BindEvent((PointerEventData data) => { Managers.DB.DeletaData(1); });
-        GetButton((int)Buttons.SecondDataDelete).gameObject.BindEvent((PointerEventData data) => { Managers.DB.DeletaData(2); });
-        GetButton((int)Buttons.ThirdDataDelete).gameObject.BindEvent((PointerEventData data) => { Managers.DB.DeletaData(3); });
+        GetButton((int)Buttons.FirstDataDelete).gameObject.BindEvent((PointerEventData data) => { Managers.Sound.Play("ButtonClick"); Managers.DB.DeletaData(1); });
+        GetButton((int)Buttons.SecondDataDelete).gameObject.BindEvent((PointerEventData data) => { Managers.Sound.Play("ButtonClick"); Managers.DB.DeletaData(2); });
+        GetButton((int)Buttons.ThirdDataDelete).gameObject.BindEvent((PointerEventData data) => { Managers.Sound.Play("ButtonClick"); Managers.DB.DeletaData(3); });
         GetButton((int)Buttons.LoadStart).gameObject.BindEvent((PointerEventData data) => LoadStart());
         GetButton((int)Buttons.LoadCancel).gameObject.BindEvent((PointerEventData data) => LoadCancel());
 
@@ -234,7 +248,8 @@ public class MainUI : UI_Scene
 
         GetButton((int)Buttons.LoginButton).gameObject.BindEvent((PointerEventData data) => { Login(); });
         GetButton((int)Buttons.SignUpButton).gameObject.BindEvent((PointerEventData data) =>
-        {
+        {Managers.Sound.Play("ButtonClick");
+            Managers.Sound.Play("ButtonClick");
             GetObject((int)GameObjects.SignUpPanel).SetActive(true);
             GetObject((int)GameObjects.LoginPanel).SetActive(false);
         });
@@ -251,6 +266,7 @@ public class MainUI : UI_Scene
         GetButton((int)Buttons.SignUpConfirmButton).gameObject.BindEvent((PointerEventData data) => { CreateAccount(); });
         GetButton((int)Buttons.SignUpCancelButton).gameObject.BindEvent((PointerEventData data) =>
             {
+                Managers.Sound.Play("ButtonClick");
                 GetObject((int)GameObjects.SignUpPanel).SetActive(false);
                 GetObject((int)GameObjects.LoginPanel).SetActive(true);
             });
@@ -265,6 +281,7 @@ public class MainUI : UI_Scene
 
     private void CreateAccount()
     {
+        Managers.Sound.Play("ButtonClick");
         string id = Get<TMP_InputField>((int)InputFields.SignUpIDInput).text;
         string password = Get<TMP_InputField>((int)InputFields.SignUpPWInput).text;
 
@@ -284,6 +301,7 @@ public class MainUI : UI_Scene
 
     private void Login()
     {
+        Managers.Sound.Play("ButtonClick");
         GetText((int)Texts.LoginWaringText).text = "<color=white>Login....</color>";
         string id = Get<TMP_InputField>((int)InputFields.LoginIDInput).text;
         string password = Get<TMP_InputField>((int)InputFields.LoginPWInput).text;
@@ -302,12 +320,14 @@ public class MainUI : UI_Scene
     }
     private void NewStartEvent()
     {
+        Managers.Sound.Play("ButtonClick");
         GetObject((int)GameObjects.MenuPanel).SetActive(false);
         GetObject((int)GameObjects.NewCharacter).SetActive(true);
     }
 
     private void LoadDataEvent()
     {
+        Managers.Sound.Play("ButtonClick");
         //불러오기
         GetObject((int)GameObjects.MenuPanel).SetActive(false);
         GetObject((int)GameObjects.LoadDataPanel).SetActive(true);
@@ -315,11 +335,13 @@ public class MainUI : UI_Scene
 
     private void OptionEvent()
     {
+        Managers.Sound.Play("ButtonClick");
         //옵션 UI 출력
     }
 
     private void CharacterConfirm()
     {
+        Managers.Sound.Play("ButtonClick");
         if (Get<TMP_InputField>((int)InputFields.NameInput).text != string.Empty)
         {
             Managers.DB.CreatePlayerData(GetText((int)Texts.NameInputText).text);
@@ -331,6 +353,7 @@ public class MainUI : UI_Scene
     }
     private void CharacterCancel()
     {
+        Managers.Sound.Play("ButtonClick");
         GetText((int)Texts.WarningText).text = "";
         GetObject((int)GameObjects.MenuPanel).SetActive(true);
         GetObject((int)GameObjects.NewCharacter).SetActive(false);
@@ -338,6 +361,7 @@ public class MainUI : UI_Scene
 
     private void LoadStart()
     {
+        Managers.Sound.Play("ButtonClick");
         if (Managers.DB.CurrentPlayerData == null)
         {
             GetText((int)Texts.LoadWarningText).text = "Please Select Data";
@@ -352,6 +376,7 @@ public class MainUI : UI_Scene
     }
     private void LoadCancel()
     {
+        Managers.Sound.Play("ButtonClick");
         GetObject((int)GameObjects.MenuPanel).SetActive(true);
         GetObject((int)GameObjects.LoadDataPanel).SetActive(false);
     }

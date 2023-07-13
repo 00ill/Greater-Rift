@@ -17,7 +17,7 @@ public enum ItemType
 //float 값
 //공격속도, 이동속도
 
-public class Item : MonoBehaviour
+public class Item
 {
     public ItemType Type;
     public int Level;

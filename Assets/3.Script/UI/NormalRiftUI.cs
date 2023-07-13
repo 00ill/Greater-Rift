@@ -52,6 +52,7 @@ public class NormalRiftUI : UI_Popup, IListener
 
         Managers.Event.AddListener(Define.EVENT_TYPE.CountEnemyDeath, this);
         Managers.Event.AddListener(Define.EVENT_TYPE.GuardianHpChange, this);
+        Managers.Event.AddListener(Define.EVENT_TYPE.TurnBackTown, this);
     }
 
     public void OnEvent(Define.EVENT_TYPE Event_Type, Component Sender, object Param = null)
@@ -82,6 +83,11 @@ public class NormalRiftUI : UI_Popup, IListener
                         GetObject((int)Objects.GuardianPanel).SetActive(false);
                         GetText((int)Texts.RiftText).text = "Rift Clear! Go back to town.";
                     }
+                    break;
+                }
+            case Define.EVENT_TYPE.TurnBackTown:
+                {
+                   Managers.UI.ClosePopupUI();
                     break;
                 }
         }

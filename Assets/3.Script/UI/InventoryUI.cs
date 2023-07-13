@@ -158,6 +158,7 @@ public class InventoryUI : UI_Popup, IListener
             {
                 if (Managers.Inventory.Inventory[temp].Type != ItemType.Null)
                 {
+                    Managers.Sound.Play("ButtonClick");
                     Managers.Inventory.SelectedItemIndex = temp;
                     _previousParent = GetImage((int)(Images)temp).transform.parent;
                     GetImage((int)(Images)temp).transform.SetParent(GetObject((int)Objects.TopCanvas).transform);
@@ -180,6 +181,7 @@ public class InventoryUI : UI_Popup, IListener
 
             GetImage((int)(Images)i).gameObject.BindEvent((PointerEventData data) =>
             {
+                Managers.Sound.Play("ButtonClick");
                 GetImage((int)(Images)temp).transform.SetParent(_previousParent);
                 GetImage((int)Images.SelectedItem).gameObject.SetActive(false);
 
@@ -238,6 +240,7 @@ public class InventoryUI : UI_Popup, IListener
             {
                 if (Managers.Inventory.Equipment[temp].Type != ItemType.Null)
                 {
+                    Managers.Sound.Play("ButtonClick");
                     Managers.Inventory.SelectedItemIndex = temp;
                     _previousParent = GetImage((int)(Images)temp - Managers.Inventory.IndexInterval).transform.parent;
                     GetImage((int)(Images)temp - Managers.Inventory.IndexInterval).transform.SetParent(GetObject((int)Objects.TopCanvas).transform);
@@ -259,6 +262,7 @@ public class InventoryUI : UI_Popup, IListener
 
             GetImage((int)(Images)i - Managers.Inventory.IndexInterval).gameObject.BindEvent((PointerEventData data) =>
             {
+                Managers.Sound.Play("ButtonClick");
                 GetImage((int)(Images)temp - Managers.Inventory.IndexInterval).transform.SetParent(_previousParent);
                 GetImage((int)Images.SelectedItem).gameObject.SetActive(false);
 

@@ -18,6 +18,8 @@ public class Managers : MonoBehaviour
     SoundManager _sound = new();
     UIManager _ui = new();
 
+    PathfindingManager _pathfinding = new();
+
     public static DataManager Data { get { return Instance._data; } }
     public static DBManager DB { get { return Instance._db; } }
     public static EventManager Event { get { return Instance._eventManager; } }
@@ -30,6 +32,8 @@ public class Managers : MonoBehaviour
     public static SkillManager Skill { get { return Instance._skill; } }
     public static SoundManager Sound { get { return Instance._sound; } }
     public static UIManager UI { get { return Instance._ui; } }
+
+    public static PathfindingManager Pathfinding { get {  return Instance._pathfinding; } }
     void Start()
     {
         Init();

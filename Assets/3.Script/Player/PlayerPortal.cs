@@ -44,6 +44,7 @@ public class PlayerPortal : MonoBehaviour
         yield return _animTime;
         _closePortal.SetActive(false);
         Managers.Game.isPlayerPortalOpen = false;
+        Managers.Event.PostNotification(Define.EVENT_TYPE.TurnBackTown, this);
         Managers.Scene.LoadScene(Define.Scene.Town);
     }
 

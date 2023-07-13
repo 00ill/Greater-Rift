@@ -59,7 +59,8 @@ public class Define
         GetItem,
         ChangeStatus,
         CountEnemyDeath,
-        GuardianHpChange
+        GuardianHpChange,
+        TurnBackTown
 
     }
 

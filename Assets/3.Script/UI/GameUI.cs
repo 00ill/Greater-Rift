@@ -232,12 +232,14 @@ public class GameUI : UI_Scene, IListener
         GetImage((int)Images.SkillSetingM1_Cutting).sprite = Managers.Resource.Load<Sprite>(_skillPath + "ShadowSlash");
         GetImage((int)Images.SkillSetingM1_Cutting).gameObject.BindEvent((PointerEventData data) =>
         {
+            Managers.Sound.Play("ButtonClick");
             GetText((int)Texts.SkillM1Script).text = FindSkillScript(Images.SkillSetingM1_Cutting);
             Managers.Skill.CurrentSelectSkillName = SkillName.ShadowSlash;
         });
         GetImage((int)Images.SkillSetingM1_Kick).sprite = Managers.Resource.Load<Sprite>(_skillPath + "Kick");
         GetImage((int)Images.SkillSetingM1_Kick).gameObject.BindEvent((PointerEventData data) =>
         {
+            Managers.Sound.Play("ButtonClick");
             GetText((int)Texts.SkillM1Script).text = FindSkillScript(Images.SkillSetingM1_Kick);
             Managers.Skill.CurrentSelectSkillName = SkillName.Kick;
         });
@@ -245,12 +247,14 @@ public class GameUI : UI_Scene, IListener
         GetImage((int)Images.SkillSetingM2_BladeSlash).sprite = Managers.Resource.Load<Sprite>(_skillPath + "BladeSlash");
         GetImage((int)Images.SkillSetingM2_BladeSlash).gameObject.BindEvent((PointerEventData data) =>
         {
+            Managers.Sound.Play("ButtonClick");
             GetText((int)Texts.SkillM2Script).text = FindSkillScript(Images.SkillSetingM2_BladeSlash);
             Managers.Skill.CurrentSelectSkillName = SkillName.BladeSlash;
         });
         GetImage((int)Images.SkillSetingM2_DarkFlare).sprite = Managers.Resource.Load<Sprite>(_skillPath + "DarkFlare");
         GetImage((int)Images.SkillSetingM2_DarkFlare).gameObject.BindEvent((PointerEventData data) =>
         {
+            Managers.Sound.Play("ButtonClick");
             GetText((int)Texts.SkillM2Script).text = FindSkillScript(Images.SkillSetingM2_DarkFlare);
             Managers.Skill.CurrentSelectSkillName = SkillName.DarkFlare;
         });
@@ -260,13 +264,14 @@ public class GameUI : UI_Scene, IListener
         GetImage((int)Images.SkillSettingNum1_ShadowCleave).sprite = Managers.Resource.Load<Sprite>(_skillPath + "ShadowCleave");
         GetImage((int)Images.SkillSettingNum1_ShadowCleave).gameObject.BindEvent((PointerEventData data) =>
         {
+            Managers.Sound.Play("ButtonClick");
             GetText((int)Texts.SkillNum1Script).text = FindSkillScript(Images.SkillSettingNum1_ShadowCleave);
-
             Managers.Skill.CurrentSelectSkillName = SkillName.ShadowCleave;
         });
         GetImage((int)Images.SkillSettingNum1_Temp2).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
         GetImage((int)Images.SkillSettingNum1_Temp2).gameObject.BindEvent((PointerEventData data) =>
         {
+            Managers.Sound.Play("ButtonClick");
             GetText((int)Texts.SkillNum1Script).text = FindSkillScript(Images.SkillSettingNum1_Temp2);
             Managers.Skill.CurrentSelectSkillName = SkillName.DarkFlare;
         });
@@ -274,13 +279,14 @@ public class GameUI : UI_Scene, IListener
         GetImage((int)Images.SkillSettingNum2_Temp1).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
         GetImage((int)Images.SkillSettingNum2_Temp1).gameObject.BindEvent((PointerEventData data) =>
         {
+            Managers.Sound.Play("ButtonClick");
             GetText((int)Texts.SkillNum2Script).text = FindSkillScript(Images.SkillSettingNum2_Temp1);
-
             Managers.Skill.CurrentSelectSkillName = SkillName.BladeSlash;
         });
         GetImage((int)Images.SkillSettingNum2_Temp2).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
         GetImage((int)Images.SkillSettingNum2_Temp2).gameObject.BindEvent((PointerEventData data) =>
         {
+            Managers.Sound.Play("ButtonClick");
             GetText((int)Texts.SkillNum2Script).text = FindSkillScript(Images.SkillSettingNum2_Temp2);
             Managers.Skill.CurrentSelectSkillName = SkillName.DarkFlare;
         });
@@ -288,13 +294,14 @@ public class GameUI : UI_Scene, IListener
         GetImage((int)Images.SkillSettingNum3_Temp1).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
         GetImage((int)Images.SkillSettingNum3_Temp1).gameObject.BindEvent((PointerEventData data) =>
         {
+            Managers.Sound.Play("ButtonClick");
             GetText((int)Texts.SkillNum3Script).text = FindSkillScript(Images.SkillSettingNum3_Temp1);
-
             Managers.Skill.CurrentSelectSkillName = SkillName.BladeSlash;
         });
         GetImage((int)Images.SkillSettingNum3_Temp2).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
         GetImage((int)Images.SkillSettingNum3_Temp2).gameObject.BindEvent((PointerEventData data) =>
         {
+            Managers.Sound.Play("ButtonClick");
             GetText((int)Texts.SkillNum3Script).text = FindSkillScript(Images.SkillSettingNum3_Temp2);
             Managers.Skill.CurrentSelectSkillName = SkillName.DarkFlare;
         });
@@ -302,36 +309,37 @@ public class GameUI : UI_Scene, IListener
         GetImage((int)Images.SkillSettingNum4_BloodFlood).sprite = Managers.Resource.Load<Sprite>(_skillPath + "BloodFlood");
         GetImage((int)Images.SkillSettingNum4_BloodFlood).gameObject.BindEvent((PointerEventData data) =>
         {
+            Managers.Sound.Play("ButtonClick");
             GetText((int)Texts.SkillNum4Script).text = FindSkillScript(Images.SkillSettingNum4_BloodFlood);
-
             Managers.Skill.CurrentSelectSkillName = SkillName.BloodFlood;
         });
         GetImage((int)Images.SkillSettingNum4_Temp2).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
         GetImage((int)Images.SkillSettingNum4_Temp2).gameObject.BindEvent((PointerEventData data) =>
         {
+            Managers.Sound.Play("ButtonClick");
             GetText((int)Texts.SkillNum4Script).text = FindSkillScript(Images.SkillSettingNum4_Temp2);
             Managers.Skill.CurrentSelectSkillName = SkillName.DarkFlare;
         });
 
-        GetButton((int)Buttons.SkillSettingExit).gameObject.BindEvent((PointerEventData data) => CloseSkillSettingUI());
-        GetButton((int)Buttons.SkillSetM1).gameObject.BindEvent((PointerEventData data) => SKillSetM1Open());
-        GetButton((int)Buttons.SkillM1Confirm).gameObject.BindEvent((PointerEventData data) => SkillM1PanelConfirm());
-        GetButton((int)Buttons.SkillM1Exit).gameObject.BindEvent((PointerEventData data) => SkillM1PanelExit());
-        GetButton((int)Buttons.SkillSetM2).gameObject.BindEvent((PointerEventData data) => SKillSetM2Open());
-        GetButton((int)Buttons.SkillM2Confirm).gameObject.BindEvent((PointerEventData data) => SkillM2PanelConfirm());
-        GetButton((int)Buttons.SkillM2Exit).gameObject.BindEvent((PointerEventData data) => SkillM2PanelExit());
-        GetButton((int)Buttons.SkillSetNum1).gameObject.BindEvent((PointerEventData data) => SKillSetNum1Open());
-        GetButton((int)Buttons.SkillNum1Confirm).gameObject.BindEvent((PointerEventData data) => SkillNum1PanelConfirm());
-        GetButton((int)Buttons.SkillNum1Exit).gameObject.BindEvent((PointerEventData data) => SkillNum1PanelExit());
-        GetButton((int)Buttons.SkillSetNum2).gameObject.BindEvent((PointerEventData data) => SKillSetNum2Open());
-        GetButton((int)Buttons.SkillNum2Confirm).gameObject.BindEvent((PointerEventData data) => SkillNum2PanelConfirm());
-        GetButton((int)Buttons.SkillNum2Exit).gameObject.BindEvent((PointerEventData data) => SkillNum2PanelExit());
-        GetButton((int)Buttons.SkillSetNum3).gameObject.BindEvent((PointerEventData data) => SKillSetNum3Open());
-        GetButton((int)Buttons.SkillNum3Confirm).gameObject.BindEvent((PointerEventData data) => SkillNum3PanelConfirm());
-        GetButton((int)Buttons.SkillNum3Exit).gameObject.BindEvent((PointerEventData data) => SkillNum3PanelExit());
-        GetButton((int)Buttons.SkillSetNum4).gameObject.BindEvent((PointerEventData data) => SKillSetNum4Open());
-        GetButton((int)Buttons.SkillNum4Confirm).gameObject.BindEvent((PointerEventData data) => SkillNum4PanelConfirm());
-        GetButton((int)Buttons.SkillNum4Exit).gameObject.BindEvent((PointerEventData data) => SkillNum4PanelExit());
+        GetButton((int)Buttons.SkillSettingExit).gameObject.BindEvent((PointerEventData data) => { Managers.Sound.Play("ButtonClick"); CloseSkillSettingUI(); });
+        GetButton((int)Buttons.SkillSetM1).gameObject.BindEvent((PointerEventData data) => { Managers.Sound.Play("ButtonClick"); SKillSetM1Open(); });
+        GetButton((int)Buttons.SkillM1Confirm).gameObject.BindEvent((PointerEventData data) => { Managers.Sound.Play("ButtonClick"); SkillM1PanelConfirm(); });
+        GetButton((int)Buttons.SkillM1Exit).gameObject.BindEvent((PointerEventData data) => { Managers.Sound.Play("ButtonClick"); SkillM1PanelExit(); });
+        GetButton((int)Buttons.SkillSetM2).gameObject.BindEvent((PointerEventData data) => { Managers.Sound.Play("ButtonClick"); SKillSetM2Open(); });
+        GetButton((int)Buttons.SkillM2Confirm).gameObject.BindEvent((PointerEventData data) => { Managers.Sound.Play("ButtonClick"); SkillM2PanelConfirm(); });
+        GetButton((int)Buttons.SkillM2Exit).gameObject.BindEvent((PointerEventData data) => { Managers.Sound.Play("ButtonClick"); SkillM2PanelExit(); });
+        GetButton((int)Buttons.SkillSetNum1).gameObject.BindEvent((PointerEventData data) => { Managers.Sound.Play("ButtonClick"); SKillSetNum1Open(); });
+        GetButton((int)Buttons.SkillNum1Confirm).gameObject.BindEvent((PointerEventData data) => { Managers.Sound.Play("ButtonClick"); SkillNum1PanelConfirm(); });
+        GetButton((int)Buttons.SkillNum1Exit).gameObject.BindEvent((PointerEventData data) => { Managers.Sound.Play("ButtonClick"); SkillNum1PanelExit(); });
+        GetButton((int)Buttons.SkillSetNum2).gameObject.BindEvent((PointerEventData data) => { Managers.Sound.Play("ButtonClick"); SKillSetNum2Open(); });
+        GetButton((int)Buttons.SkillNum2Confirm).gameObject.BindEvent((PointerEventData data) => { Managers.Sound.Play("ButtonClick"); SkillNum2PanelConfirm(); });
+        GetButton((int)Buttons.SkillNum2Exit).gameObject.BindEvent((PointerEventData data) => { Managers.Sound.Play("ButtonClick"); SkillNum2PanelExit(); });
+        GetButton((int)Buttons.SkillSetNum3).gameObject.BindEvent((PointerEventData data) => { Managers.Sound.Play("ButtonClick"); SKillSetNum3Open(); });
+        GetButton((int)Buttons.SkillNum3Confirm).gameObject.BindEvent((PointerEventData data) => { Managers.Sound.Play("ButtonClick"); SkillNum3PanelConfirm(); });
+        GetButton((int)Buttons.SkillNum3Exit).gameObject.BindEvent((PointerEventData data) => { Managers.Sound.Play("ButtonClick"); SkillNum3PanelExit(); });
+        GetButton((int)Buttons.SkillSetNum4).gameObject.BindEvent((PointerEventData data) => { Managers.Sound.Play("ButtonClick"); SKillSetNum4Open(); });   
+        GetButton((int)Buttons.SkillNum4Confirm).gameObject.BindEvent((PointerEventData data) => { Managers.Sound.Play("ButtonClick"); SkillNum4PanelConfirm(); });
+        GetButton((int)Buttons.SkillNum4Exit).gameObject.BindEvent((PointerEventData data) => { Managers.Sound.Play("ButtonClick"); SkillNum4PanelExit(); });
 
         CloseSkillSettingUI();
         SkillM1PanelExit();
@@ -350,12 +358,14 @@ public class GameUI : UI_Scene, IListener
 
         GetButton((int)Buttons.Continue).gameObject.BindEvent((PointerEventData data) =>
             {
+                Managers.Sound.Play("ButtonClick");
                 _canvas.sortingOrder = 0;
                 Time.timeScale = 1.0f;
                 GetObject((int)Objects.PausePanel).SetActive(false);
             });
         GetButton((int)Buttons.SaveAndQuit).gameObject.BindEvent((PointerEventData data) =>
             {
+                Managers.Sound.Play("ButtonClick");
                 _canvas.sortingOrder = 0;
                 Time.timeScale = 1.0f;
                 Managers.DB.SaveData(new DBManager.PlayerData(Managers.DB.CurrentPlayerData.Name,
@@ -377,6 +387,7 @@ public class GameUI : UI_Scene, IListener
 
         GetButton((int)Buttons.DeathTownButton).gameObject.BindEvent((PointerEventData data) =>
         {
+            Managers.Sound.Play("ButtonClick");
             _canvas.sortingOrder = 0;
             Managers.Scene.LoadScene(Define.Scene.Town);
         });
@@ -395,6 +406,7 @@ public class GameUI : UI_Scene, IListener
         }
         GetButton((int)Buttons.TutorialConfirm).gameObject.BindEvent((PointerEventData data) =>
         {
+            Managers.Sound.Play("ButtonClick");
             _canvas.sortingOrder = 0;
             GetObject((int)Objects.TutorialPanel).SetActive(false);
             Managers.Game.IsUiPopUp = false;

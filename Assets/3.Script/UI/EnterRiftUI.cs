@@ -56,6 +56,7 @@ public class EnterRiftUI : UI_Popup
 
         GetButton((int)Buttons.NormalRift).gameObject.BindEvent((PointerEventData data) =>
         {
+            Managers.Sound.Play("ButtonClick");
             GameObject go = Managers.Resource.Instantiate("NormalRiftPortal");
             go.transform.position = _normalRiftPortalPosition;
             Managers.Game.IsUiPopUp = false;
@@ -68,11 +69,13 @@ public class EnterRiftUI : UI_Popup
         });
         GetButton((int)Buttons.Exit).gameObject.BindEvent((PointerEventData data) =>
         {
+            Managers.Sound.Play("ButtonClick");
             Managers.UI.ClosePopupUI();
             Managers.Game.IsUiPopUp = false;
         });
         GetImage((int)Images.BlockMove).gameObject.BindEvent((PointerEventData data) =>
         {
+            Managers.Sound.Play("ButtonClick");
             Managers.UI.ClosePopupUI();
             Managers.Game.IsUiPopUp = false;
         });
