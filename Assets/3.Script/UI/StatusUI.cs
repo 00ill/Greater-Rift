@@ -74,7 +74,7 @@ public class StatusUI : UI_Popup, IListener
         mana = Managers.Inventory.ItemTotal.Mana + Managers.Data.PlayerStatusDataDict[level].Mana;
         damage = Managers.Inventory.ItemTotal.Damage + Managers.Data.PlayerStatusDataDict[level].Damage + Managers.Skill.AdditionalDamage;
         armor = Managers.Inventory.ItemTotal.Armor + Managers.Data.PlayerStatusDataDict[level].Armor + Managers.Skill.AdditionalArmor;
-        moveSpeed = Managers.Inventory.ItemTotal.MoveSpeed + 10f;
+        moveSpeed = Managers.Inventory.ItemTotal.MoveSpeed + 10f + Managers.Skill.AdditionalMoveSpeed;
         cooldownReduction = Managers.Inventory.ItemTotal.CooldownReduction;
 
         GetText((int)Texts.Level).text = $"Level : {level}";

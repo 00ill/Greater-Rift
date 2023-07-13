@@ -87,7 +87,7 @@ public class NormalRiftUI : UI_Popup, IListener
                 }
             case Define.EVENT_TYPE.TurnBackTown:
                 {
-                   Managers.UI.ClosePopupUI();
+                    base.ClosePopupUI();
                     break;
                 }
         }

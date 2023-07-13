@@ -228,7 +228,7 @@ public class PlayerStatus : MonoBehaviour, IDamageable, IListener
         SetStats(Statistic.Mana, LevelStatus.Get(Statistic.Mana).IntetgerValue + ItemStatus.Get(Statistic.Mana).IntetgerValue);
         SetStats(Statistic.Damage, LevelStatus.Get(Statistic.Damage).IntetgerValue + ItemStatus.Get(Statistic.Damage).IntetgerValue + Managers.Skill.AdditionalDamage);
         SetStats(Statistic.Armor, LevelStatus.Get(Statistic.Armor).IntetgerValue + ItemStatus.Get(Statistic.Armor).IntetgerValue + Managers.Skill.AdditionalArmor);
-        SetStats(Statistic.MoveSpeed, LevelStatus.Get(Statistic.MoveSpeed).FloatValue + ItemStatus.Get(Statistic.MoveSpeed).FloatValue);
+        SetStats(Statistic.MoveSpeed, LevelStatus.Get(Statistic.MoveSpeed).FloatValue + ItemStatus.Get(Statistic.MoveSpeed).FloatValue + Managers.Skill.AdditionalMoveSpeed);
         _playerAgent.speed = GetStats(Statistic.MoveSpeed).FloatValue;
 
         ExpPool = new ValuePool((Managers.Data.PlayerStatusDataDict[Stats.Get(Statistic.Level).IntetgerValue].RequireExp), Stats.StatsList[(int)Statistic.Exp].IntetgerValue);

@@ -64,13 +64,13 @@ public class GameUI : UI_Scene, IListener
         SkillSetingM2_DarkFlare,
         //스킬 추가시마다 추가할 것들
         SkillSettingNum1_ShadowCleave,
-        SkillSettingNum1_Temp2,
+        SkillSettingNum1_ShadowBlast,
         SkillSettingNum2_ShadowRain,
-        SkillSettingNum2_Temp2,
+        SkillSettingNum2_ShadowImpulse,
         SkillSettingNum3_Greed,
-        SkillSettingNum3_Temp2,
+        SkillSettingNum3_Karma,
         SkillSettingNum4_BloodFlood,
-        SkillSettingNum4_Temp2,
+        SkillSettingNum4_ExposeOfDarkness,
 
     }
     enum Sliders
@@ -269,12 +269,12 @@ public class GameUI : UI_Scene, IListener
             GetText((int)Texts.SkillNum1Script).text = FindSkillScript(Images.SkillSettingNum1_ShadowCleave);
             Managers.Skill.CurrentSelectSkillName = SkillName.ShadowCleave;
         });
-        GetImage((int)Images.SkillSettingNum1_Temp2).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
-        GetImage((int)Images.SkillSettingNum1_Temp2).gameObject.BindEvent((PointerEventData data) =>
+        GetImage((int)Images.SkillSettingNum1_ShadowBlast).sprite = Managers.Resource.Load<Sprite>(_skillPath + "ShadowBlast");
+        GetImage((int)Images.SkillSettingNum1_ShadowBlast).gameObject.BindEvent((PointerEventData data) =>
         {
             Managers.Sound.Play("ButtonClick");
-            GetText((int)Texts.SkillNum1Script).text = FindSkillScript(Images.SkillSettingNum1_Temp2);
-            Managers.Skill.CurrentSelectSkillName = SkillName.DarkFlare;
+            GetText((int)Texts.SkillNum1Script).text = FindSkillScript(Images.SkillSettingNum1_ShadowBlast);
+            Managers.Skill.CurrentSelectSkillName = SkillName.ShadowBlast;
         });
         //스킬셋 Num2
         GetImage((int)Images.SkillSettingNum2_ShadowRain).sprite = Managers.Resource.Load<Sprite>(_skillPath + "ShadowRain");
@@ -284,27 +284,27 @@ public class GameUI : UI_Scene, IListener
             GetText((int)Texts.SkillNum2Script).text = FindSkillScript(Images.SkillSettingNum2_ShadowRain);
             Managers.Skill.CurrentSelectSkillName = SkillName.ShadowRain;
         });
-        GetImage((int)Images.SkillSettingNum2_Temp2).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
-        GetImage((int)Images.SkillSettingNum2_Temp2).gameObject.BindEvent((PointerEventData data) =>
+        GetImage((int)Images.SkillSettingNum2_ShadowImpulse).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
+        GetImage((int)Images.SkillSettingNum2_ShadowImpulse).gameObject.BindEvent((PointerEventData data) =>
         {
             Managers.Sound.Play("ButtonClick");
-            GetText((int)Texts.SkillNum2Script).text = FindSkillScript(Images.SkillSettingNum2_Temp2);
-            Managers.Skill.CurrentSelectSkillName = SkillName.DarkFlare;
+            GetText((int)Texts.SkillNum2Script).text = FindSkillScript(Images.SkillSettingNum2_ShadowImpulse);
+            Managers.Skill.CurrentSelectSkillName = SkillName.ShadowImpulse;
         });
         //스킬셋 Num3
+        GetImage((int)Images.SkillSettingNum3_Karma).sprite = Managers.Resource.Load<Sprite>(_skillPath + "Karma");
+        GetImage((int)Images.SkillSettingNum3_Karma).gameObject.BindEvent((PointerEventData data) =>
+        {
+            Managers.Sound.Play("ButtonClick");
+            GetText((int)Texts.SkillNum3Script).text = FindSkillScript(Images.SkillSettingNum3_Karma);
+            Managers.Skill.CurrentSelectSkillName = SkillName.Karma;
+        });
         GetImage((int)Images.SkillSettingNum3_Greed).sprite = Managers.Resource.Load<Sprite>(_skillPath + "Greed");
         GetImage((int)Images.SkillSettingNum3_Greed).gameObject.BindEvent((PointerEventData data) =>
         {
             Managers.Sound.Play("ButtonClick");
             GetText((int)Texts.SkillNum3Script).text = FindSkillScript(Images.SkillSettingNum3_Greed);
             Managers.Skill.CurrentSelectSkillName = SkillName.Greed;
-        });
-        GetImage((int)Images.SkillSettingNum3_Temp2).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
-        GetImage((int)Images.SkillSettingNum3_Temp2).gameObject.BindEvent((PointerEventData data) =>
-        {
-            Managers.Sound.Play("ButtonClick");
-            GetText((int)Texts.SkillNum3Script).text = FindSkillScript(Images.SkillSettingNum3_Temp2);
-            Managers.Skill.CurrentSelectSkillName = SkillName.DarkFlare;
         });
         //스킬셋 Num4
         GetImage((int)Images.SkillSettingNum4_BloodFlood).sprite = Managers.Resource.Load<Sprite>(_skillPath + "BloodFlood");
@@ -314,12 +314,12 @@ public class GameUI : UI_Scene, IListener
             GetText((int)Texts.SkillNum4Script).text = FindSkillScript(Images.SkillSettingNum4_BloodFlood);
             Managers.Skill.CurrentSelectSkillName = SkillName.BloodFlood;
         });
-        GetImage((int)Images.SkillSettingNum4_Temp2).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
-        GetImage((int)Images.SkillSettingNum4_Temp2).gameObject.BindEvent((PointerEventData data) =>
+        GetImage((int)Images.SkillSettingNum4_ExposeOfDarkness).sprite = Managers.Resource.Load<Sprite>(_skillPath + "ExposeOfDarkness");
+        GetImage((int)Images.SkillSettingNum4_ExposeOfDarkness).gameObject.BindEvent((PointerEventData data) =>
         {
             Managers.Sound.Play("ButtonClick");
-            GetText((int)Texts.SkillNum4Script).text = FindSkillScript(Images.SkillSettingNum4_Temp2);
-            Managers.Skill.CurrentSelectSkillName = SkillName.DarkFlare;
+            GetText((int)Texts.SkillNum4Script).text = FindSkillScript(Images.SkillSettingNum4_ExposeOfDarkness);
+            Managers.Skill.CurrentSelectSkillName = SkillName.ExposeOfDarkness;
         });
 
         GetButton((int)Buttons.SkillSettingExit).gameObject.BindEvent((PointerEventData data) => { Managers.Sound.Play("ButtonClick"); CloseSkillSettingUI(); });
@@ -390,6 +390,7 @@ public class GameUI : UI_Scene, IListener
         {
             Managers.Sound.Play("ButtonClick");
             _canvas.sortingOrder = 0;
+            Managers.Event.PostNotification(Define.EVENT_TYPE.TurnBackTown, this);
             Managers.Scene.LoadScene(Define.Scene.Town);
         });
     }
@@ -625,7 +626,6 @@ public class GameUI : UI_Scene, IListener
 
     private void UpdateSkillCooldown()
     {
-        Debug.Log(string.Format($"{Managers.Skill.Num2SkillCooldownRemain}/{Managers.Skill.GetSkillData(Managers.Skill.CurrentNum2SKillName).Cooldown}"));
         GetImage((int)Images.SkillNum1Cooldown).fillAmount = Managers.Skill.Num1SkillCooldownRemain / Managers.Skill.GetSkillData(Managers.Skill.CurrentNum1SKillName).Cooldown;
         GetImage((int)Images.SkillNum2Cooldown).fillAmount = Managers.Skill.Num2SkillCooldownRemain / Managers.Skill.GetSkillData(Managers.Skill.CurrentNum2SKillName).Cooldown;
         GetImage((int)Images.SkillNum3Cooldown).fillAmount = Managers.Skill.Num3SkillCooldownRemain / Managers.Skill.GetSkillData(Managers.Skill.CurrentNum3SKillName).Cooldown;

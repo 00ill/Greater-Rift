@@ -928,7 +928,7 @@ GameObject:
   - component: {fileID: 8104721469012813538}
   - component: {fileID: 6402080831704769417}
   m_Layer: 5
-  m_Name: SkillSettingNum1_Temp2
+  m_Name: SkillSettingNum1_ShadowBlast
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4179,7 +4179,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3065112698189786261}
   m_Layer: 5
-  m_Name: SkillNum4_Temp2
+  m_Name: SkillNum4_ExposeOfDarkness
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5061,7 +5061,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2494453699982714331}
   m_Layer: 5
-  m_Name: SkillNum1_Temp2
+  m_Name: SkillNum1_ShadowBlast
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6257,7 +6257,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1997707603280625703}
   m_Layer: 5
-  m_Name: SkillNum3_Greed
+  m_Name: SkillNum3_Karma
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7918,7 +7918,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1216150617776305866}
   m_Layer: 5
-  m_Name: SkillNum3_Temp2
+  m_Name: SkillNum3_Greed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7958,7 +7958,7 @@ GameObject:
   - component: {fileID: 233080618498258715}
   - component: {fileID: 2221439073195670137}
   m_Layer: 5
-  m_Name: SkillSettingNum3_Temp2
+  m_Name: SkillSettingNum3_Greed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8640,7 +8640,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3137327691341735279}
   m_Layer: 5
-  m_Name: SkillNum2_Temp2
+  m_Name: SkillNum2_ShadowImpulse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13951,7 +13951,7 @@ GameObject:
   - component: {fileID: 3382037470544636351}
   - component: {fileID: 2597540592318496657}
   m_Layer: 5
-  m_Name: SkillSettingNum3_Greed
+  m_Name: SkillSettingNum3_Karma
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14577,7 +14577,7 @@ GameObject:
   - component: {fileID: 9132866144483310902}
   - component: {fileID: 3275966538384539474}
   m_Layer: 5
-  m_Name: SkillSettingNum4_Temp2
+  m_Name: SkillSettingNum4_ExposeOfDarkness
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14805,7 +14805,7 @@ GameObject:
   - component: {fileID: 2378062774387389481}
   - component: {fileID: 7865989501899003632}
   m_Layer: 5
-  m_Name: SkillSettingNum2_Temp2
+  m_Name: SkillSettingNum2_ShadowImpulse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
@@ -85,7 +86,6 @@ public class PlayerAnimate : MonoBehaviour, IListener
         {
             if (Managers.Skill.Num2SkillCooldownRemain > 0f)
             {
-                Debug.Log("Äð");
                 Managers.Event.PostNotification(Define.EVENT_TYPE.SkillInCooldown, this);
                 return;
             }
@@ -94,7 +94,6 @@ public class PlayerAnimate : MonoBehaviour, IListener
                 Managers.Event.PostNotification(Define.EVENT_TYPE.NotEnoughMana, this);
                 return;
             }
-            Debug.Log("µÇ³ª");
             LookAtTarget();
             Managers.Skill.StartNum2Cooldown();
             _playerStatus.ManaPool.CurrentValue -= Managers.Skill.GetSkillData(Managers.Skill.CurrentNum2SKillName).ManaCost;
@@ -202,11 +201,24 @@ public class PlayerAnimate : MonoBehaviour, IListener
         vfx.transform.SetPositionAndRotation(transform.position + Vector3.up * 0.5f, transform.rotation);
     }
 
+    private void ShadowBlast()
+    {
+        GameObject go = Managers.Resource.Instantiate("ShadowBlast");
+        go.transform.SetLocalPositionAndRotation(transform.position + Vector3.up * 0.5f, transform.rotation);
+    }
+
     private void ShadowRain()
     {
         GameObject go = Managers.Resource.Instantiate("ShadowRain");
-        go.transform.position = _playerControlInput.Hit.point;
+        go.transform.position = _playerControlInput.Hit.point + Vector3.up * 0.2f;
     }
+
+    private void ShadowImpulse()
+    {
+        GameObject go = Managers.Resource.Instantiate("ShadowImpulse");
+        go.transform.position = _playerControlInput.Hit.point + Vector3.up * 0.2f;
+    }
+
 
     private void Greed()
     {
@@ -214,10 +226,21 @@ public class PlayerAnimate : MonoBehaviour, IListener
         go.transform.position = transform.position;
     }
 
+    private void Karma()
+    {
+        GameObject go = Managers.Resource.Instantiate("Karma");
+        go.transform.position = transform.position;
+    }
     private void BloodFlood()
     {
         GameObject bloodFlood = Managers.Resource.Instantiate("BloodFlood");
-        bloodFlood.transform.position = transform.position + Vector3.up *0.5f;
+        bloodFlood.transform.position = transform.position + Vector3.up *0.1f;
+    }
+
+    private void ExposeOfDarkness()
+    {
+        GameObject go = Managers.Resource.Instantiate("ExposeOfDarkness");
+        go.transform.position = transform.position - Vector3.up * 0.5f;
     }
 
     public void OnEvent(Define.EVENT_TYPE Event_Type, Component Sender, object Param = null)
