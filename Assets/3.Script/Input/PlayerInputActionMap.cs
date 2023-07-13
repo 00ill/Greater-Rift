@@ -134,6 +134,15 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Status"",
+                    ""type"": ""Button"",
+                    ""id"": ""661e31ed-52e6-4162-ab72-e6c7b71fda23"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -268,6 +277,17 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
                     ""action"": ""Num4Skill"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""33e3bdcc-8e64-43f8-90d8-87121806a6ea"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Status"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -288,6 +308,7 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_Test = m_Player.FindAction("Test", throwIfNotFound: true);
         m_Player_PlayerPortal = m_Player.FindAction("PlayerPortal", throwIfNotFound: true);
+        m_Player_Status = m_Player.FindAction("Status", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -361,6 +382,7 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_Test;
     private readonly InputAction m_Player_PlayerPortal;
+    private readonly InputAction m_Player_Status;
     public struct PlayerActions
     {
         private @PlayerInputActionMap m_Wrapper;
@@ -377,6 +399,7 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputAction @Test => m_Wrapper.m_Player_Test;
         public InputAction @PlayerPortal => m_Wrapper.m_Player_PlayerPortal;
+        public InputAction @Status => m_Wrapper.m_Player_Status;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -422,6 +445,9 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
             @PlayerPortal.started += instance.OnPlayerPortal;
             @PlayerPortal.performed += instance.OnPlayerPortal;
             @PlayerPortal.canceled += instance.OnPlayerPortal;
+            @Status.started += instance.OnStatus;
+            @Status.performed += instance.OnStatus;
+            @Status.canceled += instance.OnStatus;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -462,6 +488,9 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
             @PlayerPortal.started -= instance.OnPlayerPortal;
             @PlayerPortal.performed -= instance.OnPlayerPortal;
             @PlayerPortal.canceled -= instance.OnPlayerPortal;
+            @Status.started -= instance.OnStatus;
+            @Status.performed -= instance.OnStatus;
+            @Status.canceled -= instance.OnStatus;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -493,5 +522,6 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
         void OnPause(InputAction.CallbackContext context);
         void OnTest(InputAction.CallbackContext context);
         void OnPlayerPortal(InputAction.CallbackContext context);
+        void OnStatus(InputAction.CallbackContext context);
     }
 }

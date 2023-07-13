@@ -169,6 +169,7 @@ public class GameUI : UI_Scene, IListener
         Managers.Event.AddListener(Define.EVENT_TYPE.PlayerPortalAlreadyOpen, this);
         Managers.Event.AddListener(Define.EVENT_TYPE.PlayerDeath, this);
         Managers.Event.AddListener(Define.EVENT_TYPE.FullInventory, this);
+        Managers.Event.AddListener(Define.EVENT_TYPE.AllPopupUIClose, this);
 
         PlayerHpChangeEvent(FindObjectOfType<PlayerStatus>().LifePool.CurrentValue, FindObjectOfType<PlayerStatus>().LifePool.MaxValue);
         PlayerManaChangeEvent(FindObjectOfType<PlayerStatus>().ManaPool.CurrentValue, FindObjectOfType<PlayerStatus>().ManaPool.MaxValue);
@@ -772,6 +773,11 @@ public class GameUI : UI_Scene, IListener
                         _warningCoroutine = null;
                     }
                     _warningCoroutine = StartCoroutine(WarningText());
+                    break;
+                }
+            case Define.EVENT_TYPE.AllPopupUIClose:
+                {
+                    CloseSkillSettingUI();
                     break;
                 }
         }

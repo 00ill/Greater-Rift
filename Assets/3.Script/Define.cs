@@ -60,7 +60,8 @@ public class Define
         ChangeStatus,
         CountEnemyDeath,
         GuardianHpChange,
-        TurnBackTown
+        TurnBackTown,
+        AllPopupUIClose
 
     }
 

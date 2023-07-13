@@ -98,11 +98,25 @@ public class PlayerControlInput : MonoBehaviour
             Managers.UI.ShowPopupUI<UI_Popup>("InventoryUI");
         }
     }
-
+    public void OpenCharacterStatusUI(InputAction.CallbackContext callbackContext)
+    {
+        if (callbackContext.performed)
+        {
+            Managers.Game.IsUiPopUp = true;
+            Managers.UI.ShowPopupUI<UI_Popup>("StatusUI");
+        }
+    }
     public void Pause(InputAction.CallbackContext callbackContext)
     {
         if (callbackContext.performed)
         {
+            if (Managers.Game.IsUiPopUp)
+            {
+                Managers.UI.CloseAllPopupUI();
+                Managers.Game.IsUiPopUp = false;
+                Managers.Event.PostNotification(Define.EVENT_TYPE.AllPopupUIClose, this);
+                return;
+            }
             Managers.Event.PostNotification(Define.EVENT_TYPE.Pause, this);
         }
     }
