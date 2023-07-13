@@ -240,7 +240,7 @@ public class PlayerAnimate : MonoBehaviour, IListener
     private void ExposeOfDarkness()
     {
         GameObject go = Managers.Resource.Instantiate("ExposeOfDarkness");
-        go.transform.position = transform.position - Vector3.up * 0.5f;
+        go.transform.position = new Vector3(transform.position.x, -0.9f,transform.position.z);
     }
 
     public void OnEvent(Define.EVENT_TYPE Event_Type, Component Sender, object Param = null)

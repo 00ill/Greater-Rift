@@ -74,12 +74,12 @@ public class SkillGroup
         SkillList.Add(new SkillData(SkillName.DarkFlare, SkillType.M2Skill, 3f, 10, 4, "DarkFlare", 1.2f));
         SkillList.Add(new SkillData(SkillName.ShadowCleave, SkillType.SkillSet1, 5f, 15, 4, "ShadowCleave", 2f));
         SkillList.Add(new SkillData(SkillName.ShadowBlast, SkillType.SkillSet1, 5f, 40, 29, "ShadowBlast", 2.5f));
-        SkillList.Add(new SkillData(SkillName.ShadowRain, SkillType.SkillSet2, 30f, 120, 10, "ShadowRain", 1.8f));
-        SkillList.Add(new SkillData(SkillName.ShadowImpulse, SkillType.SkillSet2, 30f, 120, 50, "ShadowImpulse", 3.6f));
+        SkillList.Add(new SkillData(SkillName.ShadowRain, SkillType.SkillSet2, 15f, 120, 10, "ShadowRain", 1.8f));
+        SkillList.Add(new SkillData(SkillName.ShadowImpulse, SkillType.SkillSet2, 15f, 120, 50, "ShadowImpulse", 3.6f));
         SkillList.Add(new SkillData(SkillName.Karma, SkillType.SkillSet3, 60f, 200, 15, "Karma", 0f));
         SkillList.Add(new SkillData(SkillName.Greed, SkillType.SkillSet3, 60f, 200, 25, "Greed", 0f));
-        SkillList.Add(new SkillData(SkillName.BloodFlood, SkillType.SkillSet4, 5f, 200, 30, "BloodFlood", 5f));
-        SkillList.Add(new SkillData(SkillName.ExposeOfDarkness, SkillType.SkillSet4, 5f, 200, 60, "ExposeOfDarkness", 3f));
+        SkillList.Add(new SkillData(SkillName.BloodFlood, SkillType.SkillSet4, 45f, 200, 30, "BloodFlood", 5f));
+        SkillList.Add(new SkillData(SkillName.ExposeOfDarkness, SkillType.SkillSet4, 45f, 200, 60, "ExposeOfDarkness", 3f));
     }
 
     public SkillData GetSkillData(SkillName skillName)

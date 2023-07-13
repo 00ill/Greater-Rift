@@ -446,8 +446,40 @@ public class GameUI : UI_Scene, IListener
                 }
             case Images.SkillSetingM2_DarkFlare:
                 {
-                    return "Fire a sphere that deals 200% damage";
+                    return "Shoot a sphere and give 120% damage to 10 enemies around the sphere.";
                 }
+            case Images.SkillSettingNum1_ShadowCleave:
+                {
+                    return "200% damage to the enemy in a straight line.";
+                }
+            case Images.SkillSettingNum1_ShadowBlast:
+                {
+                    return "250% damage to the enemy in a straight line.";
+                }
+            case Images.SkillSettingNum2_ShadowRain:
+                {
+                    return "Rain for 10 seconds and damage 180% to enemies within a certain range.";
+                }
+            case Images.SkillSettingNum2_ShadowImpulse:
+                {
+                    return "360% damage to the enemy in a straight line.";
+                }
+            case Images.SkillSettingNum3_Karma:
+                {
+                    return "Increase the MoveSpeed by 3 for 45 seconds.";
+                }
+            case Images.SkillSettingNum3_Greed:
+                {
+                    return "Increases attack and Armor by 50";
+                }
+            case Images.SkillSettingNum4_BloodFlood:
+                {
+                    return "Spread attacks that cause 500% damage.";
+                }
+            case Images.SkillSettingNum4_ExposeOfDarkness:
+                {
+                    return "Spread attacks in large Area that cause 300% damage.";
+                } 
         }
 
         return "";
@@ -515,7 +547,7 @@ public class GameUI : UI_Scene, IListener
             GetImage((int)Images.SkillNum1).sprite = Managers.Resource.Load<Sprite>(_skillPath
                 + Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentSelectSkillName).ResourceName);
             Managers.Skill.CurrentNum1SKillName = Managers.Skill.CurrentSelectSkillName;
-            GetObject((int)Objects.SkillM2Panel).SetActive(false);
+            GetObject((int)Objects.SkillM1Panel).SetActive(false);
         }
     }
     private void SkillNum1PanelExit()
