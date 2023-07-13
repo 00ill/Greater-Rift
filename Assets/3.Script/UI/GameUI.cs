@@ -65,9 +65,9 @@ public class GameUI : UI_Scene, IListener
         //스킬 추가시마다 추가할 것들
         SkillSettingNum1_ShadowCleave,
         SkillSettingNum1_Temp2,
-        SkillSettingNum2_Temp1,
+        SkillSettingNum2_ShadowRain,
         SkillSettingNum2_Temp2,
-        SkillSettingNum3_Temp1,
+        SkillSettingNum3_Greed,
         SkillSettingNum3_Temp2,
         SkillSettingNum4_BloodFlood,
         SkillSettingNum4_Temp2,
@@ -277,12 +277,12 @@ public class GameUI : UI_Scene, IListener
             Managers.Skill.CurrentSelectSkillName = SkillName.DarkFlare;
         });
         //스킬셋 Num2
-        GetImage((int)Images.SkillSettingNum2_Temp1).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
-        GetImage((int)Images.SkillSettingNum2_Temp1).gameObject.BindEvent((PointerEventData data) =>
+        GetImage((int)Images.SkillSettingNum2_ShadowRain).sprite = Managers.Resource.Load<Sprite>(_skillPath + "ShadowRain");
+        GetImage((int)Images.SkillSettingNum2_ShadowRain).gameObject.BindEvent((PointerEventData data) =>
         {
             Managers.Sound.Play("ButtonClick");
-            GetText((int)Texts.SkillNum2Script).text = FindSkillScript(Images.SkillSettingNum2_Temp1);
-            Managers.Skill.CurrentSelectSkillName = SkillName.BladeSlash;
+            GetText((int)Texts.SkillNum2Script).text = FindSkillScript(Images.SkillSettingNum2_ShadowRain);
+            Managers.Skill.CurrentSelectSkillName = SkillName.ShadowRain;
         });
         GetImage((int)Images.SkillSettingNum2_Temp2).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
         GetImage((int)Images.SkillSettingNum2_Temp2).gameObject.BindEvent((PointerEventData data) =>
@@ -292,12 +292,12 @@ public class GameUI : UI_Scene, IListener
             Managers.Skill.CurrentSelectSkillName = SkillName.DarkFlare;
         });
         //스킬셋 Num3
-        GetImage((int)Images.SkillSettingNum3_Temp1).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
-        GetImage((int)Images.SkillSettingNum3_Temp1).gameObject.BindEvent((PointerEventData data) =>
+        GetImage((int)Images.SkillSettingNum3_Greed).sprite = Managers.Resource.Load<Sprite>(_skillPath + "Greed");
+        GetImage((int)Images.SkillSettingNum3_Greed).gameObject.BindEvent((PointerEventData data) =>
         {
             Managers.Sound.Play("ButtonClick");
-            GetText((int)Texts.SkillNum3Script).text = FindSkillScript(Images.SkillSettingNum3_Temp1);
-            Managers.Skill.CurrentSelectSkillName = SkillName.BladeSlash;
+            GetText((int)Texts.SkillNum3Script).text = FindSkillScript(Images.SkillSettingNum3_Greed);
+            Managers.Skill.CurrentSelectSkillName = SkillName.Greed;
         });
         GetImage((int)Images.SkillSettingNum3_Temp2).sprite = Managers.Resource.Load<Sprite>(_skillPath + "None");
         GetImage((int)Images.SkillSettingNum3_Temp2).gameObject.BindEvent((PointerEventData data) =>
@@ -537,7 +537,7 @@ public class GameUI : UI_Scene, IListener
         {
             GetImage((int)Images.SkillNum2).sprite = Managers.Resource.Load<Sprite>(_skillPath
                 + Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentSelectSkillName).ResourceName);
-            Managers.Skill.CurrentNum1SKillName = Managers.Skill.CurrentSelectSkillName;
+            Managers.Skill.CurrentNum2SKillName = Managers.Skill.CurrentSelectSkillName;
             GetObject((int)Objects.SkillNum2Panel).SetActive(false);
         }
     }
@@ -625,6 +625,7 @@ public class GameUI : UI_Scene, IListener
 
     private void UpdateSkillCooldown()
     {
+        Debug.Log(string.Format($"{Managers.Skill.Num2SkillCooldownRemain}/{Managers.Skill.GetSkillData(Managers.Skill.CurrentNum2SKillName).Cooldown}"));
         GetImage((int)Images.SkillNum1Cooldown).fillAmount = Managers.Skill.Num1SkillCooldownRemain / Managers.Skill.GetSkillData(Managers.Skill.CurrentNum1SKillName).Cooldown;
         GetImage((int)Images.SkillNum2Cooldown).fillAmount = Managers.Skill.Num2SkillCooldownRemain / Managers.Skill.GetSkillData(Managers.Skill.CurrentNum2SKillName).Cooldown;
         GetImage((int)Images.SkillNum3Cooldown).fillAmount = Managers.Skill.Num3SkillCooldownRemain / Managers.Skill.GetSkillData(Managers.Skill.CurrentNum3SKillName).Cooldown;

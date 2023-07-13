@@ -83,11 +83,23 @@ public class PlayerAnimate : MonoBehaviour, IListener
     {
         if (callbackContext.performed)
         {
-            if (Managers.Skill.Num2SkillCooldownRemain <= 0)
+            if (Managers.Skill.Num2SkillCooldownRemain > 0f)
             {
-                Managers.Skill.StartNum2Cooldown();
-                _playerAnimator.Play(Managers.Skill.GetSkillData(Managers.Skill.CurrentNum2SKillName).ResourceName);
+                Debug.Log("Äð");
+                Managers.Event.PostNotification(Define.EVENT_TYPE.SkillInCooldown, this);
+                return;
             }
+            if (_playerStatus.ManaPool.CurrentValue < Managers.Skill.GetSkillData(Managers.Skill.CurrentNum2SKillName).ManaCost)
+            {
+                Managers.Event.PostNotification(Define.EVENT_TYPE.NotEnoughMana, this);
+                return;
+            }
+            Debug.Log("µÇ³ª");
+            LookAtTarget();
+            Managers.Skill.StartNum2Cooldown();
+            _playerStatus.ManaPool.CurrentValue -= Managers.Skill.GetSkillData(Managers.Skill.CurrentNum2SKillName).ManaCost;
+            _playerAnimator.Play(Managers.Skill.GetSkillData(Managers.Skill.CurrentNum2SKillName).ResourceName);
+            Managers.Event.PostNotification(Define.EVENT_TYPE.PlayerManaChange, this);
         }
     }
     public void AbilityNum3(InputAction.CallbackContext callbackContext)
@@ -188,6 +200,18 @@ public class PlayerAnimate : MonoBehaviour, IListener
         col.GetComponent<ShadowCleave>().ShootShadowCol();
         GameObject vfx = Managers.Resource.Instantiate("ShadowCleaveEffect");
         vfx.transform.SetPositionAndRotation(transform.position + Vector3.up * 0.5f, transform.rotation);
+    }
+
+    private void ShadowRain()
+    {
+        GameObject go = Managers.Resource.Instantiate("ShadowRain");
+        go.transform.position = _playerControlInput.Hit.point;
+    }
+
+    private void Greed()
+    {
+        GameObject go = Managers.Resource.Instantiate("Greed");
+        go.transform.position = transform.position;
     }
 
     private void BloodFlood()

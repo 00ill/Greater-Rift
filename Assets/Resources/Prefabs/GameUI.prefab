@@ -5628,7 +5628,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1958904652282851617}
   m_Layer: 5
-  m_Name: SkillNum2_Temp1
+  m_Name: SkillNum2_ShadowRain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6257,7 +6257,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1997707603280625703}
   m_Layer: 5
-  m_Name: SkillNum3_Temp1
+  m_Name: SkillNum3_Greed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8298,7 +8298,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7121049048613610636}
   m_Layer: 5
-  m_Name: SkillNum1_Temp1
+  m_Name: SkillNum1_ShadowCleave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8566,7 +8566,7 @@ GameObject:
   - component: {fileID: 7319186630851826239}
   - component: {fileID: 2708936762658464820}
   m_Layer: 5
-  m_Name: SkillSettingNum2_Temp1
+  m_Name: SkillSettingNum2_ShadowRain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13951,7 +13951,7 @@ GameObject:
   - component: {fileID: 3382037470544636351}
   - component: {fileID: 2597540592318496657}
   m_Layer: 5
-  m_Name: SkillSettingNum3_Temp1
+  m_Name: SkillSettingNum3_Greed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
