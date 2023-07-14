@@ -20,7 +20,6 @@ public class ShadowBlast : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("sadasdasd");
         if (other.TryGetComponent(out EnemyStatus enemyStatus))
         {
             enemyStatus.TakeDamage((int)(_playerStatus.GetStats(Statistic.Damage).IntetgerValue * Managers.Skill.GetSkillData(SkillName.ShadowCleave).DamageCoefficient), _playerStatus);

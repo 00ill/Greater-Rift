@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class GameUI : UI_Scene, IListener
 {
-    private PlayerControlInput _playerControlInput;
 
     enum Texts
     {
@@ -37,7 +36,9 @@ public class GameUI : UI_Scene, IListener
         SkillNum4PanelTitle,
         SkillNum4Script,
         DeathText,
-        DeathTownText
+        DeathTownText,
+        HpText,
+        ManaText
 
     }
 
@@ -121,7 +122,8 @@ public class GameUI : UI_Scene, IListener
         TutorialPanel
 
     }
-
+    private PlayerControlInput _playerControlInput;
+    private PlayerStatus _playerStatus;
     private Canvas _canvas;
     private readonly string _skillPath = "Images/Skill/";
     private readonly WaitForSeconds _warningTime = new(1);
@@ -130,6 +132,7 @@ public class GameUI : UI_Scene, IListener
     {
         TryGetComponent(out _canvas);
         _playerControlInput = FindAnyObjectByType<PlayerControlInput>();
+        _playerStatus = FindAnyObjectByType<PlayerStatus>();
     }
 
     private void Start()
@@ -199,6 +202,36 @@ public class GameUI : UI_Scene, IListener
         GetImage((int)Images.SkillNum2).sprite = Managers.Resource.Load<Sprite>(_skillPath + Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentNum2SKillName).ResourceName);
         GetImage((int)Images.SkillNum3).sprite = Managers.Resource.Load<Sprite>(_skillPath + Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentNum3SKillName).ResourceName);
         GetImage((int)Images.SkillNum4).sprite = Managers.Resource.Load<Sprite>(_skillPath + Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentNum4SKillName).ResourceName);
+
+        GetImage((int)Images.HpFluid).gameObject.BindEvent((PointerEventData data) =>
+        {
+            GetText((int)Texts.HpText).text = $"{_playerStatus.LifePool.CurrentValue} / {_playerStatus.LifePool.MaxValue}";
+            GetText((int)Texts.HpText).gameObject.SetActive(true);
+
+        },Define.UIEvent.PointerEnter);
+
+        GetImage((int)Images.ManaFluid).gameObject.BindEvent((PointerEventData data) =>
+        {
+            GetText((int)Texts.ManaText).text = $"{_playerStatus.ManaPool.CurrentValue} / {_playerStatus.ManaPool.MaxValue}";
+            GetText((int)Texts.ManaText).gameObject.SetActive(true);
+
+        }, Define.UIEvent.PointerEnter);
+
+
+        GetImage((int)Images.HpFluid).gameObject.BindEvent((PointerEventData data) =>
+        {
+            GetText((int)Texts.HpText).gameObject.SetActive(false);
+
+        }, Define.UIEvent.PointerExit);
+
+        GetImage((int)Images.ManaFluid).gameObject.BindEvent((PointerEventData data) =>
+        {
+            GetText((int)Texts.ManaText).gameObject.SetActive(false);
+
+        }, Define.UIEvent.PointerExit);
+
+        GetText((int)Texts.HpText).gameObject.SetActive(false);
+        GetText((int)Texts.ManaText).gameObject.SetActive(false);
     }
 
     private void InitInformation()

@@ -44,20 +44,25 @@ public class DarkFlare : Projectile
                     _lineRenderers[i].enabled = true;
                     _lineRenderers[i].SetPosition(0, transform.position);
                     _lineRenderers[i].SetPosition(1, _hitColliders[i].transform.position + Vector3.up * 0.5f);
+                    _lineRenderers[i].transform.GetChild(0).position = _hitColliders[i].transform.position + Vector3.up * 0.5f;
+                    _lineRenderers[i].transform.GetChild(0).gameObject.SetActive(true);
                 }
                 else
                 {
+                    _lineRenderers[i].transform.GetChild(0).gameObject.SetActive(false);
                     _lineRenderers[i].enabled = false;
                 }
             }
             else
             {
+                _lineRenderers[i].transform.GetChild(0).gameObject.SetActive(false);
                 _enemyStatuses[i] = null;
             }
         }
         for (int i = numColliders; i < _maxTargetNum; i++)
         {
             _lineRenderers[i].enabled = false;
+            _lineRenderers[i].transform.GetChild(0).gameObject.SetActive(false);
             _enemyStatuses[i] = null;
         }
     }
@@ -88,6 +93,10 @@ public class DarkFlare : Projectile
     }
     private void OnDestroy()
     {
+        for(int i = 0; i < _lineRenderers.Length; i++)
+        {
+            _lineRenderers[(int)i].transform.GetChild(0).gameObject.SetActive(false);
+        }
         StopAllCoroutines();
     }
 }

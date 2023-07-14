@@ -38,7 +38,7 @@ public class PoolManager
             }
             else
             {
-                poolable.transform.parent = Root;
+                poolable.transform.SetParent(Root);
             }
 
             poolable.gameObject.SetActive(false);
@@ -67,7 +67,9 @@ public class PoolManager
                 }
                 else
                 {
-                    poolable.transform.parent = Managers.Scene.CurrentScene.transform;
+                    poolable.transform.SetParent(Managers.Scene.CurrentScene.transform);
+                    //poolable.transform.parent = Managers.Scene.CurrentScene.transform;
+
                 }
 
             }
