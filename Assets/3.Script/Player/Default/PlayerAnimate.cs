@@ -179,6 +179,7 @@ public class PlayerAnimate : MonoBehaviour, IListener
 
     private void BladeSlash()
     {
+        Managers.Sound.Play("BladeSlash");
         GameObject go = Managers.Resource.Instantiate("Skill_BladeSlash");
         go.transform.position = transform.position;
         go.transform.rotation = Quaternion.Euler(new Vector3(180, transform.rotation.y, 0f));
@@ -187,6 +188,7 @@ public class PlayerAnimate : MonoBehaviour, IListener
 
     private void DarkFlare()
     {
+        Managers.Sound.Play("DarkFlare");
         GameObject go = Managers.Resource.Instantiate("DarkFlare");
         go.transform.SetPositionAndRotation(transform.position + Vector3.up * 0.5f, transform.rotation);
         go.GetComponent<Projectile>().ShootForward();
@@ -194,6 +196,7 @@ public class PlayerAnimate : MonoBehaviour, IListener
 
     private void ShadowCleave()
     {
+        Managers.Sound.Play("ShadowCleave");
         GameObject col = Managers.Resource.Instantiate("ShadowCleaveCol");
         col.transform.SetPositionAndRotation(transform.position + Vector3.up * 0.5f, transform.rotation);
         col.GetComponent<ShadowCleave>().ShootShadowCol();
@@ -203,18 +206,21 @@ public class PlayerAnimate : MonoBehaviour, IListener
 
     private void ShadowBlast()
     {
+        Managers.Sound.Play("ShadowBlast");
         GameObject go = Managers.Resource.Instantiate("ShadowBlast");
         go.transform.SetLocalPositionAndRotation(transform.position + Vector3.up * 0.5f, transform.rotation);
     }
 
     private void ShadowRain()
     {
+        Managers.Sound.Play("ShadowRain");
         GameObject go = Managers.Resource.Instantiate("ShadowRain");
         go.transform.position = _playerControlInput.Hit.point + Vector3.up * 0.2f;
     }
 
     private void ShadowImpulse()
     {
+        Managers.Sound.Play("ShadowImpulse");
         GameObject go = Managers.Resource.Instantiate("ShadowImpulse");
         go.transform.position = _playerControlInput.Hit.point + Vector3.up * 0.2f;
     }
@@ -222,23 +228,27 @@ public class PlayerAnimate : MonoBehaviour, IListener
 
     private void Greed()
     {
+        Managers.Sound.Play("Buff");
         GameObject go = Managers.Resource.Instantiate("Greed");
         go.transform.position = transform.position;
     }
 
     private void Karma()
     {
+        Managers.Sound.Play("Buff");
         GameObject go = Managers.Resource.Instantiate("Karma");
         go.transform.position = transform.position;
     }
     private void BloodFlood()
     {
+        Managers.Sound.Play("BloodFlood",Define.Sound.Effect, 0.7f);
         GameObject bloodFlood = Managers.Resource.Instantiate("BloodFlood");
         bloodFlood.transform.position = transform.position + Vector3.up *0.1f;
     }
 
     private void ExposeOfDarkness()
     {
+        Managers.Sound.Play("ExposeOfDarkness", Define.Sound.Effect, 1.8f);
         GameObject go = Managers.Resource.Instantiate("ExposeOfDarkness");
         go.transform.position = transform.position + Vector3.down * 0.9f;
     }

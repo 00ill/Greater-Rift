@@ -71,6 +71,7 @@ public class PlayerAttackHandler : MonoBehaviour, ICommandHandle
 
     private void ShadowSlash()
     {
+        Managers.Sound.Play("ShadowSlash");
         GameObject go = Managers.Resource.Instantiate("ShadowSlash");
         Quaternion goDirection = Quaternion.LookRotation(transform.position - go.transform.position);
         go.transform.SetPositionAndRotation(transform.position + transform.forward + transform.up * 0.5f, transform.rotation);
