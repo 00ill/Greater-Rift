@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ItemManager
 {
-    public int LegendaryProb = 1;
+    public int LegendaryProb = 100;
     public int RareProb = 9;
     public int MagicProb = 30;
     public int GradeCoefficient;

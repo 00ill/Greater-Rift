@@ -39,10 +39,12 @@ public class PlayerAnimate : MonoBehaviour, IListener
 
     private void LookAtTarget()
     {
+        _commandHandler.currentCommand = null;
         _playerAgent.ResetPath();
         _playerAgent.updateRotation = false;
         Quaternion lookDirection = Quaternion.LookRotation(_playerControlInput.Hit.point - transform.position);
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookDirection, Time.deltaTime * 10000);
+        transform.rotation = lookDirection;
+        //transform.rotation = Quaternion.Slerp(transform.rotation, lookDirection, Time.deltaTime * 1000);
         _playerAgent.updateRotation = true;
     }
 
@@ -60,7 +62,6 @@ public class PlayerAnimate : MonoBehaviour, IListener
                 Managers.Event.PostNotification(Define.EVENT_TYPE.NotEnoughMana, this);
                 return;
             }
-
             LookAtTarget();
             Managers.Skill.StartM2Cooldown();
             _playerStatus.ManaPool.CurrentValue -= Managers.Skill.GetSkillData(Managers.Skill.CurrentM2SKillName).ManaCost;
@@ -73,7 +74,6 @@ public class PlayerAnimate : MonoBehaviour, IListener
     {
         if (callbackContext.performed)
         {
-
             if (Managers.Skill.Num1SkillCooldownRemain > 0f)
             {
                 Managers.Event.PostNotification(Define.EVENT_TYPE.SkillInCooldown, this);
@@ -116,11 +116,21 @@ public class PlayerAnimate : MonoBehaviour, IListener
     {
         if (callbackContext.performed)
         {
-            if (Managers.Skill.Num3SkillCooldownRemain <= 0)
+            if (Managers.Skill.Num3SkillCooldownRemain > 0f)
             {
-                Managers.Skill.StartNum3Cooldown();
-                _playerAnimator.Play(Managers.Skill.GetSkillData(Managers.Skill.CurrentNum3SKillName).ResourceName);
+                Managers.Event.PostNotification(Define.EVENT_TYPE.SkillInCooldown, this);
+                return;
             }
+            if (_playerStatus.ManaPool.CurrentValue < Managers.Skill.GetSkillData(Managers.Skill.CurrentNum3SKillName).ManaCost)
+            {
+                Managers.Event.PostNotification(Define.EVENT_TYPE.NotEnoughMana, this);
+                return;
+            }
+            LookAtTarget();
+            Managers.Skill.StartNum3Cooldown();
+            _playerStatus.ManaPool.CurrentValue -= Managers.Skill.GetSkillData(Managers.Skill.CurrentNum3SKillName).ManaCost;
+            _playerAnimator.Play(Managers.Skill.GetSkillData(Managers.Skill.CurrentNum3SKillName).ResourceName);
+            Managers.Event.PostNotification(Define.EVENT_TYPE.PlayerManaChange, this);
         }
     }
     public void AbilityNum4(InputAction.CallbackContext callbackContext)
@@ -184,7 +194,7 @@ public class PlayerAnimate : MonoBehaviour, IListener
         CheckCooldown(ref Managers.Skill.Num4SkillCooldownRemain);
     }
 
-#pragma warning disable IDE0051 // 사용되지 않는 private 멤버 제거
+#pragma warning disable IDE0051
     private void BladeSlash()
     {
         Managers.Sound.Play("BladeSlash");
@@ -224,6 +234,10 @@ public class PlayerAnimate : MonoBehaviour, IListener
         Managers.Sound.Play("ShadowRain");
         GameObject go = Managers.Resource.Instantiate("ShadowRain");
         go.transform.position = _playerControlInput.Hit.point + Vector3.up * 0.2f;
+        if (Physics.Raycast(_playerControlInput.Hit.point, Vector3.down, out RaycastHit hit, 9))
+        {
+            go.transform.position = hit.point + Vector3.up * 0.2f;
+        }
     }
 
     private void ShadowImpulse()
@@ -231,8 +245,11 @@ public class PlayerAnimate : MonoBehaviour, IListener
         Managers.Sound.Play("ShadowImpulse");
         GameObject go = Managers.Resource.Instantiate("ShadowImpulse");
         go.transform.position = _playerControlInput.Hit.point + Vector3.up * 0.2f;
+        if(Physics.Raycast(_playerControlInput.Hit.point, Vector3.down, out RaycastHit hit, 9))
+        {
+            go.transform.position = hit.point + Vector3.up * 0.2f;
+        }
     }
-
 
     private void Greed()
     {
@@ -260,8 +277,8 @@ public class PlayerAnimate : MonoBehaviour, IListener
         GameObject go = Managers.Resource.Instantiate("ExposeOfDarkness");
         go.transform.position = transform.position + Vector3.down * 0.9f;
     }
-#pragma warning restore IDE0051 // 사용되지 않는 private 멤버 제거
 
+#pragma warning restore IDE0051
     public void OnEvent(Define.EVENT_TYPE Event_Type, Component Sender, object Param = null)
     {
         switch (Event_Type)

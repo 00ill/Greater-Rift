@@ -21,7 +21,7 @@ public class ItemBox : MonoBehaviour
 
     private void GetItem()
     {
-        if (Managers.Inventory.ItemCount == Managers.Inventory.ItemCountMax)
+        if (Managers.Inventory.CheckItemCount(Managers.Inventory.Inventory) == Managers.Inventory.ItemCountMax)
         {
             Managers.Event.PostNotification(Define.EVENT_TYPE.FullInventory, this);
             return;

@@ -705,6 +705,7 @@ public class GameUI : UI_Scene, IListener
                     if (Sender.TryGetComponent(out PlayerStatus playerStatus))
                     {
                         PlayerHpChangeEvent(playerStatus.LifePool.CurrentValue, playerStatus.LifePool.MaxValue);
+                        GetText((int)Texts.HpText).text = $"{_playerStatus.LifePool.CurrentValue} / {_playerStatus.LifePool.MaxValue}";
                     }
                     break;
                 }
@@ -713,6 +714,7 @@ public class GameUI : UI_Scene, IListener
                     if (Sender.TryGetComponent(out PlayerStatus playerStatus))
                     {
                         PlayerManaChangeEvent(playerStatus.ManaPool.CurrentValue, playerStatus.ManaPool.MaxValue);
+                        GetText((int)Texts.ManaText).text = $"{_playerStatus.ManaPool.CurrentValue} / {_playerStatus.ManaPool.MaxValue}";
                     }
                     break;
                 }
