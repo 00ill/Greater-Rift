@@ -5,7 +5,6 @@ using UnityEngine.AI;
 public enum Statistic
 {
     Level,
-    Exp,
     Life,
     Mana,
     Damage,
@@ -44,7 +43,6 @@ public class StatsGroup
     public void InitLevel()
     {
         StatsList.Add(new StatsValue(Statistic.Level, Managers.DB.CurrentPlayerData.Level));
-        StatsList.Add(new StatsValue(Statistic.Exp, Managers.DB.CurrentPlayerData.CurExp));
         StatsList.Add(new StatsValue(Statistic.Life, Managers.Data.PlayerStatusDataDict[Managers.DB.CurrentPlayerData.Level].Life));
         StatsList.Add(new StatsValue(Statistic.Mana, Managers.Data.PlayerStatusDataDict[Managers.DB.CurrentPlayerData.Level].Mana));
         StatsList.Add(new StatsValue(Statistic.Damage, Managers.Data.PlayerStatusDataDict[Managers.DB.CurrentPlayerData.Level].Damage));
@@ -55,7 +53,6 @@ public class StatsGroup
     public void InitItemStatus()
     {
         StatsList.Add(new StatsValue(Statistic.Level, 0));
-        StatsList.Add(new StatsValue(Statistic.Exp, 0));
         StatsList.Add(new StatsValue(Statistic.Life, Managers.Inventory.ItemTotal.Life));
         StatsList.Add(new StatsValue(Statistic.Mana, Managers.Inventory.ItemTotal.Mana));
         StatsList.Add(new StatsValue(Statistic.Damage, Managers.Inventory.ItemTotal.Damage));
@@ -66,7 +63,6 @@ public class StatsGroup
     public void UpdateItemStatus()
     {
         Set(Statistic.Level, 0);
-        Set(Statistic.Exp, 0);
         Set(Statistic.Life, Managers.Inventory.ItemTotal.Life);
         Set(Statistic.Mana, Managers.Inventory.ItemTotal.Mana);
         Set(Statistic.Damage, Managers.Inventory.ItemTotal.Damage);
@@ -77,7 +73,6 @@ public class StatsGroup
     public void Init()
     {
         StatsList.Add(new StatsValue(Statistic.Level, 0));
-        StatsList.Add(new StatsValue(Statistic.Exp, 0));
         StatsList.Add(new StatsValue(Statistic.Life, 0));
         StatsList.Add(new StatsValue(Statistic.Mana, 0));
         StatsList.Add(new StatsValue(Statistic.Damage, 0));
@@ -145,8 +140,8 @@ public class PlayerStatus : MonoBehaviour, IDamageable, IListener
         Stats.Init();
         LevelStatus.InitLevel();
         ItemStatus.InitItemStatus();
+        ExpPool = new ValuePool(Managers.Data.PlayerStatusDataDict[Managers.DB.CurrentPlayerData.Level].RequireExp, Managers.DB.CurrentPlayerData.CurExp);
         UpdateStatus(true);
-
         Managers.Event.AddListener(Define.EVENT_TYPE.ChangeStatus, this);
     }
 
@@ -198,6 +193,7 @@ public class PlayerStatus : MonoBehaviour, IDamageable, IListener
         {
             LevelUp();
         }
+        Managers.DB.CurrentPlayerData.CurExp += exp;
         Managers.Event.PostNotification(Define.EVENT_TYPE.PlayerExpChange, this);
     }
 
@@ -212,8 +208,8 @@ public class PlayerStatus : MonoBehaviour, IDamageable, IListener
         LevelStatus.Set(Statistic.Mana, Managers.Data.PlayerStatusDataDict[LevelStatus.Get(Statistic.Level).IntetgerValue].Mana);
         LevelStatus.Set(Statistic.Armor, Managers.Data.PlayerStatusDataDict[LevelStatus.Get(Statistic.Level).IntetgerValue].Armor);
         LevelStatus.Set(Statistic.Damage, Managers.Data.PlayerStatusDataDict[LevelStatus.Get(Statistic.Level).IntetgerValue].Damage);
-        LevelStatus.Set(Statistic.Exp, 0);
-
+        ExpPool = new ValuePool(Managers.Data.PlayerStatusDataDict[Managers.DB.CurrentPlayerData.Level].RequireExp, 0);
+        Managers.DB.CurrentPlayerData.CurExp = 0;
         UpdateStatus(true);
     }
 
@@ -223,15 +219,13 @@ public class PlayerStatus : MonoBehaviour, IDamageable, IListener
         ItemStatus.UpdateItemStatus();
         SetStats(Statistic.Level, LevelStatus.Get(Statistic.Level).IntetgerValue);
         Managers.Game.PlayerLevel = LevelStatus.Get(Statistic.Level).IntetgerValue;
-        SetStats(Statistic.Exp, LevelStatus.Get(Statistic.Exp).IntetgerValue);
         SetStats(Statistic.Life, LevelStatus.Get(Statistic.Life).IntetgerValue + ItemStatus.Get(Statistic.Life).IntetgerValue);
         SetStats(Statistic.Mana, LevelStatus.Get(Statistic.Mana).IntetgerValue + ItemStatus.Get(Statistic.Mana).IntetgerValue);
         SetStats(Statistic.Damage, LevelStatus.Get(Statistic.Damage).IntetgerValue + ItemStatus.Get(Statistic.Damage).IntetgerValue + Managers.Skill.AdditionalDamage);
         SetStats(Statistic.Armor, LevelStatus.Get(Statistic.Armor).IntetgerValue + ItemStatus.Get(Statistic.Armor).IntetgerValue + Managers.Skill.AdditionalArmor);
         SetStats(Statistic.MoveSpeed, LevelStatus.Get(Statistic.MoveSpeed).FloatValue + ItemStatus.Get(Statistic.MoveSpeed).FloatValue + Managers.Skill.AdditionalMoveSpeed);
-        _playerAgent.speed = GetStats(Statistic.MoveSpeed).FloatValue;
 
-        ExpPool = new ValuePool((Managers.Data.PlayerStatusDataDict[Stats.Get(Statistic.Level).IntetgerValue].RequireExp), Stats.StatsList[(int)Statistic.Exp].IntetgerValue);
+        _playerAgent.speed = GetStats(Statistic.MoveSpeed).FloatValue;
         if (isLevelUp)
         {
             LifePool = new ValuePool(Stats.Get(Statistic.Life));

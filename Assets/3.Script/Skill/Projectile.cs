@@ -44,6 +44,5 @@ public class Projectile : MonoBehaviour
         WaitForSeconds playTime = new WaitForSeconds(time);
         yield return playTime;
         Managers.Resource.Destroy(gameObject);
-
     }
 }

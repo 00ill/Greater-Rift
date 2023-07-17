@@ -62,12 +62,6 @@ public class NormalRiftPortal : MonoBehaviour
     }
     private Define.Scene SelectRandomScene()
     {
-        if (Util.Probability(0))
-        {
-            return Define.Scene.Desert;
-        }
         return Define.Scene.NRDungeon;
     }
-
-
 }

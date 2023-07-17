@@ -7,7 +7,7 @@ public class FlyingEyeProjectile : Projectile
     protected override void OnEnable()
     {
         base.OnEnable();
-        DestroyProjectile(4f);
+        DestroyProjectile(6f);
     }
     protected override void InitializeProjectile()
     {
