@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Astar
@@ -56,16 +54,16 @@ namespace Astar
 
         public int CompareTo(Node nodeToCompare)
         {
-            var compare  = FCost.CompareTo(nodeToCompare.FCost);
+            var compare = FCost.CompareTo(nodeToCompare.FCost);
 
-            if(compare == 0)
+            if (compare == 0)
             {
                 compare = HCost.CompareTo(nodeToCompare.HCost);
             }
             return -compare;
         }
 
-        public override bool Equals(object obj) => WorldPostion ==((Node)obj).WorldPostion;
+        public override bool Equals(object obj) => WorldPostion == ((Node)obj).WorldPostion;
 
         public override int GetHashCode()
         {

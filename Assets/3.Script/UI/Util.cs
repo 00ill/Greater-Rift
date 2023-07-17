@@ -54,10 +54,4 @@ public class Util
     {
         return prob > Random.Range(1, 101);
     }
-
-    public static void PrintText(string text)
-    {
-        Debug.Log(string.Format(text));
-    }
-
 }

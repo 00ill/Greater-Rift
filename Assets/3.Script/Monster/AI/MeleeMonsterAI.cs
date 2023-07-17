@@ -46,7 +46,7 @@ public class MeleeMonsterAI : BehaviorTree.Tree
     protected override Node SetupTree()
     {
         Node root = new Selector(new List<Node>
-        { 
+        {
             new BehaviorTree.Sequence(new List<Node>
             {
                 new CheckPlayerInAttackRange(transform),

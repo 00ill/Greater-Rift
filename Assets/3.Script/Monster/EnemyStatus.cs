@@ -53,13 +53,13 @@ namespace Enemy
 
             StatsList.Add(new StatsValue(Statistic.Name, enemyData.Name));
             StatsList.Add(new StatsValue(Statistic.Life, enemyData.Life * Managers.Game.PlayerLevel));
-            StatsList.Add(new StatsValue(Statistic.Damage, enemyData.Damage * Managers.Game.PlayerLevel ));
+            StatsList.Add(new StatsValue(Statistic.Damage, enemyData.Damage * Managers.Game.PlayerLevel));
             StatsList.Add(new StatsValue(Statistic.Armor, enemyData.Armor * Managers.Game.PlayerLevel));
             StatsList.Add(new StatsValue(Statistic.MoveSpeed, enemyData.MoveSpeed));
             StatsList.Add(new StatsValue(Statistic.FovRange, enemyData.DetectionRange));
             StatsList.Add(new StatsValue(Statistic.AttackRange, enemyData.AttackRange));
             StatsList.Add(new StatsValue(Statistic.AttackCooldown, enemyData.AttackCooldown));
-            
+
         }
 
         internal StatsValue Get(Statistic statisticToGet)
@@ -152,7 +152,7 @@ namespace Enemy
             int itemDropProb = 30;
             if (Util.Probability(itemDropProb))
             {
-                Managers.Item.GenerateItem(_playerStatus.GetStats(global::Statistic.Level).IntetgerValue,transform.position);
+                Managers.Item.GenerateItem(_playerStatus.GetStats(global::Statistic.Level).IntetgerValue, transform.position);
             }
         }
     }

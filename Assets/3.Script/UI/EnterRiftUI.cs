@@ -61,11 +61,9 @@ public class EnterRiftUI : UI_Popup
             go.transform.position = _normalRiftPortalPosition;
             Managers.Game.IsUiPopUp = false;
             Managers.UI.ClosePopupUI();
-            //ÀÏ¹Ý±Õ¿­ ÀÔÀå Æ÷Å» »ý¼º
         });
         GetButton((int)Buttons.GreaterRift).gameObject.BindEvent((PointerEventData data) =>
         {
-            //´ë±Õ¿­ ÀÔÀå Æ÷Å» »ý¼º
         });
         GetButton((int)Buttons.Exit).gameObject.BindEvent((PointerEventData data) =>
         {

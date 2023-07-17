@@ -63,12 +63,13 @@ public class RangeMonsterAI : BehaviorTree.Tree
 
     private void AttackAnimationEvent()
     {
-        GameObject projectile = Managers.Resource.Instantiate($"{transform.name}_Projectile");
-        projectile.transform.position = transform.position + Vector3.up * 0.5f;
-        Vector3 shootDirection = _playerStatus.transform.position - transform.position;
-        projectile.transform.rotation = Quaternion.LookRotation(shootDirection.normalized, Vector3.up);
-        //projectile.transform.SetParent(transform, true);
-        projectile.GetComponent<Projectile>().ShootForward();
-        //projectile.GetOrAddComponent<Projectile>().ShootForward();
+        if (!EnemyStatus.IsDead)
+        {
+            GameObject projectile = Managers.Resource.Instantiate($"{transform.name}_Projectile");
+            projectile.transform.position = transform.position + Vector3.up * 0.5f;
+            Vector3 shootDirection = _playerStatus.transform.position - transform.position;
+            projectile.transform.rotation = Quaternion.LookRotation(shootDirection.normalized, Vector3.up);
+            projectile.GetComponent<Projectile>().ShootForward();
+        }
     }
 }

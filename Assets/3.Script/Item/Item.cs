@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 
 public enum ItemType
 {
@@ -12,11 +11,6 @@ public enum ItemType
     Boots
 }
 
-//int값
-//레벨, 현재 경험치, 체력, 마나, 데미지, 방어
-//float 값
-//공격속도, 이동속도
-
 public class Item
 {
     public ItemType Type;
@@ -28,7 +22,6 @@ public class Item
     public float MoveSpeed;
     public float CooldownReduction;
 
-    //리소스 경로를 아이템타입 스트링+ 랜덤 숫자
     private readonly string _itemPath = "Images/Item/";
     public int SpriteNum;
     public string SpritePath;

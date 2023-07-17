@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -217,7 +216,7 @@ public class PlayerStatus : MonoBehaviour, IDamageable, IListener
 
         UpdateStatus(true);
     }
-    
+
     private void UpdateStatus(bool isLevelUp)
     {
         Managers.Inventory.CalcItemTotal();

@@ -1,7 +1,5 @@
 using BehaviorTree;
 using Enemy;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -32,12 +30,12 @@ public class CheckPlayerInBreathRange : BehaviorTree.Node
             return state;
         }
 
-        if(_enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Breath"))
+        if (_enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Breath"))
         {
             return NodeState.Success;
         }
 
-        if(_breathCooldownRemain > 0f )
+        if (_breathCooldownRemain > 0f)
         {
             _breathCooldownRemain -= Time.deltaTime;
             state = NodeState.Failure;
@@ -48,7 +46,7 @@ public class CheckPlayerInBreathRange : BehaviorTree.Node
         if (Vector3.Distance(_enemyTransform.position, target.position) <= _breathRange)
         {
             _breathCooldownRemain = _breathCooldown;
-            if(_enemyAgent.enabled)
+            if (_enemyAgent.enabled)
             {
                 _enemyAgent.avoidancePriority = 49;
                 _enemyAgent.isStopped = true;

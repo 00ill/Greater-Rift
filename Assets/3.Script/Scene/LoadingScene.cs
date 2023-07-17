@@ -15,13 +15,11 @@ public class LoadingScene : BaseScene
         Init();
         StartCoroutine(nameof(LoadSceneProcess));
     }
-
     protected override void Init()
     {
         base.Init();
 
     }
-
 
     public override void Clear()
     {

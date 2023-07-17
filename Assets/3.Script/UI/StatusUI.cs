@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
+using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class StatusUI : UI_Popup, IListener
 {
@@ -89,7 +87,7 @@ public class StatusUI : UI_Popup, IListener
 
     public void OnEvent(Define.EVENT_TYPE Event_Type, Component Sender, object Param = null)
     {
-        if(Event_Type == Define.EVENT_TYPE.ChangeStatus)
+        if (Event_Type == Define.EVENT_TYPE.ChangeStatus)
         {
             UpdateStatus();
         }

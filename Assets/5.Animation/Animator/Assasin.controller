@@ -266,52 +266,52 @@ AnimatorStateMachine:
     m_Position: {x: 310, y: 120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1787825199717611327}
-    m_Position: {x: 0, y: -40, z: 0}
+    m_Position: {x: 30, y: -40, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2004272486174128745}
-    m_Position: {x: 720, y: -180, z: 0}
+    m_Position: {x: 580, y: -190, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4673941540151461347}
-    m_Position: {x: 720, y: -130, z: 0}
+    m_Position: {x: 580, y: -140, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5441026880929477739}
-    m_Position: {x: 210, y: -40, z: 0}
+    m_Position: {x: 310, y: -40, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6799698112307945213}
-    m_Position: {x: 0, y: -140, z: 0}
+    m_Position: {x: 30, y: 270, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2549495937687653529}
-    m_Position: {x: 720, y: -40, z: 0}
+    m_Position: {x: 580, y: -50, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5963240283228466394}
-    m_Position: {x: 720, y: 380, z: 0}
+    m_Position: {x: 580, y: 370, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8350342077912902980}
-    m_Position: {x: 720, y: 100, z: 0}
+    m_Position: {x: 580, y: 90, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1246480354728963872}
-    m_Position: {x: 720, y: 240, z: 0}
+    m_Position: {x: 580, y: 230, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8585513900989373293}
-    m_Position: {x: 720, y: 290, z: 0}
+    m_Position: {x: 580, y: 280, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6091958979454525718}
-    m_Position: {x: 720, y: 150, z: 0}
+    m_Position: {x: 580, y: 140, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1674494432258736360}
-    m_Position: {x: 720, y: 10, z: 0}
+    m_Position: {x: 580, y: 0, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4035959020982302925}
-    m_Position: {x: 720, y: 440, z: 0}
+    m_Position: {x: 580, y: 420, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: 6772278926198985766}
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: -250, y: -130, z: 0}
+  m_AnyStatePosition: {x: 50, y: 170, z: 0}
   m_EntryPosition: {x: 50, y: 120, z: 0}
-  m_ExitPosition: {x: 940, y: -90, z: 0}
+  m_ExitPosition: {x: 320, y: 280, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: -2904485347320191525}
 --- !u!1102 &-1787825199717611327
@@ -321,7 +321,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Anim_Run_Fwd
+  m_Name: Move
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:

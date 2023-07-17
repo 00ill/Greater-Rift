@@ -6,7 +6,9 @@ public class Define
         LoadingScene,
         MainMenu,
         Town,
-        NRDungeon
+        NRDungeon,
+        NRDungeon2,
+        Desert
 
     }
 
@@ -16,20 +18,7 @@ public class Define
         Effect,
         MaxCount
     }
-    public enum InteractType
-    {
-        Dungeon,
-        Gem
-    }
 
-    public enum SortingOrder
-    {
-        CharacterSelectButton = 15,
-        GameStartUI = 5,
-        LogBookUI = 6,
-        DetailInLogBook = 20,
-        MouseInteraction = 100,
-    }
     public enum UIEvent
     {
         Click,
@@ -77,15 +66,4 @@ public class Define
         FullDataSlot,
         UpdateLoadData
     }
-    public enum Skill_Type
-    {
-        M1Skill,
-        M2Skill,
-        Num1Skill,
-        Num2Skill,
-        Num3Skill,
-        Num4Skill
-    }
-
-
 }

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
@@ -18,7 +19,6 @@ public class Projectile : MonoBehaviour
 
     protected virtual void OnEnable()
     {
-        //_damage = _playerStatus.Damage;
     }
 
     protected virtual void InitializeProjectile()
@@ -32,5 +32,18 @@ public class Projectile : MonoBehaviour
     public virtual void ShootForward()
     {
         _projectileRigidbody.velocity = this.transform.forward * _projectileSpeed;
+    }
+
+    protected void DestroyProjectile(float time)
+    {
+        StartCoroutine(Destroy(time));
+    }
+
+    private IEnumerator Destroy(float time)
+    {
+        WaitForSeconds playTime = new WaitForSeconds(time);
+        yield return playTime;
+        Managers.Resource.Destroy(gameObject);
+
     }
 }

@@ -2,8 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Pathfinding : MonoBehaviour
@@ -12,7 +10,7 @@ public class Pathfinding : MonoBehaviour
 
     private void Awake()
     {
-        _grid = GetComponent<Astar.Grid>(); 
+        _grid = GetComponent<Astar.Grid>();
     }
     public void StartFindPath(Vector3 startPos, Vector3 targetPos)
     {
@@ -28,47 +26,47 @@ public class Pathfinding : MonoBehaviour
         var startNode = _grid.NodeFromWorldPoint(startPos);
         var targetNode = _grid.NodeFromWorldPoint(targetPos);
 
-        if(startNode.Walkable != Astar.Walkable.Passable)
+        if (startNode.Walkable != Astar.Walkable.Passable)
         {
             var neighbors = _grid.GetNeighbours(startNode);
-            foreach(var n in  neighbors.Where(n =>n.Walkable == Astar.Walkable.Passable))
+            foreach (var n in neighbors.Where(n => n.Walkable == Astar.Walkable.Passable))
             {
                 startNode = n;
             }
         }
 
-        if(startNode.Walkable == Astar.Walkable.Passable && targetNode.Walkable == Astar.Walkable.Passable)
+        if (startNode.Walkable == Astar.Walkable.Passable && targetNode.Walkable == Astar.Walkable.Passable)
         {
             var openSet = new Heap<Astar.Node>(_grid.MaxSize);
             var closeSet = new HashSet<Astar.Node>();
 
             openSet.Add(startNode);
 
-            while(openSet.Count > 0)
+            while (openSet.Count > 0)
             {
                 var currentNode = openSet.RemoveFirst();
                 closeSet.Add(currentNode);
 
-                if(currentNode.Equals(targetNode)) 
+                if (currentNode.Equals(targetNode))
                 {
                     pathSuccess = true;
                     break;
                 }
 
-                foreach(var neighbor in _grid.GetNeighbours(currentNode))
+                foreach (var neighbor in _grid.GetNeighbours(currentNode))
                 {
-                    if(neighbor.Walkable != Astar.Walkable.Passable || closeSet.Contains(neighbor))
+                    if (neighbor.Walkable != Astar.Walkable.Passable || closeSet.Contains(neighbor))
                     {
                         continue;
                     }
 
-                    var newMovementCostToNeighbor = currentNode.GCost + GetDistance(currentNode, neighbor) +neighbor.MovementPenalty;
-                    if(newMovementCostToNeighbor < neighbor.GCost || !openSet.Contains(neighbor))
+                    var newMovementCostToNeighbor = currentNode.GCost + GetDistance(currentNode, neighbor) + neighbor.MovementPenalty;
+                    if (newMovementCostToNeighbor < neighbor.GCost || !openSet.Contains(neighbor))
                     {
                         neighbor.GCost = newMovementCostToNeighbor;
                         neighbor.HCost = GetDistance(neighbor, targetNode);
                         neighbor.Parent = currentNode;
-                        if(!openSet.Contains(neighbor))
+                        if (!openSet.Contains(neighbor))
                         {
                             openSet.Add(neighbor);
                         }
@@ -76,7 +74,7 @@ public class Pathfinding : MonoBehaviour
                 }
             }
             yield return null;
-            if(pathSuccess)
+            if (pathSuccess)
             {
                 waypoints = RetracePath(startNode, targetNode);
 
@@ -93,7 +91,7 @@ public class Pathfinding : MonoBehaviour
         var path = new List<Astar.Node>();
         var currentNode = endNode;
 
-        while(currentNode != startNode)
+        while (currentNode != startNode)
         {
             path.Add(currentNode);
             currentNode = currentNode.Parent;
@@ -106,22 +104,22 @@ public class Pathfinding : MonoBehaviour
     }
 
 
-    private static Vector3[] SimplifyPath(List<Astar.Node> path) 
+    private static Vector3[] SimplifyPath(List<Astar.Node> path)
     {
         var waypoints = new List<Vector3>();
         var directionOld = Vector2.zero;
 
-        for(var i =1; i<path.Count; i++)
+        for (var i = 1; i < path.Count; i++)
         {
             var directionNew = new Vector2(path[i - 1].GridX - path[i].GridX, path[i - 1].GridY - path[i].GridY);
-            if(directionNew != directionOld)
+            if (directionNew != directionOld)
             {
                 waypoints.Add(path[i].WorldPostion + Vector3.up);
             }
             directionOld = directionNew;
         }
 
-        return waypoints.ToArray(); 
+        return waypoints.ToArray();
     }
     private static Vector3[] BezierPath(Vector3[] waypoints, float smoothness)
     {
@@ -162,9 +160,9 @@ public class Pathfinding : MonoBehaviour
     {
         var dstX = Mathf.Abs(nodeA.GridX - nodeB.GridX);
         var dstY = Mathf.Abs(nodeA.GridY - nodeB.GridY);
-        if(dstX > dstY)
+        if (dstX > dstY)
         {
-            return 14 *dstY + 10*(dstX - dstY);
+            return 14 * dstY + 10 * (dstX - dstY);
         }
 
         return 14 * dstX + 10 * (dstY - dstX);

@@ -1,6 +1,3 @@
-using Astar;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Color = UnityEngine.Color;
 
@@ -13,7 +10,7 @@ public class GridColor : MonoBehaviour
 
     private void Awake()
     {
-        rend  = GetComponent<Renderer>();
+        rend = GetComponent<Renderer>();
         defaultColor = new Color();
         ColorUtility.TryParseHtmlString("#00FFFF6F", out defaultColor);
         rend.material.color = defaultColor;

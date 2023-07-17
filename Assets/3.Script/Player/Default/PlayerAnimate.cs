@@ -1,4 +1,3 @@
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
@@ -9,20 +8,32 @@ public class PlayerAnimate : MonoBehaviour, IListener
     private Animator _playerAnimator;
     private PlayerStatus _playerStatus;
     private PlayerControlInput _playerControlInput;
+    private CommandHandler _commandHandler;
     private void Awake()
     {
         TryGetComponent(out _playerAgent);
         TryGetComponent(out _playerAnimator);
         TryGetComponent(out _playerStatus);
         TryGetComponent(out _playerControlInput);
+        TryGetComponent(out _commandHandler);
     }
     private void Start()
     {
         Managers.Event.AddListener(Define.EVENT_TYPE.PlayerDeath, this);
     }
+
     private void Update()
     {
-        _playerAnimator.SetFloat("Run", _playerAgent.velocity.magnitude);
+        if (_commandHandler != null)
+        {
+            _playerAnimator.SetFloat("Run", _playerAgent.velocity.magnitude);
+        }
+        else
+        {
+            _playerAnimator.SetFloat("Run", 0f);
+        }
+
+
         CheckAllCooldown();
     }
 
@@ -148,9 +159,6 @@ public class PlayerAnimate : MonoBehaviour, IListener
                 Managers.Event.PostNotification(Define.EVENT_TYPE.PlayerPortalAlreadyOpen, this);
                 return;
             }
-
-            //GameObject go = Managers.Resource.Instantiate("PlayerPortal");
-            //go.transform.position = transform.position;
             Managers.Game.isPlayerPortalOpen = true;
             Managers.Resource.Instantiate("PlayerPortal").transform.position = transform.position + Vector3.up;
         }
@@ -174,9 +182,9 @@ public class PlayerAnimate : MonoBehaviour, IListener
         CheckCooldown(ref Managers.Skill.Num2SkillCooldownRemain);
         CheckCooldown(ref Managers.Skill.Num3SkillCooldownRemain);
         CheckCooldown(ref Managers.Skill.Num4SkillCooldownRemain);
-
     }
 
+#pragma warning disable IDE0051 // 사용되지 않는 private 멤버 제거
     private void BladeSlash()
     {
         Managers.Sound.Play("BladeSlash");
@@ -241,9 +249,9 @@ public class PlayerAnimate : MonoBehaviour, IListener
     }
     private void BloodFlood()
     {
-        Managers.Sound.Play("BloodFlood",Define.Sound.Effect, 0.7f);
+        Managers.Sound.Play("BloodFlood", Define.Sound.Effect, 0.7f);
         GameObject bloodFlood = Managers.Resource.Instantiate("BloodFlood");
-        bloodFlood.transform.position = transform.position + Vector3.up *0.1f;
+        bloodFlood.transform.position = transform.position + Vector3.up * 0.1f;
     }
 
     private void ExposeOfDarkness()
@@ -252,6 +260,7 @@ public class PlayerAnimate : MonoBehaviour, IListener
         GameObject go = Managers.Resource.Instantiate("ExposeOfDarkness");
         go.transform.position = transform.position + Vector3.down * 0.9f;
     }
+#pragma warning restore IDE0051 // 사용되지 않는 private 멤버 제거
 
     public void OnEvent(Define.EVENT_TYPE Event_Type, Component Sender, object Param = null)
     {

@@ -81,7 +81,7 @@ public class InventoryUI : UI_Popup, IListener
     private void Awake()
     {
         _playerControlInput = FindAnyObjectByType<PlayerControlInput>();
-       
+
     }
 
     private void Start()

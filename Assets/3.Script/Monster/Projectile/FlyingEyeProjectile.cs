@@ -4,7 +4,11 @@ using UnityEngine;
 public class FlyingEyeProjectile : Projectile
 {
     private EnemyStatus _enemyStatus;
-
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        DestroyProjectile(4f);
+    }
     protected override void InitializeProjectile()
     {
         _projectileSpeed = 5f;

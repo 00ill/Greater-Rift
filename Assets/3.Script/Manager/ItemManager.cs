@@ -25,16 +25,16 @@ public class ItemManager
         itemBox.transform.position = position;
         itemBox.GetComponent<ItemBox>().ItemData = item;
     }
-    
+
     private string CheckItemGrade()
     {
         int randNum = Random.Range(1, 101);
-        if(randNum <= LegendaryProb)
+        if (randNum <= LegendaryProb)
         {
             GradeCoefficient = 4;
             return "LegendaryItemBox";
         }
-        else if(randNum <= RareProb)
+        else if (randNum <= RareProb)
         {
             GradeCoefficient = 3;
             return "RareItemBox";

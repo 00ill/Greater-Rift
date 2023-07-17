@@ -12,8 +12,6 @@ public class MainMenu : BaseScene
         Init();
         Managers.UI.ShowSceneUI<MainUI>();
     }
-
-
     protected override void Init()
     {
         base.Init();

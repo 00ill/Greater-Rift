@@ -133,6 +133,7 @@ public class MainUI : UI_Scene
         GetButton((int)Buttons.NewStartButton).gameObject.BindEvent((PointerEventData data) => NewStartEvent());
         GetButton((int)Buttons.LoadDataButton).gameObject.BindEvent((PointerEventData data) => LoadDataEvent());
         GetButton((int)Buttons.OptionButton).gameObject.BindEvent((PointerEventData data) => OptionEvent());
+        GetButton((int)Buttons.QuitButton).gameObject.BindEvent((PointerEventData data) => { Application.Quit(); });
 
         GetObject((int)GameObjects.MenuPanel).SetActive(false);
     }
@@ -248,7 +249,8 @@ public class MainUI : UI_Scene
 
         GetButton((int)Buttons.LoginButton).gameObject.BindEvent((PointerEventData data) => { Login(); });
         GetButton((int)Buttons.SignUpButton).gameObject.BindEvent((PointerEventData data) =>
-        {Managers.Sound.Play("ButtonClick");
+        {
+            Managers.Sound.Play("ButtonClick");
             Managers.Sound.Play("ButtonClick");
             GetObject((int)GameObjects.SignUpPanel).SetActive(true);
             GetObject((int)GameObjects.LoginPanel).SetActive(false);

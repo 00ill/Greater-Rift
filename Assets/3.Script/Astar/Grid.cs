@@ -1,7 +1,4 @@
-using JetBrains.Annotations;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 namespace Astar
@@ -125,14 +122,14 @@ namespace Astar
         private void OnDrawGizmos()
         {
             Gizmos.DrawWireCube(transform.position, new Vector3(GridWorldSize.x, 1, GridWorldSize.y));
-            if(grid == null || DisplayGridGizmos)
+            if (grid == null || DisplayGridGizmos)
             {
-                return; 
+                return;
             }
-            foreach(var n in grid)
+            foreach (var n in grid)
             {
                 Gizmos.color = (n.Walkable == Astar.Walkable.Passable) ? Color.blue : Color.red;
-                Gizmos.DrawCube(n.WorldPostion, Vector3.one * (NodeDiameter - (NodeDiameter -.1f)));
+                Gizmos.DrawCube(n.WorldPostion, Vector3.one * (NodeDiameter - (NodeDiameter - .1f)));
             }
 
         }

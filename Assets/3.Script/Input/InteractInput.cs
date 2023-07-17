@@ -5,11 +5,9 @@ public class InteractInput : MonoBehaviour
 {
     [HideInInspector] public EnemyStatus AttackTarget;
     [HideInInspector] public InteractableObject InteractableObjectTarget;
-    private InteractHandler _interactHandler;
     private PlayerControlInput _playerControlInput;
     private void Awake()
     {
-        TryGetComponent(out _interactHandler);
         TryGetComponent(out _playerControlInput);
     }
 
@@ -50,7 +48,6 @@ public class InteractInput : MonoBehaviour
                 Managers.Event.PostNotification(Define.EVENT_TYPE.CheckInteractableObject, null);
             }
         }
-        //Managers.Event.PostNotification(Define.EVENT_TYPE.CheckInteractableObject, InteractableObjectTarget);
     }
 
     internal bool AttackCheck()

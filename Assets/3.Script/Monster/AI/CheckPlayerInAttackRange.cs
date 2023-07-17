@@ -29,7 +29,7 @@ public class CheckPlayerInAttackRange : BehaviorTree.Node
         Transform target = (Transform)t;
         if (Vector3.Distance(_enemyTransform.position, target.position) <= _enemyStatus.GetStats(Enemy.Statistic.AttackRange).IntegerValue)
         {
-            if(_enemyAgent.enabled)
+            if (_enemyAgent.enabled)
             {
                 _enemyAgent.avoidancePriority = 49;
                 _enemyAgent.isStopped = true;

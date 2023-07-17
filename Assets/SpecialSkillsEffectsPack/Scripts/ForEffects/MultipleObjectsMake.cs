@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MultipleObjectsMake : _ObjectsMakeBase
 {
@@ -29,9 +27,9 @@ public class MultipleObjectsMake : _ObjectsMakeBase
         {
             if (Time.time > m_Time2 + m_makeDelay && m_count < m_makeCount)
             {
-                Vector3 m_pos = transform.position + GetRandomVector(m_randomPos)* m_scalefactor; 
+                Vector3 m_pos = transform.position + GetRandomVector(m_randomPos) * m_scalefactor;
                 Quaternion m_rot = transform.rotation * Quaternion.Euler(GetRandomVector(m_randomRot));
-                
+
 
                 for (int i = 0; i < m_makeObjs.Length; i++)
                 {

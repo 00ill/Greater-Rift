@@ -5,7 +5,6 @@ using UnityEngine;
 public class NormalRiftPortal : MonoBehaviour
 {
     private InteractableObject _interactableObject;
-    //포탈 이펙트 3개 가져오고 이펙트는 보여주기만 하고, 상호작용만 잘 하면 될듯
     private GameObject _openPortal;
     private GameObject _idlePortal;
     private GameObject _closePortal;
@@ -47,7 +46,7 @@ public class NormalRiftPortal : MonoBehaviour
         _idlePortal.SetActive(false);
         yield return _animTime;
         _closePortal.SetActive(false);
-        Managers.Scene.LoadScene(Define.Scene.NRDungeon);
+        Managers.Scene.LoadScene(SelectRandomScene());
     }
 
     private void EntranceDungeon()
@@ -61,4 +60,14 @@ public class NormalRiftPortal : MonoBehaviour
     {
         StopAllCoroutines();
     }
+    private Define.Scene SelectRandomScene()
+    {
+        if (Util.Probability(0))
+        {
+            return Define.Scene.Desert;
+        }
+        return Define.Scene.NRDungeon;
+    }
+
+
 }

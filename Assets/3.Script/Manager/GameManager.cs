@@ -6,5 +6,5 @@ public class GameManager
     public bool isGuardianSpawn;
     public int NormalRiftClearMonsterNum = 50;
     public int PlayerLevel;
-  
+
 }

@@ -34,7 +34,6 @@ public class TaskAttack : BehaviorTree.Node
                 _attackCooldownRemain = _attackCooldown;
                 LookAtTarget();
                 _enemyAnimator.SetTrigger("Attack1");
-                //_playerStatus.TakeDamage(_enemyStatus.GetStats(Enemy.Statistic.Damage).IntegerValue);
             }
             else
             {
@@ -54,9 +53,4 @@ public class TaskAttack : BehaviorTree.Node
         _enemyAgent.transform.rotation = Quaternion.Slerp(_enemyAgent.transform.rotation, lookDirection, Time.deltaTime * 10000);
         _enemyAgent.updateRotation = true;
     }
-
-    //public void AttackAnimationEvent()
-    //{
-    //    _playerStatus.TakeDamage(_enemyStatus.GetStats(Enemy.Statistic.Damage).IntegerValue);
-    //}
 }

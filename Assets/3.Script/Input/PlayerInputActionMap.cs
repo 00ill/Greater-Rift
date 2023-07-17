@@ -143,6 +143,15 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ForcedMove"",
+                    ""type"": ""Button"",
+                    ""id"": ""0df13e4c-91ff-4fae-b00d-d56bb7318eb9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -288,6 +297,17 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
                     ""action"": ""Status"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""15f13799-70ea-41b9-aeab-a0d437798031"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ForcedMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -309,6 +329,7 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
         m_Player_Test = m_Player.FindAction("Test", throwIfNotFound: true);
         m_Player_PlayerPortal = m_Player.FindAction("PlayerPortal", throwIfNotFound: true);
         m_Player_Status = m_Player.FindAction("Status", throwIfNotFound: true);
+        m_Player_ForcedMove = m_Player.FindAction("ForcedMove", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -383,6 +404,7 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Test;
     private readonly InputAction m_Player_PlayerPortal;
     private readonly InputAction m_Player_Status;
+    private readonly InputAction m_Player_ForcedMove;
     public struct PlayerActions
     {
         private @PlayerInputActionMap m_Wrapper;
@@ -400,6 +422,7 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
         public InputAction @Test => m_Wrapper.m_Player_Test;
         public InputAction @PlayerPortal => m_Wrapper.m_Player_PlayerPortal;
         public InputAction @Status => m_Wrapper.m_Player_Status;
+        public InputAction @ForcedMove => m_Wrapper.m_Player_ForcedMove;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -448,6 +471,9 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
             @Status.started += instance.OnStatus;
             @Status.performed += instance.OnStatus;
             @Status.canceled += instance.OnStatus;
+            @ForcedMove.started += instance.OnForcedMove;
+            @ForcedMove.performed += instance.OnForcedMove;
+            @ForcedMove.canceled += instance.OnForcedMove;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -491,6 +517,9 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
             @Status.started -= instance.OnStatus;
             @Status.performed -= instance.OnStatus;
             @Status.canceled -= instance.OnStatus;
+            @ForcedMove.started -= instance.OnForcedMove;
+            @ForcedMove.performed -= instance.OnForcedMove;
+            @ForcedMove.canceled -= instance.OnForcedMove;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -523,5 +552,6 @@ public partial class @PlayerInputActionMap: IInputActionCollection2, IDisposable
         void OnTest(InputAction.CallbackContext context);
         void OnPlayerPortal(InputAction.CallbackContext context);
         void OnStatus(InputAction.CallbackContext context);
+        void OnForcedMove(InputAction.CallbackContext context);
     }
 }

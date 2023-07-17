@@ -5,6 +5,4 @@ public class UI_Game : UI_Base
         Managers.UI.SetCanvas(gameObject, false);
 
     }
-
-
 }

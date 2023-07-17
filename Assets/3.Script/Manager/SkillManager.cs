@@ -3,22 +3,16 @@ using System.Collections.Generic;
 public enum SkillName
 {
     None,
-    //마우스1
     ShadowSlash,
     Kick,
-    //마우스2
     BladeSlash,
     DarkFlare,
-    //num1
     ShadowCleave,
     ShadowBlast,
-    //num2
     ShadowRain,
     ShadowImpulse,
-    //num3
     Karma,
     Greed,
-    //num4
     BloodFlood,
     ExposeOfDarkness
 }
@@ -65,13 +59,11 @@ public class SkillGroup
     }
     public void InitSkillList()
     {
-        //순서
-        //스킬 이름, 스킬 타입, 쿨타임, 마나소모, 레벨 제한, 리소스이름, 데미지계수
         SkillList.Add(new SkillData(SkillName.None, SkillType.M1Skill, 0f, 0, 1, "None", 0f));
         SkillList.Add(new SkillData(SkillName.ShadowSlash, SkillType.M1Skill, 0.5f, 0, 1, "ShadowSlash", 1.2f));
         SkillList.Add(new SkillData(SkillName.Kick, SkillType.M1Skill, 1f, 0, 5, "Kick", 1.2f));
         SkillList.Add(new SkillData(SkillName.BladeSlash, SkillType.M2Skill, 5f, 30, 2, "BladeSlash", 1.5f));
-        SkillList.Add(new SkillData(SkillName.DarkFlare, SkillType.M2Skill, 3f, 10, 4, "DarkFlare", 1.2f));
+        SkillList.Add(new SkillData(SkillName.DarkFlare, SkillType.M2Skill, 15f, 10, 4, "DarkFlare", 1.2f));
         SkillList.Add(new SkillData(SkillName.ShadowCleave, SkillType.SkillSet1, 5f, 15, 4, "ShadowCleave", 2f));
         SkillList.Add(new SkillData(SkillName.ShadowBlast, SkillType.SkillSet1, 5f, 40, 29, "ShadowBlast", 2.5f));
         SkillList.Add(new SkillData(SkillName.ShadowRain, SkillType.SkillSet2, 15f, 120, 10, "ShadowRain", 1.8f));

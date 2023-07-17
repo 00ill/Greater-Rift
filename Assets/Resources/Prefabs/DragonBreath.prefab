@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6989158610322893721}
   - component: {fileID: 8987340389669894372}
   - component: {fileID: 9152679814587919800}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Effect_19_Particle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4907,7 +4907,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2335236601109318243}
-  m_Layer: 0
+  - component: {fileID: 8827689246836972436}
+  - component: {fileID: 6500517922090758114}
+  - component: {fileID: 2439254152564824047}
+  m_Layer: 8
   m_Name: DragonBreath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4934,6 +4937,66 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8827689246836972436
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2591522670850432494}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 20, y: 20, z: 60}
+  m_Center: {x: 0, y: 0, z: 20}
+--- !u!54 &6500517922090758114
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2591522670850432494}
+  serializedVersion: 4
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &2439254152564824047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2591522670850432494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 512c9003e2beca042bccaf11bbd28019, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4377433694304811250
 GameObject:
   m_ObjectHideFlags: 0
@@ -4945,7 +5008,7 @@ GameObject:
   - component: {fileID: 790429461442278889}
   - component: {fileID: 404396918749475490}
   - component: {fileID: 4958517248481951039}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Effect_19_Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9843,7 +9906,7 @@ GameObject:
   - component: {fileID: 5112250363247151591}
   - component: {fileID: 7871566083779148243}
   - component: {fileID: 6184648196624948977}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Effect_19_ParticleSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14750,7 +14813,7 @@ GameObject:
   - component: {fileID: 5528653202270881039}
   - component: {fileID: 3995519439369870764}
   - component: {fileID: 2891713084232865646}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Effect_19_BreathFireSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19648,7 +19711,7 @@ GameObject:
   - component: {fileID: 2262751661008116772}
   - component: {fileID: 6915168643757216058}
   - component: {fileID: 1718687718926001548}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Effect_19_BreathFireSphere_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

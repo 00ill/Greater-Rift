@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -8,15 +9,16 @@ public class PlayerControlInput : MonoBehaviour
     [HideInInspector] public Vector3 MouseInputPosition;
     [HideInInspector] public Vector3 RayToWorldIntersectionPoint;
 
-    private PlayerControl _playerControl;
     private CommandHandler _commandHandler;
     private InteractInput _interactInput;
 
     public RaycastHit Hit;
     private LayerMask _layerMask;
+
+    private WaitForSeconds _moveTime = new WaitForSeconds(0.25f);
+    private Coroutine _moveCoroutine = null;
     private void Awake()
     {
-        TryGetComponent(out _playerControl);
         TryGetComponent(out _commandHandler);
         TryGetComponent(out _interactInput);
     }
@@ -49,7 +51,7 @@ public class PlayerControlInput : MonoBehaviour
         {
             if (!Managers.Game.IsUiPopUp)
             {
-                if (_interactInput.AttackCheck())
+                if (_interactInput.AttackCheck() && Managers.Skill.M1SkillCooldownRemain <= 0)
                 {
                     AttackCommand(_interactInput.AttackTarget.gameObject);
                     return;
@@ -60,10 +62,33 @@ public class PlayerControlInput : MonoBehaviour
                     InteractCommand(_interactInput.InteractableObjectTarget.gameObject);
                     return;
                 }
-
+                GameObject marker = Managers.Resource.Instantiate("Marker");
+                marker.transform.position = Hit.point + Vector3.up * 0.15f;
                 MoveCommand(RayToWorldIntersectionPoint);
             }
         }
+    }
+
+    public void ForcedMovement(InputAction.CallbackContext callbackContext)
+    {
+        if (callbackContext.started)
+        {
+            if (!Managers.Game.IsUiPopUp)
+            {
+                _moveCoroutine ??= StartCoroutine(ForcedMove());
+            }
+        }
+
+        if (callbackContext.canceled)
+        {
+            if (_moveCoroutine != null)
+            {
+                StopCoroutine(_moveCoroutine);
+                _moveCoroutine = null;
+            }
+
+        }
+
     }
 
 
@@ -118,6 +143,15 @@ public class PlayerControlInput : MonoBehaviour
                 return;
             }
             Managers.Event.PostNotification(Define.EVENT_TYPE.Pause, this);
+        }
+    }
+
+    private IEnumerator ForcedMove()
+    {
+        while (true)
+        {
+            MoveCommand(RayToWorldIntersectionPoint);
+            yield return _moveTime;
         }
     }
 

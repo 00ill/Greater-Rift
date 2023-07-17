@@ -1,6 +1,4 @@
 using BehaviorTree;
-using Enemy;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -12,6 +10,7 @@ public class DragonAI : BehaviorTree.Tree
     [HideInInspector] public Guardian Guardian;
     [HideInInspector] public NavMeshAgent EnemyAgent;
     [HideInInspector] public Animator EnemyAnimator;
+    private PlayerStatus _playerStatus;
     public bool _isAttacking = false;
 
     private void Awake()
@@ -19,6 +18,7 @@ public class DragonAI : BehaviorTree.Tree
         TryGetComponent(out Guardian);
         TryGetComponent(out EnemyAgent);
         TryGetComponent(out EnemyAnimator);
+        _playerStatus = FindObjectOfType<PlayerStatus>();
     }
     protected override void Start()
     {
@@ -61,20 +61,16 @@ public class DragonAI : BehaviorTree.Tree
     {
         GameObject vfx = Managers.Resource.Instantiate("DragonBreath");
         vfx.transform.SetPositionAndRotation(transform.position + transform.forward * 5f, transform.rotation);
-        //GameObject col = Managers.Resource.Instantiate("DragonbreathCcol");
-        //col.transform.SetPositionAndRotation(transform.position + Vector3.forward * 2f, transform.rotation);
-        
     }
 
     private void AttackAnimationEvent()
     {
-
+        _playerStatus.TakeDamage(Guardian.GetStats(Enemy.Statistic.Damage).IntegerValue);
     }
-
     private void BreathStop()
     {
         EnemyAgent.enabled = true;
-        _isAttacking = false ;
+        _isAttacking = false;
     }
     private void BreathStart()
     {

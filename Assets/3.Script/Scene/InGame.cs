@@ -8,13 +8,6 @@ public class InGame : BaseScene
         Managers.UI.ShowSceneUI<GameUI>();
     }
 
-    void StartLoaded()
-    {
-        Init();
-        Managers.UI.ShowSceneUI<GameUI>();
-    }
-
-
     protected override void Init()
     {
         base.Init();

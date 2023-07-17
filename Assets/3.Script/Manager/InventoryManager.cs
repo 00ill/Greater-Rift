@@ -32,9 +32,6 @@ public class InventoryManager
 
     public Item ItemTotal;
 
-    /// <summary>
-    /// 여기 DB 연동하면 저장된 아이템 불러오는 걸로 바꿔야함
-    /// </summary>
     public void Init()
     {
         ItemCount = 0;

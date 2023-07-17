@@ -13910,6 +13910,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 661e31ed-52e6-4162-ab72-e6c7b71fda23
     m_ActionName: Player/Status[/Keyboard/c]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7430216821271873837}
+        m_TargetAssemblyTypeName: PlayerControlInput, Assembly-CSharp
+        m_MethodName: ForcedMovement
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 0df13e4c-91ff-4fae-b00d-d56bb7318eb9
+    m_ActionName: Player/ForcedMove[/Keyboard/w]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

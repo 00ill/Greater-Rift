@@ -81,7 +81,8 @@ public class PoolManager
             }
             else
             {
-                poolable.transform.parent = parent;
+                poolable.transform.SetParent(parent);
+                //poolable.transform.parent = parent;
             }
 
 

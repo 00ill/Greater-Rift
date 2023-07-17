@@ -1,7 +1,4 @@
-using Data;
 using Enemy;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Guardian : EnemyStatus
@@ -31,7 +28,7 @@ public class Guardian : EnemyStatus
     private void GuardianCheckItemSpawn()
     {
         _enemyCollider.enabled = false;
-        int itemDropProb = 30;
+        int itemDropProb = 40;
         if (Util.Probability(itemDropProb))
         {
             Managers.Item.GenerateItem(Managers.Game.PlayerLevel, transform.position);

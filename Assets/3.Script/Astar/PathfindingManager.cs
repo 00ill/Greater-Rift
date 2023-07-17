@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,9 +31,9 @@ public class PathfindingManager
         //패스파인딩 초기화
     }
 
-    public  void RequestPath(Vector3 pathStart, Vector3 pathEnd, Action<Vector3[], bool> callback)
+    public void RequestPath(Vector3 pathStart, Vector3 pathEnd, Action<Vector3[], bool> callback)
     {
-        var newRequest  = new PathRequest(pathStart, pathEnd, callback);
+        var newRequest = new PathRequest(pathStart, pathEnd, callback);
         _pathRequestQueue.Enqueue(newRequest);
     }
 

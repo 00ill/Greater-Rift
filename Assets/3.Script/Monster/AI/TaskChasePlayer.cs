@@ -17,7 +17,7 @@ public class TaskChasePlayer : Node
     {
         m_Animator.SetFloat("Locomotion", 1f);
         Transform target = (Transform)GetData("target");
-        if(_enemyAgent.enabled)
+        if (_enemyAgent.enabled)
         {
             _enemyAgent.avoidancePriority = 50;
             _enemyAgent.SetDestination(target.position);

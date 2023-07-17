@@ -11,14 +11,6 @@ public class ShadowCleave : MonoBehaviour
     {
         _playerStatus = FindObjectOfType<PlayerStatus>();
     }
-
-    //private void OnEnable()
-    //{
-    //    //transform.DOMoveZ(18, 0.5f).SetRelative();
-    //    transform.DOLocalMoveZ(18, 0.5f);
-    //    //transform.DOMove(transform.position + transform.forward * 18, 0.5f);
-    //    transform.DOMove(transform.position + transform.forward * 18, 0.5f);
-    //}
     public void ShootShadowCol()
     {
         transform.DOMove(transform.position + transform.forward * 18, 0.5f);

@@ -1,21 +1,15 @@
 using BehaviorTree;
-using Enemy;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class TaskBreath : BehaviorTree.Node
 {
     private Animator _enemyAnimator;
-    private EnemyStatus _enemyStatus;
     private NavMeshAgent _enemyAgent;
     private PlayerStatus _playerStatus;
-    private WaitForSeconds _breathTime = new WaitForSeconds(7.5f);
     public TaskBreath(Transform transform)
     {
         transform.TryGetComponent(out _enemyAnimator);
-        transform.TryGetComponent(out _enemyStatus);
         transform.TryGetComponent(out _enemyAgent);
     }
 

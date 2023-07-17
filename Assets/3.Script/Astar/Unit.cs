@@ -1,9 +1,9 @@
-using UnityEngine;
+using Astar;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using UnityEngine.Serialization;
-using Astar;
 
 public abstract class Unit : MonoBehaviour
 {

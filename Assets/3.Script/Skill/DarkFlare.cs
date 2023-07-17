@@ -93,7 +93,7 @@ public class DarkFlare : Projectile
     }
     private void OnDestroy()
     {
-        for(int i = 0; i < _lineRenderers.Length; i++)
+        for (int i = 0; i < _lineRenderers.Length; i++)
         {
             _lineRenderers[(int)i].transform.GetChild(0).gameObject.SetActive(false);
         }

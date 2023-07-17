@@ -26,7 +26,6 @@ public class GameUI : UI_Scene, IListener
         SkillM1Script,
         SkillM2PanelTitle,
         SkillM2Script,
-        //스킬 추가시마다 추가할 것들
         SkillNum1PanelTitle,
         SkillNum1Script,
         SkillNum2PanelTitle,
@@ -63,7 +62,6 @@ public class GameUI : UI_Scene, IListener
         SkillSetingM1_Kick,
         SkillSetingM2_BladeSlash,
         SkillSetingM2_DarkFlare,
-        //스킬 추가시마다 추가할 것들
         SkillSettingNum1_ShadowCleave,
         SkillSettingNum1_ShadowBlast,
         SkillSettingNum2_ShadowRain,
@@ -94,7 +92,6 @@ public class GameUI : UI_Scene, IListener
         SkillM1Exit,
         SkillM2Confirm,
         SkillM2Exit,
-        //스킬 추가시마다 추가할 것들
         SkillNum1Confirm,
         SkillNum1Exit,
         SkillNum2Confirm,
@@ -113,7 +110,6 @@ public class GameUI : UI_Scene, IListener
         SkillSettingUI,
         SkillM1Panel,
         SkillM2Panel,
-        //스킬 추가시마다 추가할 것들
         SkillNum1Panel,
         SkillNum2Panel,
         SkillNum3Panel,
@@ -208,7 +204,7 @@ public class GameUI : UI_Scene, IListener
             GetText((int)Texts.HpText).text = $"{_playerStatus.LifePool.CurrentValue} / {_playerStatus.LifePool.MaxValue}";
             GetText((int)Texts.HpText).gameObject.SetActive(true);
 
-        },Define.UIEvent.PointerEnter);
+        }, Define.UIEvent.PointerEnter);
 
         GetImage((int)Images.ManaFluid).gameObject.BindEvent((PointerEventData data) =>
         {
@@ -292,7 +288,6 @@ public class GameUI : UI_Scene, IListener
             GetText((int)Texts.SkillM2Script).text = FindSkillScript(Images.SkillSetingM2_DarkFlare);
             Managers.Skill.CurrentSelectSkillName = SkillName.DarkFlare;
         });
-        ///스킬 만들 때마다 바꿀 곳;
 
         //스킬셋 Num1
         GetImage((int)Images.SkillSettingNum1_ShadowCleave).sprite = Managers.Resource.Load<Sprite>(_skillPath + "ShadowCleave");
@@ -371,7 +366,7 @@ public class GameUI : UI_Scene, IListener
         GetButton((int)Buttons.SkillSetNum3).gameObject.BindEvent((PointerEventData data) => { Managers.Sound.Play("ButtonClick"); SKillSetNum3Open(); });
         GetButton((int)Buttons.SkillNum3Confirm).gameObject.BindEvent((PointerEventData data) => { Managers.Sound.Play("ButtonClick"); SkillNum3PanelConfirm(); });
         GetButton((int)Buttons.SkillNum3Exit).gameObject.BindEvent((PointerEventData data) => { Managers.Sound.Play("ButtonClick"); SkillNum3PanelExit(); });
-        GetButton((int)Buttons.SkillSetNum4).gameObject.BindEvent((PointerEventData data) => { Managers.Sound.Play("ButtonClick"); SKillSetNum4Open(); });   
+        GetButton((int)Buttons.SkillSetNum4).gameObject.BindEvent((PointerEventData data) => { Managers.Sound.Play("ButtonClick"); SKillSetNum4Open(); });
         GetButton((int)Buttons.SkillNum4Confirm).gameObject.BindEvent((PointerEventData data) => { Managers.Sound.Play("ButtonClick"); SkillNum4PanelConfirm(); });
         GetButton((int)Buttons.SkillNum4Exit).gameObject.BindEvent((PointerEventData data) => { Managers.Sound.Play("ButtonClick"); SkillNum4PanelExit(); });
 
@@ -431,7 +426,7 @@ public class GameUI : UI_Scene, IListener
 
     private void InitTutorialPanel()
     {
-        if (FindObjectOfType<PlayerStatus>().GetStats(Statistic.Level).IntetgerValue > 1)
+        if (FindObjectOfType<PlayerStatus>().GetStats(Statistic.Level).IntetgerValue > 1 || Managers.Game.IsPlayerInRift)
         {
             GetObject((int)Objects.TutorialPanel).SetActive(false);
         }
@@ -513,7 +508,7 @@ public class GameUI : UI_Scene, IListener
             case Images.SkillSettingNum4_ExposeOfDarkness:
                 {
                     return "Spread attacks in large Area that cause 180% damage.";
-                } 
+                }
         }
 
         return "";
@@ -527,7 +522,6 @@ public class GameUI : UI_Scene, IListener
     }
     private void SkillM1PanelConfirm()
     {
-        //스킬등록 이벤트 넣을 곳
         GetText((int)Texts.SkillM1Script).text = "";
         if (SkillLevelCheck(Texts.SkillM1Script) && Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentSelectSkillName).Type == SkillType.M1Skill)
         {
@@ -551,7 +545,6 @@ public class GameUI : UI_Scene, IListener
     }
     private void SkillM2PanelConfirm()
     {
-        //스킬등록 이벤트 넣을 곳
         GetText((int)Texts.SkillM2Script).text = "";
         if (SkillLevelCheck(Texts.SkillM2Script) && Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentSelectSkillName).Type == SkillType.M2Skill)
         {
@@ -574,7 +567,6 @@ public class GameUI : UI_Scene, IListener
     }
     private void SkillNum1PanelConfirm()
     {
-        //스킬등록 이벤트 넣을 곳
         GetText((int)Texts.SkillNum1Script).text = "";
         if (SkillLevelCheck(Texts.SkillNum1Script) && Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentSelectSkillName).Type == SkillType.SkillSet1)
         {
@@ -598,7 +590,6 @@ public class GameUI : UI_Scene, IListener
     }
     private void SkillNum2PanelConfirm()
     {
-        //스킬등록 이벤트 넣을 곳
         GetText((int)Texts.SkillNum2Script).text = "";
         if (SkillLevelCheck(Texts.SkillNum2Script) && Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentSelectSkillName).Type == SkillType.SkillSet2)
         {
@@ -621,7 +612,6 @@ public class GameUI : UI_Scene, IListener
     }
     private void SkillNum3PanelConfirm()
     {
-        //스킬등록 이벤트 넣을 곳
         GetText((int)Texts.SkillNum3Script).text = "";
         if (SkillLevelCheck(Texts.SkillNum3Script) && Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentSelectSkillName).Type == SkillType.SkillSet3)
         {
@@ -644,7 +634,6 @@ public class GameUI : UI_Scene, IListener
     }
     private void SkillNum4PanelConfirm()
     {
-        //스킬등록 이벤트 넣을 곳
         GetText((int)Texts.SkillNum4Script).text = "";
         if (SkillLevelCheck(Texts.SkillNum4Script) && Managers.Skill.Skills.GetSkillData(Managers.Skill.CurrentSelectSkillName).Type == SkillType.SkillSet4)
         {
@@ -743,14 +732,12 @@ public class GameUI : UI_Scene, IListener
                         {
                             if (Sender.TryGetComponent(out Enemy.EnemyStatus enemyStatus) && !enemyStatus.IsDead)
                             {
-                                //몬스터이고 죽지 않았다면
                                 GetText((int)Texts.InteractableObjectName).text = enemyStatus.GetStats(Enemy.Statistic.Name).strValue;
                                 Get<Slider>((int)Sliders.EnemyHpBar).gameObject.SetActive(true);
                                 Get<Slider>((int)Sliders.EnemyHpBar).value = enemyStatus.LifePool.CurrentValue / (float)enemyStatus.LifePool.MaxValue;
                             }
                             else if (Sender.TryGetComponent(out InteractableObject interactableObject))
                             {
-                                //상호작용이 가능하다면
                                 GetText((int)Texts.InteractableObjectName).text = interactableObject.ObjectName;
                                 Get<Slider>((int)Sliders.EnemyHpBar).gameObject.SetActive(false);
                             }
