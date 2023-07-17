@@ -27,15 +27,7 @@ public class PlayerControl : MonoBehaviour, ICommandHandle
 
     public void ProcessCommand(Command command)
     {
-        //Vector3 destinationPosition = command.worldPoint;
-        //SetDestination(destinationPosition);
-
-        //if(_playerAgent.remainingDistance <= 0.2f)
-        //{
-
-        //}
         float distance = Vector3.Distance(transform.position, command.worldPoint);
-
 
         if (distance <= 0.2f)
         {
@@ -46,13 +38,6 @@ public class PlayerControl : MonoBehaviour, ICommandHandle
         {
             SetDestination(command.worldPoint);
         }
-
-        //else
-        //{
-        //    SetDestination(destinationPosition);
-        //    GameObject marker = Managers.Resource.Instantiate("Marker");
-        //    marker.transform.position = _playerAgent.destination + Vector3.up * 0.5f;
-        //}
 
     }
 

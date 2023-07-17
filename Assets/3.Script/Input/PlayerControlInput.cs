@@ -135,13 +135,13 @@ public class PlayerControlInput : MonoBehaviour
     {
         if (callbackContext.performed)
         {
-            if (Managers.Game.IsUiPopUp)
-            {
-                Managers.UI.CloseAllPopupUI();
-                Managers.Game.IsUiPopUp = false;
-                Managers.Event.PostNotification(Define.EVENT_TYPE.AllPopupUIClose, this);
-                return;
-            }
+            //if (Managers.Game.IsUiPopUp)
+            //{
+            //    Managers.UI.CloseAllPopupUI();
+            //    Managers.Game.IsUiPopUp = false;
+            //    Managers.Event.PostNotification(Define.EVENT_TYPE.AllPopupUIClose, this);
+            //    return;
+            //}
             Managers.Event.PostNotification(Define.EVENT_TYPE.Pause, this);
         }
     }

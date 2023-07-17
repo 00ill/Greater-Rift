@@ -7,7 +7,6 @@ public class UIManager
 
     Stack<UI_Popup> _popupStack = new Stack<UI_Popup>();
     UI_Scene _sceneUI = null;
-
     public GameObject Root
     {
         get
@@ -59,12 +58,10 @@ public class UIManager
         GameObject go = Managers.Resource.Instantiate($"{name}");
         T popup = Util.GetOrAddComponent<T>(go);
         _popupStack.Push(popup);
-
-
         go.transform.SetParent(Root.transform);
-
         return popup;
     }
+
     public T MakeWorldSpaceUI<T>(string name = null) where T : UI_Base
     {
         if (string.IsNullOrEmpty(name))
@@ -83,23 +80,18 @@ public class UIManager
             name = typeof(T).Name;
 
         GameObject go = Managers.Resource.Instantiate($"{name}");
-
         go.transform.SetParent(Root.transform);
-
         return Util.GetOrAddComponent<T>(go);
     }
     public void ClosePopupUI(UI_Popup popup)
     {
         if (_popupStack.Count == 0)
             return;
-
         if (_popupStack.Peek() != popup)
         {
             Debug.Log("Close Popup Failed!");
             return;
         }
-
-
         ClosePopupUI();
     }
 
@@ -107,9 +99,7 @@ public class UIManager
     {
         if (_popupStack.Count == 0)
             return;
-
         UI_Popup popup = _popupStack.Pop();
-
         Managers.Resource.Destroy(popup.gameObject);
         popup = null;
         _order--;

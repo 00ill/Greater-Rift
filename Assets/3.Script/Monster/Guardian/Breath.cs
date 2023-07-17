@@ -18,7 +18,7 @@ public class Breath : MonoBehaviour
     private void OnEnable()
     {
         StartCoroutine(Attack());
-        StartCoroutine(Attack());
+        StartCoroutine(Destroy());
     }
 
     private void OnTriggerEnter(Collider other)
@@ -53,6 +53,6 @@ public class Breath : MonoBehaviour
     private IEnumerator Destroy()
     {
         yield return _playTime;
-        Managers.Resource.Destroy(gameObject);
+        Managers.Resource.Destroy(this.gameObject);
     }
 }

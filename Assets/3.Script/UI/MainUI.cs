@@ -273,7 +273,7 @@ public class MainUI : UI_Scene
                 GetObject((int)GameObjects.SignUpPanel).SetActive(false);
                 GetObject((int)GameObjects.LoginPanel).SetActive(true);
             });
-
+        GetButton((int)Buttons.QuitGame).gameObject.BindEvent((PointerEventData data) => { Application.Quit(); });
         GetObject((int)GameObjects.SignUpPanel).SetActive(false);
     }
 

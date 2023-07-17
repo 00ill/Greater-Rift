@@ -20,7 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/1.Scene/Desert.unity
     guid: 66d1aa75cfca33e41b1a4d427a8fea92
-  - enabled: 1
+  - enabled: 0
     path: Assets/1.Scene/NRDungeon2.unity
     guid: c33c96cd91cc1c24a8cde623bf0022d6
   m_configObjects:
