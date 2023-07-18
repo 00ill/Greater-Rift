@@ -14,7 +14,6 @@ public class PlayerControlInput : MonoBehaviour
 
     public RaycastHit Hit;
     private LayerMask _layerMask;
-
     private WaitForSeconds _moveTime = new WaitForSeconds(0.25f);
     private Coroutine _moveCoroutine = null;
     private void Awake()
@@ -25,13 +24,14 @@ public class PlayerControlInput : MonoBehaviour
 
     private void Start()
     {
-        _layerMask = (-1) - (1 << LayerMask.NameToLayer("Skill"));
+        _layerMask = ((1 << LayerMask.NameToLayer("Player")) | (1 << LayerMask.NameToLayer("Skill")));
+        _layerMask = ~_layerMask;
     }
 
     void Update()
     {
         Ray ray = Camera.main.ScreenPointToRay(MouseInputPosition);
-        if (Physics.Raycast(ray, out Hit, float.MaxValue, _layerMask))
+        if (Physics.SphereCast(ray, 0.5f, out Hit, float.MaxValue, _layerMask))
         {
             if (EventSystem.current.IsPointerOverGameObject() == false)
             {
