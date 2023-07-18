@@ -11,6 +11,12 @@ public class ShadowCleave : MonoBehaviour
     {
         _playerStatus = FindObjectOfType<PlayerStatus>();
     }
+
+    private void OnEnable()
+    {
+        StartCoroutine(Destroy());
+    }
+
     public void ShootShadowCol()
     {
         transform.DOMove(transform.position + transform.forward * 18, 0.5f);

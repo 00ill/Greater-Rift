@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 427092}
   - component: {fileID: 19811762}
   - component: {fileID: 19984694}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: VerticalGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4826,7 +4826,7 @@ GameObject:
   - component: {fileID: 19994138}
   - component: {fileID: 11460988}
   - component: {fileID: 3499013382737307115}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Greed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9696,7 +9696,7 @@ GameObject:
   - component: {fileID: 474964}
   - component: {fileID: 19811030}
   - component: {fileID: 19953532}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Tentacles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14500,7 +14500,7 @@ GameObject:
   - component: {fileID: 442684}
   - component: {fileID: 19849424}
   - component: {fileID: 19986614}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FlatColor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19332,7 +19332,7 @@ GameObject:
   - component: {fileID: 19851584}
   - component: {fileID: 19932720}
   - component: {fileID: 11408776}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BlueBits
   m_TagString: Untagged
   m_Icon: {fileID: 0}

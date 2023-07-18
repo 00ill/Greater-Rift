@@ -70,6 +70,8 @@ public class RangeMonsterAI : BehaviorTree.Tree
             Vector3 shootDirection = _playerStatus.transform.position - transform.position;
             projectile.transform.rotation = Quaternion.LookRotation(shootDirection.normalized, Vector3.up);
             projectile.GetComponent<Projectile>().ShootForward();
+
+            Managers.Sound.Play(transform.name);
         }
     }
 }

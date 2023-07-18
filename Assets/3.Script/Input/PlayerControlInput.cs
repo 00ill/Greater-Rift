@@ -16,6 +16,7 @@ public class PlayerControlInput : MonoBehaviour
     private LayerMask _layerMask;
     private WaitForSeconds _moveTime = new WaitForSeconds(0.25f);
     private Coroutine _moveCoroutine = null;
+
     private void Awake()
     {
         TryGetComponent(out _commandHandler);

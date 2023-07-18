@@ -12,7 +12,6 @@ public class Breath : MonoBehaviour
     private void Awake()
     {
         _enemyStatus = GameObject.Find("Dragon").GetComponent<EnemyStatus>();
-
     }
 
     private void OnEnable()

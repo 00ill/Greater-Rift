@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ItemManager
 {
-    public int LegendaryProb = 100;
+    public int LegendaryProb = 1;
     public int RareProb = 9;
     public int MagicProb = 30;
     public int GradeCoefficient;
@@ -20,7 +20,7 @@ public class ItemManager
         int spriteNum = UnityEngine.Random.Range(1, 9);
         Item item = new((ItemType)type, level, life, mana, damage, armor, moveSpeed, cooldownReduction, spriteNum);
 
-
+        Managers.Sound.Play("ItemDrop");
         GameObject itemBox = Managers.Resource.Instantiate(ItemBox);
         itemBox.transform.position = position;
         itemBox.GetComponent<ItemBox>().ItemData = item;

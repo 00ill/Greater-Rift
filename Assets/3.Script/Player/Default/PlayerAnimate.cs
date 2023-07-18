@@ -278,6 +278,12 @@ public class PlayerAnimate : MonoBehaviour, IListener
         go.transform.position = transform.position + Vector3.down * 0.9f;
     }
 
+    private void FootStep()
+    {
+        //Managers.Sound.Play("FootStep");
+    }
+
+
 #pragma warning restore IDE0051
     public void OnEvent(Define.EVENT_TYPE Event_Type, Component Sender, object Param = null)
     {

@@ -19,6 +19,7 @@ public class NormalRiftPortal : MonoBehaviour
     {
         _interactableObject.enabled = true;
         StartCoroutine(OpenPortal());
+        Managers.Sound.Play("Portal");
     }
 
     private void Start()

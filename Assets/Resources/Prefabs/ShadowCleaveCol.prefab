@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4333858616958295220}
   - component: {fileID: 6955689278044516387}
   - component: {fileID: -243142484132803518}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ShadowCleaveCol
   m_TagString: Untagged
   m_Icon: {fileID: 0}

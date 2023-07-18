@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 428586}
   - component: {fileID: 19848196}
   - component: {fileID: 19940976}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: VerticalGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4835,7 +4835,7 @@ GameObject:
   - component: {fileID: 19814424}
   - component: {fileID: 19921034}
   - component: {fileID: 11468430}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FlatGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9692,7 +9692,7 @@ GameObject:
   - component: {fileID: 19920578}
   - component: {fileID: 11422924}
   - component: {fileID: -4052802477835069008}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Karma
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -40,17 +41,14 @@ public class PlayerControl : MonoBehaviour, ICommandHandle
         }
 
     }
-
-    public void UpdateSpeed()
+    private IEnumerator FootStep()
     {
-        if (_playerStatus != null)
+        while(true)
         {
-            _playerAgent.speed = _playerStatus.GetStats(Statistic.MoveSpeed).FloatValue;
-        }
-        else if (TryGetComponent(out _playerStatus))
-        {
-            _playerAgent.speed = _playerStatus.GetStats(Statistic.MoveSpeed).FloatValue;
-        }
+            if(_playerAgent.isStopped == false) 
+            {
 
+            }
+        }
     }
 }

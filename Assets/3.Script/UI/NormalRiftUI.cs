@@ -50,6 +50,9 @@ public class NormalRiftUI : UI_Popup, IListener
         Managers.Event.AddListener(Define.EVENT_TYPE.CountEnemyDeath, this);
         Managers.Event.AddListener(Define.EVENT_TYPE.GuardianHpChange, this);
         Managers.Event.AddListener(Define.EVENT_TYPE.TurnBackTown, this);
+
+        Managers.Sound.Play("DungeonBGM", Define.Sound.Bgm);
+        Managers.Sound.SelectVolume(Define.Sound.Bgm, 1f);
     }
 
     public void OnEvent(Define.EVENT_TYPE Event_Type, Component Sender, object Param = null)
@@ -67,6 +70,7 @@ public class NormalRiftUI : UI_Popup, IListener
                         GameObject guardian = GameObject.Find("Guardian").transform.GetChild(0).gameObject;
                         guardian.SetActive(true);
                         guardian.TryGetComponent(out _guardian);
+                        Managers.Sound.Play("GuardianSpawn");
                     }
                     break;
                 }

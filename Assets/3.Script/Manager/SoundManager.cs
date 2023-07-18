@@ -85,12 +85,13 @@ public class SoundManager
             audioSource.clip = audioClip;
             audioSource.Play();
         }
-        else
+        else 
         {
             AudioSource audioSource = _audioSources[(int)Define.Sound.Effect];
             audioSource.pitch = pitch;
             audioSource.PlayOneShot(audioClip);
         }
+       
     }
 
     AudioClip GetOrAddAudioClip(string path, Define.Sound type = Define.Sound.Effect)

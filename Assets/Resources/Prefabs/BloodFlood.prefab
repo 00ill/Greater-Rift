@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3785154918140894552}
   - component: {fileID: 6329781754772007601}
   - component: {fileID: 6491443791091727464}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Effect_06_BloodExplode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4909,7 +4909,7 @@ GameObject:
   - component: {fileID: 3867837213230171891}
   - component: {fileID: 8267464840034321524}
   - component: {fileID: 5128999943051828326}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Effect_06_BloodExplode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9809,7 +9809,7 @@ GameObject:
   - component: {fileID: 1567666009597304386}
   - component: {fileID: 9134478435889309957}
   - component: {fileID: 3874649945453211436}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Effect_06_Decal_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9930,7 +9930,7 @@ GameObject:
   - component: {fileID: 2843736941605241720}
   - component: {fileID: 1907170783443525026}
   - component: {fileID: 5100346073087241849}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Effect_06_BloodParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14828,7 +14828,7 @@ GameObject:
   - component: {fileID: 4744771174310594724}
   - component: {fileID: 5937558849713660495}
   - component: {fileID: 582519086364276729}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Effect_06_BloodExplode_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19728,7 +19728,7 @@ GameObject:
   - component: {fileID: 221558022812964171}
   - component: {fileID: 2820934344361486915}
   - component: {fileID: 61464043019685285}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Effect_06_Decal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19850,7 +19850,7 @@ GameObject:
   - component: {fileID: 5726640014180673428}
   - component: {fileID: 4273353841194955347}
   - component: {fileID: 2425116999601780580}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Effect_06_BloodSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24758,7 +24758,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3565114509708840917}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Effect_06_BloodFloodMain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24796,7 +24796,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 556146524039470183}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Effect_06_BloodFloodExlode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24830,7 +24830,7 @@ GameObject:
   - component: {fileID: 3720800752674544638}
   - component: {fileID: 6825427001679690420}
   - component: {fileID: 3445924567116576059}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Effect_06_BloodParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29730,7 +29730,7 @@ GameObject:
   - component: {fileID: 4317790250254049840}
   - component: {fileID: 2828496950161695923}
   - component: {fileID: 1665297224778265900}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BloodFlood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29841,7 +29841,7 @@ GameObject:
   - component: {fileID: 2207188918663805651}
   - component: {fileID: 6675284405925694557}
   - component: {fileID: 4752349018033618242}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Effect_06_BloodHook
   m_TagString: Untagged
   m_Icon: {fileID: 0}

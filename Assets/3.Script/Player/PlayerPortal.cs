@@ -16,6 +16,7 @@ public class PlayerPortal : MonoBehaviour
     private void OnEnable()
     {
         StartCoroutine(OpenPortal());
+        Managers.Sound.Play("Portal");
     }
     private void Start()
     {

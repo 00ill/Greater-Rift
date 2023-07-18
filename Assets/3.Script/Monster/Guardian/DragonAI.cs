@@ -61,6 +61,7 @@ public class DragonAI : BehaviorTree.Tree
     {
         GameObject vfx = Managers.Resource.Instantiate("DragonBreath");
         vfx.transform.SetPositionAndRotation(transform.position + transform.forward * 5f, transform.rotation);
+        Managers.Sound.Play("DragonBreath");
     }
 
     private void AttackAnimationEvent()

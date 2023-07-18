@@ -13,6 +13,7 @@ public class Guardian : EnemyStatus
         OnDeath -= CheckItemSpawn;
         OnDeath -= GuardianCheckItemSpawn;
         OnDeath += GuardianCheckItemSpawn;
+        Managers.Sound.SelectVolume(Define.Sound.Bgm, 1f);
     }
     public override void TakeDamage(int damage, PlayerStatus playerStatus)
     {

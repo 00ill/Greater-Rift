@@ -63,5 +63,6 @@ public class MeleeMonsterAI : BehaviorTree.Tree
     private void AttackAnimationEvent()
     {
         _playerStatus.TakeDamage(EnemyStatus.GetStats(Enemy.Statistic.Damage).IntegerValue);
+        Managers.Sound.Play(transform.name);
     }
 }

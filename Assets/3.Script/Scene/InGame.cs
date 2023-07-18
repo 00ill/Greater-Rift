@@ -6,6 +6,7 @@ public class InGame : BaseScene
 
         Init();
         Managers.UI.ShowSceneUI<GameUI>();
+        
     }
 
     protected override void Init()

@@ -116,8 +116,8 @@ public class GameUI : UI_Scene, IListener
         SkillNum4Panel,
         DeathPanel,
         TutorialPanel
-
     }
+
     private PlayerControlInput _playerControlInput;
     private PlayerStatus _playerStatus;
     private Canvas _canvas;
@@ -394,6 +394,7 @@ public class GameUI : UI_Scene, IListener
             });
         GetButton((int)Buttons.SaveAndQuit).gameObject.BindEvent((PointerEventData data) =>
             {
+                Managers.Game.isGuardianSpawn = false;
                 Managers.Sound.Play("ButtonClick");
                 _canvas.sortingOrder = 0;
                 Time.timeScale = 1.0f;
@@ -419,6 +420,8 @@ public class GameUI : UI_Scene, IListener
             Managers.Sound.Play("ButtonClick");
             _canvas.sortingOrder = 0;
             Managers.Game.IsPlayerInRift = false;
+            Managers.Game.isGuardianSpawn = false;
+            Managers.Game.isPlayerPortalOpen = false;
             Managers.Event.PostNotification(Define.EVENT_TYPE.TurnBackTown, this);
             Managers.Scene.LoadScene(Define.Scene.Town);
         });

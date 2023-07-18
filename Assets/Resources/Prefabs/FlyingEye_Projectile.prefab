@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 54541207959183496}
   - component: {fileID: 135443104936076632}
   - component: {fileID: 5822812219326919685}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FlyingEye_Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4978,7 +4978,7 @@ GameObject:
   - component: {fileID: 4824884637708048}
   - component: {fileID: 198528632409156524}
   - component: {fileID: 199627061589323348}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SubSparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9818,7 +9818,7 @@ GameObject:
   - component: {fileID: 4400700402750890}
   - component: {fileID: 198400002921194024}
   - component: {fileID: 199844799616156664}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LightningSp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14724,9 +14724,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4386413004761204}
   - component: {fileID: 198245849294588934}
-  - component: {fileID: 114920858555527062}
   - component: {fileID: 199369230126353348}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SubSmoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19484,18 +19483,6 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!114 &114920858555527062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1535111806494230}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 199e3c49ebcb3fe46997b10cf6a8eb52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!199 &199369230126353348
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -19579,7 +19566,7 @@ GameObject:
   - component: {fileID: 4729167392178166}
   - component: {fileID: 198892455232377490}
   - component: {fileID: 199012000779208288}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24486,7 +24473,7 @@ GameObject:
   - component: {fileID: 4641405667236632}
   - component: {fileID: 198731846123815800}
   - component: {fileID: 199898279831929512}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Lightning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29384,7 +29371,7 @@ GameObject:
   - component: {fileID: 4380961790060422}
   - component: {fileID: 198283605089568258}
   - component: {fileID: 199566128232012284}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CenterGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34228,7 +34215,7 @@ GameObject:
   - component: {fileID: 4736755425962298}
   - component: {fileID: 198030459419047656}
   - component: {fileID: 199436563440907908}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Darkness
   m_TagString: Untagged
   m_Icon: {fileID: 0}

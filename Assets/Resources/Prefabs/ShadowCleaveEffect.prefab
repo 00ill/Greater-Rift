@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 286448247046334887}
   - component: {fileID: 3786311308415515665}
   - component: {fileID: 978262098984378109}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BigGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4916,7 +4916,7 @@ GameObject:
   - component: {fileID: 5863467910316164573}
   - component: {fileID: 3806634724930450690}
   - component: {fileID: 4978132677835914504}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GroundLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9738,7 +9738,7 @@ GameObject:
   - component: {fileID: 2699546374004951684}
   - component: {fileID: 7646217215306053572}
   - component: {fileID: 7270354507253743251}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LingerBright
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14488,7 +14488,7 @@ GameObject:
   - component: {fileID: 2670803507080828663}
   - component: {fileID: 9201054602244362384}
   - component: {fileID: 2111398081951271702}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: VerticalLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19274,7 +19274,7 @@ GameObject:
   - component: {fileID: 1816478119256667326}
   - component: {fileID: 5773898482628794186}
   - component: {fileID: 6625022410506963242}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Linger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24024,7 +24024,7 @@ GameObject:
   - component: {fileID: 1646664456550411650}
   - component: {fileID: 2471803461458840272}
   - component: {fileID: 7870051385994493081}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ShadowCleaveEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
