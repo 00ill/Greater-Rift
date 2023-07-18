@@ -62,10 +62,10 @@ public class SkillGroup
         SkillList.Add(new SkillData(SkillName.None, SkillType.M1Skill, 0f, 0, 1, "None", 0f));
         SkillList.Add(new SkillData(SkillName.ShadowSlash, SkillType.M1Skill, 0.5f, 0, 1, "ShadowSlash", 1.2f));
         SkillList.Add(new SkillData(SkillName.Kick, SkillType.M1Skill, 1f, 0, 5, "Kick", 1.2f));
-        SkillList.Add(new SkillData(SkillName.BladeSlash, SkillType.M2Skill, 5f, 30, 2, "BladeSlash", 1.5f));
+        SkillList.Add(new SkillData(SkillName.BladeSlash, SkillType.M2Skill, 5f, 30, 2, "BladeSlash", 2.9f));
         SkillList.Add(new SkillData(SkillName.DarkFlare, SkillType.M2Skill, 15f, 10, 4, "DarkFlare", 1.2f));
         SkillList.Add(new SkillData(SkillName.ShadowCleave, SkillType.SkillSet1, 5f, 15, 4, "ShadowCleave", 2f));
-        SkillList.Add(new SkillData(SkillName.ShadowBlast, SkillType.SkillSet1, 5f, 40, 29, "ShadowBlast", 2.5f));
+        SkillList.Add(new SkillData(SkillName.ShadowBlast, SkillType.SkillSet1, 5f, 40, 29, "ShadowBlast", 3.3f));
         SkillList.Add(new SkillData(SkillName.ShadowRain, SkillType.SkillSet2, 15f, 120, 10, "ShadowRain", 1.8f));
         SkillList.Add(new SkillData(SkillName.ShadowImpulse, SkillType.SkillSet2, 15f, 120, 50, "ShadowImpulse", 3.6f));
         SkillList.Add(new SkillData(SkillName.Karma, SkillType.SkillSet3, 60f, 200, 15, "Karma", 0f));

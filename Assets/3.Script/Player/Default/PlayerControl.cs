@@ -43,9 +43,9 @@ public class PlayerControl : MonoBehaviour, ICommandHandle
     }
     private IEnumerator FootStep()
     {
-        while(true)
+        while (true)
         {
-            if(_playerAgent.isStopped == false) 
+            if (_playerAgent.isStopped == false)
             {
 
             }

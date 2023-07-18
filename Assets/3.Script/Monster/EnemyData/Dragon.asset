@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dragon
   m_EditorClassIdentifier: 
   Name: Dragon
-  Life: 3000
+  Life: 2500
   Damage: 30
   Armor: 10
   DetectionRange: 30

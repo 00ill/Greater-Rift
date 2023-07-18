@@ -62,7 +62,10 @@ public class MeleeMonsterAI : BehaviorTree.Tree
     }
     private void AttackAnimationEvent()
     {
-        _playerStatus.TakeDamage(EnemyStatus.GetStats(Enemy.Statistic.Damage).IntegerValue);
+        if(Vector3.Distance(transform.position, _playerStatus.transform.position) <= EnemyStatus.GetStats(Enemy.Statistic.AttackRange).IntegerValue)
+        {
+            _playerStatus.TakeDamage(EnemyStatus.GetStats(Enemy.Statistic.Damage).IntegerValue);
+        }
         Managers.Sound.Play(transform.name);
     }
 }

@@ -245,7 +245,7 @@ public class PlayerAnimate : MonoBehaviour, IListener
         Managers.Sound.Play("ShadowImpulse");
         GameObject go = Managers.Resource.Instantiate("ShadowImpulse");
         go.transform.position = _playerControlInput.Hit.point + Vector3.up * 0.2f;
-        if(Physics.Raycast(_playerControlInput.Hit.point, Vector3.down, out RaycastHit hit, 9))
+        if (Physics.Raycast(_playerControlInput.Hit.point, Vector3.down, out RaycastHit hit, 9))
         {
             go.transform.position = hit.point + Vector3.up * 0.2f;
         }

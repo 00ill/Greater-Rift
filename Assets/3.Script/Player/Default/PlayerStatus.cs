@@ -189,7 +189,7 @@ public class PlayerStatus : MonoBehaviour, IDamageable, IListener
     public void GainExp(int exp)
     {
         ExpPool.CurrentValue += exp;
-        if (ExpPool.CurrentValue >= ExpPool.MaxValue)
+        if (ExpPool.CurrentValue >= ExpPool.MaxValue && GetStats(Statistic.Level).IntetgerValue < 60)
         {
             LevelUp();
         }

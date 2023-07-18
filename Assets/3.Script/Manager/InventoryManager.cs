@@ -152,7 +152,7 @@ public class InventoryManager
     public int CheckItemCount(Dictionary<int, Item> inventory)
     {
         int count = 0;
-        for(int i = 0; i < inventory.Count; i++)
+        for (int i = 0; i < inventory.Count; i++)
         {
             if (inventory[i].Type != ItemType.Null)
             {

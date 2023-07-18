@@ -66,7 +66,10 @@ public class DragonAI : BehaviorTree.Tree
 
     private void AttackAnimationEvent()
     {
-        _playerStatus.TakeDamage(Guardian.GetStats(Enemy.Statistic.Damage).IntegerValue);
+        if (Vector3.Distance(_playerStatus.transform.position, transform.position) <= Guardian.GetStats(Enemy.Statistic.AttackRange).IntegerValue)
+        {
+            _playerStatus.TakeDamage(Guardian.GetStats(Enemy.Statistic.Damage).IntegerValue);
+        }
     }
     private void BreathStop()
     {

@@ -161,7 +161,8 @@ public class PlayerControlInput : MonoBehaviour
         if (callbackContext.performed)
         {
             Debug.Log("테스트 버튼");
-            FindObjectOfType<PlayerStatus>().LevelUp();
+            if (Managers.Game.PlayerLevel < 60)
+                FindObjectOfType<PlayerStatus>().LevelUp();
 
         }
     }
